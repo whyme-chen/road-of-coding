@@ -1,3 +1,5 @@
+# SQL必知必会读书笔记
+
 ## 数据库基础
 
 ### 基本概念
@@ -138,6 +140,75 @@ SELECT 列名 FROM 表名 WHERE 条件;
 ### where子句操作符
 
 ## 高级数据过滤
+
+## 使用存储过程
+
+### 什么是存储过程
+
+
+
+### 为什么要使用存储过程
+
+
+
+### 怎么使用存储过程
+
+
+
+
+
+# MySQL 知识总结
+
+参考链接：https://blog.csdn.net/fannyoona/article/details/105565198
+
+### 1. 常用命令
+
+~~~ mysql
+show databases;//查看当前所有的数据库
+use+库名;//打开指定的库
+（只要用了use你就在那个库中了）
+select database();//查看当前所在库
+show tables;//查看当前库所有的表
+show tables from 库名;//查看其他库所有的表
+create table 表名(
+	列名 列类型，
+	列名 列类型，
+	...
+)//创建表
+desc 表名;//查看表的结构
+查看服务器的版本：
+方式一：登录到mysql服务端
+select version();
+方式二：没有登录到mysql服务端
+mysql --version或mysql --V
+~~~
+
+### 2. 条件查询
+
+~~~ sql
+
+	3.模糊查询
+		like(通配符：% 表示任意多个字符		_表示单个任意字符)
+		between ... and ...（包含临界值）
+		in ...
+		is null
+~~~
+
+### 3. 排序查询
+
+~~~ sql
+select 查询列表 from 表名 [where 筛选条件] order by 排序列表 [ASC|DESC];
+说明：
+	1. ASC代表升序，DESC代表降序，默认为升序排列
+	2、order by子句中可以支持单个字段、多个字段、表达式、函数、别名
+	3、order by子句一般是放在查询语句的最后面，limit子句除外
+~~~
+
+### 4. 常用函数
+
+
+
+经典查询案例链接：https://www.cnblogs.com/Diyo/p/11424844.html
 
 
 

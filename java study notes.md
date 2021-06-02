@@ -1,3 +1,50 @@
+# 面向对象编程
+
+1. 面向对象三个特征：
+
+* 封装性
+* 继承性
+* 多态性
+
+2. 面向对象程序开发三个步骤：
+
+* OOA：面向对象分析
+* OOD：面向对象设计
+* OOP：面向对象编程
+
+3. 类与对象
+   * 类：对某一类事物的共性抽象概念
+   * 对象：描述的是一个具体的事物
+4. this关键字
+   * 使用this调用属性
+   * 使用this调用方法
+
+# 数组
+
+### 一维数组
+
+1. 定义语法
+2. 使用
+3. 遍历（foreach）
+4. 注意：数组的下标从0开始，到数组的长度减一结束。
+
+### 二维数组
+
+1. 定义语法
+2. 使用
+3. 遍历（foreach）
+4. 实质：数组的数组，因此每一列的长度可以不一样。
+
+### 相关类库
+
+1. 排序：java.util.Arrays.sort()
+2. 拷贝：System.arraycopy(原数组，原数组开始点，新数组，新数组开始点，拷贝长度)
+3.  可变参数：实质就是数组
+
+# 集合
+
+
+
 # Junit单元测试
 
 1.测试分类
@@ -25,7 +72,7 @@
 
 反射：将类的各个组成部分封装为其他对象，这就是反射机制。
 
-![image-20210202115502782](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210202115502782.png)
+![image-20210202115502782](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20210202115502782.png)
 
 1. 获取Class对象的方式：
 
@@ -94,7 +141,7 @@
    Extensible Markup Language 可扩展标记语言。
 
    * 可扩展：标签都是自定义的
-   * 功能（存储数据）
+   * 功能（传输和存储数据）
      * 作为配置文件
      * 在网络中传输
    * XML与HTML的区别（w3c：万维网联盟）
@@ -102,7 +149,37 @@
      * XML的语法严格，HTML语法松散
      * XML是存储数据的，HTML是展示数据的
 
-2. 语法
+2. XML用途
+
+   * 把数据从HTML分离
+   * 简化数据共享
+   * 简化数据传输
+   * 简化平台变更
+   * 使数据更有用
+   * 用于创建新的互联网语言
+
+3. XML树结构
+
+   一个文档实例：
+
+   ~~~xml
+   <?xml version="1.0" encoding="UTF-8"?><!--xml声明,声明版本和字符编码-->
+   <note><!--根元素-->
+       <to>Tove</to><!--子元素-->
+       <from>Jani</from><!--子元素-->
+       <heading>Reminder</heading><!--子元素-->
+       <body>Don't forget me</body><!--子元素-->
+   </note>
+   ~~~
+
+   说明：
+
+   * xml文档必须包含根元素，该元素是所有其他元素的父元素。
+   * 所有的元素都可以有子元素。
+   * 所有元素都可以有文本内容和属性。
+   * ![DOM node tree](https://www.runoob.com/wp-content/uploads/2013/09/nodetree.gif)
+
+4. 语法
 
    * 基本语法
 
@@ -118,6 +195,25 @@
 
      xml标签名称区分大小写
 
+     xml必须正确嵌套
+
+     xml属性值必须加引号
+
+     **实体引用**（在xml中有五个预定义的实体引用）
+
+     | &lt;   | <    | less than      |
+     | ------ | ---- | -------------- |
+     | &gt;   | >    | greater than   |
+     | &amp;  | &    | ampersand      |
+     | &apos; | '    | apostrophe     |
+     | &quot; | "    | quotation mark |
+
+     xml的注释：<!--注释内容-->
+
+     xml中空格会被保留（不同于HTML）
+
+     xml以LF存储换行
+
    * 组成部分
 
      * 文档声明
@@ -132,7 +228,13 @@
 
      * 标签
 
-     * 属性
+       * xml命名规则
+         * 名称可以包含字母，数字和其他字符
+         * 名称不能以数字或者标点符号开始
+         * 名称不能以xml开始
+         * 名称不能包含空格
+
+     * 属性（在 XML 中，您应该尽量避免使用属性。如果信息感觉起来很像数据，那么请使用元素吧。）
 
      * 文本
 
@@ -146,7 +248,39 @@
        * DTD：一种简单的约束技术
        * Schema：一种复杂的约束技术
 
-3. 解析XML
+5. XML验证
+
+   合法的 XML 文档是"形式良好"的 XML 文档，这也符合文档类型定义（DTD）的规则
+
+   ~~~xml
+   <?xml version="1.0" encoding="ISO-8859-1"?>
+   <!DOCTYPE note SYSTEM "Note.dtd"><!--声明对外部DTD文件的引用-->
+   <note>
+   <to>Tove</to>
+   <from>Jani</from>
+   <heading>Reminder</heading>
+   <body>Don't forget me this weekend!</body>
+   </note>
+   ~~~
+
+   DTD的目的是定义XML文档的结构，它使用一系列合法的元素来定义文档的结构。
+
+   ~~~dtd
+   <!DOCTYPE note
+   [
+   <!ELEMENT note (to,from,heading,body)>
+   <!ELEMENT to (#PCDATA)>
+   <!ELEMENT from (#PCDATA)>
+   <!ELEMENT heading (#PCDATA)>
+   <!ELEMENT body (#PCDATA)>
+   ]>
+   ~~~
+
+   **XML验证器**
+
+6. XML查看
+
+7. 解析XML（XML解析器把XML文档转换为XML DOM对象）
 
    1. 解析：操作xml文档，将文档中的数据读取到内存中
 
@@ -175,7 +309,16 @@
       * Elements：元素Element对象的集合，
       * Node：结点对象
 
+8. XML JavaScript
 
+   1. XMLHttpRequest对象（用于在后台与服务器交换数据）
+
+   ~~~xml
+   <!--创建XMLHttpRequest对象-->
+   xmlhttp=new XMlHttpRequest();
+   ~~~
+
+   2. XML
 
 # Tomcat
 
@@ -398,6 +541,67 @@ HttpServlet --抽象类
 
 # HTTP协议
 
+# Maven
+
+## 一、Maven简介
+
+### 1.什么是Maven
+
+项目管理工具
+
+### 2. Maven能解决你什么问题
+
+* 导入jar包
+* 编译代码
+* 自动运行单元测试
+* 打包、生成报表
+* 部署项目
+
+### 3. Maven的安装
+
+* 下载Maven压缩包，并解压
+* 环境配置
+  * 系统变量，变量名：MAVEN_HOME
+  * 系统变量，路径：maven所在目录
+  * path变量中，%MAVEN_HOME%\bin
+* 安装确认：命令行中输入mvn -v
+
+#### 补充：
+
+##### 1. Maven安装包目录结构
+
+* bin：mvn.cmd主要用来构建项目
+* boot：Maven自身运行所需的配置文件
+* conf
+* lib：Maven自身运行所需的jar包
+* LICENSE
+* NOTICE
+* README.txt
+
+##### 2.maven标准目录结构
+
+* stc\main\java目录：核心代码
+* src\main\resources：配置文件部分
+* src\test\java：测试代码部分
+* stc\test\resources：测试配置文件
+* stc\main\webapp：页面资源（js,css,图片等资源）
+
+### 4. Maven仓库
+
+* 本地仓库
+* 远程仓库（私服）
+* 中央仓库
+
+### 5. Maven常用命令
+
+### 6. Maven的生命周期
+
+
+
+
+
+
+
 
 
 # Spring
@@ -406,7 +610,7 @@ HttpServlet --抽象类
 
 1. spring是什么
 
-   spring是分层的的javaSE/EE应用full-stack轻量级开源框架，以IOC（inverse of control:反转控制）和AOP（aspect oriented programing:面向切面编程）为内核。提供了展现层SpringMVC和持久层Spring JDBCTemplate以及业务层事务管理等众多的企业级应用技术，还能整合开源世界众多著名的第三方框架和类库，逐渐成为使用最多的JavaEE企业应用开源框架。
+   spring是分层的的javaSE/EE应用full-stack**轻量级开源框架**，以IOC（inverse of control:反转控制）和AOP（aspect oriented programing:面向切面编程）为内核。提供了展现层SpringMVC和持久层Spring JDBCTemplate以及业务层事务管理等众多的企业级应用技术，还能整合开源世界众多著名的第三方框架和类库，逐渐成为使用最多的JavaEE企业应用开源框架。
 
 2. Spring发展历程
 
@@ -480,6 +684,8 @@ HttpServlet --抽象类
 
 # git和GitHub
 
+### 版本控制
+
 ### 1. 版本控制工具应该具备的功能
 
 * 协同修改
@@ -489,13 +695,36 @@ HttpServlet --抽象类
 * 历史记录
 * 分支管理
 
+#### 常见的版本控制工具
+
+* GIt
+* SVN(Subversion)
+* CVS(Concurrent Version System)
+* VSS(Micorosoft Visual SourceSafe)
+* TFS(Team Fundation Server)
+* Visual Studio Online
+
 ### 2. git的发展史
+
+#### 版本控制分类
+
+* 本地版本控制
+* 集中版本控制
+* 分布式版本控制
 
 ### 3. git的优势
 
-### 4. git结构
+### 4. git结构和基本原理
+
+#### 工作区域
 
 ![image-20210214224116700](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210214224116700.png)
+
+![image-20210515173624772](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210515173624772.png)
+
+![image-20210515174224821](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210515174224821.png)
+
+![image-20210515174352872](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210515174352872.png)
 
 ### 5. git和代码托管中心
 
@@ -509,56 +738,89 @@ HttpServlet --抽象类
 
 ![image-20210215095712362](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210215095712362.png)
 
-### 6. 命令行操作
+### 6. git环境配置
+
+~~~~
+# git配置
+git config
+
+* 形式
+  * 用户名
+  * email地址
+* 作用：区分不同开发人员的身份
+* 命令
+  * 项目级别/仓库级别：仅在当前本地库范围有效
+    * git config user.name 用户名
+    * git config user.email 邮箱名
+  * 系统用户级别：登录当前操作系统的用户范围
+    * git config --global user.name 用户名
+    * git config --global user.email 邮箱名
+* 注意：信息保存在.git/config中
+
+### 7. 命令行操作
+
+#### 常用的Linux命令
+
+​~~~ 1.
+1. cd 进入一个目录
+2. cd.. 退出一个目录
+3. pwd 显示当前所在目录
+4. ls 列出当前目录下的所有文件
+5. touch 新建一个文件
+6. rm 删除一个文件
+7. mkdir 创建一个目录
+8. rm -r 删除一个文件夹
+9. mv 移动文件
+10. reset 重新初始化终端
+11. clear 清屏
+12. history 查看命令历史
+13. help 帮助
+14. exit 退出
+15. # 表示注释
 
 1. 本地库操作
 
-   * 本地库初始化
+~~~
+* 本地库初始化
 
-     * git init：
-     * 设置签名
-       * 形式
-         * 用户名
-         * email地址
-       * 作用：区分不同开发人员的身份
-       * 命令
-         * 项目级别/仓库级别：仅在当前本地库范围有效
-           * git config user.name 用户名
-           * git config user.email 邮箱名
-         * 系统用户级别：登录当前操作系统的用户范围
-           * git config --global user.name 用户名
-           * git config --global user.email 邮箱名
-       * 注意：信息保存在.git/config中
+  * git init：
+  * git clone 【url】;
 
-   * 基本操作
+* 基本操作
 
-     * 状态查看操作
+  * 状态查看操作
 
-       git status
+    git status
 
-       查看工作区、暂存区状态
+    查看工作区、暂存区状态
 
-     * 添加操作
+  * 添加操作
 
-       git add 【file name】
+    git add 【file name】
 
-       将工作区的新建/修改添加到暂存区
+    将工作区的新建/修改添加到暂存区
 
-     * 提交操作
+  * 提交操作
 
-       git commit -m "commit message " 【file name】
+    git commit -m "commit message " 【file name】
 
-     * 查看历史记录操作
+  * 查看历史记录操作
 
-       
+  * 删除文件并找回
 
-     * 删除文件并找回
+  * 比较文件差异
 
-     * 比较文件差异
+  * 命令帮助
 
-     * 命令帮助
+* 分支管理
+~~~
 
-   * 分支管理
+2. ![image-20210516162735858](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210516162735858.png)
+3. 远程库操作
 
-2. 远程库操作
+
+
+# 案例应用
+
+## 1. 百度地图的原理与案例应用
 
