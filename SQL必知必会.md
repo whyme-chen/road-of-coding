@@ -155,8 +155,6 @@ SELECT 列名 FROM 表名 WHERE 条件;
 
 
 
-
-
 # MySQL 知识总结
 
 参考链接：https://blog.csdn.net/fannyoona/article/details/105565198
@@ -342,6 +340,183 @@ IN/NOT IN、ANY/SOME、ALL
 		select 查询列表
 		from 表
 		limit (page-1)*size,size;
+~~~
+
+### 9. DML语句
+
+~~~sql
+1. 插入语句insert
+    方式一：insert into 表名(列名,...) values(值1，...);
+    方式二：insert into 表名 set 列名=值，列名=值...
+2. 删除语句delete
+	update 表名
+    set 列=新值,列=新值,...
+    where 筛选条件;
+3. 更新语句update
+	delete from 表名 where 筛选条件
+~~~
+
+### 10. DDL语句
+
+~~~sql
+#常见约束
+
+CREATE TABLE 表名(
+	字段名 字段类型 列级约束
+	字段名 字段类型，
+	表级约束
+);
+
+含义：一种限制，用于限制表中的数据，为了保证表中数据的准确性和可靠性
+
+分类：六大约束
+	not null:非空，用于保证该字段的值不能为空。比如姓名、学号等
+	default：默认，用于保证该字段有默认值。比如性别
+	primary key：主键，用于保证该字段的值有唯一性，并且非空。比如学号
+	unique：唯一，保证该字段的值有唯一性，可以为空。比如座位号
+	check：检查约束【mysql不支持】，比如年龄性别
+	foreign key：外键，用于限制两个表的关系，保证该字段值必须来自于主表关联列的值
+		    在从表添加外键约束，用于引用主表中某列的值
+		    比如：员工表的部门编号、工种号
+
+添加约束的时间：
+	1、创建表时
+	2、修改表时
+约束的添加分类：
+	1、列级约束：六大约束语法上都支持，但外键约束没有效果
+	2、表级约束：除了非空、默认约束，其他都支持
+
+### 12. 事务
+
+事务：一个或一组sql语句组成一个执行单元，这个执行单元要么全部执行，要么全部不执行。如果单元中某条sql语句一旦执行失败或产生错误，整个单元将会回滚。
+
+​~~~sql
+/*
+事务的创建
+
+1、隐式事务：事务没有明显的开启和结束的标记
+比如insert、update、delete语句
+
+delete from 表 where id=1；
+
+2、显式事务：事务具有明显的开启和结束的标记
+前提：必须先设置自动提交功能为禁用
+SHOW VARIABLES LIKE '%autocommit%';
+set autocommit=0;
+
+步骤1：开启事务
+set autocommit=0;
+start transaction;#可选的
+
+步骤2：编写事务中的sql语句(select,insert,update,delete增删改查，不包括create，drop这些)
+语句1;
+语句2;
+...
+
+步骤3：结束事务
+commit;提交事务
+rollback;回滚事务
+save point 节点名;#设置保存点
+
+*/
+CREATE DATABASE test;
+
+CREATE TABLE account(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	username VARCHAR(20),
+	balance DOUBLE
+);
+INSERT INTO account(username,balance)
+VALUES('张无忌',1000),('赵敏',1000);
+
+#演示事务的使用步骤
+SET autocommit=0;
+#编写一组事务的语句
+UPDATE account SET balance=500 WHERE username='张无忌';
+UPDATE account SET balance=1500 WHERE username='赵敏';
+
+#结束事务
+#commit;
+ROLLBACK;#把500,1500改成1000,1000，执行回滚，发现还是500,1500
+
+SELECT * FROM account;
+
+#演示savepoint的使用
+SET autocommit=0;
+START TRANSACTION;
+
+DELETE FROM account WHERE id=1;
+SAVEPOINT a;#设置保存点
+DELETE FROM account WHERE id=2;
+
+ROLLBACK TO a;#回滚到保存点
+SELECT * FROM account;#1号删了，2号没删
+
+### 13. 存储过程
+
+含义：
+一组预先编译好的sql语句的集合，理解成批处理语句
+
+好处：
+1、提高代码的重用性
+2、简化操作
+3、减少了编译次数，并且减少了和数据库服务器的连接次数，提高了效率
+
+​~~~sql
+#一、创建语法
+
+CREATE PROCEDURE 存储过程名(参数列表)
+BEGIN
+	存储过程体（一组合法的SQL语句）
+END
+
+注意：
+1、参数列表包含三部分
+参数模式 参数名 参数类型
+举例：
+IN stuname VARCHAR(20)
+
+参数模式：
+IN:该参数可以作为输入，即需要调用方传入值
+OUT:参数可以作为输出，即可以作为返回值
+INOUT:该参数既可以作为输入又可以作为输出，也就是既需要传入值，又可以返回值
+
+2、如果存储过程体只有一句话, BEGIN END 可以省略
+存储过程体中每条sql语句结尾必须加分号
+存储过程的结尾可以使用 DELIMITER 重新设置
+语法：
+DELIMITER 结束标记
+例如：
+DELIMITER $
+#二、调用语法
+
+CALL 存储过程名(实参列表);
+
+### 14. 函数
+
+​~~~sql
+#一、创建语法
+CREATE FUNCTION 函数名(参数列表) RETURNS 返回类型
+BEGIN
+	函数体
+END
+/*
+注意：
+1、参数列表包含两部分-----参数名 参数类型
+
+2、函数体：肯定会有return语句，如果没有会报错
+如果return语句没有放在函数体最后也不报错，但不建议
+
+return 值;
+
+3、当函数体只有一句话可以省略begin，end
+
+4、使用delimiter语句设置结束标记
+
+*/
+
+#二、调用语法
+SELECT 函数名(参数列表)
 ~~~
 
 ### 代码示例
