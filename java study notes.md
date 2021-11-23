@@ -2388,7 +2388,7 @@ Servlet本质上就是一个接口，定义了java类被浏览器访问到（tom
 ![image-20210208095117534](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210208095117534.png)
 
 1. 当服务器接收到客户端浏览器的请求后，会解析请求URL路径，获取访问的Servlet资源路径
-2. 查找web,xml文件，是否有对象的<utl-pattern>标签内容
+2. 查找web.xml文件，是否有对象的<utl-pattern>标签内容
 3. 如果有，则再找到对应的<servlet-class>全类名
 4. tomcat会将字节码文件加载进内存，并且创建其对象
 5. 调用其方法
@@ -2517,7 +2517,7 @@ GenericServlet --抽象类
 
 HttpServlet --抽象类
 
-* GenericServlet：将Servlet接口中其他的方法做了默认空实现，只将service90将来定义Servlet类时，可以继承GenericServlet，实现service方法即可
+* GenericServlet：将Servlet接口中其他的方法做了默认空实现，只将service(),将来定义Servlet类时，可以继承GenericServlet，实现service方法即可
 * HttpServlet：对http的一种封装，简化操作
   * 定义类继承HTTPServlet
   * 复写doGet/doPost方法
@@ -2546,6 +2546,10 @@ HttpServlet --抽象类
    ​		|
 
    org.apache.catalina.connector.RequestFacade -- 类
+
+   ![image-20211122190128811](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211122190128811.png)
+
+   ![image-20211122190404767](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211122190404767.png)
 
 2. request功能
 
@@ -3851,8 +3855,10 @@ HttpServlet --抽象类
    >1. 定义一个类实现Filter接口
    >2. 覆写方法
    >3. 配置拦截路径
-   >   * xml方式配置
-   >   * 注解方式配置
+   >
+   >     * xml方式配置
+   >
+   >     * 注解方式配置
 
    ```java
    package cn.itcast.filter;
@@ -3883,6 +3889,18 @@ HttpServlet --抽象类
    }
    ```
 
+4. 核心API
+
+   > 核心接口：Filter，FilterChain，FilterConfig
+
+   * Filter接口
+   
+     ![image-20211122194305974](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211122194305974.png)
+   
+   * FilterChain接口
+   
+     > FilterChain接口位于javax.servlet包中，由容器实现。该接口中只包含一个方法doFilter(ServletRequest request,ServletResponse response)，主要用于将过滤器处理的请求或响应传递给下一个过滤器对象。
+   
 4. 细节
 
    * web.xml配置
@@ -3910,7 +3928,7 @@ HttpServlet --抽象类
 
    * 过滤器生命周期
 
-   * 过滤器配合详解
+   * 过滤器配置详解
 
      * 拦截路径配置
 
@@ -6106,6 +6124,8 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 # git和GitHub
 
+使用参考链接：https://www.cnblogs.com/syp172654682/p/7689328.html
+
 ### 1. 版本控制工具应该具备的功能
 
 * 协同修改
@@ -6215,6 +6235,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
   ![image-20211121163820648](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211121163820648.png)
   
   * 查看工作区、暂存区状态：git status（可以git status -s或git status --short用于查看简化后的信息）
+  * 查看暂存区与工作区具体修改内容：git diff
   
   * 将工作区的新建/修改添加到暂存区：git add 【file name】或者使用git add .
   
@@ -6222,6 +6243,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
   
       * 提交到本地仓库：git commit -m "commit message " 【file name】
       * 跳过git add步骤提交到本地仓库：git commit -a -m "commit message " 【file name】
+      * git commit --amend：将暂存区的文件提交，若上次提交后还未做任何修改，那么快照加将保持不变
   
   * 查看提交日志：git log [option]
   
@@ -6230,6 +6252,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
           * --pretty=oneline：将提交信息显示为一行
           * --abbrev-commit：使得输出的comitid更简短
           * --graph：以图的形式显示
+          * --stat：显示每次提交的简略统计信息
   
   * 版本回退：git reset --hard commitID
   
@@ -6240,8 +6263,84 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
   
       > 创建文件.gitignore，在文件中列出忽略文件的模式
   
+  * 移除文件：git rm
+  
+      * 从仓库移除文件：git rm --cached
+  
+  * 移动文件
+  
+      > 对文件改名：git mv
+  
 * 分支
 
-* 
+  * 总结分支中常用命令
+
+    ~~~ 
+    # 列出所有本地分支
+    $ git branch
+    
+    # 列出所有远程分支
+    $ git branch -r
+    
+    # 列出所有本地分支和远程分支
+    $ git branch -a
+    
+    # 新建一个分支，但依然停留在当前分支
+    $ git branch [branch-name]
+    
+    # 新建一个分支，并切换到该分支
+    $ git checkout -b [branch]
+    
+    # 新建一个分支，指向指定commit
+    $ git branch [branch] [commit]
+    
+    # 新建一个分支，与指定的远程分支建立追踪关系
+    $ git branch --track [branch] [remote-branch]
+    
+    # 切换到指定分支，并更新工作区
+    $ git checkout [branch-name]
+    
+    # 切换到上一个分支
+    $ git checkout -
+    
+    # 建立追踪关系，在现有分支与指定的远程分支之间
+    $ git branch --set-upstream [branch] [remote-branch]
+    
+    # 合并指定分支到当前分支
+    $ git merge [branch]
+    
+    # 选择一个commit，合并进当前分支
+    $ git cherry-pick [commit]
+    
+    # 删除分支
+    $ git branch -d [branch-name]
+    
+    # 删除远程分支
+    $ git push origin --delete [branch-name]
+    $ git branch -dr [remote/branch]
+    ~~~
 
 ### 8.远程仓库
+
+#### 常用的托管服务（远程仓库）
+
+* github
+* gitee
+* gitLab
+
+#### 常用操作
+
+1. 查看远程仓库：git remote
+
+2. 添加远程仓库：git remote add <shortname> <url>
+
+3. 从远程仓库抓取与拉取
+
+   >  git fetch [remote-name]：这个命令会访问远程仓库，从中拉取所有你还没有的数据。 执行完成后，你将会拥有那个远程仓库中所有分支 的引用，可以随时合并或查看。 必须注意 git fetch 命令会将数据拉取到你的本地仓库——它并不会自动合并或修改你当前的工作。 当准备好时你必须手动将其合并入你的工作。
+   >
+   > 运行 git pull 通常会从最初克隆的服务器上抓取数据并自动尝试合并到当前所在的分支。
+
+4. 推送到远程仓库：git push [remote-name] [branch name]
+
+5. 查看某个远程仓库：git remote show [remote-name]
+
