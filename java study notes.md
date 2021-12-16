@@ -3802,6 +3802,31 @@ HttpServlet --抽象类
 
 3. \<jsp:getProperty\>标签：用于获取JavaBean中属性的值，但JavaBean的属性要提供相应的get方法
 
+# 文件上传和下载
+
+## 文件上传
+
+1. 文件上传：将本地文件通过流写入到服务器
+
+2. 文件上传技术
+
+   * JSPSmartUPload：应用在JSP上的文件上传和下载的组件
+   * FileUpload：应用在java环境上的文件上传的功能
+   * Servlet3.0：提供文件上传功能
+   * Struts2：提供文件上传功能
+
+3. 文件上传要素
+
+   > * 表单提交方式为post
+   > * 表单中需要有<input type="file">元素，需要有name属性和值
+   > * 表单enctype=“multipart/form-data”
+
+4. 空间
+
+## 文件下载
+
+
+
 # MVC开发模式
 
 1. MVC（Model-View-Controller）
@@ -3987,6 +4012,8 @@ HttpServlet --抽象类
    > * 事件源
    > * 监听器
    > * 注册监听
+
+   ![image-20211215190343503](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211215190343503.png)
 
 2. ServletContextListener：监听ServletContext对象的创建和销毁
 
