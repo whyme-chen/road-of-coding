@@ -21,27 +21,27 @@ html使用<!---->表示注释
 ## 常用标签
 
 * 标题标签
-
-  ~~~html
+  
+  ```html
   <!DOCTYPE html>
   <html>
       <head>
           <meta charset="utf-8"></meat>
       <title></title>
       </head>
-  	<body>
+      <body>
           <!--
-  		h1~h6，越来越小
-  		-->
+          h1~h6，越来越小
+          -->
           <h1>
-              
+  
           </h1>
           <h2>
-              
+  
           </h2>
-  	</body>
+      </body>
   </html>
-  ~~~
+  ```
 
 * 水平线
 
@@ -50,13 +50,13 @@ html使用<!---->表示注释
 * br标签
 
 * a标签
-
-  ~~~html
+  
+  ```html
   <!--
   重要属性
   1. href：链接的路径
   2. target：打开链接的方式
-  	值：
+      值：
           _blank
           _parent
           _self
@@ -64,92 +64,94 @@ html使用<!---->表示注释
           framename
   3. name：规定锚的名称
   -->
+  ```
 
 * img标签
-
-  ~~~html
+  
+  ```html
   <!--
   重要属性
   1. src：图像存储位置
   2. alt：为图像定义一串预备的可替换的文本。替换文本属性的值是用户定义的。
   -->
-  ~~~
-  
-* base标签：设置a标签整体链接状态。
+  ```
 
-  ~~~html
+* base标签：设置a标签整体链接状态。
+  
+  ```html
   <!DOCTYPE html>
   <html>
   <head>
-  	<title></title>
-  	<base target="_blank">
+      <title></title>
+      <base target="_blank">
   </head>
   <body>
-  	<a href="https://www.baidu.com">百度</a>
-  	<a href="https://www.souhu.com">搜狐</a>
+      <a href="https://www.baidu.com">百度</a>
+      <a href="https://www.souhu.com">搜狐</a>
   </body>
   </html>
-  ~~~
+  ```
 
 * 引用
-
-  ~~~html
-  <!--
-  	<q>用于短引用
-  	<blockquote>用于引用节
-  	<abbr>用于缩略词
-  	<dfn>用于定义
-  	<address>用于联系信息
-  	<cite>用于著作标题
-  -->
   
-* 常用文本格式标签
+  ```html
+  <!--
+      <q>用于短引用
+      <blockquote>用于引用节
+      <abbr>用于缩略词
+      <dfn>用于定义
+      <address>用于联系信息
+      <cite>用于著作标题
+  -->
+  ```
 
-  ~~~html
+* 常用文本格式标签
+  
+  ```html
   <!DOCTYPE html>
   <html>
   <head>
-  	<title></title>
+      <title></title>
   </head>
   <body>
-  	<strong>加粗</strong>
-  	<em>斜体</em>
-  	<ins>下划线</ins>
-  	<del>删除线</del>
+      <strong>加粗</strong>
+      <em>斜体</em>
+      <ins>下划线</ins>
+      <del>删除线</del>
   </body>
   </html>
-  ~~~
+  ```
 
 * 自定义列表
-
-  ~~~html
+  
+  ```html
   <!DOCTYPE html>
   <html>
   <head>
-  	<title></title>
+      <title></title>
   </head>
   <body>
-  	<dl>
-  		<dt>水果</dt>
-  		<dd>苹果</dd>
-  		<dd>香蕉</dd>
-  	</dl>
-  	<dl>
-  		<dt>蔬菜</dt>
-  		<dd>小白菜</dd>
-  		<dd>大白菜</dd>
-  	</dl>
+      <dl>
+          <dt>水果</dt>
+          <dd>苹果</dd>
+          <dd>香蕉</dd>
+      </dl>
+      <dl>
+          <dt>蔬菜</dt>
+          <dd>小白菜</dd>
+          <dd>大白菜</dd>
+      </dl>
   </body>
   </html>
-  ~~~
+  ```
 
 * 表格
-
+  
   ```html
   <table border="1">
-  	<tr>
-      	<th>Heading</th>
-  		<th>Another Heading</th>
+      <tr>
+          <th>Heading</th>
+          <th>Another Heading</th>
       </tr>
       <tr>
           <td>row 1, cell 1</td>
@@ -161,12 +163,12 @@ html使用<!---->表示注释
       </tr>
   </table>
   ```
-  
+
 * div和span标签
 
 * iframe标签
-
-  ~~~html
+  
+  ```html
   <!--
   iframe 可用作链接的目标（target）。
   链接的 target 属性必须引用 iframe 的 name 属性：
@@ -174,15 +176,13 @@ html使用<!---->表示注释
   <iframe src="demo_iframe.htm" name="iframe_a"></iframe>
   <p><a href="http://www.w3school.com.cn" target="iframe_a">W3School.com.cn</a></p>
   -->
-  
-  
-* 特殊字符
+  ```
 
+* 特殊字符
+  
   ![image-20210526120446548](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20210526120446548.png)
 
 +++
-
-
 
 # CSS学习总结
 
@@ -193,15 +193,17 @@ html使用<!---->表示注释
 ## 书写方式
 
 * 嵌入式
-
-  ~~~html
+  
+  ```html
   <style>
   </style>
+  ```
 
 * 外链式
-
-  ~~~~html
+  
+  ```html
   <link rel="stylesheet" type="text/css" href="">
+  ```
 
 * 行内式
 
@@ -243,17 +245,17 @@ html使用<!---->表示注释
 ## 布局
 
 * display属性
-
+  
   注意：display：none和visibility：hidden的区别
 
 * width和max-width属性
 
 * position属性
-
+  
   position 属性规定应用于元素的定位方法的类型。
-
+  
   有五个不同的位置值：
-
+  
   - static
   - relative：相对于其正常位置进行定位
   - fixed：相对于视口定位
@@ -262,19 +264,17 @@ html使用<!---->表示注释
 
 * z-index属性：性指定元素的堆栈顺序（哪个元素应放置在其他元素的前面或后面）
 
-| 属性                                                         | 描述                         |
-| :----------------------------------------------------------- | :--------------------------- |
-| [bottom](https://www.w3school.com.cn/cssref/pr_pos_bottom.asp) | 设置定位框的底部外边距边缘。 |
-| [clip](https://www.w3school.com.cn/cssref/pr_pos_clip.asp)   | 剪裁绝对定位的元素。         |
-| [left](https://www.w3school.com.cn/cssref/pr_pos_left.asp)   | 设置定位框的左侧外边距边缘。 |
-| [position](https://www.w3school.com.cn/cssref/pr_class_position.asp) | 规定元素的定位类型。         |
-| [right](https://www.w3school.com.cn/cssref/pr_pos_right.asp) | 设置定位框的右侧外边距边缘。 |
-| [top](https://www.w3school.com.cn/cssref/pr_pos_top.asp)     | 设置定位框的顶部外边距边缘。 |
-| [z-index](https://www.w3school.com.cn/cssref/pr_pos_z-index.asp) | 设置元素的堆叠顺序。         |
+| 属性                                                                   | 描述             |
+|:-------------------------------------------------------------------- |:-------------- |
+| [bottom](https://www.w3school.com.cn/cssref/pr_pos_bottom.asp)       | 设置定位框的底部外边距边缘。 |
+| [clip](https://www.w3school.com.cn/cssref/pr_pos_clip.asp)           | 剪裁绝对定位的元素。     |
+| [left](https://www.w3school.com.cn/cssref/pr_pos_left.asp)           | 设置定位框的左侧外边距边缘。 |
+| [position](https://www.w3school.com.cn/cssref/pr_class_position.asp) | 规定元素的定位类型。     |
+| [right](https://www.w3school.com.cn/cssref/pr_pos_right.asp)         | 设置定位框的右侧外边距边缘。 |
+| [top](https://www.w3school.com.cn/cssref/pr_pos_top.asp)             | 设置定位框的顶部外边距边缘。 |
+| [z-index](https://www.w3school.com.cn/cssref/pr_pos_z-index.asp)     | 设置元素的堆叠顺序。     |
 
 * overflow属性
-
-  
 
 * 大健康
 
@@ -282,96 +282,96 @@ html使用<!---->表示注释
 
 ### 绝对单位
 
-| 单位 | 描述                       |
-| :--- | :------------------------- |
+| 单位   | 描述                       |
+|:---- |:------------------------ |
 | cm   | 厘米                       |
 | mm   | 毫米                       |
 | in   | 英寸 (1in = 96px = 2.54cm) |
 | px * | 像素 (1px = 1/96th of 1in) |
-| pt   | 点 (1pt = 1/72 of 1in)     |
+| pt   | 点 (1pt = 1/72 of 1in)    |
 | pc   | 派卡 (1pc = 12 pt)         |
 
 ### 相对单位
 
-| 单位 | 描述                                                         |
-| ---- | ------------------------------------------------------------ |
+| 单位   | 描述                                       |
+| ---- | ---------------------------------------- |
 | em   | 相对于元素的字体大小（font-size）（2em 表示当前字体大小的 2 倍） |
-| ex   | 相对于当前字体的 x-height(极少使用)                          |
-| ch   | 相对于 "0"（零）的宽度                                       |
-| rem  | 相对于根元素的字体大小（font-size）                          |
-| vw   | 相对于视口*宽度的 1%                                         |
-| vh   | 相对于视口*高度的 1%                                         |
-| vmin | 相对于视口*较小尺寸的 1％                                    |
-| vmax | 相对于视口*较大尺寸的 1％                                    |
-| %    | 相对于父元素                                                 |
+| ex   | 相对于当前字体的 x-height(极少使用)                  |
+| ch   | 相对于 "0"（零）的宽度                            |
+| rem  | 相对于根元素的字体大小（font-size）                   |
+| vw   | 相对于视口*宽度的 1%                             |
+| vh   | 相对于视口*高度的 1%                             |
+| vmin | 相对于视口*较小尺寸的 1％                           |
+| vmax | 相对于视口*较大尺寸的 1％                           |
+| %    | 相对于父元素                                   |
 
 # JavaScript学习笔记
 
 ## 一、JavaScript概述
 
 1. JavaScript是什么
-
+   
    * web上强大的脚本语言。
-
+   
    * 脚本语言：无法独立执行，必须嵌入到其他语言中结合使用，浏览器解释执行
 
 2. JavaScript能够干什么
-
+   
    控制页面特效展示
 
 3. 语言特征
-
+   
    没有访问系统文件的权限
-
+   
    浏览器解释执行
 
 4. javaScript组成
-
+   
    ECMAScript：规定JS语法和基本对象
-
+   
    DOM（文档对象模型）：处理网页内容的方法和接口
-
+   
    BOM（浏览器对象模型）：与浏览器交互的方法和接口
 
 5. 引入方式
-
+   
    内部脚本
-
+   
    外部引入
-
+   
    注意：<script>标签中使用了src属性，则不能在标签内部不能写代码
 
 +++
 
 ### javaScript显示数据
 
-~~~ 
+```
 1.使用window.alert()弹出警告框
 2.使用document.write()方法将内容写到HTML文档中
 3.使用innerHTML写入到HTML元素
 4.使用console.log()写入到浏览器控制台
-~~~
+```
 
 ## 二、基本语法
 
 ### 字面量
 
-​	编程语言中，一般将固定值称为字面量。包括数字（Number）字面量，字符串（String）字面量，表达式字面量，数组（Array）字面量，对象（Object）字面量，函数（Function）字面量。
+​    编程语言中，一般将固定值称为字面量。包括数字（Number）字面量，字符串（String）字面量，表达式字面量，数组（Array）字面量，对象（Object）字面量，函数（Function）字面量。
 
 +++
 
 ### 变量
 
 1. 变量的声明
-
-   ~~~javascript
+   
+   ```javascript
    var 变量名;
-   ~~~
+   ```
    
    注意：变量是名称，字面量是值。
-   
-2. 变量命名规则
 
+2. 变量命名规则
+   
    * 由数字、字母、下划线和$组成
    * 不能以数字开头
    * 不能是关键字
@@ -390,51 +390,51 @@ html使用<!---->表示注释
 
 #### 数据类型的转换
 
-~~~javascript
+```javascript
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<title>数据类型的转换</title>
-	</head>
-	<body>
-		<script>
-			/*
-			 * 其他类型数据转换为字符串
-			 * 1.toString()方法
-			 * 2.使用+运算符
-			 * 3.String()创建对象
-			 */
-			var s1=123;
-			console.log(s1.toString());
-			console.log(""+s1);
-			console.log(typeof(String(s1)));
-			
-			/*
-			 * 其他数据类型转换为数值型
-			 * 1.Number()
-			 * 2.parseInt()
-			 * 3.parseFloat()
-			 */
-			var s2='123';
-			var s3=null;
-			var s4=undefined;
-			var s5=true;
-			console.log(typeof(Number(s2)));
-			console.log(Number(s3));//0
-			console.log(Number(s4));//NaN
-			console.log(Number(s5));//1
-			
-			/*
-			 * 布尔类型转换
-			 * 1.Boolean()
-			 */
-			console.log(Boolean('0'));//true
-			console.log(Boolean(0));//false
-			console.log(Boolean(null));//false
-			console.log(Boolean(undefined));//false
-		</script>
-	</body>
+    <head>
+        <meta charset="utf-8" />
+        <title>数据类型的转换</title>
+    </head>
+    <body>
+        <script>
+            /*
+             * 其他类型数据转换为字符串
+             * 1.toString()方法
+             * 2.使用+运算符
+             * 3.String()创建对象
+             */
+            var s1=123;
+            console.log(s1.toString());
+            console.log(""+s1);
+            console.log(typeof(String(s1)));
+
+            /*
+             * 其他数据类型转换为数值型
+             * 1.Number()
+             * 2.parseInt()
+             * 3.parseFloat()
+             */
+            var s2='123';
+            var s3=null;
+            var s4=undefined;
+            var s5=true;
+            console.log(typeof(Number(s2)));
+            console.log(Number(s3));//0
+            console.log(Number(s4));//NaN
+            console.log(Number(s5));//1
+
+            /*
+             * 布尔类型转换
+             * 1.Boolean()
+             */
+            console.log(Boolean('0'));//true
+            console.log(Boolean(0));//false
+            console.log(Boolean(null));//false
+            console.log(Boolean(undefined));//false
+        </script>
+    </body>
 </html>
 
 
@@ -491,17 +491,18 @@ html使用<!---->表示注释
 13.charAt() 方法返回字符串中指定下标（位置）的字符串：
 14.charCodeAt() 方法返回字符串中指定索引的字符 unicode 编码：
 15.split() 将字符串转换为数组：
-~~~
+```
 
 ### 数组对象
 
 1. JS数组特性
+   
    * 数组中每一个成员没有类型限制，
    * 数组的长度可以自动修改
 
 2. JS数组的四种创建方式
 
-~~~ javascript
+```javascript
 //方式一
 var arr=[1,2,3];
 //方式二
@@ -510,7 +511,7 @@ var arr=new Array();//数组长度默认为0
 var arr=new Array(4);//指定数组长度
 //方式四
 var arr=new Array(1,2);//数组元素是1,2
-~~~
+```
 
 3. JS数组的常用属性/方法
    * length 数组长度
@@ -522,20 +523,20 @@ var arr=new Array(1,2);//数组元素是1,2
 ### 全局函数
 
 1. eval()函数：可以把传入的字符串，作为JavaScript的脚本代码进行执行，以此达到扩展程序功能的效果。
-
+   
    注意：只能传递基本数据类型的字符串
 
 2. encodeURI():把字符串编码为URL
-
+   
    decodeURI():解码
-
+   
    URI：统一资源标识符
-
+   
    URL：统一资源定位器
 
 ### 自定义函数
 
-~~~ javascript
+```javascript
 //函数定义
 方式一：
 function fun(约束列表){
@@ -566,21 +567,21 @@ const x = (x, y) => x * y;
 箭头函数没有自己的 this。它们不适合定义对象方法。
 箭头函数未被提升。它们必须在使用前进行定义。
 使用 const 比使用 var 更安全，因为函数表达式始终是常量值。
-~~~
+```
 
 ### 自定义对象
 
 1. 对象创建方式
 
-~~~ javascript
+```javascript
 //使用对象字面量
 var 对象名={属性1:属性值1,属性2:属性值2}
 //使用new关键字
 var 对象名=new Object();
-~~~
+```
 
 2. for ....in循环
-
+   
    ```
    var person = {fname:"Bill", lname:"Gates", age:62}; 
    
@@ -590,85 +591,78 @@ var 对象名=new Object();
    ```
 
 3. 删除属性
-
+   
    ```
    var person = {firstName:"Bill", lastName:"Gates", age:62, eyeColor:"blue"};
    delete person.age;   // 或 delete person["age"];
    ```
 
-
-
 ### 正则对象
 
 1. RegEXp对象
-
+   
    直接量方式创建(开发中常用)
-
-   ``` javascript
+   
+   ```javascript
    var reg=/^表达式$/;
    ```
 
 2. 常用方法
-
+   
    * test（）
    * exec（）
-   
-   
-
 
 ### 正则表达式（Regular Expression）
 
 1. 正则表达式是由一个字符序列形成的搜索模式。
 
 2. 两个常用字符串方法：
-
+   
    * search（）
-
+   
    * replace（）
 
 3. 正则表达式修饰符
-
-   | 修饰符 | 描述                 |
-   | ------ | -------------------- |
-   | i      | 执行大小写不敏感匹配 |
-   | g      | 执行全局匹配         |
-   | m      | 执行多行匹配         |
-
+   
+   | 修饰符 | 描述         |
+   | --- | ---------- |
+   | i   | 执行大小写不敏感匹配 |
+   | g   | 执行全局匹配     |
+   | m   | 执行多行匹配     |
 
 4. 正则表达式模式
-
+   
    * 方括号用于查找某个范围内的字符，例如[abc],[0-9],(x|y)查找任何以|分隔的选项
    
    * 元字符：拥有特殊含义的字符
-   
-     | [.](https://www.w3school.com.cn/jsref/jsref_regexp_dot.asp)  | 查找单个字符，除了换行和行结束符。          |
-     | ------------------------------------------------------------ | ------------------------------------------- |
-     | [\w](https://www.w3school.com.cn/jsref/jsref_regexp_wordchar.asp) | 查找单词字符。                              |
-     | [\W](https://www.w3school.com.cn/jsref/jsref_regexp_wordchar_non.asp) | 查找非单词字符。                            |
-     | [\d](https://www.w3school.com.cn/jsref/jsref_regexp_digit.asp) | 查找数字。                                  |
-     | [\D](https://www.w3school.com.cn/jsref/jsref_regexp_digit_non.asp) | 查找非数字字符。                            |
-     | [\s](https://www.w3school.com.cn/jsref/jsref_regexp_whitespace.asp) | 查找空白字符。                              |
-     | [\S](https://www.w3school.com.cn/jsref/jsref_regexp_whitespace_non.asp) | 查找非空白字符。                            |
-     | [\b](https://www.w3school.com.cn/jsref/jsref_regexp_begin.asp) | 匹配单词边界。                              |
-     | [\B](https://www.w3school.com.cn/jsref/jsref_regexp_begin_not.asp) | 匹配非单词边界。                            |
-     | \0                                                           | 查找 NUL 字符。                             |
-     | [\n](https://www.w3school.com.cn/jsref/jsref_regexp_newline.asp) | 查找换行符。                                |
-     | \f                                                           | 查找换页符。                                |
-     | \r                                                           | 查找回车符。                                |
-     | \t                                                           | 查找制表符。                                |
-     | \v                                                           | 查找垂直制表符。                            |
-     | [\xxx](https://www.w3school.com.cn/jsref/jsref_regexp_octal.asp) | 查找以八进制数 xxx 规定的字符。             |
-     | [\xdd](https://www.w3school.com.cn/jsref/jsref_regexp_hex.asp) | 查找以十六进制数 dd 规定的字符。            |
+     
+     | [.](https://www.w3school.com.cn/jsref/jsref_regexp_dot.asp)              | 查找单个字符，除了换行和行结束符。             |
+     | ------------------------------------------------------------------------ | ----------------------------- |
+     | [\w](https://www.w3school.com.cn/jsref/jsref_regexp_wordchar.asp)        | 查找单词字符。                       |
+     | [\W](https://www.w3school.com.cn/jsref/jsref_regexp_wordchar_non.asp)    | 查找非单词字符。                      |
+     | [\d](https://www.w3school.com.cn/jsref/jsref_regexp_digit.asp)           | 查找数字。                         |
+     | [\D](https://www.w3school.com.cn/jsref/jsref_regexp_digit_non.asp)       | 查找非数字字符。                      |
+     | [\s](https://www.w3school.com.cn/jsref/jsref_regexp_whitespace.asp)      | 查找空白字符。                       |
+     | [\S](https://www.w3school.com.cn/jsref/jsref_regexp_whitespace_non.asp)  | 查找非空白字符。                      |
+     | [\b](https://www.w3school.com.cn/jsref/jsref_regexp_begin.asp)           | 匹配单词边界。                       |
+     | [\B](https://www.w3school.com.cn/jsref/jsref_regexp_begin_not.asp)       | 匹配非单词边界。                      |
+     | \0                                                                       | 查找 NUL 字符。                    |
+     | [\n](https://www.w3school.com.cn/jsref/jsref_regexp_newline.asp)         | 查找换行符。                        |
+     | \f                                                                       | 查找换页符。                        |
+     | \r                                                                       | 查找回车符。                        |
+     | \t                                                                       | 查找制表符。                        |
+     | \v                                                                       | 查找垂直制表符。                      |
+     | [\xxx](https://www.w3school.com.cn/jsref/jsref_regexp_octal.asp)         | 查找以八进制数 xxx 规定的字符。            |
+     | [\xdd](https://www.w3school.com.cn/jsref/jsref_regexp_hex.asp)           | 查找以十六进制数 dd 规定的字符。            |
      | [\uxxxx](https://www.w3school.com.cn/jsref/jsref_regexp_unicode_hex.asp) | 查找以十六进制数 xxxx 规定的 Unicode 字符。 |
-
 
 ### 表单验证
 
 1. 约束验证DOM方法
-
-   | 属性                | 描述                                       |
-   | :------------------ | :----------------------------------------- |
-   | checkValidity()     | 返回 true，如果 input 元素包含有效数据     |
+   
+   | 属性                  | 描述                                 |
+   |:------------------- |:---------------------------------- |
+   | checkValidity()     | 返回 true，如果 input 元素包含有效数据          |
    | setCustomValidity() | 设置 input 元素的 validationMessage 属性。 |
 
 ```
@@ -727,7 +721,7 @@ var 对象名=new Object();
     * cleatInterval（）取消由setInterval（）设置的timeout
 * 案例：轮播图
 
-~~~ 
+```
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -750,19 +744,23 @@ var 对象名=new Object();
     </script>
 </body>
 </html>
-~~~
+```
 
 ### 4. location对象
 
 * 获取：Window.location
 
 * 方法
+  
   * reload（）：重新加载当前文档、刷新
+
 * 属性
+  
   * href：设置或返回完整的URL
+
 * 案例：自动跳转
 
-~~~ 
+```
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -784,9 +782,7 @@ var 对象名=new Object();
     </script>
 </body>
 </html>
-~~~
-
-
+```
 
 ## 四、DOM对象
 
@@ -824,26 +820,26 @@ DOM是将标记型文档中所有内容（标签、文本、属性）都封装�
 ## 五、JS事件
 
 1. JS事件是什么
-
+   
    通常鼠标或热键的动作我们称之为事件（Event）
 
 2. JS事件驱动机制
-
 * 事件源：专门产生事件的组件
+
 * 事件：由事件源产生的动作或事件
+
 * 监听器：专门处理事件源所产生的事件
+
 * 注册/绑定监听器
-
 3. **常见的JS事件**
-
 * 点击事件（onclick）
 
 * 焦点事件
-
+  
   焦点：即整个页面的注意力
-
+  
   默认一个正常页面最多仅有一个焦点
-
+  
   * 获取焦点事件（onfocus）
   * 失去焦点事件（onblur）
 
@@ -852,29 +848,29 @@ DOM是将标记型文档中所有内容（标签、文本、属性）都封装�
 * 加载完毕事件（onload）
 
 * 表单提交事件（onsubmit）
-
+  
   注意：onsubmit用于表单的校验
-
-  ​			true 允许表单提交
-
-  ​			false 阻止表单提交
+  
+  ​            true 允许表单提交
+  
+  ​            false 阻止表单提交
 
 * 键位弹起事件（onkeyup）
 
 * 常用鼠标事件
-
+  
   * 鼠标移入事件（onmouseover）
   * 鼠标移出事件（onmouseout）
 
 +++
 
-| 事件        | 描述                         |
-| :---------- | :--------------------------- |
-| onchange    | HTML 元素已被改变            |
-| onclick     | 用户点击了 HTML 元素         |
+| 事件          | 描述                |
+|:----------- |:----------------- |
+| onchange    | HTML 元素已被改变       |
+| onclick     | 用户点击了 HTML 元素     |
 | onmouseover | 用户把鼠标移动到 HTML 元素上 |
-| onmouseout  | 用户把鼠标移开 HTML 元素     |
-| onkeydown   | 用户按下键盘按键             |
+| onmouseout  | 用户把鼠标移开 HTML 元素   |
+| onkeydown   | 用户按下键盘按键          |
 | onload      | 浏览器已经完成页面加载       |
 
 4. 元素事件句柄绑定
@@ -903,11 +899,9 @@ bootstrap是基于HTML、CSS、javaScript的前端框架。
 
 任意元素是用来布局容器样式，都会成为一个布局容器，建议使用div作为布局容器。
 
-| .container       | 类用于固定宽度并支持响应式布局的容器 |
-| ---------------- | ------------------------------------ |
-| .container-fluid | 类用于100%宽度，占据全部视口的容器   |
-
-
+| .container       | 类用于固定宽度并支持响应式布局的容器  |
+| ---------------- | ------------------- |
+| .container-fluid | 类用于100%宽度，占据全部视口的容器 |
 
 # jQuery学习笔记
 
@@ -925,28 +919,28 @@ bootstrap是基于HTML、CSS、javaScript的前端框架。
    - Utilities
 3. 向页面添加jQuery库
 
-~~~ html
+```html
 <head>
     <script type="text/javascript" src="jquery.js"></script>
 </head>
 <！--注意：<script>标签应该位于<head>部分-->
-~~~
+```
 
 4. JQuery安装
-
+   
    **下载JQuery**
-
+   
    **使用 Google 的 CDN**
-
+   
    ```
    <head>
    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs
    /jquery/1.4.0/jquery.min.js"></script>
    </head>
    ```
-
+   
    **使用 Microsoft 的 CDN**
-
+   
    ```
    <head>
    <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery
@@ -955,48 +949,45 @@ bootstrap是基于HTML、CSS、javaScript的前端框架。
    ```
 
 5. 基础语法
-
+   
    $(selector).action( )
-
+   
    * 美元符号$定义jQuery
    * 选择器selector “查询”和“查找”HTML元素
    * jQuery的action（）执行对元素的操作
-
-   ~~~html
+   
+   ```html
    <!DOCTYPE html>
    <html>
-   	<head>
-   		<meta charset="utf-8" />
-   		<title></title>
-   		<script src="js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
-   		<style type="text/css">
-   			p{
-   				background-color: red;
-   			}
-   		</style>
-   	</head>
-   	<body>
-   		<p>哈哈</p>
-   		<p>呵呵</p>
-           
-     		<script>
-           	$(document).ready(function(){
-   				alert("文档加载完毕");
-   				$("p").click(function(){
-   					$(this).hide();
-   				});
-   			});
-          	</script>
-   	</body>
-   </html>
+       <head>
+           <meta charset="utf-8" />
+           <title></title>
+           <script src="js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+           <style type="text/css">
+               p{
+                   background-color: red;
+               }
+           </style>
+       </head>
+       <body>
+           <p>哈哈</p>
+           <p>呵呵</p>
    
-   ~~~
+             <script>
+               $(document).ready(function(){
+                   alert("文档加载完毕");
+                   $("p").click(function(){
+                       $(this).hide();
+                   });
+               });
+              </script>
+       </body>
+   </html>
+   ```
 
 ## 二、选择器
 
 ### 1. 基础选择器
-
-
 
 # Vue
 
@@ -1023,4 +1014,3 @@ https://www.jianshu.com/p/b1ca85169f4a
 https://www.cnblogs.com/zhuyutang/p/14863011.html
 
 https://www.cnblogs.com/nxmxl/p/14677596.html
-

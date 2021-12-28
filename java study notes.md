@@ -313,12 +313,13 @@ API文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/la
    * 接口需要被子类实现，使用implements关键字，并且一个子类可以实现多个父接口
    * 如果子类不是抽象类，那么一定要覆写接口中所有的抽象方法
    * 接口对象可以利用子类对象的向上转型进行实例化
+   * 接口中定义的变量默认为public static final修饰
    
    在JDK1.8开始，为解决接口设计缺陷，在接口中允许定义普通方法。
    
    * 普通方法需要使用default修饰（该操作一般属于挽救功能，不应作为设计首选）
    * 允许定义static方法
-
+   
 2. 实际开发中，接口的常用使用形式：
    
    * 进行标准设置
@@ -327,13 +328,13 @@ API文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/la
 
 3. **抽象类和接口的区别**
    
-   | 区别   | 抽象类                                                               | 接口                        |
-   | ---- | ----------------------------------------------------------------- | ------------------------- |
-   | 定义   | abstract关键字                                                       | interface关键字              |
-   | 权限   | 各种权限                                                              | 只能使用public                |
-   | 子类使用 | 子类通过extends关键字只能继承一个抽象类                                           | 子类通过implements关键字可以实现多个接口 |
-   | 两者关系 | 抽象类可以实现若干个接口                                                      | 接口不允许继承抽象类，但是可以继承多个接口     |
-   | 使用   | 1. 抽象类或接口必须定义子类；2. 子类一定要覆写抽象类或接口中的所有抽象方法；3. 通过子类的向上转型实现抽象类或接口的实例化 |                           |
+   | 区别     | 抽象类                                                       | 接口                                       |
+   | -------- | ------------------------------------------------------------ | ------------------------------------------ |
+   | 定义     | abstract关键字                                               | interface关键字                            |
+   | 权限     | 各种权限                                                     | 只能使用public                             |
+   | 子类使用 | 子类通过extends关键字只能继承一个抽象类                      | 子类通过implements关键字可以实现多个接口   |
+   | 两者关系 | 抽象类可以实现若干个接口                                     | 接口不允许继承抽象类，但是可以继承多个接口 |
+   | 使用     | 1. 抽象类或接口必须定义子类；2. 子类一定要覆写抽象类或接口中的所有抽象方法；3. 通过子类的向上转型实现抽象类或接口的实例化 |                                            |
 
 ## 泛型
 
@@ -404,7 +405,7 @@ public class Client{
 
 ### 匿名内部类
 
-# 常用类库
+# 常用类
 
 ### StringBuffer类
 
@@ -454,6 +455,34 @@ Runtime描述的是运行时的状态，也就是说在整个JVM中，Runtime类
 参考文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/System.html
 
 ### Cleaner类
+
+### 日期与时间相关类
+
+#### Date
+
+参考文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/Date.html
+
+1. Date类对象在java中代表当前所在系统的此刻日期时间
+
+#### SimpleDateFormat
+
+参考文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/text/SimpleDateFormat.html
+
+1. 作用：将Date对象或时间毫秒值格式化为想要的格式。同时也可以把字符串的时间形式解析成日期对象
+
+2. 使用
+
+   ![image-20211228204316451](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211228204316451.png)
+
+   3. 格式化的时间形式
+
+      ![image-20211228204547690](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211228204547690.png)
+
+   4. 接口
+
+#### Calendar
+
+
 
 # 包的定义及使用
 
@@ -582,31 +611,6 @@ Lambda表达式提供有如下几种格式：
 
 # 正则表达式
 
-# 注解（Annoation）
-
-1. 注解：一种代码级别的说明。JDK1.5之后提出的一个新的开发技术结构，利用annoation可以有效减少程序配置的代码并且可以利用annoation进行一些结构化定义。
-
-2. JDK中预定义的一些注解
-   
-   * @override：检测被该注解标注的方法是否继承自父类
-   * @Deprecated：该注解标注的内容，表示已过时
-   * @SuppressWarnings：压制警告
-
-3. 自定义注解
-   
-   * 格式：
-     
-     元注解：用于描述注解的注解
-     
-     * @target：描述注解能够作用的位置
-     * @Retention：描述注解被保留的阶段
-     * @Documented：描述注解是否被抽取到api文档中
-     * Inherited：描述注解是否被子类继承
-     
-     public @interface 注解名称{}
-
-4. 在程序中解析（使用）注解
-
 # 异常捕获和处理
 
 ### 基本结构
@@ -644,6 +648,32 @@ try{
 ### 4. Map集合
 
 # I/O操作
+
+## 一、 File类
+
+1. File类：位于java.io.File包中，代表操作系统中文件对象（文件及文件夹）
+
+2. File类的创建
+
+   ![image-20211227210216574](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211227210216574.png)
+
+3. 常用API
+
+   参考文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/io/File.html
+
+   ![image-20211227211734081](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211227211734081.png)
+
+   ![image-20211227213211148](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211227213211148.png)
+
+4. 小案例
+
+   * 搜索文件
+
+## 二、字符集
+
+## 三、I/O流
+
+
 
 # 多线程
 
@@ -806,56 +836,6 @@ public class ThreadDemo{
 
 ### 4. 线程同步
 
-1. 案例引入
-   
-   ```java
-   package test;
-   
-   /*
-    * 某电影院目前正在上映国产大片，共有100张票，通过三个窗口售出，请设计一个程序模拟该电影院售票
-    */
-   public class Test03 {
-       public static void main(String[] args) {
-           SellTickets sellTickets=new SellTickets();
-           Thread thread=new Thread(sellTickets,"窗口1");
-           Thread thread2=new Thread(sellTickets,"窗口2");
-           Thread thread3=new Thread(sellTickets,"窗口3");
-   
-           thread.start();
-           thread2.start();
-           thread3.start();
-       }
-   }
-   ```
-
-   public class SellTickets implements Runnable {
-
-       private int tickets=100;
-       @Override
-       public void run() {
-           // TODO Auto-generated method stub
-           while (true) {
-                   if (tickets>0) {
-                   --tickets;
-                   System.out.println(Thread.currentThread().getName()+"：售出一张票，剩余票数为："+tickets);
-               }
-           }
-       }
-
-   }
-
-```
-2. 同步代码块
-
-   ~~~java
-   synchronized(/*任意对象*/){
-       /*多条语句操作共享数据的代码*/
-   }
-
-3. 同步方法
-
-   ![image-20210822105926522](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210822105926522.png)
-
 # Junit单元测试
 
 1. 测试分类
@@ -967,7 +947,7 @@ public class Test04 {
         Object object=cls.getDeclaredConstructor().newInstance();
     }
 }
-```
+~~~
 
 ## 反射与工厂设计模式
 
@@ -976,6 +956,74 @@ public class Test04 {
 2. 优势：利用反射实现工厂设计模式最大的优势在于，对于接口子类的扩充将不再影响到工厂类的定义。
    
    ![image-20210831103603429](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20210831103603429.png)
+
+# 注解（Annoation）
+
+1. 注解：一种代码级别的说明。JDK1.5之后提出的一个新的开发技术结构，利用annoation可以有效减少程序配置的代码并且可以利用annoation进行一些结构化定义。(可以简单理解为就是给计算机看的注释)
+
+2. 作用分类
+
+   * 编写文档：通过代码里表示的元数据生成文档（生成doc文档）
+   * 代码分析：通过代码里标识的元数据对代码进行分析（使用反射）
+   * 编译检查：通过代码里标识的元数据让编译器能够实现基本的编译检查
+
+3. JDK中预定义的一些注解
+
+   * @Override：检测被该注解标注的方法是否继承自父类
+   * @Deprecated：该注解标注的内容，表示已过时
+   * @SuppressWarnings：压制警告（一般传递参数all）
+
+4. 自定义注解
+
+   * 格式：
+
+     > 元注解：用于描述注解的注解
+     >
+     > * @target：描述注解能够作用的位置
+     >
+     >   * ElementType取值：
+     >     * TYPE：可以作用于类上
+     >     * METHOD：可以作用于方法上
+     >     * FILED：可以作用于域上
+     >
+     > * @Retention：描述注解被保留的阶段
+     >
+     >   * ```
+     >     @Retention(RetentionPolicy.RUNTIME)：当前被描述的注解，会保留到字节码文件中，并被JVM读取
+     >     ```
+     >
+     > * @Documented：描述注解是否被抽取到api文档中
+     >
+     > * @Inherited：描述注解是否被子类继承
+     >
+     > public @interface 注解名称{}
+
+   * 本质：注解本质上就是一个接口，该接口默认继承Annoation接口
+
+     > public interface MyAnnoation extends java.lang.annoation.Annoation{}
+
+   * 属性：接口中的抽象方法
+
+     * 属性的返回值类型
+
+       > * 基本数据类型
+       > * String
+       > * 枚举
+       > * 注解
+       > * 以上类型的数组
+
+     * 使用注解是需要为其属性赋值
+
+       * 可有使用default关键字给属性默认初始化值
+       * 若只有一个属性要赋值且属性名称是value，则可以省略
+
+5. 在程序中解析（使用）注解：获取注解中定义的属性值
+
+   * 获取注解定义位置的对象
+   * 获取指定的注解（getAnnoation（CLass））
+   * 调用注解中的抽象方法获取属性值
+
+   ![image-20211227202726241](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211227202726241.png)
 
 # MySQL数据库
 
@@ -2327,6 +2375,66 @@ public class JDBCTemplateDemo2 {
    * tomcat真正访问的是“tomcat部署的web项目”，“tomcat部署的web项目”对应着工作空间中的web目录下的所有资源
    * WEB—INF目录下的资源不能被浏览器直接访问
 
+# HTTP协议
+
+### 概念：Hyper Text Transfer Protocol（超文本传输协议）。
+
+* 定义了客户端和服务器端通信时，发送数据的格式
+* 特点：
+  * 基于TCP/IP的高级协议
+  * 默认端口是8080
+  * 基于请求响应模型
+  * 无状态的：每次请求之间是相互独立的，不能交互数据
+* 历史版本
+
+### 请求消息数据格式（四部分）
+
+* **请求行**
+
+  请求方式 请求url 请求协议/版本
+
+  例：GET /login.html http/1.1
+
+  * 请求方式
+    * HTTP协议有7种请求方式，常用的有2种：
+      * GET：请求参数在请求行中，请求的url长度有限制，不太安全
+      * POST：请求参数在请求体中，请求的url长度没有限制，相对安全
+
+* **请求头**
+
+  请求头名称：请求头值
+
+  * 常见请求头：
+  * user-Agent：浏览器告诉服务器，访问时使用的浏览器版本信息（可以在服务器端获取该头的信息，解决浏览器的兼容性问题）
+    * Referer：告诉服务器，当前请求从哪里来（可以用于防盗链和统计工作）
+
+* **请求空行**
+
+* **请求体（正文）**
+
+### 响应消息数据格式(四部分)
+
+* **响应行**
+  * 组成：协议/版本 响应状态码  状态码描述
+  * 响应状态码：服务器告诉客户端浏览器本次请求和响应的一个状态
+    * 状态码都是3位数字
+    * 分类：
+      * 1xx：服务器接收客户端消息，但没有接收完成，等待一段时间后发送1xx状态码
+      * 2xx：成功。
+      * 3xx：重定向。代表：302（重定向），304（访问缓存）
+      * 4xx：客户端错误。代表：404（没有请求路径对应的资源），405（请求方式没有对应的处理方法）
+      * 5xx：服务器端错误。代表：500（服务器内部出现异常）
+* **响应头**
+  * 格式：头名称：值
+  * 常见响应头
+    * Context-Type：服务器告诉客户端本次响应体数据格式以及编码方式
+    * Context-disposition：服务器告诉客户端以什么格式打开响应体数据
+      * 值：
+        * in-line：默认值，在当前页面打开
+        * attachment;filename=xxx:以附件形式打开响应体，文件下载
+* **响应空行**
+* **响应体**
+
 # Servlet
 
 ### 一、概念
@@ -2480,12 +2588,11 @@ public class MyServletDemo implements Servlet {
 2. 使用步骤：
    
    1. 创建JavaEE项目，选择Servlet的版本3.0以上，可以不创建web.xml
-
-3. 定义一个类，实现Servle接口
+   2. 定义一个类，实现Servle接口
    
    3. 重写方法
-
-4. 在类上使用@WebServlet注解，进行配置，@WebServlet(“资源路径”)
+   4. 在类上使用@WebServlet注解，进行配置，@WebServlet(“资源路径”)
+   
 
 #### Servlet相关配置
 
@@ -2562,7 +2669,7 @@ HttpServlet --抽象类
          * 通过请求头的名称获取请求头的值：String getHeader(String name)
          * 获取所有请求头名称：Enumeration<String> getHeaderNames()
      * 获取请求体数据
-       * 请求体：只要POST请求方式才有请求体，在请求体中封装了POST请求的请求参数
+       * 请求体：只有POST请求方式才有请求体，在请求体中封装了POST请求的请求参数
        * 步骤：
          * 获取流对象：
            * BufferReader getReader()：获取字符输入流，只能操作字符数据
@@ -2715,7 +2822,7 @@ HttpServlet --抽象类
      
      * 编写cn.itcast.web.servlet.LoginServlet类
        
-       ```sql
+       ```java
        package cn.itcast.web.servlet;
        
        import cn.itcast.dao.UserDao;
@@ -2745,23 +2852,19 @@ HttpServlet --抽象类
                User user = userDao.login(loginUser);
                //判断
                if (user == null){
-                   //登录失败
-                   request.getRequestDispatcher("/FailServlet").forward(request,response);
+                   //登录失败            						request.getRequestDispatcher("/FailServlet").forward(request,response);
                }else {
                    //登录成功
-                   request.setAttribute("user",user);
-                   request.getRequestDispatcher("/SuccessServlet").forward(request,response);
+                   request.setAttribute("user",user);           request.getRequestDispatcher("/SuccessServlet").forward(request,response);
                }
-       ```
-
-           }
-            
-           protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-               this.doPost(request, response);
-           }
+               }
+        
+       protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+           this.doPost(request, response);
        }
-   
-       ~~~
+       }
+       ```
+       
 
 #### response对象
 
@@ -2875,7 +2978,7 @@ HttpServlet --抽象类
    
    * 代码实现
      
-     ```
+     ```java
      package cn.itcast.servlet;
      
      import javax.servlet.ServletException;
@@ -2906,7 +3009,7 @@ HttpServlet --抽象类
 
 5. 案例三：**服务器输出字节数据到浏览器**
    
-   ```
+   ```java
    package cn.itcast.servlet;
    
    import javax.servlet.ServletException;
@@ -3033,65 +3136,59 @@ HttpServlet --抽象类
      }
      ```
 
-# HTTP协议
+# 文件上传和下载
 
-### 概念：Hyper Text Transfer Protocol（超文本传输协议）。
+## 文件上传
 
-* 定义了客户端和服务器端通信时，发送数据的格式
-* 特点：
-  * 基于TCP/IP的高级协议
-  * 默认端口是8080
-  * 基于请求响应模型
-  * 无状态的：每次请求之间是相互独立的，不能交互数据
-* 历史版本
+1. 文件上传：将本地文件通过流写入到服务器
 
-### 请求消息数据格式（四部分）
+2. 文件上传技术
 
-* **请求行**
-  
-  请求方式 请求url 请求协议/版本
-  
-  例：GET /login.html http/1.1
-  
-  * 请求方式
-    * HTTP协议有7种请求方式，常用的有2种：
-      * GET：请求参数在请求行中，请求的url长度有限制，不太安全
-      * POST：请求参数在请求体中，请求的url长度没有限制，相对安全
+   * JSPSmartUPload：应用在JSP上的文件上传和下载的组件
+   * FileUpload：应用在java环境上的文件上传的功能
+   * Servlet3.0：提供文件上传功能
+   * Struts2：提供文件上传功能
 
-* **请求头**
-  
-  请求头名称：请求头值
-  
-  * 常见请求头：
-  * user-Agent：浏览器告诉服务器，访问时使用的浏览器版本信息（可以在服务器端获取该头的信息，解决浏览器的兼容性问题）
-    * Referer：告诉服务器，当前请求从哪里来（可以用于防盗链和统计工作）
+3. 文件上传要素
 
-* **请求空行**
+   > * 表单提交方式为post
+   > * 表单中需要有<input type="file">元素，需要有name属性和值
+   > * 表单enctype=“multipart/form-data”
 
-* **请求体（正文）**
+4. 原理分析
 
-### 响应消息数据格式(四部分)
+   ![image-20211216231040047](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211216231040047.png)
 
-* **响应行**
-  * 组成：协议/版本 响应状态码  状态码描述
-  * 响应状态码：服务器告诉客户端浏览器本次请求和响应的一个状态
-    * 状态码都是3位数字
-    * 分类：
-      * 1xx：服务器接收客户端消息，但没有接收完成，等待一段时间后发送1xx状态码
-      * 2xx：成功。
-      * 3xx：重定向。代表：302（重定向），304（访问缓存）
-      * 4xx：客户端错误。代表：404（没有请求路径对应的资源），405（请求方式没有对应的处理方法）
-      * 5xx：服务器端错误。代表：500（服务器内部出现异常）
-* **响应头**
-  * 格式：头名称：值
-  * 常见响应头
-    * Context-Type：服务器告诉客户端本次响应体数据格式以及编码方式
-    * Context-disposition：服务器告诉客户端以什么格式打开响应体数据
-      * 值：
-        * in-line：默认值，在当前页面打开
-        * attachment;filename=xxx:以附件形式打开响应体，文件下载
-* **响应空行**
-* **响应体**
+5. 代码实现
+
+   > 1. 导入相关jar包
+   >
+   >    * commons-fileupload-1.2.1.jar
+   >    * commons-io-1.4.jar
+   >
+   > 2. 编写文件上传页面
+   >
+   >    ```jsp
+   >    <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+   >    <html>
+   >    <head>
+   >        <title>文件上传</title>
+   >    </head>
+   >    <body>
+   >        <form method="post" acttion="" enctype="multipart/form-data">
+   >            <label for="file">文件</label>
+   >            <input type="file" name="file" id="file"></br>
+   >            <input type="submit" value="upload">
+   >        </form>
+   >    </body>
+   >    </html>
+   >    ```
+   >
+   > 3. 编写文件上传servlet
+
+6. 空间
+
+## 文件下载
 
 # 会话技术
 
@@ -3396,61 +3493,52 @@ HttpServlet --抽象类
              String username = request.getParameter("username");
              String password = request.getParameter("password");
              String checkCode = request.getParameter("checkCode");
-     ```
-
-             //获取生成的验证码
-             HttpSession session = request.getSession();
-             String checkCode_session = (String)session.getAttribute("checkCode");
-             session.removeAttribute("checkCode_session");
-             //判断验证码是否正确
-             if (checkCode_session != null & checkCode_session.equalsIgnoreCase(checkCode)){
-                 //验证码正确
-          
-                 // 3.封装User对象
-                 User loginUser = new User();
-                 loginUser.setUsername(username);
-                 loginUser.setPassword(password);
-          
-                 //4.调用UserDao的login方法
-                 UserDao userDao = new UserDao();
-                 User user = userDao.login(loginUser);
-          
-                 //判断
-                 if (user == null){
-                     //登录失败
-                     response.setContentType("text/html;charset=utf-8");
-                     response.getWriter().write("登录失败！用户名或密码错误！");
-                     request.setAttribute("login_error","登录失败");
-                     request.getRequestDispatcher("/login.jsp").forward(request,response);
-                 }else {
-                     //登录成功
-                     session.setAttribute("user",user);
-                     response.sendRedirect(request.getContextPath()+"/success.jsp");
-                 }
-             }else {
-                 //验证码错误
-                 request.setAttribute("cc_error","验证码错误");
+                //获取生成的验证码
+         HttpSession session = request.getSession();
+         String checkCode_session = (String)session.getAttribute("checkCode");
+         session.removeAttribute("checkCode_session");
+         //判断验证码是否正确
+         if (checkCode_session != null & checkCode_session.equalsIgnoreCase(checkCode)){
+             //验证码正确
+      
+             // 3.封装User对象
+             User loginUser = new User();
+             loginUser.setUsername(username);
+             loginUser.setPassword(password);
+      
+             //4.调用UserDao的login方法
+             UserDao userDao = new UserDao();
+             User user = userDao.login(loginUser);
+      
+             //判断
+             if (user == null){
+                 //登录失败
+                 response.setContentType("text/html;charset=utf-8");
+                 response.getWriter().write("登录失败！用户名或密码错误！");
+                 request.setAttribute("login_error","登录失败");
                  request.getRequestDispatcher("/login.jsp").forward(request,response);
+             }else {
+                 //登录成功
+                 session.setAttribute("user",user);
+                 response.sendRedirect(request.getContextPath()+"/success.jsp");
              }
-         }
-          
-         protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-             this.doPost(request, response);
+         }else {
+             //验证码错误
+             request.setAttribute("cc_error","验证码错误");
+             request.getRequestDispatcher("/login.jsp").forward(request,response);
          }
      }
-     
+      
+     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+         this.doPost(request, response);
+     }
+     }
      ```
+     
 
 * login.jsp
   
   ```jsp
-  <%--
-    Created by IntelliJ IDEA.
-    User: hp
-    Date: 2021/10/1
-    Time: 14:16
-    To change this template use File | Settings | File Templates.
-  --%>
   <%@ page contentType="text/html;charset=UTF-8" language="java" %>
   <html>
   <head>
@@ -3496,17 +3584,11 @@ HttpServlet --抽象类
   </body>
   </html>
   ```
-
+  
 * success.jsp
   
   ```jsp
-  <%@ page import="cn.itcast.domain.User" %><%--
-    Created by IntelliJ IDEA.
-    User: hp
-    Date: 2021/10/1
-    Time: 15:16
-    To change this template use File | Settings | File Templates.
-  --%>
+  <%@ page import="cn.itcast.domain.User" %>
   <%@ page contentType="text/html;charset=UTF-8" language="java" %>
   <html>
   <head>
@@ -3792,60 +3874,6 @@ HttpServlet --抽象类
 2. \<jsp:setProperty\>标签：用于对JavaBean中属性赋值，但JavaBean的属性要提供相应的set方法
 
 3. \<jsp:getProperty\>标签：用于获取JavaBean中属性的值，但JavaBean的属性要提供相应的get方法
-
-# 文件上传和下载
-
-## 文件上传
-
-1. 文件上传：将本地文件通过流写入到服务器
-
-2. 文件上传技术
-   
-   * JSPSmartUPload：应用在JSP上的文件上传和下载的组件
-   * FileUpload：应用在java环境上的文件上传的功能
-   * Servlet3.0：提供文件上传功能
-   * Struts2：提供文件上传功能
-
-3. 文件上传要素
-   
-   > * 表单提交方式为post
-   > * 表单中需要有<input type="file">元素，需要有name属性和值
-   > * 表单enctype=“multipart/form-data”
-
-4. 原理分析
-   
-   ![image-20211216231040047](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211216231040047.png)
-
-5. 代码实现
-   
-   > 1. 导入相关jar包
-   >    
-   >    * commons-fileupload-1.2.1.jar
-   >    * commons-io-1.4.jar
-   > 
-   > 2. 编写文件上传页面
-   >    
-   >    ```jsp
-   >    <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-   >    <html>
-   >    <head>
-   >        <title>文件上传</title>
-   >    </head>
-   >    <body>
-   >        <form method="post" acttion="" enctype="multipart/form-data">
-   >            <label for="file">文件</label>
-   >            <input type="file" name="file" id="file"></br>
-   >            <input type="submit" value="upload">
-   >        </form>
-   >    </body>
-   >    </html>
-   >    ```
-   > 
-   > 3. 编写文件上传servlet
-
-6. 空间
-
-## 文件下载
 
 # MVC开发模式
 
@@ -4400,109 +4428,98 @@ HttpServlet --抽象类
                });
    
            });
+          </script>
+       </head>
+      <body>
+          <div class="emoji">
+              <ul>
+                  <li><img src="img/01.gif" height="22" width="22" alt="" /></li>
+                  <li><img src="img/02.gif" height="22" width="22" alt="" /></li>
+                  <li><img src="img/03.gif" height="22" width="22" alt="" /></li>
+                  <li><img src="img/04.gif" height="22" width="22" alt="" /></li>
+                  <li><img src="img/05.gif" height="22" width="22" alt="" /></li>
+                  <li><img src="img/06.gif" height="22" width="22" alt="" /></li>
+                  <li><img src="img/07.gif" height="22" width="22" alt="" /></li>
+                  <li><img src="img/08.gif" height="22" width="22" alt="" /></li>
+                  <li><img src="img/09.gif" height="22" width="22" alt="" /></li>
+                  <li><img src="img/10.gif" height="22" width="22" alt="" /></li>
+                  <li><img src="img/11.gif" height="22" width="22" alt="" /></li>
+                  <li><img src="img/12.gif" height="22" width="22" alt="" /></li>
+              </ul>
+              <p class="word">
+                  <strong>请发言：</strong>
+      <!--            <img src="img/12.gif" height="22" width="22" alt="" />-->
+              </p>
+          </div>
+      </body>
+      </html>
    ```
-
-       </script>
-
-</head>
-   <body>
-       <div class="emoji">
-           <ul>
-               <li><img src="img/01.gif" height="22" width="22" alt="" /></li>
-               <li><img src="img/02.gif" height="22" width="22" alt="" /></li>
-               <li><img src="img/03.gif" height="22" width="22" alt="" /></li>
-               <li><img src="img/04.gif" height="22" width="22" alt="" /></li>
-               <li><img src="img/05.gif" height="22" width="22" alt="" /></li>
-               <li><img src="img/06.gif" height="22" width="22" alt="" /></li>
-               <li><img src="img/07.gif" height="22" width="22" alt="" /></li>
-               <li><img src="img/08.gif" height="22" width="22" alt="" /></li>
-               <li><img src="img/09.gif" height="22" width="22" alt="" /></li>
-               <li><img src="img/10.gif" height="22" width="22" alt="" /></li>
-               <li><img src="img/11.gif" height="22" width="22" alt="" /></li>
-               <li><img src="img/12.gif" height="22" width="22" alt="" /></li>
-           </ul>
-           <p class="word">
-               <strong>请发言：</strong>
-   <!--            <img src="img/12.gif" height="22" width="22" alt="" />-->
-           </p>
-       </div>
-   </body>
-   </html>
-   ```
-
-4. 案例四：下拉列表的左右移动
    
-   ```html
+4. 案例四：下拉列表的左右移动   
+
+```html
    <!DOCTYPE html>
    <html>
       <head>
          <meta charset="UTF-8">
          <title></title>
          <script  src="../js/jquery-3.6.0.min.js"></script>
-   ```
+	<style>
+        #leftName , #btn,#rightName{
+           float: left;
+           width: 100px;
+           height: 300px;
+        }
+        #toRight,#toLeft{
+           margin-top:100px ;
+           margin-left:30px;
+           width: 50px;
+        }
 
-         <style>
-            #leftName , #btn,#rightName{
-               float: left;
-               width: 100px;
-               height: 300px;
-            }
-            #toRight,#toLeft{
-               margin-top:100px ;
-               margin-left:30px;
-               width: 50px;
-            }
-    
-            .border{
-               height: 500px;
-               padding: 100px;
-            }
-         </style>
-    
-         <script>
-    
-            //需求：实现下拉列表选择条目左右选择功能
-            $(function () {
-               $("#toRight").click(function () {
-                  $("#rightName").append($("#leftName > option:selected"));
-               });
-               $("#toLeft").click(function () {
-                  $("#leftName").append($("#rightName>option:selected"));
-               });
-            });
-    
-         </script>
+        .border{
+           height: 500px;
+           padding: 100px;
+        }
+     </style>
 
+     <script>
 
+        //需求：实现下拉列表选择条目左右选择功能
+        $(function () {
+           $("#toRight").click(function () {
+              $("#rightName").append($("#leftName > option:selected"));
+           });
+           $("#toLeft").click(function () {
+              $("#leftName").append($("#rightName>option:selected"));
+           });
+        });
+
+     </script>
+       
 ​    
+​      </head>
+​      <body>
+​         <div class="border">
+​            <select id="leftName" multiple="multiple">
+​               <option>张三</option>
+​               <option>李四</option>
+​               <option>王五</option>
+​               <option>赵六</option>
+​            </select>
+​            <div id="btn">
+​               <input type="button" id="toRight" value="-->"><br>
+​               <input type="button" id="toLeft" value="<--">
 ​    
-      </head>
-      <body>
-         <div class="border">
-            <select id="leftName" multiple="multiple">
-               <option>张三</option>
-               <option>李四</option>
-               <option>王五</option>
-               <option>赵六</option>
-            </select>
-            <div id="btn">
-               <input type="button" id="toRight" value="-->"><br>
-               <input type="button" id="toLeft" value="<--">
-    
-            </div>
-    
+​            </div>
+​    
             <select id="rightName" multiple="multiple">
                <option>钱七</option>
             </select>
-    
-         </div>
+    ​         </div>
+​      </body>
 
-
-​    
-      </body>
-
-</html>
-   ```
+</html
+```
 
 ## 二、JQuery高级
 
@@ -4707,39 +4724,35 @@ HttpServlet --抽象类
            type="button"
            value="点击停止"
            style="width:150px;height:150px;font-size:22px">
-   ```
-
-<!--<script language='javascript' type='text/javascript'>
-       //准备一个一维数组，装用户的像片路径
-       var imgs = [
-           "../img/man00.jpg",
-           "../img/man01.jpg",
-           "../img/man02.jpg",
-           "../img/man03.jpg",
-           "../img/man04.jpg",
-           "../img/man05.jpg",
-           "../img/man06.jpg"
-       ];
-
-       var interval;
-       var index;
-       function imgStart() {
-           interval = setInterval(function () {
-               index = Math.floor(7*Math.random());
-               $("#img1ID").prop("src",imgs[index]);
-           },50);
-       }
-       function imgStop() {
-           clearInterval(interval);
-           $("#img2ID").prop("src",imgs[index]);
-       }
-
-
-
-   </script>-->
-
-</body>
-   </html>
+       <!--<script language='javascript' type='text/javascript'>
+          //准备一个一维数组，装用户的像片路径
+          var imgs = [
+              "../img/man00.jpg",
+              "../img/man01.jpg",
+              "../img/man02.jpg",
+              "../img/man03.jpg",
+              "../img/man04.jpg",
+              "../img/man05.jpg",
+              "../img/man06.jpg"
+          ];
+      var interval;
+      var index;
+      function imgStart() {
+          interval = setInterval(function () {
+              index = Math.floor(7*Math.random());
+              $("#img1ID").prop("src",imgs[index]);
+          },50);
+      }
+      function imgStop() {
+          clearInterval(interval);
+          $("#img2ID").prop("src",imgs[index]);
+      }
+   
+   
+      </script>-->
+   
+   </body>
+      </html>
    ```
 
 ### 5. 插件
@@ -4748,7 +4761,6 @@ HttpServlet --抽象类
 2. 实现方式：
    * $.fn.extend(object)：增强通过JQuery获取的对象的功能     \$("#id")
    * $.extend(object)：增强JQuery对象自身的功能，\$/JQuery
-3. 复健科
 
 # Ajax
 
@@ -4799,7 +4811,7 @@ HttpServlet --抽象类
        </body>
        </html>
    ```
-
+   
      * $.get(url,[data],[callback],[type])：发送get请求
      
      * $.post()
@@ -6014,6 +6026,20 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 # Idea
 
+参考资料：https://www.bilibili.com/video/BV1PW411X75p?from=search&seid=1533766256313085594&spm_id_from=333.337.0.0
+
+## 常用配置
+
+1. 目录结构
+
+   ![image-20211227103126984](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211227103126984.png)
+
+## 集成Tomcat
+
+## 版本控制
+
+## 配置Maven
+
 ## 常用快捷键
 
 ### Mac 键盘符号说明
@@ -6172,7 +6198,9 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 版本控制（Revision control）是一种在开发的过程中用于管理我们对文件、目录或工程等内容的修改历史，方便查看更改历史记录，备份以便恢复以前的版本的软件工程技术。
 
-### 2. 版本控制工具应该具备的功能
+### 2. 版本控制工具
+
+#### 功能
 
 * 协同修改
 * 数据备份
@@ -6196,77 +6224,146 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 * 集中版本控制
 * 分布式版本控制
 
-### 3. git的优势
+### 3. git和SVN的最主要区别
 
-### 4. git结构和基本原理
+SVN是集中式版本控制系统，版本库是集中放在中央服务器的，而工作的时候，用的都是自己的电脑，所以首先要从中央服务器得到最新的版本，然后工作，完成工作后，需要把自己做完的活推送到中央服务器。集中式版本控制系统是必须联网才能工作，对网络带宽要求较高。
+
+Git是分布式版本控制系统，没有中央服务器，每个人的电脑就是一个完整的版本库，工作的时候不需要联网了，因为版本都在自己电脑上。协同的方法是这样的：比如说自己在电脑上改了文件A，其他人也在电脑上改了文件A，这时，你们两之间只需把各自的修改推送给对方，就可以互相看到对方的修改了。
+
+### 4. git安装与配置
+
+官网：https://git-scm.com/
+
+源码：https://github.com/git/git/
+
+#### 常用的Linux命令（bash基本操作命令）
+
+> 1. cd 进入一个目录
+> 2. cd.. 退出一个目录
+> 3. pwd 显示当前所在目录
+> 4. ls 列出当前目录下的所有文件
+> 5. touch 新建一个文件
+> 6. rm 删除一个文件    rm -r 删除一个文件夹
+> 7. mkdir 创建一个目录
+> 8. mv 移动文件
+> 9. reset 重新初始化终端/清屏
+> 10. clear 清屏
+> 11. history 查看命令历史
+> 12. help 帮助
+> 13. exit 退出
+> 14. \# 表示注释
+
+#### 配置-git config
+
+1. 查看配置
+   * git config -l：查看当前git环境详细配置
+   
+   * 查看不同级别的配置文件
+   
+     > * git config --system --list：查看系统配置
+     > * git config ---global --list：查看当前用户配置
+     > *  git config --local --list：查看当前仓库配置
+   
+2. git配置文件
+
+   > 在Windows系统中，Git在$HOME目录中查找.gitconfig文件（一般位于C:\Documents and Settings\$USER下）
+   >
+   > **Git相关的配置文件有三个：**
+   >
+   > 1）、 /etc/gitconfig：包含了适用于系统所有用户和所有项目的值。(Win：C:\Program Files\Git\mingw64\etc\gitconfig) --system 系统级
+   >
+   > ![img](https://images2017.cnblogs.com/blog/63651/201709/63651-20170905155620835-541203307.png)
+   >
+   >  
+   >
+   > 2）、~/.gitconfig：只适用于当前登录用户的配置。(Win：C:\Users\Administrator\.gitconfig)  --global 全局
+   >
+   > ![img](https://images2017.cnblogs.com/blog/63651/201709/63651-20170905112611116-974195699.png)
+   >
+   > 3）、位于git项目目录中的.git/config：适用于特定git项目的配置。(Win：C:\gitProject) --local当前项目
+   >
+   > 注意：对于同一配置项，三个配置文件的优先级是1<2<3
+   >
+   > 这里可以直接编辑配置文件，通过命令设置后会响应到这里。
+
+3. 配置用户名与邮箱
+
+   > * 项目级别/仓库级别：仅在当前本地库范围有效
+   >   * git config user.name 用户名
+   >   * git config user.email 邮箱名
+   >
+   > * 系统用户级别：登录当前操作系统的用户范围
+   >   * git config --global user.name 用户名
+   >   * git config --global user.email 邮箱名
+   >
+   > * 注意：信息保存在.git/config中
+
+4. 添加或删除配置
+
+   > * 添加配置项
+   >
+   >   git config [--local|--global|--system]  section.key value
+   >   [--local|--global|--system]  #可选的，对应本地，全局，系统不同级别的设置
+   >   section.key #区域下的键
+   >   value #对应的值
+   >
+   > * 删除配置项
+   >
+   >   git config [--local|--global|--system] --unset section.key
+
+5. 其他配置
+
+   > git config --global color.ui true   #打开所有的默认终端着色
+   > git config --global alias.ci commit   #别名 ci 是commit的别名
+   > [alias]  
+   > co = checkout  
+   > ci = commit  
+   > st = status  
+   > pl = pull  
+   > ps = push  
+   > dt = difftool  
+   > l = log --stat  
+   > cp = cherry-pick  
+   > ca = commit -a  
+   > b = branch 
+   >
+   > user.name  #用户名
+   > user.email  #邮箱
+   > core.editor  #文本编辑器  
+   > merge.tool  #差异分析工具  
+   > core.paper "less -N"  #配置显示方式  
+   > color.diff true  #diff颜色配置  
+   > alias.co checkout  #设置别名
+   > git config user.name  #获得用户名
+   > git config core.filemode false  #忽略修改权限的文件
+
+6. 解决gitbash乱码问题
+
+   > * git config --global core.quotepath false
+   >
+   > * ${git_home}/etc/bash.bashrc文件最后两行加入
+   >
+   >   export LANG=''zh_CN.UTF-8'
+   >
+   >   export LC_ALL=''zh_CN.UTF-8'
+
+### 5. git结构和基本原理
 
 ![image-20211121161141743](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211121161141743.png)
 
-![image-20210515173624772](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210515173624772.png)
+git管理的文件有三种状态：已修改（modified）,已暂存（staged）,已提交(committed)
 
-![image-20210515174224821](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210515174224821.png)
+![img](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/63651-20170905201033647-1915833066.png)
 
-![image-20210515174352872](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210515174352872.png)
+![img](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/63651-20170909091456335-1787774607.jpg)
 
-### 5. git和代码托管中心
+### 6. git和代码托管中心
 
 * 局域网环境下
   * GitLab
 * 外网环境下
   * GitHub
   * 码云
-
-![image-20210215095248914](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210215095248914.png)
-
-![image-20210215095712362](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210215095712362.png)
-
-### 6. git环境配置
-
-1. 基本配置
-   
-   > * 命令：git config
-   > * 形式
-   >   * 用户名
-   >   * email地址
-   > * 作用：区分不同开发人员的身份
-   > * 命令
-   >   * 项目级别/仓库级别：仅在当前本地库范围有效
-   >     * git config user.name 用户名
-   >     * git config user.email 邮箱名
-   >   * 系统用户级别：登录当前操作系统的用户范围
-   >     * git config --global user.name 用户名
-   >     * git config --global user.email 邮箱名
-   > * 注意：信息保存在.git/config中
-   > 
-   > 常用的Linux命令
-   > 
-   > 1. cd 进入一个目录
-   > 2. cd.. 退出一个目录
-   > 3. pwd 显示当前所在目录
-   > 4. ls 列出当前目录下的所有文件
-   > 5. touch 新建一个文件
-   > 6. rm 删除一个文件
-   > 7. mkdir 创建一个目录
-   > 8. rm -r 删除一个文件夹
-   > 9. mv 移动文件
-   > 10. reset 重新初始化终端
-   > 11. clear 清屏
-   > 12. history 查看命令历史
-   > 13. help 帮助
-   > 14. exit 退出
-   > 15. \# 表示注释
-
-2. 为常用指令配置别名（可选）
-
-3. 解决gitbash乱码问题
-   
-   > * git config --global core.quotepath false
-   > 
-   > * ${git_home}/etc/bash.bashrc文件最后两行加入
-   >   
-   >   export LANG=''zh_CN.UTF-8'
-   >   
-   >   export LC_ALL=''zh_CN.UTF-8'
 
 ### 7.常用操作
 
@@ -6284,6 +6381,8 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
   * 查看暂存区与工作区具体修改内容：git diff
   
   * 将工作区的新建/修改添加到暂存区：git add 【file name】或者使用git add .
+  
+  * git rm --cached <file>：直接从暂存区删除文件，工作区则不作出改变
   
   * 提交操作
     
@@ -6316,7 +6415,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
   * 移动文件
     
     > 对文件改名：git mv
-
+  
 * 分支
   
   * 总结分支中常用命令
