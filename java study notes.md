@@ -478,11 +478,10 @@ Runtime描述的是运行时的状态，也就是说在整个JVM中，Runtime类
 
       ![image-20211228204547690](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211228204547690.png)
 
-   4. 接口
 
 #### Calendar
 
-
+### java8新增日期类
 
 # 包的定义及使用
 
@@ -610,6 +609,12 @@ Lambda表达式提供有如下几种格式：
 利用Lambda表达式可以摆脱传统面向对象只用关于结构的限制，使得代码更加简便。
 
 # 正则表达式
+
+1. 作用：用于验证字符串合法性
+
+2. 验证规则
+
+   ![image-20211229104328005](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211229104328005.png)
 
 # 异常捕获和处理
 
