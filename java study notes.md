@@ -319,7 +319,7 @@ API文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/la
    
    * 普通方法需要使用default修饰（该操作一般属于挽救功能，不应作为设计首选）
    * 允许定义static方法
-   
+
 2. 实际开发中，接口的常用使用形式：
    
    * 进行标准设置
@@ -328,13 +328,13 @@ API文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/la
 
 3. **抽象类和接口的区别**
    
-   | 区别     | 抽象类                                                       | 接口                                       |
-   | -------- | ------------------------------------------------------------ | ------------------------------------------ |
-   | 定义     | abstract关键字                                               | interface关键字                            |
-   | 权限     | 各种权限                                                     | 只能使用public                             |
-   | 子类使用 | 子类通过extends关键字只能继承一个抽象类                      | 子类通过implements关键字可以实现多个接口   |
-   | 两者关系 | 抽象类可以实现若干个接口                                     | 接口不允许继承抽象类，但是可以继承多个接口 |
-   | 使用     | 1. 抽象类或接口必须定义子类；2. 子类一定要覆写抽象类或接口中的所有抽象方法；3. 通过子类的向上转型实现抽象类或接口的实例化 |                                            |
+   | 区别   | 抽象类                                                               | 接口                        |
+   | ---- | ----------------------------------------------------------------- | ------------------------- |
+   | 定义   | abstract关键字                                                       | interface关键字              |
+   | 权限   | 各种权限                                                              | 只能使用public                |
+   | 子类使用 | 子类通过extends关键字只能继承一个抽象类                                           | 子类通过implements关键字可以实现多个接口 |
+   | 两者关系 | 抽象类可以实现若干个接口                                                      | 接口不允许继承抽象类，但是可以继承多个接口     |
+   | 使用   | 1. 抽象类或接口必须定义子类；2. 子类一定要覆写抽象类或接口中的所有抽象方法；3. 通过子类的向上转型实现抽象类或接口的实例化 |                           |
 
 ## 泛型
 
@@ -471,13 +471,12 @@ Runtime描述的是运行时的状态，也就是说在整个JVM中，Runtime类
 1. 作用：将Date对象或时间毫秒值格式化为想要的格式。同时也可以把字符串的时间形式解析成日期对象
 
 2. 使用
-
+   
    ![image-20211228204316451](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211228204316451.png)
-
+   
    3. 格式化的时间形式
-
+      
       ![image-20211228204547690](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211228204547690.png)
-
 
 #### Calendar
 
@@ -613,7 +612,9 @@ Lambda表达式提供有如下几种格式：
 1. 作用：用于验证字符串合法性
 
 2. 验证规则
-
+   
+   参考文档：[Pattern (Java SE 16 &amp; JDK 16)](https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/regex/Pattern.html)
+   
    ![image-20211229104328005](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211229104328005.png)
 
 # 异常捕获和处理
@@ -659,26 +660,24 @@ try{
 1. File类：位于java.io.File包中，代表操作系统中文件对象（文件及文件夹）
 
 2. File类的创建
-
+   
    ![image-20211227210216574](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211227210216574.png)
 
 3. 常用API
-
+   
    参考文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/io/File.html
-
+   
    ![image-20211227211734081](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211227211734081.png)
-
+   
    ![image-20211227213211148](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211227213211148.png)
 
 4. 小案例
-
+   
    * 搜索文件
 
 ## 二、字符集
 
 ## 三、I/O流
-
-
 
 # 多线程
 
@@ -844,21 +843,21 @@ public class ThreadDemo{
 # Junit单元测试
 
 1. 测试分类
-
+   
    * 黑盒测试
    * 白盒测试
 
 2. Junit使用
-
+   
    步骤：
-
+   
    * 定义一个测试类
    * 定义测试方法
    * 给方法添加@Test
    * 导入Junit依赖环境
 
 3. 补充：
-
+   
    * @Before：修饰的方法会在测试方法之前被自动执行
    * @After：修饰的方法会在测试方法执行之后自动执行
 
@@ -873,39 +872,46 @@ public class ThreadDemo{
 如果想要实现反射的处理操作，那么首先要采用的就是Object中所提供的的一个方法获取Class对象信息：public final Class<?> getClass();
 
 1. 反射中所有的核心操作都是通过Class类对象展开的，获取Class对象的三种方式：
-
+   
    * **【class类支持】**Class.forName("全类名")：将字节码文件加载进内存，返回Class对象（多用于配置文件）
    * **【JVM直接支持】**类名.class：通过类名的属性class获取（多用于参数传递）
    * **【Object类支持】**对象.getClass()：通过Object类提供的getClass（）方法获取
-
+   
    注意：同一个字节码文件（*.class）在一次程序运行中，只会被加载一次，不论通过哪种方式获得的Class对象都是同一个对象
 
 2. 反射获取类结构信息
-
+   
    * 获取包名
+     
      * Package getPackage()
+   
    * 获得父类信息
+     
      * Class<? super T> getSuperclass() 
-
+   
    * 获取成员变量
-
+     
      * Field[ ] getFields():获取所有public修饰的成员变量
      * Field getField(String name)：获取指定名称的public成员变量
      * Field[ ] getDeclaredFields()
      * Field getDeclaredField(String name) 
+   
    * 获取成员方法
-
+     
      * Method[ ] getMethods()
      * Method getMethod(String name,类<?> parameterTypes)
      * Method[ ] getDeclaredMethods()
      * Method getDeclaredMethod(String name,类<?> parameterTypes)
+   
    * 获取构造方法
-
+     
      * Constructor<?>[ ] getConstructors()
      * Constructor<T>  getConstructor(类<?> parametertypes)
      * Constructor<T> getDeclaredConstructor(类<?> parameterTypes)
      * Constructor<?>[ ] getDeclaredConsructor()  
+   
    * 获取类名
+     
      * getName()
 
 ## 反射实例化对象
@@ -913,7 +919,7 @@ public class ThreadDemo{
 * 在JDK1.9以前的实例化：public T newInstance() throws InstantiationException,IllegalAccessException
 * 在JDK1.9后：clazz.getDeclareConstructor().newInstance();
 
-~~~ java
+```java
 package test;
 
 public class Person {
@@ -952,7 +958,7 @@ public class Test04 {
         Object object=cls.getDeclaredConstructor().newInstance();
     }
 }
-~~~
+```
 
 ## 反射与工厂设计模式
 
@@ -967,67 +973,67 @@ public class Test04 {
 1. 注解：一种代码级别的说明。JDK1.5之后提出的一个新的开发技术结构，利用annoation可以有效减少程序配置的代码并且可以利用annoation进行一些结构化定义。(可以简单理解为就是给计算机看的注释)
 
 2. 作用分类
-
+   
    * 编写文档：通过代码里表示的元数据生成文档（生成doc文档）
    * 代码分析：通过代码里标识的元数据对代码进行分析（使用反射）
    * 编译检查：通过代码里标识的元数据让编译器能够实现基本的编译检查
 
 3. JDK中预定义的一些注解
-
+   
    * @Override：检测被该注解标注的方法是否继承自父类
    * @Deprecated：该注解标注的内容，表示已过时
    * @SuppressWarnings：压制警告（一般传递参数all）
 
 4. 自定义注解
-
+   
    * 格式：
-
+     
      > 元注解：用于描述注解的注解
-     >
+     > 
      > * @target：描述注解能够作用的位置
-     >
+     >   
      >   * ElementType取值：
      >     * TYPE：可以作用于类上
      >     * METHOD：可以作用于方法上
      >     * FILED：可以作用于域上
-     >
+     > 
      > * @Retention：描述注解被保留的阶段
-     >
+     >   
      >   * ```
      >     @Retention(RetentionPolicy.RUNTIME)：当前被描述的注解，会保留到字节码文件中，并被JVM读取
      >     ```
-     >
+     > 
      > * @Documented：描述注解是否被抽取到api文档中
-     >
+     > 
      > * @Inherited：描述注解是否被子类继承
-     >
+     > 
      > public @interface 注解名称{}
-
+   
    * 本质：注解本质上就是一个接口，该接口默认继承Annoation接口
-
+     
      > public interface MyAnnoation extends java.lang.annoation.Annoation{}
-
+   
    * 属性：接口中的抽象方法
-
+     
      * 属性的返回值类型
-
+       
        > * 基本数据类型
        > * String
        > * 枚举
        > * 注解
        > * 以上类型的数组
-
+     
      * 使用注解是需要为其属性赋值
-
+       
        * 可有使用default关键字给属性默认初始化值
        * 若只有一个属性要赋值且属性名称是value，则可以省略
 
 5. 在程序中解析（使用）注解：获取注解中定义的属性值
-
+   
    * 获取注解定义位置的对象
    * 获取指定的注解（getAnnoation（CLass））
    * 调用注解中的抽象方法获取属性值
-
+   
    ![image-20211227202726241](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211227202726241.png)
 
 # MySQL数据库
@@ -2395,20 +2401,20 @@ public class JDBCTemplateDemo2 {
 ### 请求消息数据格式（四部分）
 
 * **请求行**
-
+  
   请求方式 请求url 请求协议/版本
-
+  
   例：GET /login.html http/1.1
-
+  
   * 请求方式
     * HTTP协议有7种请求方式，常用的有2种：
       * GET：请求参数在请求行中，请求的url长度有限制，不太安全
       * POST：请求参数在请求体中，请求的url长度没有限制，相对安全
 
 * **请求头**
-
+  
   请求头名称：请求头值
-
+  
   * 常见请求头：
   * user-Agent：浏览器告诉服务器，访问时使用的浏览器版本信息（可以在服务器端获取该头的信息，解决浏览器的兼容性问题）
     * Referer：告诉服务器，当前请求从哪里来（可以用于防盗链和统计工作）
@@ -2593,11 +2599,12 @@ public class MyServletDemo implements Servlet {
 2. 使用步骤：
    
    1. 创建JavaEE项目，选择Servlet的版本3.0以上，可以不创建web.xml
+   
    2. 定义一个类，实现Servle接口
    
    3. 重写方法
-   4. 在类上使用@WebServlet注解，进行配置，@WebServlet(“资源路径”)
    
+   4. 在类上使用@WebServlet注解，进行配置，@WebServlet(“资源路径”)
 
 #### Servlet相关配置
 
@@ -2857,19 +2864,18 @@ HttpServlet --抽象类
                User user = userDao.login(loginUser);
                //判断
                if (user == null){
-                   //登录失败            						request.getRequestDispatcher("/FailServlet").forward(request,response);
+                   //登录失败                                    request.getRequestDispatcher("/FailServlet").forward(request,response);
                }else {
                    //登录成功
                    request.setAttribute("user",user);           request.getRequestDispatcher("/SuccessServlet").forward(request,response);
                }
                }
-        
+       
        protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
            this.doPost(request, response);
        }
        }
        ```
-       
 
 #### response对象
 
@@ -3148,31 +3154,31 @@ HttpServlet --抽象类
 1. 文件上传：将本地文件通过流写入到服务器
 
 2. 文件上传技术
-
+   
    * JSPSmartUPload：应用在JSP上的文件上传和下载的组件
    * FileUpload：应用在java环境上的文件上传的功能
    * Servlet3.0：提供文件上传功能
    * Struts2：提供文件上传功能
 
 3. 文件上传要素
-
+   
    > * 表单提交方式为post
    > * 表单中需要有<input type="file">元素，需要有name属性和值
    > * 表单enctype=“multipart/form-data”
 
 4. 原理分析
-
+   
    ![image-20211216231040047](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211216231040047.png)
 
 5. 代码实现
-
+   
    > 1. 导入相关jar包
-   >
+   >    
    >    * commons-fileupload-1.2.1.jar
    >    * commons-io-1.4.jar
-   >
+   > 
    > 2. 编写文件上传页面
-   >
+   >    
    >    ```jsp
    >    <%@ page contentType="text/html;charset=UTF-8" language="java" %>
    >    <html>
@@ -3188,7 +3194,7 @@ HttpServlet --抽象类
    >    </body>
    >    </html>
    >    ```
-   >
+   > 
    > 3. 编写文件上传servlet
 
 6. 空间
@@ -3505,16 +3511,16 @@ HttpServlet --抽象类
          //判断验证码是否正确
          if (checkCode_session != null & checkCode_session.equalsIgnoreCase(checkCode)){
              //验证码正确
-      
+     
              // 3.封装User对象
              User loginUser = new User();
              loginUser.setUsername(username);
              loginUser.setPassword(password);
-      
+     
              //4.调用UserDao的login方法
              UserDao userDao = new UserDao();
              User user = userDao.login(loginUser);
-      
+     
              //判断
              if (user == null){
                  //登录失败
@@ -3533,14 +3539,12 @@ HttpServlet --抽象类
              request.getRequestDispatcher("/login.jsp").forward(request,response);
          }
      }
-      
+     
      protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
          this.doPost(request, response);
      }
      }
      ```
-     
-
 * login.jsp
   
   ```jsp
@@ -3589,7 +3593,7 @@ HttpServlet --抽象类
   </body>
   </html>
   ```
-  
+
 * success.jsp
   
   ```jsp
@@ -4459,7 +4463,7 @@ HttpServlet --抽象类
       </body>
       </html>
    ```
-   
+
 4. 案例四：下拉列表的左右移动   
 
 ```html
@@ -4469,7 +4473,7 @@ HttpServlet --抽象类
          <meta charset="UTF-8">
          <title></title>
          <script  src="../js/jquery-3.6.0.min.js"></script>
-	<style>
+    <style>
         #leftName , #btn,#rightName{
            float: left;
            width: 100px;
@@ -4500,7 +4504,7 @@ HttpServlet --抽象类
         });
 
      </script>
-       
+
 ​    
 ​      </head>
 ​      <body>
@@ -4752,11 +4756,11 @@ HttpServlet --抽象类
           clearInterval(interval);
           $("#img2ID").prop("src",imgs[index]);
       }
-   
-   
+   ```
+
       </script>-->
-   
-   </body>
+
+</body>
       </html>
    ```
 
@@ -4816,7 +4820,7 @@ HttpServlet --抽象类
        </body>
        </html>
    ```
-   
+
      * $.get(url,[data],[callback],[type])：发送get请求
      
      * $.post()
@@ -6036,7 +6040,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 ## 常用配置
 
 1. 目录结构
-
+   
    ![image-20211227103126984](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211227103126984.png)
 
 ## 集成Tomcat
@@ -6261,63 +6265,64 @@ Git是分布式版本控制系统，没有中央服务器，每个人的电脑�
 #### 配置-git config
 
 1. 查看配置
+   
    * git config -l：查看当前git环境详细配置
    
    * 查看不同级别的配置文件
-   
+     
      > * git config --system --list：查看系统配置
      > * git config ---global --list：查看当前用户配置
-     > *  git config --local --list：查看当前仓库配置
-   
-2. git配置文件
+     > * git config --local --list：查看当前仓库配置
 
+2. git配置文件
+   
    > 在Windows系统中，Git在$HOME目录中查找.gitconfig文件（一般位于C:\Documents and Settings\$USER下）
-   >
+   > 
    > **Git相关的配置文件有三个：**
-   >
+   > 
    > 1）、 /etc/gitconfig：包含了适用于系统所有用户和所有项目的值。(Win：C:\Program Files\Git\mingw64\etc\gitconfig) --system 系统级
-   >
+   > 
    > ![img](https://images2017.cnblogs.com/blog/63651/201709/63651-20170905155620835-541203307.png)
-   >
-   >  
-   >
+   > 
    > 2）、~/.gitconfig：只适用于当前登录用户的配置。(Win：C:\Users\Administrator\.gitconfig)  --global 全局
-   >
+   > 
    > ![img](https://images2017.cnblogs.com/blog/63651/201709/63651-20170905112611116-974195699.png)
-   >
+   > 
    > 3）、位于git项目目录中的.git/config：适用于特定git项目的配置。(Win：C:\gitProject) --local当前项目
-   >
+   > 
    > 注意：对于同一配置项，三个配置文件的优先级是1<2<3
-   >
+   > 
    > 这里可以直接编辑配置文件，通过命令设置后会响应到这里。
 
 3. 配置用户名与邮箱
-
+   
    > * 项目级别/仓库级别：仅在当前本地库范围有效
+   >   
    >   * git config user.name 用户名
    >   * git config user.email 邮箱名
-   >
+   > 
    > * 系统用户级别：登录当前操作系统的用户范围
+   >   
    >   * git config --global user.name 用户名
    >   * git config --global user.email 邮箱名
-   >
+   > 
    > * 注意：信息保存在.git/config中
 
 4. 添加或删除配置
-
+   
    > * 添加配置项
-   >
+   >   
    >   git config [--local|--global|--system]  section.key value
    >   [--local|--global|--system]  #可选的，对应本地，全局，系统不同级别的设置
    >   section.key #区域下的键
    >   value #对应的值
-   >
+   > 
    > * 删除配置项
-   >
+   >   
    >   git config [--local|--global|--system] --unset section.key
 
 5. 其他配置
-
+   
    > git config --global color.ui true   #打开所有的默认终端着色
    > git config --global alias.ci commit   #别名 ci 是commit的别名
    > [alias]  
@@ -6331,7 +6336,7 @@ Git是分布式版本控制系统，没有中央服务器，每个人的电脑�
    > cp = cherry-pick  
    > ca = commit -a  
    > b = branch 
-   >
+   > 
    > user.name  #用户名
    > user.email  #邮箱
    > core.editor  #文本编辑器  
@@ -6343,13 +6348,13 @@ Git是分布式版本控制系统，没有中央服务器，每个人的电脑�
    > git config core.filemode false  #忽略修改权限的文件
 
 6. 解决gitbash乱码问题
-
+   
    > * git config --global core.quotepath false
-   >
+   > 
    > * ${git_home}/etc/bash.bashrc文件最后两行加入
-   >
+   >   
    >   export LANG=''zh_CN.UTF-8'
-   >
+   >   
    >   export LC_ALL=''zh_CN.UTF-8'
 
 ### 5. git结构和基本原理
@@ -6361,6 +6366,8 @@ git管理的文件有三种状态：已修改（modified）,已暂存（staged�
 ![img](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/63651-20170905201033647-1915833066.png)
 
 ![img](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/63651-20170909091456335-1787774607.jpg)
+
+![img](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/201751509379751.png)
 
 ### 6. git和代码托管中心
 
@@ -6388,6 +6395,16 @@ git管理的文件有三种状态：已修改（modified）,已暂存（staged�
   * 将工作区的新建/修改添加到暂存区：git add 【file name】或者使用git add .
   
   * git rm --cached <file>：直接从暂存区删除文件，工作区则不作出改变
+  
+  * git rm：不但从stage中删除，同时删除物理文件
+  
+  * git clean [options]：移除所有未跟踪文件，一般会加上参数-df，-d表示包含目录，-f表示强制清除
+  
+  * git mv <oldName> <newName>：给文件改名
+  
+  * 当执行 “git checkout .” 或者 “git checkout — <file>” 命令时，会用暂存区全部或指定的文件替换工作区的文件。这个操作很危险，会清除工作区中未添加到暂存区的改动。
+  
+  * 当执行 “git checkout HEAD .” 或者 “git checkout HEAD <file>” 命令时，会用 HEAD 指向的 master 分支中的全部或者部分文件替换暂存区和以及工作区中的文件。这个命令也是极具危险性的，因为不但会清除工作区中未提交的改动，也会清除暂存区中未提交的改 动。
   
   * 提交操作
     
@@ -6420,7 +6437,7 @@ git管理的文件有三种状态：已修改（modified）,已暂存（staged�
   * 移动文件
     
     > 对文件改名：git mv
-  
+
 * 分支
   
   * 总结分支中常用命令
