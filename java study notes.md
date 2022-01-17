@@ -647,6 +647,29 @@ try{
 
 ### 1. 集合概述
 
+1. 体系结构
+
+   > Collection体系（单列集合）
+   >
+   > ![Collection](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220109124008792.png)
+   >
+   > Collection常用API
+   >
+   > ![](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220110164632701.png)
+   >
+   > Map体系（双列集合）
+
+2. 迭代器
+
+   参考文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/Iterator.html
+
+   > 注意：
+   >
+   > 1. 增强for循环：自jdk1.5开始出现，内部原始是Iterator迭代器。
+   > 2. 实现了Iterator接口的类才可以使用迭代器和增强for循环。
+
+3. 接口
+
 ### 2. List集合
 
 ### 3. Set集合
@@ -6392,19 +6415,47 @@ git管理的文件有三种状态：已修改（modified）,已暂存（staged�
   
   * 查看暂存区与工作区具体修改内容：git diff
   
+    > #比较暂存区的文件与之前已经提交过的文件
+    >
+    > git diff --cached
+    >
+    > #比较repo与工作空间中的文件差异
+    >
+    > git diff HEAD~n
+    >
+    > ![img](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/63651-20170914095506203-2063795525.png)
+  
   * 将工作区的新建/修改添加到暂存区：git add 【file name】或者使用git add .
-  
-  * git rm --cached <file>：直接从暂存区删除文件，工作区则不作出改变
-  
-  * git rm：不但从stage中删除，同时删除物理文件
   
   * git clean [options]：移除所有未跟踪文件，一般会加上参数-df，-d表示包含目录，-f表示强制清除
   
   * git mv <oldName> <newName>：给文件改名
   
-  * 当执行 “git checkout .” 或者 “git checkout — <file>” 命令时，会用暂存区全部或指定的文件替换工作区的文件。这个操作很危险，会清除工作区中未添加到暂存区的改动。
+  * git checkout
   
-  * 当执行 “git checkout HEAD .” 或者 “git checkout HEAD <file>” 命令时，会用 HEAD 指向的 master 分支中的全部或者部分文件替换暂存区和以及工作区中的文件。这个命令也是极具危险性的，因为不但会清除工作区中未提交的改动，也会清除暂存区中未提交的改 动。
+    > * 当执行 “git checkout .” 或者 “git checkout — <file>” 命令时，会用暂存区全部或指定的文件替换工作区的文件。这个操作很危险，会清除工作区中未添加到暂存区的改动。
+    > * 当执行 “git checkout HEAD .” 或者 “git checkout HEAD <file>” 命令时，会用 HEAD 指向的 master 分支中的全部或者部分文件替换暂存区和以及工作区中的文件。这个命令也是极具危险性的，因为不但会清除工作区中未提交的改动，也会清除暂存区中未提交的改 动。
+    >
+    > $ git checkout branch
+    > #检出branch分支。要完成图中的三个步骤，更新HEAD以指向branch分支，以及用branch  指向的树更新暂存区和工作区。
+    >
+    > $ git checkout
+    > #汇总显示工作区、暂存区与HEAD的差异。
+    >
+    > $ git checkout HEAD
+    > #同上
+    >
+    > $ git checkout -- filename
+    > #用暂存区中filename文件来覆盖工作区中的filename文件。相当于取消自上次执行git add filename以来（如果执行过）的本地修改。
+    >
+    > $ git checkout branch -- filename
+    > #维持HEAD的指向不变。用branch所指向的提交中filename替换暂存区和工作区中相   应的文件。注意会将暂存区和工作区中的filename文件直接覆盖。
+    >
+    > $ git checkout -- . 或写作 git checkout .
+    > #注意git checkout 命令后的参数为一个点（“.”）。这条命令最危险！会取消所有本地的  #修改（相对于暂存区）。相当于用暂存区的所有文件直接覆盖本地文件，不给用户任何确认的机会！
+    >
+    > $ git checkout commit_id -- file_name
+    > #如果不加commit_id，那么git checkout -- file_name 表示恢复文件到本地版本库中最新的状态。
   
   * 提交操作
     
@@ -6437,7 +6488,7 @@ git管理的文件有三种状态：已修改（modified）,已暂存（staged�
   * 移动文件
     
     > 对文件改名：git mv
-
+  
 * 分支
   
   * 总结分支中常用命令
