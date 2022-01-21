@@ -5136,6 +5136,8 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
 # Spring
 
+学习参考视频：https://www.bilibili.com/video/BV1WZ4y1P7Bp?p=1
+
 ## 一、Spring简介
 
 1. spring是什么
@@ -5150,7 +5152,7 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
 3. Spring发展历程
    
-   1997年，IBM提出了EJB的思想
+   ![image-20220117162012206](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220117162012206.png)
 
 4. Spring的优势
    
@@ -5164,7 +5166,7 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
 5. SPring的体系结构
    
-   ![image-20210201105122446](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210201105122446.png)
+   ![image-20220117162143652](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220117162143652.png)
 
 ## 二、Spring快速入门
 
@@ -5176,6 +5178,8 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
    * 使用Spring的API获得Bean实例
 
 ## 三、Spring配置文件
+
+### bean的配置
 
 1. Bean标签的基本配置
    
@@ -5217,10 +5221,10 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 4. Bean实例化三种方式
    
    * 无参构造方法实例化
-   * 工厂静态方法实例化
-   * 工厂实例方法实例化
+   * 工厂静态方法实例化（factory-method属性指定类中实例化方法）
+   * 工厂实例方法实例化（factory-bean和factory-method属性指定实例化方法）
 
-5. Bean的依赖注入
+5. Bean的依赖注入（Dependency injection）
    
    * 概念：是Spring框架核心IOC的具体实现
    
@@ -5230,17 +5234,34 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
        
        * P命名空间注入本质也是set方法注入。
          
-         ![image-20211030144856866](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211030144856866.png)
+         ![image-20220118193841130](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220118193841130.png)
      
      * 有参构造
-       
-       ![image-20211030145308184](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211030145308184.png)
-
-6. 依赖注入的数据类型
    
+6. 依赖注入的数据类型
+
    * 普通数据类型
+
+     ~~~xml
+     <property name="" value=""></property>
+
    * 引用数据类型
+
+     ~~~xml
+     <property name="" ref=""></property>
+
    * 集合数据类型
+
+     ~~~xml
+     <property name="">
+         <list>
+             <value></value>
+             <value></value>
+         </list>
+         <map name="">
+             <entry key="" value=""></entry>
+         </map>
+     </property>
 
 7. 引入其他配置文件（分模块开发）
    
@@ -5248,41 +5269,12 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
    <import resource"" />
    ```
 
-### 配置知识点总结：
-
-> <bean>标签：
-> 
-> * id属性：容器中Bean实例的唯一标识，不允许重复
-> * class属性：要实例化的Bean的全限定名
-> * scope属性：Bean的作用范围
-> * <property>标签：属性注入
->   * name属性：属性名称
->   * value属性：注入的普通属性名称
->   * ref属性：注入的对象引用值
->   * <list>标签
->   * \<map>标签
->   * <properties>标签
-> * <constructor-arg>标签
-> 
-> <import>标签：导入其他的spring的分文件
-
-## 四、Spring相关API
-
-1. ApplicationContext继承体系
-2. ApplicationContext实现类
-   * ClassPathXmlApplicationContext：从类的根路径下加载配置文件（推荐使用）
-   * FileSystemXmlApplicationContext：从磁盘路径上加载配置文件，配置文件可以在磁盘的任意位置
-   * AnnoationConfigApplicationContext：使用注解配置容器对象时使用
-3. getBean()方法
-   * 传递id
-   * 传递class
-
-## 五、配置数据源（连接池）
+### 配置数据源（连接池）
 
 1. 数据源的作用
 
 2. 数据源开发步骤
-   
+
    ```java
    package com.chen.test;
    
@@ -5356,7 +5348,7 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
    ```
 
 3. Spring配置数据源
-   
+
    ```java
    package com.chen.testdatasource;
    
@@ -5394,7 +5386,7 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
        }
    }
    ```
-   
+
    ```xml
    <?xml version="1.0" encoding="UTF-8"?>
    <beans xmlns="http://www.springframework.org/schema/beans"
@@ -5419,9 +5411,9 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
    ```
 
 4. 抽取jdbc配置文件
-   
+
    ![image-20211101222528713](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211101222528713.png)
-   
+
    ```xml
    <?xml version="1.0" encoding="UTF-8"?>
    <beans xmlns="http://www.springframework.org/schema/beans"
@@ -5453,7 +5445,40 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
    </beans>
    ```
 
-## 六、Spring注解开发
+### 配置知识点总结：
+
+> <bean>标签：
+> 
+> * id属性：容器中Bean实例的唯一标识，不允许重复
+> * class属性：要实例化的Bean的全限定名
+> * scope属性：Bean的作用范围
+> * <property>标签：属性注入
+>   * name属性：属性名称
+>   * value属性：注入的普通属性名称
+>   * ref属性：注入的对象引用值
+>   * <list>标签
+>   * \<map>标签
+>   * <properties>标签
+> * <constructor-arg>标签
+> 
+> <import>标签：导入其他的spring的分文件
+
+## 四、Spring相关API
+
+1. ApplicationContext继承体系
+
+   ![image-20220120200453261](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220120200453261.png)
+
+2. ApplicationContext实现类
+   * ClassPathXmlApplicationContext：从类的根路径下加载配置文件（推荐使用）
+   * FileSystemXmlApplicationContext：从磁盘路径上加载配置文件，配置文件可以在磁盘的任意位置
+   * AnnoationConfigApplicationContext：使用注解配置容器对象时使用
+
+3. getBean()方法
+   * 传递id
+   * 传递class
+
+## 五、Spring注解开发
 
 1. Spring原始注解（主要代替<bean>标签的配置）
    
