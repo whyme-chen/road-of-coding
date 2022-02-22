@@ -6082,6 +6082,10 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    
    ![image-20211120112940959](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211120112940959.png)
 
+# Spring boot
+
+
+
 # Idea
 
 参考资料：https://www.bilibili.com/video/BV1PW411X75p?from=search&seid=1533766256313085594&spm_id_from=333.337.0.0

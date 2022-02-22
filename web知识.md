@@ -876,6 +876,10 @@ DOM是将标记型文档中所有内容（标签、文本、属性）都封装�
 4. 元素事件句柄绑定
 5. DOM绑定方式
 
+## 六、ECMAScript（ES6-ES11）
+
+ES全称EcmaScript，是脚本语言的规范，JavaScript是EcmaScript的一种实现。
+
 # BootStrap
 
 ### bootstrap概述
