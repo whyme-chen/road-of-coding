@@ -998,7 +998,7 @@ public class Test04 {
 
 2. 作用分类
    
-   * 编写文档：通过代码里表示的元数据生成文档（生成doc文档）
+   * 编写文档：通过代码里标识的元数据生成文档（生成doc文档）
    * 代码分析：通过代码里标识的元数据对代码进行分析（使用反射）
    * 编译检查：通过代码里标识的元数据让编译器能够实现基本的编译检查
 
@@ -1047,7 +1047,7 @@ public class Test04 {
        > * 注解
        > * 以上类型的数组
      
-     * 使用注解是需要为其属性赋值
+     * 使用注解时需要为其属性赋值
        
        * 可有使用default关键字给属性默认初始化值
        * 若只有一个属性要赋值且属性名称是value，则可以省略
@@ -6083,6 +6083,73 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    ![image-20211120112940959](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211120112940959.png)
 
 # Spring boot
+
+## 基础入门
+
+### 快速上手
+
+1. 概述：SringBoot是由Pivtal团队提供的全心框架，其设计目的是用来简化Spring的初始搭建和开发过程。
+
+2. 优势对比
+
+   * Spring程序
+     * 依赖设置繁琐
+     * 配置繁琐
+   * SpringBoot程序优点
+     * 起步依赖：提供依赖启动器简化构建配置，可快速构建独立的Spring应用
+     * 辅助功能：直接嵌入Tomcat、Jetty和Undertow服务器（无需部署WAR文件）
+     * 自动配置：简化常用工程相关配置
+
+3. 创建项目方式
+
+   * 借助idea创建（阿里镜像网址：[http://start.aliyun](http://start.aliyun)）
+   * 借助官网创建（https://start.spring.io/）
+   * 创建Maven项目，手动添加Springboot依赖
+
+4. 入门案例解析
+
+   * parent：所有SpringBoot项目要继承的项目，定义了若干坐标版本号（依赖管理，而非依赖）以达到减少依赖冲突的目的。
+
+     ![image-20220223170214665](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220223170214665.png)
+
+   * starter：定义了当前项目使用的所有依赖坐标，以达到减少依赖配置的目的。
+
+   * 引导类
+
+     ![image-20220223173016842](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220223173016842.png)
+
+   * 内嵌tomcat
+
+     ![image-20220223173832559](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220223173832559.png)
+
+5. 热部署
+
+   在开发过程中，通常会对一段业务代码不断地修改测试，在修改之后往往需要重启服务，有些服务需要加载很久才能启动成功，这种不必要的重复操作极大的降低了程序开发效率。为此，Spring Boot框架专门提供了进行热部署的依赖启动器，用于进行项目热部署，而无需手动重启项目。
+
+   * 添加spring-boot-devtools热部署依赖启动器
+
+     ~~~ xml
+     <!-- 引入热部署依赖 -->
+     <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-devtools</artifactId>
+     </dependency>
+
+   * idea工具热部署设置
+
+### REST风格
+
+1. 简介
+
+   REST（Representational State Transfer）,表现形式转态转换
+
+2. 看
+
+## 应用
+
+## 原理
+
+
 
 
 
