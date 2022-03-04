@@ -354,11 +354,48 @@ html使用<!---->表示注释
 
 ## 二、基本语法
 
+### 区分大小写
+
+ECMAScript中一切变量区分大小写
+
+### 标识符命名
+
+即变量、函数、属性的名字或者函数的参数，规则如下：
+
+* 由字母，下划线，数字或美元符组成
+* 第一个字符必须是字母或下划线（_）或者美元符（$）
+
+> 按照惯例，ECMAScript标识符采用驼峰大小写格式
+
+### 注释
+
+* 单行注释
+* 块级注释
+
+### 严格模式
+
+ECMAScript 5 引入严格模式概念。严格模式是为JavaScript定义了一种不同的解析和执行模型。严格模式下，ECMAScript 3中的一些不确定的行为将得到处理，而且对某些不安全的操作也会抛出错误。在整个脚本中启用严格模式，可以在顶部添加如下代码：
+
+~~~
+*use strict*
+~~~
+
+指定函数在严格模式下执行：
+
+~~~
+function doSomething(){
+	*use strict*
+	//函数体
+}
+~~~
+
+### 关键字和保留字
+
+![image-20220301180653244](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220301180653244.png)
+
 ### 字面量
 
 ​    编程语言中，一般将固定值称为字面量。包括数字（Number）字面量，字符串（String）字面量，表达式字面量，数组（Array）字面量，对象（Object）字面量，函数（Function）字面量。
-
-+++
 
 ### 变量
 
@@ -368,29 +405,69 @@ html使用<!---->表示注释
    var 变量名;
    ```
    
-   注意：变量是名称，字面量是值。
-
-2. 变量命名规则
+   > 注意：
+   >
+   > * 变量是名称，字面量是值。
+   > * ECMAScript中标量是松散类型的，即可以用来保存任何类型的数据。
+   > * 严格模式下，不能定义名为eval或argument的变量，否则会导致语法错误。
+   
+2. 变量命名规则（遵循标识符命名规则）
    
    * 由数字、字母、下划线和$组成
    * 不能以数字开头
    * 不能是关键字
 
-+++
+### 运算符
 
-### 基本数据类型
+* 算术运算符
 
-* string
-* boolean
-* number
-* null
-* undefined
+* 比较运算符
+
+  === 全等（值和类型都进行比较）
+
+  == 等于（只比较值）
+
++ 逻辑运算符
+
+### 语句
+
+> ECMAScript中语句以一个分号结尾，若省略分号，则由解析器确定语句的结尾。
+
+1. 顺序结构
+
+2. 判断结构
+   * if
+   * switch
+3. 循环结构
+   * do-while
+   * while
+   * for
+     * for-in
+4. label语句
+5. break和continue语句
+6. with语句
+
+### 数据类型
+
+ECMAScript中有5中简单数据类(Number,String,Boolean,Null,Undefine)和1种复杂数据类型（Object，本质上是一组无序的名值对组成）。
+
+#### typeof操作符
+
+用于判断给定变量的数据类型
+
+#### 基本数据类型（5种）
+
+* String
+* Boolean
+* Number
+* Null
+* Undefined
 
 注意：undefined==null（null和undefined的值相等，但类型不等）
 
 #### 数据类型的转换
 
-```javascript
+```html
 <!DOCTYPE html>
 <html>
     <head>
@@ -436,45 +513,73 @@ html使用<!---->表示注释
         </script>
     </body>
 </html>
+```
 
+#### 引用数据类型
 
-### 引用数据类型
+> ECMAScript中，引用类型时一种数据结构，用于将数据和功能组织在一起。引用类型有时也被称为对象定义，因为他们描述的是一类对象所具有的属性和方法。
+>
+> 对象是某个特定引用类型的实例，新对象使用new操作符后跟一个构造函数来创建。构造函数本身是一个函数，只是该函数出于创建新对象的目的而定义。
 
-* 对象（Object）
-* 数组（Array）
-* 函数（Function）
+1. Object
 
-### 注释
+   > Object类型所具有的任何属性和方法都存在于更具体的对象中。Object的每个实例都具有下列属性和方法：
+   >
+   > * Constructor：保存着用于创建当前对象的函数
+   > * hasOwnProperty(propertyName)：用于检查给定的属性在当前对象实例中是否存在（不是实例的原型中）
+   > * _sPrototypeOf(object)：用于检查传入对象是否是另一个对象的原型
+   > * propertyIsEnumberable(propertyName)：用于检查给定的属性是否能够使用for~in语句来枚举
+   > * toLocalString()：返回对象的字符串表示
+   > * valueOf()：返回对象字符串、数值或布尔值表示
 
-* 单行注释(//)
+   * 实例化方式
 
-* 多行注释(/**/)
+     ~~~javascript
+     //方式一，使用new操作符
+     var person = new Object();
+     
+     //方式二，使用对象字面量表示法
+     var person = {
+         name:"tom"
+         age:20
+     }
+     ~~~
 
-### 运算符
+2. Array类型
 
-* 算术运算符
+3. Date类型
 
-* 比较运算符
+4. RegExp类型
 
-  === 全等（值和类型都进行比较）
+5. Function类型
 
-  == 等于（只比较值）
+6. 基本包装类型
 
-+ 逻辑运算符
+7. 单体内置对象
 
-+++
+### 函数
 
-### 流程控制
+1. 函数声明（使用function关键字）
 
-#### 顺序结构
+   ~~~javascript
+   function fun(arg1,...argN){
+   	//函数体
+   }
+   ~~~
 
-#### 判断结构
+2. 参数的理解
 
-#### 循环结构
+   * ECMAScript函数不介意传递进入函数的参数个数和类型。（原因是ECMAScript中参数在内部使用一个数组来表示）
+   * 在函数体中可以通过argments对象（不是Array实例）访问参数数组
+
+3. 没有重载
+
+   * 由于参数是由包含零个或多个值的数组来表示的，所以ECMAScript函数不能像传统意义上那样实现重载
+   * 在ECMAScript中定义了两个相同名字的函数，则该名字只属于后定义的函数 
 
 ### 字符串
 
-​~~~ javascript
+~~~ javascript
 //常用属性和方法
 1.length 字符串长度
 2.indexOf() 返回字符串中指定文本首次出现的索引位置
@@ -491,7 +596,7 @@ html使用<!---->表示注释
 13.charAt() 方法返回字符串中指定下标（位置）的字符串：
 14.charCodeAt() 方法返回字符串中指定索引的字符 unicode 编码：
 15.split() 将字符串转换为数组：
-```
+~~~
 
 ### 数组对象
 
@@ -681,19 +786,94 @@ var 对象名=new Object();
 </script>
 ```
 
-## 三、BOM对象
+## 三、面向对象程序设计
 
-### 1. 概念：Browser Object Model（浏览器对象模型）
+###  理解对象
 
-### 2. 组成
+#### 1. 属性类型
 
-* **窗口对象（window）**
-* **历史记录对象（history）**
-* **地址栏对象（location）**
-* 显示器屏幕（screen）
-* 浏览器对象（navigator）
+ECMAScript中有两种属性：数据属性和访问器属性。
 
-### 3. Window对象
+1. 数据属性
+
+   > 数据属性包含一个数据值的位置。数据属性有4个描述其行为的特性：
+   >
+   > * [[Configurable]]：表示能否通过delete删除属性从而重新定义属性
+   > * [[Enumberable]]：表示能否通过for-in循环返回属性
+   > * [[Writable]]：表示能否修改属性的值
+   > * [[Value]]：包含这个属性的数据值。
+   >
+   > 对于直接在对象上定义的属性，他们的[[Configurable]]，[[Enumberable]]，[[Writable]]均默认为true，[[Value]]特性设置为指定值。
+   >
+   > 若要修改属性默认的特性，必须使用ECMAScript 5 的Object.defineProperity（）方法。这个方法接受三个参数：属性所在对象，属性名字和一个描述对象（必须是configurable，enumerate，writable或value）
+
+2. 访问器属性
+
+   > 访问器属性不包含数据值，它们包含一对getter和setter函数。访问器属性有如下4个特性：
+   >
+   > * [[Configurable]]：表示能否通过delete删除属性从而重新定义属性
+   > * [[Enumerable]]：表示是否可以通过for-in循环返回属性
+   > * [[Get]]：读取属性是调用的函数，默认值为undefined
+   > * [[Set]]：写入属性是调用的函数，默认值为undefined
+   >
+   > 访问器属性不能直接定义，必须使用Object.defineProperity（）来定义
+
+#### 2. 读取属性的特性
+
+使用Object.getOwnPropertyDescription()方法
+
+#### 3. 构造函数模式
+
+~~~ javascript
+function Person(name,age,job){
+    this.name=name;
+    this.age=age;
+    this.job=job;
+    this.sayName=function(){
+        alert(this.name);
+    };
+}
+
+var person1 = new Person("chen",20,"student");
+var person2 = new Person("wang",20,"student");
+/*
+	按照惯例，构造函数始终以一个大写字母开头
+	使用new操作符创建新对象，调用构造函数实际经历一下4个步骤：
+	1.创建一个新对象
+	2.将构造函数的作用域赋给新对象（因此this指向了新对象）
+	3.执行构造函数中的代码（为新对象添加属性）
+	4.返回新对象
+	person1和person2分别保存Person的不同势力，这两个对象都有一个constructor属性，指向Person。
+	任何函数只要通过new操作符调用，那它就可以作为构造函数，二任何函数，如果不通过new操作符调用，那它和普通函数没什么区别。
+	构造函数的问题：每个方法都要在每个实例上重新创建一遍（应为在ECMAScript中函数是对象）
+*/
+~~~
+
+#### 4. 原型模式
+
+我们创建的每一个函数都有一个prototype属性，这个属性是一个指针，指向一个对象，而这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。
+
+1. 原型对象
+   * 无论什么时候，只要创建一个新函数，就会根据一组特定的规则为该函数创建一个prototype属性，这个属性指向函数的原型对象。在默认情况下，所有原型对象都会自动获得一个constructor属性，这个属性包含一个指向prototype属性所在函数的指针。
+   * 创建了自定义构造函数后，其原型对象默认只会获得constructor属性，而其他方法，则从Object继承而来。
+2.  看
+
+## 四、BOM对象
+
+### 1. 概述
+
+1. 简介
+
+   Browser Object Model（浏览器对象模型）
+
+2. 组成
+   * **窗口对象（window）**
+   * **历史记录对象（history）**
+   * **地址栏对象（location）**
+   * 显示器屏幕（screen）
+   * 浏览器对象（navigator）
+
+### 2. window对象
 
 * 特点：
   * Window对象不需要创建可以直接使用
@@ -746,7 +926,7 @@ var 对象名=new Object();
 </html>
 ```
 
-### 4. location对象
+### 3. location对象
 
 * 获取：Window.location
 
@@ -784,7 +964,13 @@ var 对象名=new Object();
 </html>
 ```
 
-## 四、DOM对象
+### 4. navigator对象
+
+### 5. screen对象
+
+### 6. history对象
+
+## 五、DOM对象
 
 DOM是将标记型文档中所有内容（标签、文本、属性）都封装成对象，通过操作对象的属性或方法，来达到操作或改变HTML展示效果的目的。
 
@@ -817,7 +1003,7 @@ DOM是将标记型文档中所有内容（标签、文本、属性）都封装�
 * checked
 * innerHTML
 
-## 五、JS事件
+## 六、JS事件
 
 1. JS事件是什么
    
@@ -876,7 +1062,7 @@ DOM是将标记型文档中所有内容（标签、文本、属性）都封装�
 4. 元素事件句柄绑定
 5. DOM绑定方式
 
-## 六、ECMAScript（ES6-ES11）
+## 七、ECMAScript（ES6-ES11）
 
 ES全称EcmaScript，是脚本语言的规范，JavaScript是EcmaScript的一种实现。
 
@@ -997,6 +1183,172 @@ bootstrap是基于HTML、CSS、javaScript的前端框架。
 
 ## Vue基础
 
+### 简介
+
+1. 介绍
+
+   Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。Vue 被设计为可以自底向上逐层应用。
+
+   Vue.js 使用了基于 HTML 的模板语法，允许开发者声明式地将 DOM 绑定至底层 Vue 实例的数据。所有 Vue.js 的模板都是合法的 HTML，所以能被遵循规范的浏览器和 HTML 解析器解析。
+
+   在底层的实现上，Vue 将模板编译成虚拟 DOM 渲染函数。结合响应系统，Vue 能够智能地计算出最少需要重新渲染多少组件，并把 DOM 操作次数减到最少。
+
+   Vue.js 的核心是一个允许采用简洁的模板语法来声明式地将数据渲染进 DOM 的系统，只关注视图层，易于上手。所有东西都是响应式的。
+
+2. 优势
+
+   * 轻量级渐进式框架
+   * 视图、数据和结构的分离
+   * 响应式双向数据绑定
+   * 组件化
+   * 虚拟DOM
+   * 运行速度快，易于上手
+   * 便于与第三方库或既有项目整合
+
+### 基础
+
+#### 模板语法
+
+1. 插值语法：常用解析标签体内容
+2. 指令：常用于解析标签（包括标签属性，标签体内容，绑定事件等）
+   * v-bind:(简写为:)
+   * v-on
+   * v-once
+   * v-html
+   * v-model
+
+#### 数据绑定
+
+* 单向数据绑定（v-bind:）：数据只能从data流向页面
+* 双向数据绑定（v-model:）：数据可以双向流动
+  * v-model只能应用在表单类元素上
+  * v-model:value可以简写为v-model，应为v-model默认收集value的值
+
+~~~ html
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div id="app">
+			单项数据绑定：<input type="text" v-bind:value="value1" /><br>
+			双向数据绑定：<input type="text" v-model:value="value2" />
+		</div>
+		
+		<script type="text/javascript">
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					value1:12345,
+					value2:'chen'
+				}
+			});
+		</script>
+	</body>
+</html>
+
+~~~
+
+#### el与data的两种写法
+
+data与el的2种写法：
+
+1. el有2种写法
+   * .new Vue时候配置e1属性。
+   * 先创建Vue实例，随后再通过vm . $mount( ' #root' )指定e1的值。
+
+2. data有2种写法
+  * 对象式
+  * 函数式（如何选择:目前哪种写法都可以，以后学习到组件时，data必 须使用函数式，否则会报错。）
+
+> 一个重要的原则:由Vue管理的函数，一定 不要写箭头函数，一但写了箭头函数，this就不再是Vue实例了。
+
+~~~html
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div id="app">
+			{{message}}
+		</div>
+		
+		<script type="text/javascript">
+		
+			var vm = new Vue({
+				// 写法一：
+				// el: '#app',
+				// data: {
+				// 	message:'chen',
+				// 	url: 'https://www.baidu.com/'
+				// }
+				
+				//写法二：函数式
+				data:function(){
+					return{
+						message:'chen'
+					}
+				}
+			});
+			vm.$mount("#app");//挂载
+			
+		</script>
+	</body>
+</html>
+
+~~~
+
+#### MVVM模型
+
+1. M：模型(Model) ：对应 data 中的数据
+2.  V：视图(View) ：模板 
+3. VM：视图模型(ViewModel) ： Vue 实例对象
+
+![image-20220304094933119](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220304094933119.png)
+
+#### 数据代理
+
+#### 事件处理
+
+1. 事件的基本使用:
+   * 使用v-on:xxx或@xxx 绑定事件，其中xxx是 事件名;
+   * 事件的回调需要配置在methods对象中，最终会在vm上;
+   * methods中配置的函数，不要用箭头函数!否则this就不是vm了;
+   * methods中配置的函数，都是被Vue所管理的函数，this的指向是vm 或组件实例对象;
+   * @click="demo"和@click= ”demo($event)"效果一致， 但后者可以传参;
+2. Vue中的事件修饰符
+   * prevent:阻止默认事件(常用) ;
+   * stop:阻止事件冒泡(常用)
+   * once:事件只触发一次(常用) ;
+   * capture:使用事件的捕获模式;
+   * self:只有event。target是当前操作的元素是才触发事件;
+   * passive:事件的默认行为立即执行，无需等待事件回调执行完毕;
+3. 键盘事件
+   * Vue中常用的按键别名:
+     * 回车=>，enter
+     * 删除，=>.delete，(捕获“删除”和“退格”键)
+     * 退出:=>esc
+     * 空格=> space
+     * 换行=> : tab
+     * 上.=>，up
+     * 下=> dowr
+     * 左=> left
+     * 右=> right
+   * Vue未提供别名的按键，可以使用按键原始的key值去绑定，但注意要转为kebab-case(短横线命名)
+   * 系统修饰键(用法特殊) : ctrl、 alt、 shift、 meta
+     * 配合keyup使用:按下修饰键的同时，再按下其他键，随后释放其他键，事件才被触发。
+     * 配合keydown使用:正常触发事件。
+   * 也可以使用keyCode去指定具体的按键(不推荐)
+   * Vue . config. keyCodes.自定义键名=键码，可以去定制按键别名
+
 ## Vue-cli
 
 ## Vue-router
@@ -1006,6 +1358,49 @@ bootstrap是基于HTML、CSS、javaScript的前端框架。
 ## element-ui
 
 ## Vue3
+
+# uni-app开发框架
+
+## 简介
+
+1. 背景
+   * 多端泛滥
+   * 体验不好
+   * 生态不丰富
+2. 产品特征
+   * “一套代码、多端发行”
+   * 条件编译：在一个项目中调用不同平台的特色功能
+
+### 工程简介
+
+一个 uni-app 工程，就是一个 Vue 项目，你可以通过 HBuilderX 或 cli 方式快速创建 uni-app 工程，详见：[快速上手](https://uniapp.dcloud.io/quickstart-hx.html)。
+
+#### 目录结构
+
+一个uni-app工程，默认包含如下目录及文件：
+
+![image-20220304095916358](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220304095916358.png)
+
+> ```
+> ┌─uniCloud              云空间目录，阿里云为uniCloud-aliyun,腾讯云为uniCloud-tcb（详见uniCloud）
+> │─components            符合vue组件规范的uni-app组件目录
+> │  └─comp-a.vue         可复用的a组件
+> ├─hybrid                App端存放本地html文件的目录，详见
+> ├─platforms             存放各平台专用页面的目录，详见
+> ├─pages                 业务页面文件存放的目录
+> │  ├─index
+> │  │  └─index.vue       index页面
+> │  └─list
+> │     └─list.vue        list页面
+> ├─static                存放应用引用的本地静态资源（如图片、视频等）的目录，注意：静态资源只能存放于此
+> ├─uni_modules           存放[uni_module](/uni_modules)规范的插件。
+> ├─wxcomponents          存放小程序组件的目录，详见
+> ├─main.js               Vue初始化入口文件
+> ├─App.vue               应用配置，用来配置App全局样式以及监听 应用生命周期
+> ├─manifest.json         配置应用名称、appid、logo、版本等打包信息，详见
+> ├─pages.json            配置页面路由、导航条、选项卡等页面类信息，详见
+> └─uni.scss              这里是uni-app内置的常用样式变量 
+> ```
 
 # NodeJS学习笔记
 

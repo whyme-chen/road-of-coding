@@ -6137,13 +6137,131 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
    * idea工具热部署设置
 
+### 基础配置
+
+1. 属性配置
+
+   ![image-20220223222016095](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220223222016095.png)
+
+   注意：SpringBoot默认配置文件为application.properties，通过键值对配置
+
+2. 配置文件分类
+
+   * properties
+   * yml(主流)
+   * yaml
+
+   ![image-20220223222330450](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220223222330450.png)
+
+   > 注意：SpringBootp配置文件的加载顺序（优先级）：properties>yml>yaml
+   >
+   > 使用idea在yaml文件中配置时，代码提示失效解决方案：
+   >
+   > ![image-20220224150428417](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220224150428417.png)
+
+3. yaml文件
+
+   * YAML（YAML Ain‘t Markup Lanuage），一种数据序列化格式
+
+   * 优点：
+
+     * 容易阅读
+     * 容易与脚本语言交互
+     * 以数据为核心，重数据轻格式
+
+   * YAML文件扩展名
+
+     * .yml
+     * .yaml(主流)
+
+   * yaml语法规则
+
+     ![image-20220224150924547](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220224150924547.png)
+
+     ![image-20220224151857640](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220224151857640.png)
+
+     ![image-20220224152016549](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220224152016549.png)
+
+   * yaml数据读取
+
+     ![image-20220224152744940](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220224152744940.png)
+
+     * 将全部数据封装到Envirorment对象
+
+       ![image-20220224155427033](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220224155427033.png)
+
+     * 自定义对象封装指定数据
+
+       ![image-20220224160118620](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220224160118620.png)
+
+   * 引用变量
+
+     ![image-20220224155032097](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220224155032097.png)
+
+### 整合第三方技术
+
+#### 整合JUnit
+
+* 导入测试对应的starter
+
+* 测试类使用@SpringBootTest修饰
+
+  ![image-20220224161459266](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220224161459266.png)
+
+* 使用自动装配的形式添加要测试的对象
+
+> 注意：
+>
+> * 测试类如果存在与引导类所在包或子包中无需指定引导类
+> * 测试类如果不存在于引导类所在的包或子包中需要通过classes属性指定引导类
+
+#### 整合MyBatis
+
+#### 整合MyBatis-Plus
+
+#### 整合Druid
+
+### 常用注解
+
+1. @import
+   * springboot中@Enable***开头的注解表示开启某项功能，其底层依赖@import注解。
+   * @import注解可以向容器中导入类，这些类对象会被注入到容器中
+     * 直接导入
+     * 导入配置类
+     * 导入ImportSelector接口实现类
+     * 导入ImportBeanDefinitionRegister接口的实现类
+2. 就
+
 ### REST风格
 
 1. 简介
 
-   REST（Representational State Transfer）,表现形式转态转换
+   REST（Representational State Transfer）,表现形式转态转换。
 
-2. 看
+   * 传统风格资源描述形式
+     * http://localhost/user/getById?id=1
+     * http://localhost/user/saveUser
+   * REST风格描述形式
+     * http://localhost/user/1
+     * http://localhost/user
+   * 优点
+     * 隐藏资源的访问行为，无法通过地址得知对资源是何种操作
+     * 书写简化
+   * 按照REST风格访问资源时使用行为动作区分对资源的操作
+     * http://localhost/users查询全部用户信息 GET（查询）
+     * http://localhost/users/1查询指定用户信息 GET
+     * http://localhost/users添加用户信息 POST（新增或保存）
+     * http://localhost/users修改用户信息 PUT（修改或更新）
+     * http://localhost/users/1删除指定用户信息 DELETE（删除）
+   * 根据REST风格对资源进行访问称为RESTful
+
+2. 入门案例
+
+   ![image-20220223213459243](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220223213459243.png)
+
+   请求路径参数
+
+   ![image-20220223213435601](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220223213435601.png)
 
 ## 应用
 
