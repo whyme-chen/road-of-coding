@@ -1950,7 +1950,7 @@ public class JDBCTemplateDemo1 {
 }
 ```
 
-```
+```java
 package cn.itcast.jdbctemplate;
 
 import cn.itcast.domain.User;
@@ -6082,6 +6082,12 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    
    ![image-20211120112940959](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211120112940959.png)
 
+# MybatisPlus
+
+官网地址：https://baomidou.com/pages/226c21/#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%B7%A5%E7%A8%8B
+
+
+
 # Spring boot
 
 ## 基础入门
@@ -6138,6 +6144,8 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    * idea工具热部署设置
 
 ### 基础配置
+
+#### 全局配置文件
 
 1. 属性配置
 
@@ -6197,6 +6205,19 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    * 引用变量
 
      ![image-20220224155032097](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220224155032097.png)
+
+> 总结：
+>
+> 1. 读取配置文件数据的方式
+>    * 使用Environment对象的getProperty()方法读取
+>    * 使用@Value注解
+>    * 使用@ConfigurationProperties(prefix = "")注解进行映射
+
+#### 自定义配置文件
+
+1. @PropertySource：在项目启动入口类中使用，将自定义的配置文件加载到项目中（.property或.yml文件）
+2. @ImportResource：在项目启动入口类中使用，将自定义配置文件加载到Spring上下文中（.xml文件）
+3. @Configuration：
 
 ### 整合第三方技术
 
