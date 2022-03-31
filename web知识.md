@@ -275,8 +275,62 @@ html使用<!---->表示注释
 | [z-index](https://www.w3school.com.cn/cssref/pr_pos_z-index.asp)     | 设置元素的堆叠顺序。     |
 
 * overflow属性
-
 * 大健康
+
+### Flex布局
+
+参考教程：
+
+* http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html
+* https://www.ruanyifeng.com/blog/2015/07/flex-examples.html
+
+~~~ html
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Flex布局</title>
+		<style type="text/css">
+			
+			.div1{
+				
+				display: flex;
+				width: 500px;
+				height: 700px;
+				border: 3px soild #FF0000;
+				background-color: #999900;
+				flex-direction: row;/* 主轴方向 */
+				flex-wrap: wrap;/* 是否换行 */
+				justify-content: space-between;/* 主轴对齐方式 */
+				align-items: center;/* 交叉轴对齐方式 */
+			}
+			.item{
+				width: 200px;
+				height: 50px;
+				border: 1px solid #FF0000;
+				background-color: #000000;
+				flex-grow: 0;/* 放大 */
+			}
+		</style>
+	</head>
+	<body>
+		<div class="div1">
+			<div class="item">
+				
+			</div>
+			<div class="item">
+				
+			</div>
+			<!-- <div class="item">
+				
+			</div>
+			<div class="item">
+				
+			</div> -->
+		</div>
+	</body>
+</html>
+~~~
 
 ## 单位
 
@@ -1520,6 +1574,8 @@ data与el的2种写法：
 
 # uni-app开发框架
 
+官网地址：https://uniapp.dcloud.io/
+
 ## 简介
 
 1. 背景
@@ -1560,6 +1616,12 @@ data与el的2种写法：
 > ├─pages.json            配置页面路由、导航条、选项卡等页面类信息，详见
 > └─uni.scss              这里是uni-app内置的常用样式变量 
 > ```
+
+## 基础开发
+
+### 全局外观配置
+
+
 
 # NodeJS学习笔记
 

@@ -1,4 +1,4 @@
-# 基础编程
+基础编程
 
 ## java发展史
 
@@ -2436,11 +2436,11 @@ public class JDBCTemplateDemo2 {
       * POST：请求参数在请求体中，请求的url长度没有限制，相对安全
 
 * **请求头**
-  
+
   请求头名称：请求头值
-  
+
   * 常见请求头：
-  * user-Agent：浏览器告诉服务器，访问时使用的浏览器版本信息（可以在服务器端获取该头的信息，解决浏览器的兼容性问题）
+    * user-Agent：浏览器告诉服务器，访问时使用的浏览器版本信息（可以在服务器端获取该头的信息，解决浏览器的兼容性问题）
     * Referer：告诉服务器，当前请求从哪里来（可以用于防盗链和统计工作）
 
 * **请求空行**
@@ -4780,13 +4780,11 @@ HttpServlet --抽象类
           clearInterval(interval);
           $("#img2ID").prop("src",imgs[index]);
       }
-   ```
-
       </script>-->
-
-</body>
-      </html>
+      </body>
+   </html>
    ```
+
 
 ### 5. 插件
 
@@ -4799,15 +4797,58 @@ HttpServlet --抽象类
 
 1. 概念：Asynchronous JavaScript And XML 异步的JavaScript和XML
    
-   * 异步与同步：客户端你和服务器相互通信的基础山
+   * 异步与同步：客户端与服务器相互通信的基础
      
-     ![image-20211025090059387](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211025090059387.png)
+     ![image-20220317162519680](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220317162519680.png)
    
    * Ajax是一种在无需重新加载整个网页的情况下能够更新部分网页的技术。通过在后台与服务器进行少量数据交流，Ajax可以使网页实现异步更新。这意味着可以在不重新加载整个网页的前提下，对网页的某部分进行更新。传统的网页（不使用Ajax）如果需要更新内容，必须重新加载整个网页页面。
 
-2. 实现方式：
+2. 作用
    
+   * 与服务器进行数据交换
+     * 使用Ajax和服务器通信，可以使用HTMl+Ajax替换jsp
+   * 异步交互
+   
+3. 实现方式：
+
    * 原生的Js实现方式
+
+     ~~~ html
+     <!DOCTYPE html>
+     <html lang="en">
+     <head>
+         <meta charset="UTF-8">
+         <title>ajax测试</title>
+     </head>
+     <body>
+         <script>
+             //1.创建核心对象
+             var xmlhttp;
+             if (window.XMLHttpRequest)
+             {
+                 //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                 xmlhttp=new XMLHttpRequest();
+             }
+             else
+             {
+                 // IE6, IE5 浏览器执行代码
+                 xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+             }
+             //2.发送请求
+             xmlhttp.open("GET","http://localhost:8080/SpringIoc_war_exploded/ajaxServletDemo",true);
+             xmlhttp.send();
+             //3.获得响应
+             xmlhttp.onreadystatechange=function()
+             {
+                 if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                 {
+                     alert(xmlhttp.responseText);
+                 }
+             }
+     
+         </script>
+     </body>
+     </html>
    
    * JQuery实现方式
      
@@ -4843,19 +4884,72 @@ HttpServlet --抽象类
            <input>
        </body>
        </html>
-   ```
-
+       ```
+       
      * $.get(url,[data],[callback],[type])：发送get请求
      
      * $.post()
+   
+4. Axios框架
+
+   官网：https://www.axios-http.cn/
+
+   * 快速入门
+
+     ![image-20220317171321550](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220317171321550.png)
 
 # JSON
 
 1. 概念：**JavaScript Object Notation**，JavaScript对象标记法
    * JSON是一种存储和交换数据的语法
-   * JSON是一种轻量级的数据交换格式
+   * JSON是一种轻量级的**数据交换格式**
+   
 2. 语法
+
+   json的语法可以表示以下三种类型的值。
+
+   * 简单值
+   * 对象
+     * 对象的属性必须加双引号
+   * 数组
+
+   > 注意：一定要清晰认识到json是一种数据格式，而非一种编程语法。json的表示和JavaScript对象的表示很相似。但是有如下区别：
+   >
+   > * javaScript对象结尾有分号，json没有，应为json不是语句
+   > * JavaScript对象的属性可以使用分号引起，也可以不使用，但是json必须使用双引号引起
+
 3. JSON与XML
+
+4. 解析与序列化
+
+   * JSON对象：在JavaScript中可以使用全局对象JSON的两个方法，分别为stringify（）和parse来达到将JavaScript对象序列化为JSON字符串和把JSON字符串解析为原生JavaScript值的效果。
+
+5. JSON数据和java对象的转换（fastjson）
+
+   * 请求数据：JSON字符串转为java对象
+   * 响应数据：java对象转为JSON字符串
+
+   > ![image-20220317155620854](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20220317155620854.png)
+   >
+   > ~~~ java
+   > import com.alibaba.fastjson.JSON;
+   > 
+   > public class FastJsonDemo {
+   >     public static void main(String[] args) {
+   >         User user = new User();
+   >         user.setId(1);
+   >         user.setName("chen");
+   >         user.setAge(20);
+   >         user.setAddr("cduestc");
+   > 
+   >         String s = JSON.toJSONString(user);
+   >         System.out.println(s);
+   > 
+   >         User user1 = JSON.parseObject(s,User.class);
+   >         System.out.println(user1);
+   > 
+   >     }
+   > }
 
 # Layui
 
@@ -5272,11 +5366,20 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
 ### 配置数据源（连接池）
 
-1. 数据源的作用
+1. 数据源的作用：事先实例化数据源，初始化部分连接资源
+
+   > 常见的数据源：DBCP，C3P0，BoneCP，Druid
 
 2. 数据源开发步骤
 
-   ```java
+   * 导入数据源和数据库驱动坐标
+   * 创建数据源对象
+   * 设置数据源基本连接数据
+   * 使用数据源获取连接资源和归还连接资源
+
+3. 手动配置数据源
+
+   ~~~java
    package com.chen.test;
    
    import com.alibaba.druid.pool.DruidDataSource;
@@ -5346,9 +5449,9 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
    jdbc.url=jdbc:mysql://localhost:3306/user_login?serverTimezone=UTC
    jdbc.username=root
    jdbc.password=4112
-   ```
+   ~~~
 
-3. Spring配置数据源
+4. Spring配置数据源
 
    ```java
    package com.chen.testdatasource;
@@ -5411,9 +5514,9 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
    </beans>
    ```
 
-4. 抽取jdbc配置文件
+5. 抽取jdbc配置文件
 
-   ![image-20211101222528713](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211101222528713.png)
+   ![image-20220317195738972](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220317195738972.png)
 
    ```xml
    <?xml version="1.0" encoding="UTF-8"?>
@@ -5483,34 +5586,127 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
 1. Spring原始注解（主要代替<bean>标签的配置）
    
-   ![image-20211101223818082](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211101223818082.png)
+   Spring是轻代码中配置的框架，配置比较繁重，影响开发效率，所以注解开发是一种趋势。
 
-2. Spring新注解
+   ![image-20220317200213868](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220317200213868.png)
    
+   > 注意：
+   >
+   > * 使用注解时需要进行组件扫描配置
+   >
+   >   ![image-20220317225758957](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220317225758957.png)
+   >
+   > * Qualifier
+   >
+   >   ~~~java
+   >       @Autowired//按照类型从Spring容器中进行匹配
+   >       @Qualifier("userDao")//按照id值从容器中进行匹配，但是需要结合@Autowired使用
+   >       private UserDao userDao;
+   
+2. Spring新注解
+
    * 使用场景：
      
      * 非自定义的Bean（即当使用第三方包时无法使用原始注解）
      * 加载properties配置文件时
      * 组件扫描配置
      * 引入其他文件
-   
+
    * 新注解
      
-     ![image-20211102101235898](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211102101235898.png)
+     ![image-20220318093850296](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318093850296.png)
+
+   ~~~ java
+   //核心配置类
+   import com.alibaba.druid.pool.DruidDataSource;
+   import org.springframework.beans.factory.annotation.Value;
+   import org.springframework.context.annotation.Bean;
+   import org.springframework.context.annotation.ComponentScan;
+   import org.springframework.context.annotation.Configuration;
+   import org.springframework.context.annotation.PropertySource;
+   
+   import javax.sql.DataSource;
+   
+   @Configuration//表明为Spring核心配置类
+   @ComponentScan("com.chen")//包扫描
+   @PropertySource("classpath:jdbc.properties")//加载jdbc配置文件
+   public class SpringConfiguration {
+   
+       @Value("${jdbc.driver}")
+       private String driverClassName;
+   
+       @Value("${jdbc.url}")
+       private String url;
+   
+       @Value("${jdbc.username}")
+       private String userName;
+   
+       @Value("${jdbc.password}")
+       private String password;
+   
+       @Bean("dataSource")//将返回值添加到Spring容器中
+       public DataSource getDataSource(){
+           DruidDataSource dataSource = new DruidDataSource();
+           dataSource.setDriverClassName(driverClassName);
+           dataSource.setUrl(url);
+           dataSource.setUsername(userName);
+           dataSource.setPassword(password);
+           return dataSource;
+       }
+   }
+   =====================================================
+       //测试
+       @Test
+       public void testDruidDataSource() throws SQLException {
+   //        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+           AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfiguration.class);
+           DataSource dataSource = (DataSource) context.getBean("dataSource");
+           Connection connection = dataSource.getConnection();
+           System.out.println(connection);
+           connection.close();
+       }
 
 ## 七、Spring集成Junit
 
 1. 原始Junit测试Spring时存在的问题
    
-   ![image-20211102161544339](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211102161544339.png)
+   ![image-20220318100349528](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318100349528.png)
 
 2. Spring集成Junit步骤
    
-   > 1. 导入Spring集成Junit的坐标
+   > 1. 导入Spring集成Junit的坐标（spring-test）
    > 2. 使用@Runwith注解替换原来的运行期
    > 3. 使用@ContextConfiguration指定配置文件或配置类
    > 4. 使用@Autowired注入需要测试的对象
    > 5. 创建测试方法测试
+   
+   ~~~java
+   package com.chen.test;
+   
+   import org.junit.Test;
+   import org.junit.runner.RunWith;
+   import org.springframework.beans.factory.annotation.Autowired;
+   import org.springframework.test.context.ContextConfiguration;
+   import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+   
+   import javax.sql.DataSource;
+   import java.sql.Connection;
+   import java.sql.SQLException;
+   
+   @RunWith(SpringJUnit4ClassRunner.class)
+   @ContextConfiguration("classpath:applicationContext.xml")
+   public class SpringJunitTestDemo {
+   
+       @Autowired
+       private DataSource dataSource;
+   
+       @Test
+       public void test() throws SQLException {
+           Connection connection = dataSource.getConnection();
+           System.out.println(connection);
+           connection.close();
+       }
+   }
 
 ## 八、Spring与Web集成
 
@@ -5518,9 +5714,11 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
 2. 将ApplicationContext存储到ServletContext域中
 
+   ![image-20220331204221605](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220331204221605.png)
+
 3. Spring提供获取应用上下文的工具
-   
-   ![image-20211103091704868](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211103091704868.png)
+
+   ![image-20220318103032314](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318103032314.png)
 
 ## 九、Spring JDBC Template
 
@@ -5541,7 +5739,7 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
 SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻量级Web框架，属于SpringFrameWork的后续产品，已经融合在Spring Web Flow中。SpringMVC已经成为目前最主流的MVC框架之一，并且随着Spring3.0 的发布,全面超越Struts2,成为最优秀的MVC框架。它通过一套注解， 让-个简单的Java类成为处理请求的控制器，而无须实现任何接口。同时它还支持RESTful编程风格的请求。
 
-![image-20211103093931422](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211103093931422.png)
+![image-20220318144526046](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318144526046.png)
 
 1. SpringMVC开发步骤
    
@@ -5552,11 +5750,11 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    > 5. 配置SpringMVC核心文件spring-mvc.xml
    > 6. 客户端发起请求测试
    
-   ![image-20211103094322128](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211103094322128.png)
+   ![image-20220318144920983](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318144920983.png)
 
 2. SpringMvc组件解析
    
-   ![image-20211105163053351](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211105163053351.png)
+   ![](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318152049532.png)
    
    设计相关组件解析：
    
@@ -5583,9 +5781,13 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 3. SpringMVC注解解析
    
-   ![image-20211105163734529](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211105163734529.png)
+   ![image-20220318152957666](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318152957666.png)
 
 4. SpringMVC配置文件解析
+
+   ![image-20220331215507482](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220331215507482.png)
+
+5. 接口了
 
 ## 2. SpringMVC的数据响应
 
@@ -5593,9 +5795,12 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    
    * 页面跳转
      
-     * 直接返回字符串
+     * 直接返回字符串：该方式会将返回的字符串与视图解析器的前后缀拼接后跳转
+     
+       ![image-20220331220520124](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220331220520124.png)
+     
      * 返回ModelAndView对象
-   
+     
    * 回写数据
      
      * 直接返回字符串（使用@ResponseBody标注）
@@ -5678,22 +5883,6 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 > 7. 文件上传
 
 ## 4. SpringMVC拦截器
-
-# Spring 练习
-
-1. 环境搭建
-   
-   ![image-20211113164944497](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211113164944497.png)
-
-2. 角色列表的展示和添加
-   
-   ![image-20211113201353974](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211113201353974.png)
-   
-   ![image-20211113210453799](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211113210453799.png)
-
-3. 用户列表的展示和添加操作
-
-4. 搭建
 
 # Mybatis
 
@@ -6288,11 +6477,43 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 ## 原理
 
+# Thymeleaf
 
+1. 简介
 
+2. 使用流程（在springboot项目中）
 
+   * 引入依赖
 
-# Idea
+     > ```xml
+     > <dependency>
+     >    <groupId>org.springframework.boot</groupId>
+     >    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+     > </dependency>
+     > ```
+
+   * 配置相关项
+
+     > ```yaml
+     > # thymeleaf
+     > spring:
+     >   thymeleaf:
+     >     prefix: classpath:/templates/ # 渲染的模板文件所在根目录
+     >     check-template: true # 是否强制性检查templates目录下是否有待渲染模板文件
+     >     suffix: .html # 设定thymeleaf文件后缀名
+     >     encoding: UTF-8
+     >     servlet:
+     >       content-type: text/html # thymeleaf文件的内容类型
+     >     cache: false # 禁止使用缓存
+     > ```
+
+   * 编写控制器
+
+   * 编写页面
+
+3. 空间
+
+# Id
 
 参考资料：https://www.bilibili.com/video/BV1PW411X75p?from=search&seid=1533766256313085594&spm_id_from=333.337.0.0
 
@@ -6797,3 +7018,4 @@ git管理的文件有三种状态：已修改（modified）,已暂存（staged�
 4. 推送到远程仓库：git push [remote-name] [branch name]
 
 5. 查看某个远程仓库：git remote show [remote-name]
+
