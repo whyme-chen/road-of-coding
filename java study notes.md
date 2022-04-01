@@ -407,6 +407,16 @@ public class Client{
 
 # 常用类
 
+### Objcet类
+
+### Scanner类
+
+### Math类
+
+### String类
+
+### StringBuilder类
+
 ### StringBuffer类
 
 String类是所有项目中都会使用到的一个功能类，这个类拥有如下特性：
@@ -670,8 +680,9 @@ try{
    
 3. 常见数据结构
 
-
 ### 2. List集合
+
+#### ArrayList
 
 ### 3. Set集合
 
@@ -5803,13 +5814,138 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
      
    * 回写数据
      
-     * 直接返回字符串（使用@ResponseBody标注）
+     * 直接返回字符串
      
-     * 返回对象或集合
+       * 方式一：给相应控制器方法传入HttpResponse对象
+       * 方式二：使用@ResponseBody标注
+     
+     * 返回对象或集合（进行相应配置将对象自动转换为json数据格式）
        
-       > 使用mvc的注解驱动来代替格式转换器的配置
-       > 
-       > <mvc:annotion-driven/>
+       > * > 方式一：
+       >   >
+       >   > ```xml
+       >   > <!--配置处理器映射器-->
+       >   > <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+       >   >     <property name="messageConverters">
+       >   >         <list>
+       >   >             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>
+       >   >         </list>
+       >   >     </property>
+       >   > </bean>
+       >   > ```
+       >
+       > * 方式二：使用mvc的注解驱动来代替格式转换器的配置<mvc:annotion-driven/>
+   
+2. 代码示例及配置
+
+   ```java
+   package com.chen.controller;
+   
+   import com.chen.pojo.User;
+   import com.fasterxml.jackson.core.JsonProcessingException;
+   import com.fasterxml.jackson.databind.ObjectMapper;
+   import org.springframework.stereotype.Controller;
+   import org.springframework.web.bind.annotation.RequestMapping;
+   import org.springframework.web.bind.annotation.ResponseBody;
+   import org.springframework.web.servlet.ModelAndView;
+   
+   import javax.servlet.http.HttpServletRequest;
+   
+   @Controller
+   @RequestMapping("/test")
+   public class TestController {
+   
+       @RequestMapping("/save")
+       public String save(){
+           System.out.println("controller save1 running");
+           return "success";//默认为转发
+       }
+   
+       @RequestMapping("save2")
+       public ModelAndView save2(){
+           System.out.println("controller save2 running");
+           //model 模型 作用是返回封装数据
+           //view 视图 作用是封装数据
+           ModelAndView modelAndView = new ModelAndView();
+           modelAndView.addObject("userName","chen");
+           modelAndView.setViewName("success");
+           return modelAndView;
+       }
+   
+       @RequestMapping("/save3")
+       public ModelAndView save3(ModelAndView modelAndView){
+           System.out.println("controller save3 running");
+           modelAndView.addObject("password","123456");
+           modelAndView.setViewName("success");
+           return modelAndView;
+       }
+   
+       @RequestMapping("/save4")
+       public String save4(HttpServletRequest request){
+           System.out.println("controller save4 running");
+           return "success";
+       }
+   
+       @RequestMapping("/save5")
+       @ResponseBody//不进行视图跳转，直接进行数据回写
+       public String save5(){
+           System.out.println("controller save5 running");
+           return "success";//通常返回json数据
+       }
+   
+       @RequestMapping("/save6")
+       @ResponseBody//不进行视图跳转，直接进行数据回写
+       public String save6() throws JsonProcessingException {
+           User user = new User("chen", (short) 20, "男");
+   
+           /*使用json转换工具将对象转换为json格式的字符串*/
+           ObjectMapper objectMapper=new ObjectMapper();
+           String s = objectMapper.writeValueAsString(user);
+           return s;//通常返回json数据
+       }
+   
+       @RequestMapping("/save7")
+       @ResponseBody//不进行视图跳转，直接进行数据回写
+       public User save7() {
+           User user = new User("chen", (short) 20, "男");
+           /*进行配置使SpringMVC自动将对象转换为json格式的字符串*/
+           return user;//通常返回json数据
+       }
+   }
+   ```
+
+   ```xml
+   <?xml version="1.0" encoding="UTF-8"?>
+   <beans xmlns="http://www.springframework.org/schema/beans"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns:context="http://www.springframework.org/schema/context"
+          xmlns:mvc="http://www.springframework.org/schema/mvc"
+          xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                               http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+   
+       <!--组件扫描-->
+       <context:component-scan base-package="com.chen.controller">
+       </context:component-scan>
+   
+       <!--配置内部资源视图解析器-->
+       <bean id="viewResovler" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+           <property name="prefix" value="/WEB-INF/jsp/"/>
+           <property name="suffix" value=".jsp"/>
+       </bean>
+   
+       <!--配置处理器映射器-->
+   <!--    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">-->
+   <!--        <property name="messageConverters">-->
+   <!--            <list>-->
+   <!--                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>-->
+   <!--            </list>-->
+   <!--        </property>-->
+   <!--    </bean>-->
+   
+       <!--替换处理器映射器的配置-->
+       <mvc:annotation-driven/>
+   </beans>
+   ```
 
 ## 3. SpringMVC获得请求数据
 
