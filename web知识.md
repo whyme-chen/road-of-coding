@@ -1436,9 +1436,145 @@ data与el的2种写法：
 > 1.计算属性最终会出现在vm上，直接读取使用即可。
 > 2.如果计算属性要被修改，那必须写set函数去响应修改，且set中要引起计算时依赖的数据发4
 
+~~~html
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div id="app">
+			姓：<input type="text" id="" v-model="firstName" /><br>
+			名：<input type="text" id="" v-model="lastName" /><br>
+			<!-- 插值语法 -->
+			全名：<span>{{firstName}}·{{lastName}}</span><br>
+			<!-- 计算属性 -->
+			全名：<span>{{fullName}}</span>
+		</div>
+		
+		<script type="text/javascript">
+		
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					firstName:'tom',
+					lastName:'smisth'
+				},
+				computed:{
+					fullName:{
+						// get的作用是读取fullName时调用，返回值作为fullName的值
+						get(){
+							return this.firstName+'-'+this.lastName;
+						},
+						//当fullName被修改时调用
+						set(value){
+							var str=value.split("-");
+							this.firstName=str[0];
+							this.lastName=str[1];
+						}
+					}
+                    /* 简写，只有当只读取是才可以使用简写方式 */
+					fullName(){
+						return this.firstName+'-'+this.lastName;
+					}
+				}
+				// methods:{
+				// 	fullName(){
+				// 		return this.firstName+'-'+this.lastName;
+				// 	}
+				// }
+			});
+		</script>
+	</body>
+</html>
+
+~~~
+
 #### 监视属性
 
+监视属性watch
 
+* 当被监视属性变化是，回调函数自动调用，进行相关操作
+* 监视的属性必须存在，才能进行监视
+* 监视的两种写法
+  * 在创建Vue对象时传入watch配置
+  * 通过调用vm对象的$watch属性进行配置
+* 要监视多级结构的属性是，可开启深度监视
+
+~~~html
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div id="app">
+			<h2>今天天气{{info}}</h2>
+			<button @click="changeWeather">切换天气</button>
+			<h2>{{numbers.a}}</h2>
+			<button @click="numbers.a++">点我使a加1</button>
+			<h2>{{numbers.b}}</h2>
+			<button @click="numbers.b++">点我使a加1</button>
+		</div>
+		
+		<script type="text/javascript">
+		
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					isHot:true,
+					numbers:{
+						a:35,
+						b:24
+					}
+				},
+				methods:{
+					changeWeather(){
+						this.isHot=!this.isHot;
+					}
+				},
+				computed:{
+					info(){
+						return this.isHot?'炎热':'凉爽';
+					}
+				},
+				// 方式一
+				watch:{
+					isHot:{
+						// immediate:true,//初始化时让handler调用一次
+						handler(newValue,oldValue){
+							console.log(newValue+','+oldValue)
+							console.log("isHot被修改了");
+						}
+					},
+					numbers:{
+						deep:true,//开启深度监视，监视多级结构中数据的变化
+						handler(){
+							console.log("numbers 的值发生了改变")
+						}
+					}
+				}
+			});
+			
+			vm.$watch('isHot',{
+				immidiate:true,
+				handler(){
+					console.log('isHot的值改变了')
+				}
+			})
+		</script>
+	</body>
+</html>
+
+~~~
+
+知识点补充：vue数据监视原理
 
 #### Class与Style绑定
 
@@ -1504,7 +1640,6 @@ data与el的2种写法：
    >
    > 注意：注意，v-show 不支持 template 元素，也不支持 v-else。nvue 页面不支持 v-show。
 
-4. jk 
 
 ~~~ html
 <!DOCTYPE html>
@@ -1553,12 +1688,220 @@ data与el的2种写法：
 				}
 			})
 		</script>
-	</body>
 </html>
 
 ~~~
 
 #### 列表渲染
+
+1. v-for指令以及key属性
+
+   > react、Vue中可以key的作用（key的内部原理）
+   >
+   > 1. 虚拟DOM中key的作用：key是虚拟DOM对象的标识，当数据发生变化时，Vue会根据【新数据】生成【新的虚拟DOM】，随后Vue进行【新虚拟DOM】与【旧虚拟DOM】的差异比较，
+   >
+   >    比较规则如下：
+   >
+   >    * 旧虚拟DOM中找到了与新虚拟相同的key
+   >      * 若虚拟DOM中内容没有改变，直接使用之前的真实DOM
+   >      * 若虚拟DOM中内容改变了，则生成新的真实DOM，随后替换掉页面中之前的真实DOM
+   >    * 旧虚拟DOM中未找到与新虚拟DOM相同的key：创建新的真实DOM，随后渲染到页面
+   >
+   > 2. 用index作为key可能会引发的问题：
+   >
+   >    * 若对数据进行逆序添加、逆序删除等破坏顺序操作会产生没有必要的真实DOM更新（界面效果没问题，但效率低）
+   >    * 如果结构中还包含输入类的DOM，会产生错误DOM更新（界面出现问题）
+   >
+   > 3. 开发中如何选择key
+   >
+   >    * 最好使用与每条数据的唯一标识作为key
+   >    * 如果不存在对数据的逆序添加、逆序删除等破坏顺序操作，仅用于渲染列表用于展示，使用index作为key是没有问题的
+
+2. 列表过滤
+
+   ~~~html
+   <!DOCTYPE html>
+   <html>
+   	<head>
+   		<meta charset="utf-8" />
+   		<meta name="viewport" content="width=device-width, initial-scale=1">
+   		<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+   		<title></title>
+   	</head>
+   	<body>
+   		<div id="app">
+   			<!-- <input type="text" placeholder="请输入姓名" v-model="keyword"/>
+   			<ul v-for="(person,index) in filPersons" :key="person.id">
+   				<li>{{person.name}}-{{person.age}}-{{person.sex}}</li>
+   			</ul> -->
+   			
+   			<input type="text" placeholder="请输入姓名" v-model="keyword"/>
+   			<ul v-for="(person,index) in filPersons" :key="person.id">
+   				<li>{{person.name}}-{{person.age}}-{{person.sex}}</li>
+   			</ul>
+   		</div>
+   		
+   		<script type="text/javascript">
+   			var vm=new Vue({
+   				el:"#app",
+   				data:{
+   					keyword:'',
+   					persons:[
+   						{id:'001',name:'马冬梅',age:20,sex:'女'},
+   						{id:'002',name:'周冬雨',age:20,sex:'女'},
+   						{id:'003',name:'周杰伦',age:30,sex:'男'},
+   						{id:'004',name:'温兆伦',age:20,sex:'男'}
+   					],
+   					// filPersons:[]
+   				},
+   				computed:{
+   					filPersons(){
+   						return this.filPersons=this.persons.filter((p)=>{
+   							return p.name.indexOf(this.keyword) !== -1
+   						})
+   					}
+   				}
+   				//watch实现方式
+   				// watch:{
+   				// 	keyword:{
+   				// 		immediate:true,
+   				// 		handler(val){
+   				// 			this.filPersons=this.persons.filter((p)=>{
+   				// 				return p.name.indexOf(val) !== -1
+   				// 			})
+   				// 		}
+   				// 	}
+   				// }
+   			})
+   		</script>
+   	</body>
+   </html>
+   
+
+3. 列表排序
+
+   ~~~html
+   <!DOCTYPE html>
+   <html>
+   	<head>
+   		<meta charset="utf-8" />
+   		<meta name="viewport" content="width=device-width, initial-scale=1">
+   		<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+   		<title></title>
+   	</head>
+   	<body>
+   		<div id="app">
+   			<input type="text" placeholder="请输入姓名" v-model="keyword"/>
+   			<button type="button" @click="sortType=2">年龄升序</button>
+   			<button type="button" @click="sortType=1">年龄降序</button>
+   			<button type="button" @click="sortType=0">原顺序</button>
+   			<ul v-for="(person,index) in filPersons" :key="person.id">
+   				<li>{{person.name}}-{{person.age}}-{{person.sex}}</li>
+   			</ul>
+   		</div>
+   		
+   		<script type="text/javascript">
+   			var vm=new Vue({
+   				el:"#app",
+   				data:{
+   					keyword:'',
+   					persons:[
+   						{id:'001',name:'马冬梅',age:20,sex:'女'},
+   						{id:'002',name:'周冬雨',age:20,sex:'女'},
+   						{id:'003',name:'周杰伦',age:30,sex:'男'},
+   						{id:'004',name:'温兆伦',age:20,sex:'男'}
+   					],
+   					sortType:2
+   					// filPersons:[]
+   				},
+   				computed:{
+   					filPersons(){
+   						var arr=this.persons.filter((p)=>{
+   							return p.name.indexOf(this.keyword) !== -1
+   						});
+   						if(this.sortType){
+   							arr.sort((p1,p2)=>{
+   								return this.sortType === 1?p2.age-p1.age:p1.age-p2.age;
+   							})
+   						}
+   						return arr;
+   					}
+   				}
+   			})
+   		</script>
+   	</body>
+   </html>
+   
+   ~~~
+
+#### 表单数据收集
+
+> 1. 若input的type为text，则v-model默认收集的就是value的值
+> 2. 若input的type为radio，则v-model手机端shivalue的值，且要给标签配置value值
+> 3. 若input的type为checkbox
+>    * 没有配置value属性，手机的是checked（布尔值）
+>    * 配置了value属性，若v-model的初始值不是数组，收集的就是checked，否则手机的是value组成的数组
+> 4. v-model的三个修饰符
+>    * trim：过滤掉字符串首尾的空格
+>    * lazy：失去焦点再收集数据
+>    * number：输入字符串转为有效数字
+
+~~~html
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<form action="" method="post">
+				账号：<input type="text" v-model.trim="account"/><br>
+				密码：<input tabindex="password" v-model="password"/><br>
+				年龄：<input type="number" v-model.number="age"/>
+				性别：
+				<input type="radio" name="sex" v-model='sex' value="1"/>男
+				<input type="radio" name="sex" v-model='sex' value="0"/>女<br>
+				爱好：
+				<input type="checkbox" name="hobby" id="" v-model='hobby' value="学习" />学习
+				<input type="checkbox" name="hobby" id="" v-model='hobby' value="打游戏" />打游戏
+				<input type="checkbox" name="hobby" id="" v-model='hobby' value="吃饭" />吃饭<br>
+				其他信息：<br>
+				<textarea rows="4" cols="50" v-model.lazy='other'></textarea>
+				<input type="submit" value="提交"/>
+			</form>
+			
+			
+		</div>
+		
+		<script type="text/javascript">
+			var vm=new Vue({
+				el:"#app",
+				data:{
+					account:'',
+					password:'',
+					age:20,
+					sex:'',
+					hobby:[],
+					other:''
+				},
+				methods:{
+					
+				}
+			})
+		</script>
+	</body>
+</html>
+
+~~~
+
+#### 生命周期
+
+生命周期又叫生命周期回调函数、生命周期函数、生命周期钩子，主要由Vue在关键时刻调用的一些特殊名称的函数，生命周期函数的名字不可更改，生命周期函数中this指向的是Vue或组件实例对象。
+
+![生命周期](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png)
 
 ### 组件
 

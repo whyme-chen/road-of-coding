@@ -1,4 +1,4 @@
-基础编程
+# 基础编程
 
 ## java发展史
 
@@ -426,6 +426,10 @@ AutoCloseable主要用于日后惊喜你资源开发的处理上，以实现资�
 Runtime描述的是运行时的状态，也就是说在整个JVM中，Runtime类是唯一一个与JVM运行状态有关的类。
 
 文档参考：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Runtime.html
+
+### Comparable接口和Comparator接口
+
+参考资料：https://www.jb51.net/article/93973.htm
 
 ### System类
 
@@ -6136,34 +6140,39 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
      
      > 1. 基本数据类型参数
      >    * 要求Controller中业务方法的参数名称要与请求参数的name一致，参数值会自动映射匹配
+     >    
+     >      ![image-20220405144902149](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220405144902149.png)
      > 2. POJO类型参数
      >    * 要求Controller中业务方法的POJO参数属性名要与请求参数的name一致，参数值会自动映射匹配
-     > 3. 数据类型参数
+     >    
+     >      ![image-20220405145947871](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220405145947871.png)
+     > 3. 数组类型参数
      >    * 要求Controller中业务方法数组名称n要与请求参数的name一致，参数值会自动映射匹配
      > 4. 集合类型参数
-     >    * 获得集合参数时，要将集合参数包装到一个POJO中
-
+     >    * 场景一：获得集合参数时，要将集合参数包装到一个POJO中
+     >    * 场景二：使用ajax提交时，可以指定contentType为json形式，那么方法参数位置使用@RequestBody可以直接接收集合数据而无需使用pojo进行封装
+   
 2. 请求数据乱码问题 
    
-   ![image-20211111180535174](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211111180535174.png)
+   ![image-20220405152715147](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220405152715147.png)
 
 3. 参数绑定注解@requestParam
    
    > 当请求的参数名称与Controller的业务方法参数名臣不一致时，需要通过@requestParam显式绑定
    
-   ![image-20211112154734833](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211112154734833.png)
+   ![image-20220405153031913](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220405153031913.png)
    
-   ![image-20211112154859909](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211112154859909.png)
+   ![image-20220405153138966](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220405153138966.png)
 
 4. 获得Restful风格的参数
    
-   ![image-20211112155336736](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211112155336736.png)
+   ![image-20220405153525637](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220405153525637.png)
    
-   ![image-20211112155600108](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211112155600108.png)
+   ![image-20220405153710199](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220405153710199.png)
 
 5. 自定义类型转换器
    
-   ![image-20211112160032925](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211112160032925.png)
+   ![image-20220405154129353](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220405154129353.png)
 
 6. 获得Servlet相关API
 
