@@ -1905,9 +1905,105 @@ data与el的2种写法：
 
 ### 组件
 
-
+1. 组件
+2. VueComponent
+3. 单文件组件
+4. 组件化编码流程（通用）
+   * 实现静态组件：抽取组件，使用组件实现静态页面效果
+   * 展示动态数据
+     * 数据的类型，名称
+     * 数据保存在哪个组件
+   * 交互： 从绑定事件监听开始
 
 ## Vue-cli
+
+1. vue脚手架是vue官方提供标准化开发工具
+
+2. 使用步骤
+
+   * 全局安装
+
+     > npm install -g @vue/cli
+
+   * 切换到要创建项目的目录，执行创建命令
+
+     > vue create xxx
+
+   * 启动项目
+
+     > npm run serve
+
+   备注：
+
+   * 若出现下载缓慢请配置npm淘宝镜像：npm config set registry https//registry.npm.taobao.org
+   * Vue脚手架隐藏了所有webpack相关的配置，若要查看具体配置，可以执行：vue inspect > output.js
+
+3. 结构分析
+
+4. render函数
+
+   > 关于不用版本的Vue
+   >
+   > 1. vue.js和vue.runtijme.xx.js的区别
+   >    * vue.js是完整版的Vue，包含核心功能和模板解析器
+   >    * vue.runtime.xx.js是运行版Vue，只包含核心功能
+   > 2. 因为vue.runtime.xxx.js没有模板解析器，所以不能使用template配置项，需要使用render函数接收到的createElement函数去指定具体内容
+
+5. 修改默认配置
+
+   > 配置默认隐藏，可以使用vue inspect > output.js查看配置
+
+6. ref属性
+
+   * 被用来给元素或组件注册引用信息（id的替代者）
+   * 应用在html标签上获取的是真实的DOM元素，应用在组件标签上获取的是组件实例对象
+   * 使用方式
+     * 在标签上添加ref属性
+     * 获取：this.$refs.xxx
+
+7. props属性
+
+   * 功能：让组件接受外部传过来的数据
+
+   * 接收方式
+
+     * ~~~java
+       props:['xxx']
+
+     * ~~~javascript
+       props:{
+           xxx:String
+       }
+       ~~~
+
+     * ~~~javascript
+       props:{
+           xxx:{
+               type:String,
+               required:true
+           },
+           xxx:{
+               type:Number,
+               default:100
+           }
+       }
+       ~~~
+
+   * 注意：peops是只读的，Vue底层会检测对props的修改，若进行修改，则会发出警告
+
+8. mixins（混入）
+
+   * 功能： 把多个组件共有的配置提取成一个混入对象
+   * 使用方式： 
+     * 第一步：定义混合
+     * 使用：可以全局混入（Vue.mixin(xxx)）也可以局部混入（mixins:[]）
+
+9. 插件
+
+   * 功能：用于增强Vue
+   * 本质：包含install方法的一个对象，install的第一个参数是Vue，第二开始为插件使用者传递的参数
+
+10. scoped样式
 
 ## Vue-router
 
