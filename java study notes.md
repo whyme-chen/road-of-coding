@@ -859,9 +859,12 @@ public class LinkedListDemo {
 
 ### 3. Set集合
 
-元素无序、不重复、无索引
+* 元素无序、不重复、无索引
+* Set的实现类是基于Map来实现的
 
 #### HashSet
+
+1. 底层实现
 
 #### LinkedHashSet
 
@@ -871,7 +874,21 @@ public class LinkedListDemo {
 
 > 注意：TreeSet按照大小默认升序排序、是不重复、无索引的
 
-### 4. Map集合
+### 4. Map
+
+参考链接：https://www.cnblogs.com/haimishasha/p/10790508.html#autoid-4-2-0
+
+#### HashMap
+
+#### LinkedHashMap
+
+#### TreeMap
+
+#### SortedMap
+
+#### HashTable
+
+#### WeakedHashMap
 
 # I/O操作
 
@@ -4112,7 +4129,7 @@ HttpServlet --抽象类
    * 视图：展示数据
    * 控制器：获取用户输入，调用模型，将数据交给视图进行展示
    
-   ![image-20211001163413472](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211001163413472.png)
+   ![image-20220418082619232](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220418082619232.png)
 
 # 三层架构：软件设计架构
 
@@ -5931,6 +5948,8 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
 # SPring MVC
 
+参考文档：https://pdai.tech/files/kaitao-springMVC.pdf
+
 ## 1.  概述
 
 SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻量级Web框架，属于SpringFrameWork的后续产品，已经融合在Spring Web Flow中。SpringMVC已经成为目前最主流的MVC框架之一，并且随着Spring3.0 的发布,全面超越Struts2,成为最优秀的MVC框架。它通过一套注解， 让-个简单的Java类成为处理请求的控制器，而无须实现任何接口。同时它还支持RESTful编程风格的请求。
@@ -5940,7 +5959,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 1. SpringMVC开发步骤
    
    > 1. 导入SpringMVC相关坐标
-   > 2. 配置SpringMVC核心控制器DispathcerServlet
+   > 2. 配置SpringMVC核心控制器DispathcerServlet（web.xml中）
    > 3. 创建Controller类和视 图页面
    > 4. 使用注解配置Controller类中业务方法的映射地址
    > 5. 配置SpringMVC核心文件spring-mvc.xml
@@ -5952,7 +5971,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    
    ![](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318152049532.png)
    
-   设计相关组件解析：
+   相关组件解析：
    
    > 1、前端控制器DispatcherServlet（不需要程序员开发）由框架提供，在web.xml中配置。
    > 作用：接收请求，响应结果，相当于转发器，中央处理器。
@@ -6158,7 +6177,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 3. 参数绑定注解@requestParam
    
-   > 当请求的参数名称与Controller的业务方法参数名臣不一致时，需要通过@requestParam显式绑定
+   > 当请求的参数名称与Controller的业务方法参数名称不一致时，需要通过@requestParam显式绑定
    
    ![image-20220405153031913](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220405153031913.png)
    
@@ -6176,27 +6195,37 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 6. 获得Servlet相关API
 
+   ![image-20220418102302878](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220418102302878.png)
+
 7. 获得请求头
-   
-   ![image-20211112160951343](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211112160951343.png)
-   
-   ![image-20211112161242784](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211112161242784.png)
+
+   ![image-20220418102429751](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220418102429751.png)
+
+   ![image-20220418102854916](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220418102854916.png)
 
 8. 文件上传
-   
+
    > 文件上传客户端三要素
-   > 
+   >
    > * 表单项type="file"
    > * 表单提交方式是post
    > * 表单的enetype属性是部分表单形式，及enctype="multipart/form-data"
-   > 
+   >
    > 文件上传原理
-   > 
+   >
    > 单文件上传步骤
-   > 
+   >
    > * 导入fileupload和io坐标
+   >
+   >   ![image-20220418104321191](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220418104321191.png)
+   >
    > * 配置文件上传解析器
+   >
+   >   ![image-20220418104358325](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220418104358325.png)
+   >
    > * 编写文件上传代码
+   >
+   >   ![image-20220418104531418](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220418104531418.png)
 
 知识点总结：
 
@@ -6216,17 +6245,17 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 1. 原始jdbc操作分析
    
-   ![image-20211115103133859](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211115103133859.png)
+   ![image-20220420142447641](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420142447641.png)
 
 2. mybatis概述
    
-   ![image-20211115103446026](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211115103446026.png)
+   ![image-20220420142638250](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420142638250.png)
 
 ## 快速入门
 
 1. 开发步骤
    
-   ![image-20211115104429235](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211115104429235.png)
+   ![image-20220420143426954](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420143426954.png)
    
    ```xml
    <!--UserMapper.xml-->
@@ -6298,18 +6327,16 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    }
    ```
 
-2. Mybatis映射文件概述
-   
-   ![image-20211115154132716](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211115154132716.png)
+2. Mybatis映射文件
 
-3. Mybatis映射文件深入
+   ![image-20220420144902922](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420144902922.png)
 
-4. Mybatis核心配置文件概述
-   
+3. Mybatis核心配置文件概述
+
    ![image-20211120114452462](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimgimage-20211120114452462.png)
-   
+
    > * environments标签
-   >   
+   >
    >   * 事务管理器（transactionManager）
    >     * JDBC：直接使用JDBC的提交和回滚设置，依赖于从数据源得到的连接来管理事务作用域
    >     * MANAGED：几乎没作用，从来不提交或回滚一个连接，而是让容器来管理事务的整个生命周期（比如JEE应用服务器的上下文）。默认情况下它会关闭连接，然而一些容器不希望如此，因此需要将closeConnection属性设置为false来阻止它默认的关闭行为。
@@ -6317,24 +6344,32 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    >     * UNPOOLED：这种数据源的实现知识每次被请求时打开和关闭连接
    >     * POOLED：这种数据源的实现利用“池”的概念将JDBC连接对象组织起来
    >     * JNDI：这种数据源的实现是为了能在如EJB或应用服务器这类容器中使用，容器客户集中或在外部配置数据源，然后放置一个JNDI上下文引用。
-   >   
+   >
    >   ![image-20211120114926933](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimgimage-20211120114926933.png)
-   > 
+   >
    > * mapper标签：该标签的作用是加载映射，加载方式有如下几种
-   >   
+   >
    >   * 使用相对于类路径的资源引用， 例如: <mapper resource=" org/mybatis/builder/AuthorMapper.xml"/>
    >   * 使用完全限定资源定位符(URL) ，例如: <mapper url=”file://var/mappers/AuthorMapper.xml"/>
    >   * 使用映射器接口实现类的完全限定类名，例如: <mapper class= "org.mybatis.builder.AuthorMapper"/>
    >   * 将包内的映射器接口实现全部注册为映射器, 例如: <package name=" org.mybatis.builder"/>
-   > 
+   >
    > * properties标签
-   >   
+   >
    >   ![image-20211120115019690](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211120115019690.png)
-   > 
+   >
    > * typeAliases标签：自定义别名
-   >   
+   >
    >   ![image-20211120115105853](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211120115105853.png)
-   
+   >   
+   > * typerHandlers标签
+   >
+   >   ![image-20220420162953584](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420162953584.png)
+   >
+   >   ![image-20220420163107986](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420163107986.png)
+   >
+   > * plugins标签
+
    ```xml
    <?xml version="1.0" encoding="UTF-8" ?>
    <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
@@ -6360,11 +6395,25 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    </configuration>
    ```
 
-## Mybatis的增删改操作
+4. 相关API
+
+   * SqlSessionFactoryBuilder
+
+     ![image-20220420152903129](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420152903129.png)
+
+   * SqlSessionFactory
+
+     ![image-20220420153035158](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420153035158.png)
+
+   * SqlSession
+
+     ![image-20220420153241622](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420153241622.png)
+
+## Mybatis的基本增删改查操作
 
 1. 插入操作
    
-   > ![image-20211115160809373](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211115160809373.png)
+   > ![image-20220420150803384](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420150803384.png)
    
    ```xml
    <?xml version="1.0" encoding="UTF-8" ?>
@@ -6430,7 +6479,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    ```
 
 2. 修改操作
-   
+
    ```xml
    <?xml version="1.0" encoding="UTF-8" ?>
    <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -6450,7 +6499,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
        <!--删除操作-->
    </mapper>
    ```
-   
+
    ```java
    package org.example.test;
    
@@ -6506,7 +6555,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    ```
 
 3. 删除操作
-   
+
    ```xml
    <?xml version="1.0" encoding="UTF-8" ?>
    <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -6529,7 +6578,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
        </delete>
    </mapper>
    ```
-   
+
    ```java
    package org.example.test;
    
@@ -6597,11 +6646,79 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    
    ![image-20211120112940959](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211120112940959.png)
 
+![image-20220420155719754](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420155719754.png)
+
+## 动态sql
+
+1. if
+
+   ![image-20220420162833609](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420162833609.png)
+
+2. foreach
+
+3. sql片段抽取
+
+## 多表操作
+
+1. 一对一模型
+
+   ![image-20220420164024347](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420164024347.png)
+
+   方式一：在映射的xml中使用resultMap进行封装
+
+   ![image-20220420164917540](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420164917540.png)
+
+   方式二：使用association进行配置
+
+2. 一对多模型
+
+   ![image-20220420165829725](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420165829725.png)
+
+3. 多对多模型
+
+## 注解开发
+
+1. 常用注解
+
+   ![image-20220420170043582](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420170043582.png)
+
+   > 注意：使用注解时，则没有mapper映射文件,但此时应该在核心配置文件中配置加载映射关系。配置如下：
+   >
+   > ```xml
+   > <!--加载映射关系-->
+   > <mappers>
+   >     <!--指定接口所在包-->
+   >     <package name="com.chen.dao"/>
+   > </mappers>
+   > ```
+
+# SSM整合
+
 # MybatisPlus
 
 官网地址：https://baomidou.com/pages/226c21/#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%B7%A5%E7%A8%8B
 
+## 简介
 
+1. 简介
+
+2. 特性
+
+3. 架构
+
+   ![image-20220420172055210](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420172055210.png)
+
+
+## 快速开始
+
+（以在springboot项目）
+
+## 通用CRUD操作
+
+1. TableId
+2. TableField：常用于解决属性名与字段名不一致问题，属性字段不在表中问题
+
+## 代码生成器
 
 # Spring boot
 
@@ -6835,7 +6952,34 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
    * 编写控制器
 
+     ~~~java
+     @Controller
+     @RequestMapping("/test")
+     public class IndexController {
+     
+         @GetMapping("/index")
+         public String index(Model model){
+             model.addAttribute("str","hello thymeleaf!");
+             return "index";
+         }
+     }
+     ~~~
+
    * 编写页面
+
+     ~~~html
+     <!DOCTYPE html>
+     <html lang="en" xmlns:th="http://www.thymeleaf.org">
+     <head>
+         <meta charset="UTF-8">
+         <title>Title</title>
+     </head>
+     <body>
+         <!---->
+         <h1 >hello world!</h1>
+         <h1 th:text="${str}"></h1>
+     </body>
+     </html>
 
 3. 常用语法标签
 
