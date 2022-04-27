@@ -6239,6 +6239,113 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 ## 4. SpringMVC拦截器
 
+### 拦截器概念
+
+1. 拦截器（Interceptor）：一种动态拦截方法调用的机制，在SpringMVC中动态拦截控制器方法的执行
+2. 作用：
+   * 在指定的方法调用前后执行预先设定的代码
+   * 组织原始方法的执行
+3. 拦截器和过滤器的区别
+   * 归属不同：Filter属于Servlet技术，Interceptor属于SpringMVC技术
+   * 拦截内容不同：Filter对所有访问进行增强，Interceptor仅针对SpringMVC的访问进行增强
+
+![image-20220427191029801](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220427191029801.png)
+
+### 快速上手
+
+> 自定义拦截器步骤：
+>
+> 1. 创建拦截器
+> 2. 配置拦截器
+
+1. 创建拦截器（实现HandlerInterceptor）
+
+   ~~~java
+   package com.chen.controller.interceptor;
+   
+   import org.springframework.stereotype.Component;
+   import org.springframework.web.servlet.HandlerInterceptor;
+   import org.springframework.web.servlet.ModelAndView;
+   
+   import javax.servlet.http.HttpServletRequest;
+   import javax.servlet.http.HttpServletResponse;
+   
+   /**
+    * @author whyme-chen
+    * @date 2022/4/27 19:27
+    */
+   @Component
+   public class InterceptorDemo implements HandlerInterceptor {
+       @Override
+       public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+           System.out.println("preHandle........");
+           return true;
+       }
+   
+       @Override
+       public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+           System.out.println("postHandle........");
+       }
+   
+       @Override
+       public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+           System.out.println("afterHandle........");
+   
+       }
+   }
+   
+
+2. 配置拦截器
+
+   ```xml
+   <!--在SpringMVC配置文件中进行配置-->
+   <mvc:interceptors>
+       <mvc:interceptor>
+           <mvc:mapping path="/**"/>
+           <bean class="com.chen.controller.interceptor.InterceptorDemo"/>
+       </mvc:interceptor>
+   </mvc:interceptors>
+   ```
+
+   ~~~java
+   //使用注解配置
+   package com.chen.interceptor;
+   
+   import org.springframework.context.annotation.Configuration;
+   import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
+   import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+   import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+   
+   @Configuration
+   public class LoginConfig implements WebMvcConfigurer {
+       @Override
+       public void addInterceptors(InterceptorRegistry registry) {
+           InterceptorRegistration registration=
+                   registry.addInterceptor(new LoginInterceptor());
+           //拦截信息
+           registration.addPathPatterns("/**");
+           //不拦截信息
+           registration.excludePathPatterns(
+                   "/loginIn",
+                   "/**/login.html",
+                   "/**/*.js",
+                   "/**/*.css",
+                   "/**/images/*.*"
+           );
+   
+       }
+   }
+   
+   ~~~
+
+#### 拦截器方法说明
+
+![image-20220427200921912](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220427200921912.png)
+
+### 小案例：用户登录权限控制
+
+
+
 # Mybatis
 
 ## Mybatis简介
@@ -6870,7 +6977,23 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 #### 整合MyBatis
 
+1. 步骤
+
+   > 1. 导入对应依赖（mybatis，数据库驱动）
+   > 2. 配置数据源
+   > 3. 设计数据表
+   > 4. 编写实体类
+   > 5. 编写对应Mapper接口与映射
+
 #### 整合MyBatis-Plus
+
+1. 步骤
+
+> 1. 导入对应依赖（mybatis-plus，数据库驱动）
+> 2. 配置数据源
+> 3. 设计数据表
+> 4. 编写实体类
+> 5. 编写对应Mapper接口与映射，继承BaseMapper
 
 #### 整合Druid
 
@@ -6918,7 +7041,35 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 ## 应用
 
+### 导入导出Excel
+
+
+
 ## 原理
+
+# Swagger
+
+官网：https://swagger.io/
+
+参考文章：https://blog.csdn.net/YR_112233/article/details/122630446
+
+### 简介
+
+1. 简介
+2. 作用
+   * 接口文档在线自动生成
+   * 功能测试
+3. 主要项目
+   * Swagger-tools:提供各种与Swagger进行集成和交互的工具。例如模式检验、Swagger 1.2文档转换成Swagger 2.0文档等功能。
+   * Swagger-core: 用于Java/Scala的的Swagger实现。与JAX-RS(Jersey、Resteasy、CXF…)、Servlets和Play框架进行集成。
+   * Swagger-js: 用于JavaScript的Swagger实现。
+   * Swagger-node-express: Swagger模块，用于node.js的Express web应用框架。
+   * Swagger-ui：一个无依赖的HTML、JS和CSS集合，可以为Swagger兼容API动态生成优雅文档。
+   * Swagger-codegen：一个模板驱动引擎，通过分析用户Swagger资源声明以各种语言生成客户端代码。
+
+### SpringBoot集成Swagger
+
+
 
 # Thymeleaf
 
