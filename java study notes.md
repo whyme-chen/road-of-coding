@@ -7043,7 +7043,118 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 ### 导入导出Excel
 
+#### 导出
 
+1. 基于POI导出
+
+2. 基于EasyExcel导出
+
+3. 基于EasyPoi导出
+
+   参考：https://zhuanlan.zhihu.com/p/426308817
+   
+   ~~~java
+       /**
+        * easypoi实现导出
+        * @param map
+        * @param request
+        * @param response
+        */
+       @RequestMapping(value = "/exportByEasyPoi", method = RequestMethod.GET)
+       public void exportByEasyPoi(ModelMap map,
+                                    HttpServletRequest request,
+                                    HttpServletResponse response) {
+           List<User> users = userMapper.selectList(null);
+           ExportParams params = new ExportParams("用户列表", "用户列表", ExcelType.XSSF);
+           map.put(NormalExcelConstants.DATA_LIST, users);
+           map.put(NormalExcelConstants.CLASS, User.class);
+           map.put(NormalExcelConstants.PARAMS, params);
+           map.put(NormalExcelConstants.FILE_NAME, "users");
+           PoiBaseView.render(map, request, response, NormalExcelConstants.EASYPOI_EXCEL_VIEW);
+       }
+   
+   ==========================================
+   /**
+   实体类
+   */
+   package com.example.pojo;
+   
+   import cn.afterturn.easypoi.excel.annotation.Excel;
+   import com.baomidou.mybatisplus.annotation.IdType;
+   import com.baomidou.mybatisplus.annotation.TableId;
+   import com.baomidou.mybatisplus.annotation.TableName;
+   import lombok.AllArgsConstructor;
+   import lombok.Data;
+   import lombok.EqualsAndHashCode;
+   import lombok.NoArgsConstructor;
+   
+   /**
+    * @author whyme-chen
+    * @date 2022/4/30 9:30
+    */
+   
+   
+   @Data
+   @TableName(value = "tb_user")
+   @AllArgsConstructor
+   @NoArgsConstructor
+   @EqualsAndHashCode(callSuper = false)
+   public class User {
+   
+   
+       /*
+       * EasyPoi的核心注解@Excel，通过在对象上添加@Excel注解，可以将对象信息直接导出到Excel中去，下面对注解中的属性做个介绍；
+           name：Excel中的列名；
+           width：指定列的宽度；
+           needMerge：是否需要纵向合并单元格；
+           format：当属性为时间类型时，设置时间的导出导出格式；
+           desensitizationRule：数据脱敏处理，3_4表示只显示字符串的前3位和后4位，其他为*号；
+           replace：对属性进行替换；
+           suffix：对数据添加后缀。
+       * */
+   
+       @TableId(value = "id",type = IdType.AUTO)
+       @Excel(name = "ID",width = 10)
+       private Long id;
+   
+       @Excel(name = "用户名",width = 30)
+       private String userName;
+   
+       @Excel(name = "密码",width = 40)
+       private String password;
+   
+       @Excel(name = "姓名",width = 30)
+       private String name;
+   
+       @Excel(name = "年龄",width = 20,replace = {"男_0", "女_1"})
+       private Integer age;
+   
+       @Excel(name = "邮箱",width = 50)
+       private String email;
+   }
+   
+   ~~~
+
+#### 导入
+
+1. 基于EasyPoi导入
+
+   ~~~java
+    @RequestMapping(value = "/importByEasyPoi", method = RequestMethod.POST)
+       public String importByEasyPoi(@RequestPart("file") MultipartFile file) {
+           ImportParams params = new ImportParams();
+           params.setTitleRows(1);
+           params.setHeadRows(1);
+           try {
+               List<User> list = ExcelImportUtil.importExcel(
+                       file.getInputStream(),
+                       User.class, params);
+               return list.toString();
+           } catch (Exception e) {
+               e.printStackTrace();
+               return "导入失败！";
+           }
+       }
 
 ## 原理
 
@@ -7051,7 +7162,10 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 官网：https://swagger.io/
 
-参考文章：https://blog.csdn.net/YR_112233/article/details/122630446
+参考文章：
+
+* https://blog.csdn.net/YR_112233/article/details/122630446
+* https://blog.csdn.net/weixin_46645338/article/details/123895447
 
 ### 简介
 
@@ -7066,10 +7180,74 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    * Swagger-node-express: Swagger模块，用于node.js的Express web应用框架。
    * Swagger-ui：一个无依赖的HTML、JS和CSS集合，可以为Swagger兼容API动态生成优雅文档。
    * Swagger-codegen：一个模板驱动引擎，通过分析用户Swagger资源声明以各种语言生成客户端代码。
+4. OpenAPI（OpenAPI Specification）
+   * 以前叫做Swagger规范，是REST API的API描述格式，为REST API定义了一个与语言无关的标准接口
+   * OpenAPI规范可以使用YAML或JSON格式进行编写
 
 ### SpringBoot集成Swagger
 
+参考：https://blog.csdn.net/weixin_46645338/article/details/123895447
 
+### Swagger配置（swagger3.0）
+
+```java
+package com.example.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.oas.annotations.EnableOpenApi;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+
+/**
+ * @author whyme-chen
+ * @date 2022/4/28 11:02
+ */
+@EnableOpenApi
+@Configuration
+public class SwaggerConfiguration {
+    /**
+     *创建Docket对象，并交给Spring容器管理
+     *
+     * @return Docket对象：是Swagger中的全局配置
+     */
+    @Bean
+    public Docket docket(){
+        return new Docket(DocumentationType.OAS_30)
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.example.controller"))//设定扫描包
+                .paths(PathSelectors.any())
+                .build();
+    }
+
+    /**
+     *
+     * @return Api帮助文档的描述信息
+     */
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .contact(new Contact(
+                        "whyme-chen",//文档发布者的名称
+                        "http://localhot:8080",//文档发布者的网站
+                        "2710335790@qq.com"//文档发布者的邮箱
+                ))
+                .title("Swagger学习帮助文档")
+                .description("Swagger学习帮助文档........")
+                .version("1.0")
+                .build();
+    }
+}
+```
+
+### 常用注解
+
+![img](https://img2020.cnblogs.com/blog/2088791/202112/2088791-20211229104433596-25349310.png)
 
 # Thymeleaf
 
