@@ -528,6 +528,7 @@ function doSomething(){
   | %      | 取模（余数） |
   | ++     | 递加         |
   | --     | 递减         |
+  | **     | 幂运算       |
 
 * 比较运算符
 
@@ -602,7 +603,7 @@ ECMAScript中有5中简单数据类(Number,String,Boolean,Null,Undefine)和1种�
 
 #### typeof操作符
 
-用于判断给定变量的数据类型
+用于判断给定变量的数据类型，可以返回的值为string，number，boolean，undefined，object，function
 
 #### 基本数据类型（5种）
 
@@ -666,6 +667,8 @@ ECMAScript中有5中简单数据类(Number,String,Boolean,Null,Undefine)和1种�
 
 ### 函数
 
+#### 自定义函数
+
 1. 函数声明（使用function关键字）
 
    ~~~javascript
@@ -684,11 +687,91 @@ ECMAScript中有5中简单数据类(Number,String,Boolean,Null,Undefine)和1种�
    * 由于参数是由包含零个或多个值的数组来表示的，所以ECMAScript函数不能像传统意义上那样实现重载
    * 在ECMAScript中定义了两个相同名字的函数，则该名字只属于后定义的函数 
 
+~~~ javascript
+//函数定义
+方式一：
+function fun(约束列表){
+    函数体
+}
+
+注意：
+* javaScript无需定义返回值类型
+* 参数的定义无需使用var关键字，否则报错
+* 函数体中return可以写也可以不写，具体按要求使用
+* javaScript中不存在方法重载
+
+//函数表达式
+var x = function (a, b) {return a * b};
+var z = x(4, 3);
+
+//注意：函数提升，但是使用表达式定义的函数不会被提升。
+~~~
+
+#### 全局函数
+
+1. eval()函数：可以把传入的字符串，作为JavaScript的脚本代码进行执行，以此达到扩展程序功能的效果。
+
+   注意：只能传递基本数据类型的字符串
+
+2. encodeURI():把字符串编码为URL
+
+   decodeURI():解码
+
+   URI：统一资源标识符
+
+   URL：统一资源定位器
+
+#### 箭头函数
+
+~~~ javascript
+//箭头函数
+// ES5
+var x = function(x, y) {
+  return x * y;
+}
+
+// ES6
+const x = (x, y) => x * y;
+箭头函数没有自己的 this。它们不适合定义对象方法。
+箭头函数未被提升。它们必须在使用前进行定义。
+使用 const 比使用 var 更安全，因为函数表达式始终是常量值。
+~~~
+
 ### 对象
 
 > ECMAScript中，引用类型时一种数据结构，用于将数据和功能组织在一起。引用类型有时也被称为对象定义，因为他们描述的是一类对象所具有的属性和方法。
 >
 > 对象是某个特定引用类型的实例，新对象使用new操作符后跟一个构造函数来创建。构造函数本身是一个函数，只是该函数出于创建新对象的目的而定义。
+
+#### 自定义对象
+
+1. 对象创建方式
+
+```javascript
+//使用对象字面量
+var 对象名={属性1:属性值1,属性2:属性值2}
+//使用new关键字
+var 对象名=new Object();
+```
+
+2. for ....in循环
+
+   ```
+   var person = {fname:"Bill", lname:"Gates", age:62}; 
+   
+   for (x in person) {
+       txt += person[x];
+   }
+   ```
+
+3. 删除属性
+
+   ```
+   var person = {firstName:"Bill", lastName:"Gates", age:62, eyeColor:"blue"};
+   delete person.age;   // 或 delete person["age"];
+   ```
+
+#### this关键词
 
 #### Object
 
@@ -726,6 +809,28 @@ ECMAScript中有5中简单数据类(Number,String,Boolean,Null,Undefine)和1种�
 
 #### 单体内置对象
 
+### 事件
+
+HTML 事件是发生在 HTML 元素上的“事情”。
+
+~~~ html
+<!--使用单引号-->
+<element event='一些 JavaScript'>
+<!--使用双引号-->
+<element event="一些 JavaScript">
+~~~
+
+常用html事件
+
+| 事件        | 描述                         |
+| :---------- | :--------------------------- |
+| onchange    | HTML 元素已被改变            |
+| onclick     | 用户点击了 HTML 元素         |
+| onmouseover | 用户把鼠标移动到 HTML 元素上 |
+| onmouseout  | 用户把鼠标移开 HTML 元素     |
+| onkeydown   | 用户按下键盘按键             |
+| onload      | 浏览器已经完成页面加载       |
+
 ### 字符串
 
 ~~~ javascript
@@ -746,6 +851,17 @@ ECMAScript中有5中简单数据类(Number,String,Boolean,Null,Undefine)和1种�
 14.charCodeAt() 方法返回字符串中指定索引的字符 unicode 编码：
 15.split() 将字符串转换为数组：
 ~~~
+
+##### 常用转义字符
+
+| 代码 | 结果       |
+| :--- | :--------- |
+| \b   | 退格键     |
+| \f   | 换页       |
+| \n   | 新行       |
+| \r   | 回车       |
+| \t   | 水平制表符 |
+| \v   | 垂直制表符 |
 
 ### 数组对象
 
@@ -773,83 +889,6 @@ var arr=new Array(1,2);//数组元素是1,2
    * pop() 删除并返回数组的最后一个元素
    * push() 向数组的末尾添加一个或更多元素，并返回新长度
    * reverse() 颠倒数组中元素的顺序
-
-### 全局函数
-
-1. eval()函数：可以把传入的字符串，作为JavaScript的脚本代码进行执行，以此达到扩展程序功能的效果。
-   
-   注意：只能传递基本数据类型的字符串
-
-2. encodeURI():把字符串编码为URL
-   
-   decodeURI():解码
-   
-   URI：统一资源标识符
-   
-   URL：统一资源定位器
-
-### 自定义函数
-
-```javascript
-//函数定义
-方式一：
-function fun(约束列表){
-    函数体
-}
-
-注意：
-* javaScript无需定义返回值类型
-* 参数的定义无需使用var关键字，否则报错
-* 函数体中return可以写也可以不写，具体按要求使用
-* javaScript中不存在方法重载
-
-//函数表达式
-var x = function (a, b) {return a * b};
-var z = x(4, 3);
-
-注意：
-函数提升，但是使用表达式定义的函数不会被提升。
-
-//箭头函数
-// ES5
-var x = function(x, y) {
-  return x * y;
-}
-
-// ES6
-const x = (x, y) => x * y;
-箭头函数没有自己的 this。它们不适合定义对象方法。
-箭头函数未被提升。它们必须在使用前进行定义。
-使用 const 比使用 var 更安全，因为函数表达式始终是常量值。
-```
-
-### 自定义对象
-
-1. 对象创建方式
-
-```javascript
-//使用对象字面量
-var 对象名={属性1:属性值1,属性2:属性值2}
-//使用new关键字
-var 对象名=new Object();
-```
-
-2. for ....in循环
-   
-   ```
-   var person = {fname:"Bill", lname:"Gates", age:62}; 
-   
-   for (x in person) {
-       txt += person[x];
-   }
-   ```
-
-3. 删除属性
-   
-   ```
-   var person = {firstName:"Bill", lastName:"Gates", age:62, eyeColor:"blue"};
-   delete person.age;   // 或 delete person["age"];
-   ```
 
 ### 正则对象
 
@@ -934,12 +973,6 @@ var 对象名=new Object();
 }
 </script>
 ```
-
-### 变量、作用域和内存问题
-
-#### 传递参数
-
-ECMAScript中所有函数的参数都是按值传递的。
 
 ## 三、面向对象程序设计
 
@@ -1128,6 +1161,105 @@ var person2 = new Person("wang",20,"student");
 ### 5. screen对象
 
 ### 6. history对象
+
+### 本地存储
+
+1. 本地存储特性
+
+   * 数据存储在用户浏览器中
+   * 设置、读取方便、甚至页面刷新不丢失数据
+   * 容量较大，sessionStorage约5M、localStorage约20M
+   * 只能存储字符串，可以将对象JSON.stringify()编码后存储
+
+2. window.sessionStorage
+
+   * 生命周期为关闭浏览器窗口
+   * 在同一个窗口（页面）下数据可以共享
+   * 以键值对形式存储使用
+
+   ~~~html
+   <!DOCTYPE html>
+   <html>
+   	<head>
+   		<meta charset="utf-8">
+   		<title></title>
+   	</head>
+   	<input type="text" name="" id="" value="" />
+   	<button type="button" class="set">存储数据</button>
+   	<button type="button" class="get">获取数据</button>
+   	<button type="button" class="del">删除数据</button>
+   	<button type="button" class="remove">清空所有数据</button>
+   	<body>
+   		
+   		<script type="text/javascript">
+   			var input=document.querySelector('input');
+   			var set=document.querySelector('.set');
+   			var get=document.querySelector('.get');
+   			var del=document.querySelector('.del');
+   			var remove=document.querySelector('.remove');
+   			
+   			set.addEventListener('click',function(){
+   				/* 添加 */
+   				sessionStorage.setItem('username',input.value);
+   			});
+   			get.addEventListener('click',function(){
+   				console.log(sessionStorage.getItem('username'));
+   			});
+   			del.addEventListener('click',function(){
+   				sessionStorage.removeItem("username");
+   			})
+   			remove.addEventListener('click',function(){
+   				sessionStorage.clear();
+   			});
+   			
+   		</script>
+   	</body>
+   </html>,
+
+3. window.localStorage
+
+   * 生命周期永久生效，除非手动删除，否则关闭页面也会存在
+   * 可以多窗口（页面）共享（同一浏览器可以共享）
+   * 以键值对形式存储使用
+
+   ~~~html
+   <!DOCTYPE html>
+   <html>
+   	<head>
+   		<meta charset="utf-8">
+   		<title>localStorage</title>
+   	</head>
+   	<input type="text" name="" id="" value="" />
+   	<button type="button" class="set">存储数据</button>
+   	<button type="button" class="get">获取数据</button>
+   	<button type="button" class="del">删除数据</button>
+   	<button type="button" class="remove">清空所有数据</button>
+   	<body>
+   		
+   		<script type="text/javascript">
+   			var input=document.querySelector('input');
+   			var set=document.querySelector('.set');
+   			var get=document.querySelector('.get');
+   			var del=document.querySelector('.del');
+   			var remove=document.querySelector('.remove');
+   			
+   			set.addEventListener('click',function(){
+   				/* 添加 */
+   				localStorage.setItem('username',input.value);
+   			});
+   			get.addEventListener('click',function(){
+   				console.log(localStorage.getItem('username'));
+   			});
+   			del.addEventListener('click',function(){
+   				localStorage.removeItem("username");
+   			})
+   			remove.addEventListener('click',function(){
+   				localStorage.clear();
+   			});
+   			
+   		</script>
+   	</body>
+   </html>,
 
 ## 五、DOM对象
 

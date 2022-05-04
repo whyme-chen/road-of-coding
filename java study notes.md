@@ -6827,6 +6827,53 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 ## 代码生成器
 
+~~~ java
+/**
+     * 代码生成器
+     */
+    @Test
+    public void testGenerator(){
+        FastAutoGenerator.create("jdbc:mysql://localhost:3306/ordering_system?serverTimezone=UTC",
+                "root",
+                "4112")
+                .globalConfig(builder -> {
+                    builder.author("whyme-chen") // 设置作者
+                            .enableSwagger() // 开启 swagger 模式
+                            .outputDir(System.getProperty("user.dir")+"/src/main/java/"); // 指定输出目录
+                })
+                .packageConfig(builder -> {
+                    builder.parent("com.chen") // 设置父包名
+                            .entity("pojo")
+                            .pathInfo(Collections.singletonMap(OutputFile.xml, "resources/com/example/mapper")); // 设置mapperXml生成路径
+                })
+                .strategyConfig(builder -> {
+                    builder.addInclude("address_book","category","dish","dish_flavor",
+                            "employee","order_detail","orders","setmeal","setmeal_dish",
+                            "shopping_cart","user"); // 设置需要生成的表名
+//                            .addTablePrefix("sys_"); // 设置过滤表前缀
+                })
+                .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
+                .execute();
+
+    }
+~~~
+
+## 分页插件
+
+1. 配置
+
+   ~~~java
+   @Bean
+       public MybatisPlusInterceptor mybatisPlusInterceptor(){
+           //配置分页插件
+           MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
+           mybatisPlusInterceptor.addInnerInterceptor(new PaginationInnerInterceptor());
+           return mybatisPlusInterceptor;
+       }
+   ~~~
+
+   
+
 # Spring boot
 
 ## 基础入门
@@ -7480,6 +7527,12 @@ public class SwaggerConfiguration {
 | <kbd>Tab</kbd> | <kbd>Tab</kbd> | 缩进                |
 | <kbd>ESC</kbd> | <kbd>ESC</kbd> | 从工具窗口进入代码文件窗口     |
 
+## 常用插件
+
+### Simple Object Copy
+
+参考链接：https://juejin.cn/post/7053264631262871583
+
 # git和GitHub
 
 使用参考链接：https://www.cnblogs.com/syp172654682/p/7689328.html
@@ -7819,4 +7872,10 @@ git管理的文件有三种状态：已修改（modified）,已暂存（staged�
 4. 推送到远程仓库：git push [remote-name] [branch name]
 
 5. 查看某个远程仓库：git remote show [remote-name]
+
+
+
+# 开发经验
+
+## 跨域问题（CROS）
 
