@@ -1,4 +1,4 @@
-# 基础编程
+基础编程
 
 ## java发展史
 
@@ -747,6 +747,7 @@ try{
                System.out.println(arr);
            }
        }
+   ~~~
 
 # 集合
 
@@ -5062,6 +5063,7 @@ HttpServlet --抽象类
          </script>
      </body>
      </html>
+     ~~~
    
    * JQuery实现方式
      
@@ -5148,21 +5150,22 @@ HttpServlet --抽象类
    > import com.alibaba.fastjson.JSON;
    > 
    > public class FastJsonDemo {
-   >     public static void main(String[] args) {
-   >         User user = new User();
-   >         user.setId(1);
-   >         user.setName("chen");
-   >         user.setAge(20);
-   >         user.setAddr("cduestc");
+   >  public static void main(String[] args) {
+   >      User user = new User();
+   >      user.setId(1);
+   >      user.setName("chen");
+   >      user.setAge(20);
+   >      user.setAddr("cduestc");
    > 
-   >         String s = JSON.toJSONString(user);
-   >         System.out.println(s);
+   >      String s = JSON.toJSONString(user);
+   >      System.out.println(s);
    > 
-   >         User user1 = JSON.parseObject(s,User.class);
-   >         System.out.println(user1);
+   >      User user1 = JSON.parseObject(s,User.class);
+   >      System.out.println(user1);
    > 
-   >     }
+   >  }
    > }
+   > ~~~
 
 # Layui
 
@@ -5263,6 +5266,118 @@ layui.use(['layer', 'form'], function(){
 # Bootstrap
 
 # Redis
+
+redis中文网：https://www.redis.net.cn/
+
+1. redis：一个基于内存的key-value结构数据库
+   * 基于内存存储，读写性能高
+   * 适合存储热点数据（热点商品、资讯、新闻）
+   * 企业应用广泛
+
+参考资料：https://blog.csdn.net/hellozpc/article/details/81267030
+
+## 入门
+
+### 简介
+
+1. 简介：Redis是一个开源的内存中的数据结构存储系统，它可以用作：数据库、缓存和消息中间件。
+2. 关系型数据库
+3. 非关系型数据库
+4. redis应用场景
+   * 缓存
+   * 任务队列
+   * 消息队列
+   * 分布式锁
+
+### 下载与安装
+
+1. 下载
+
+2. 安装
+
+   
+
+   在windows中：解压即可
+
+3. 启动服务
+
+4. 设置密码验证
+
+5. 开启远程连接
+
+## 数据类型
+
+1. redis存储的是key-value结构的数据，其中key是字符串类型，value有5种常用数据类型：
+
+   * 字符串string
+   * 哈希hash
+   * 列表list
+   * 集合set
+   * 有序集合sorted set
+
+   ![image-20220516155411182](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20220516155411182.png)
+
+## 常用命令
+
+1. 字符串操作命令
+
+   ![image-20220516155854192](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20220516155854192.png)
+
+2. 哈希操作命令
+
+   ![image-20220516160543910](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20220516160543910.png)
+
+3. 列表操作命令
+
+   ![image-20220516162203582](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20220516162203582.png)
+
+4. 集合操作命令
+
+   ![image-20220516162817069](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20220516162817069.png)
+
+5. 有序集合操作命令
+
+   ![image-20220516163404525](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20220516163404525.png)
+
+6. 通用操作命令
+
+   ![image-20220516163521538](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20220516163521538.png)
+
+## 在java中操作Redis
+
+1. 介绍
+
+   redis的java客户端很多，官方推荐有三种
+
+   * jedis
+   * lettuce
+   * redisson
+
+   spring对redis客户端进行了整合，提供了Spring Data Redis。
+
+2. jedis
+
+   ![image-20220516165856123](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20220516165856123.png)
+
+   ```java
+   @Test
+   void testRedis(){
+      //获取连接
+      Jedis jedis = new Jedis("localhost", 6379);
+      //执行具体操作
+      jedis.set("username","xiaoming");
+      System.out.println(jedis.get("username"));
+      jedis.del("username");
+      //关闭连接
+      jedis.close();
+   }
+   ```
+
+3. Spring Data Redis
+
+   参考：https://www.bilibili.com/video/BV13a411q753?p=152&spm_id_from=pageDriver
+
+   ![image-20220516191229859](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20220516191229859.png)
 
 # Maven
 
@@ -5552,11 +5667,13 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
      ~~~xml
      <property name="" value=""></property>
+     ~~~
 
    * 引用数据类型
 
      ~~~xml
      <property name="" ref=""></property>
+     ~~~
 
    * 集合数据类型
 
@@ -5570,6 +5687,7 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
              <entry key="" value=""></entry>
          </map>
      </property>
+     ~~~
 
 7. 引入其他配置文件（分模块开发）
    
@@ -5815,6 +5933,7 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
    >       @Autowired//按照类型从Spring容器中进行匹配
    >       @Qualifier("userDao")//按照id值从容器中进行匹配，但是需要结合@Autowired使用
    >       private UserDao userDao;
+   >   ~~~
    
 2. Spring新注解
 
@@ -5878,6 +5997,7 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
            System.out.println(connection);
            connection.close();
        }
+   ~~~
 
 ## 七、Spring集成Junit
 
@@ -5920,6 +6040,7 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
            connection.close();
        }
    }
+   ~~~
 
 ## 八、Spring与Web集成
 
@@ -6159,13 +6280,14 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
      
      > 1. 基本数据类型参数
      >    * 要求Controller中业务方法的参数名称要与请求参数的name一致，参数值会自动映射匹配
-     >    
+     >
      >      ![image-20220405144902149](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220405144902149.png)
      > 2. POJO类型参数
      >    * 要求Controller中业务方法的POJO参数属性名要与请求参数的name一致，参数值会自动映射匹配
-     >    
+     >
      >      ![image-20220405145947871](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220405145947871.png)
      > 3. 数组类型参数
+     >    
      >    * 要求Controller中业务方法数组名称n要与请求参数的name一致，参数值会自动映射匹配
      > 4. 集合类型参数
      >    * 场景一：获得集合参数时，要将集合参数包装到一个POJO中
@@ -6294,6 +6416,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
        }
    }
    
+   ~~~
 
 2. 配置拦截器
 
@@ -6858,6 +6981,12 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
     }
 ~~~
 
+## 条件构造器
+
+![image-20220504162503272](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220504162503272.png)
+
+![image-20220504162536139](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220504162536139.png)
+
 ## 分页插件
 
 1. 配置
@@ -6872,7 +7001,23 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
        }
    ~~~
 
-   
+2. 使用
+
+   ~~~java
+       /**
+        * 分页插件
+        */
+       @Test
+       public void testPagination(){
+           Page<User> userPage = new Page<>(1,10);
+           Page<User> page = userMapper.selectPage(userPage, null);
+           System.out.println("当前页"+page.getCurrent());
+           System.out.println("每页大小"+page.getSize());
+           System.out.println("总条数"+page.getTotal());
+           System.out.println("总页数"+page.getPages());
+           System.out.println("数据"+page.getRecords());
+       }
+   ~~~
 
 # Spring boot
 
@@ -6926,7 +7071,9 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-devtools</artifactId>
      </dependency>
-
+     ~~~
+  ~~~
+   
    * idea工具热部署设置
 
 ### 基础配置
@@ -7045,6 +7192,8 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 #### 整合Druid
 
 ### 常用注解
+
+参考文章：https://juejin.cn/post/6844904136492711950
 
 1. @import
    * springboot中@Enable***开头的注解表示开启某项功能，其底层依赖@import注解。
@@ -7180,7 +7329,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
        private String email;
    }
    
-   ~~~
+  ~~~
 
 #### 导入
 
@@ -7202,6 +7351,119 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
                return "导入失败！";
            }
        }
+   ~~~
+
+### 发送邮件
+
+1. SMTP（Simple Mail Transfer Protocol）：简单邮件传输协议，用于发送电子邮件的传输协议
+2. POP3（Post Office Protocol - Version 3）：用于接收电子邮件的标准协议
+3. IMAP（Interface Mail Access Protocol）：互联网消息协议，是POP3的替代协议
+
+#### 使用
+
+1. 导入依赖
+
+   ~~~xml
+           <dependency>
+               <groupId>org.projectlombok</groupId>
+               <artifactId>lombok</artifactId>
+               <optional>true</optional>
+           </dependency>
+   ~~~
+
+2. 配置
+
+   ~~~yml
+     # 邮箱配置（application.yml中）（开启邮箱的SMTP服务）
+     mail:
+       host: smtp.qq.com
+       username: 2710335790@qq.com
+       password: untmkgyrgdjbdhag
+   ~~~
+
+3. 编写代码，发送邮件
+
+   ~~~java
+   package com.chen.service.impl;
+   
+   import com.chen.service.ISendMailService;
+   import org.springframework.beans.factory.annotation.Autowired;
+   import org.springframework.mail.SimpleMailMessage;
+   import org.springframework.mail.javamail.JavaMailSender;
+   import org.springframework.mail.javamail.MimeMessageHelper;
+   import org.springframework.stereotype.Service;
+   
+   import javax.mail.MessagingException;
+   import javax.mail.internet.MimeMessage;
+   import java.io.File;
+   
+   /**
+    * @author whyme-chen
+    * @date 2022/5/8 19:52
+    */
+   @Service
+   public class SendMailServiceImpl implements ISendMailService {
+   
+       @Autowired
+       private JavaMailSender javaMailSender;
+   
+       //邮件发送人
+        private String form = "2710335790@qq.com";
+       //邮件接收人
+       private String to = "2949613269@qq.com";
+       // 邮件标题
+       private String subject = "测试";
+       // 邮件正文
+       private String context = "测试邮件发送功能的实现";
+       // 邮件正文2
+       private String text = "<a href='https://www.baidu.com/'>前往百度</a>";
+   
+   
+       /**
+        * 发送简单邮件
+        */
+       @Override
+       public void sendMail() {
+           SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+           //设置基本信息
+           simpleMailMessage.setFrom(form);//whymechen将替代邮箱好+"whymechen"
+           simpleMailMessage.setTo(to);
+           simpleMailMessage.setSubject(subject);
+           simpleMailMessage.setText(context);
+   
+           javaMailSender.send(simpleMailMessage);
+       }
+   
+       /**
+        * 发送多部件邮件
+        */
+       @Override
+       public void sendMultiPartsMail() {
+           try {
+               MimeMessage mimeMessage =javaMailSender.createMimeMessage();
+               MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,true);//true表示是否允许发送附件
+   
+               helper.setFrom(form);
+               helper.setTo(to);
+               helper.setSubject(subject);
+               helper.setText(text,true);//可以解析html
+   
+               //添加附件
+               File lanqiao = new File("C:\\Users\\hp\\Desktop\\蓝桥常见考点.txt");
+               helper.addAttachment(lanqiao.getName(),lanqiao);
+   
+               javaMailSender.send(mimeMessage);
+           } catch (MessagingException e) {
+               e.printStackTrace();
+           }
+       }
+   
+   
+   }
+   
+   ~~~
+
+4. 接口
 
 ## 原理
 
@@ -7356,6 +7618,7 @@ public class SwaggerConfiguration {
          <h1 th:text="${str}"></h1>
      </body>
      </html>
+     ~~~
 
 3. 常用语法标签
 
@@ -7530,6 +7793,8 @@ public class SwaggerConfiguration {
 ## 常用插件
 
 ### Simple Object Copy
+
+优雅转换DTO，VO，BO，PO，DO
 
 参考链接：https://juejin.cn/post/7053264631262871583
 
@@ -7802,7 +8067,7 @@ git管理的文件有三种状态：已修改（modified）,已暂存（staged�
   
 * 分支
   
-  * 总结分支中常用命令
+  * 常用命令
     
     ```
     # 列出所有本地分支
@@ -7873,9 +8138,59 @@ git管理的文件有三种状态：已修改（modified）,已暂存（staged�
 
 5. 查看某个远程仓库：git remote show [remote-name]
 
-
+> 注意：如果当前本地仓库不是从远程仓库克隆，而是本地创建的仓库，并且仓库中存在文件，此时再从远程仓库拉取文件的时候会报错(fatal: refusing to merge unrelated histories )解决此问题可以在git pull命令后加入参数--allow-unrelated-histories
 
 # 开发经验
 
+## POJO
+
+参考链接：https://juejin.cn/post/7053264631262871583
+
+> POJO的定义是无规则简单的对象，在日常的代码分层中pojo会被分为VO、BO、 PO、 DTO
+>
+> **VO （view object/value object）表示层对象**
+>
+> 1、前端展示的数据，在接口数据返回给前端的时候需要转成VO
+>
+> 2、个人理解使用场景，接口层服务中，将DTO转成VO,返回给前台
+>
+> **B0（bussines object）业务层对象**
+>
+> 1、主要在服务内部使用的业务对象
+>
+> 2、可以包含多个对象，可以用于对象的聚合操作
+>
+> 3、个人理解使用场景，在服务层服务中，由DTO转成BO然后进行业务处理后，转成DTO返回到接口层
+>
+> **PO（persistent object）持久对象**
+>
+> 1、出现位置为数据库数据，用来存储数据库提取的数据
+>
+> 2、只存储数据，不包含数据操作
+>
+> 3、个人理解使用场景，在数据库层中，获取的数据库数据存储到PO中，然后转为DTO返回到服务层中
+>
+> **DTO（Data Transfer Object）数据传输对象**
+>
+> 1、在服务间的调用中，传输的数据对象
+>
+> 2、个人理解，DTO是可以存在于各层服务中（接口、服务、数据库等等）服务间的交互使用DTO来解耦
+>
+> **DO（domain object）领域实体对象**
+>
+> DO 现在主要有两个版本：
+>
+> ①阿里巴巴的开发手册中的定义，DO（ Data Object）这个等同于上面的PO
+>
+> ②DDD（Domain-Driven Design）领域驱动设计中，DO（Domain Object）这个等同于上面的BO
+>
+>
+> 作者：蓝巫
+> 链接：https://juejin.cn/post/7053264631262871583
+> 来源：稀土掘金
+> 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
 ## 跨域问题（CROS）
+
+
 

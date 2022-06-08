@@ -440,6 +440,7 @@ ECMAScript中一切变量区分大小写
 
   ~~~html
   /*注释内容*/
+  ~~~
 
 ### 严格模式
 
@@ -1215,6 +1216,7 @@ var person2 = new Person("wang",20,"student");
    		</script>
    	</body>
    </html>,
+   ~~~
 
 3. window.localStorage
 
@@ -1260,6 +1262,7 @@ var person2 = new Person("wang",20,"student");
    		</script>
    	</body>
    </html>,
+   ~~~
 
 ## 五、DOM对象
 
@@ -1470,6 +1473,47 @@ bootstrap是基于HTML、CSS、javaScript的前端框架。
 
 ### 1. 基础选择器
 
+# npm
+
+参考资料：
+
+*  https://blog.csdn.net/qq_416814621/article/details/111042374
+* https://www.runoob.com/nodejs/nodejs-npm.html
+
+1. 什么是npm
+
+2. 常用命令
+
+   > * 更新npm
+   >
+   >   ~~~  
+   >   npm install npm@latest -g
+   >   ~~~
+   >
+
+3. package.json文件
+
+   * 使用npm init可以创建一个package.json文件（可以使用npm init --yes跳过问询）
+
+   * 内容
+
+     > package.json文件至少要有两部分(name和version)
+     >
+     > * “name”：全部小写，没有空格，可以使用下划线或者横线
+     > * “version”： x.x.x 的格式，符合 “语义化版本规则”
+     > * description：描述信息，有助于搜索
+     > * main：入口文件，一般都是 index.js
+     > * scripts：支持的脚本，默认是一个空的 test
+     > * keywords：关键字，有助于在人们使用 npm search搜索时发现你的项目
+     > * author :作者信息
+     > * license ：默认是 MIT
+     > * bugs：当前项目的一些错误信息，如果有的话
+     >
+     > ~~~ json
+     > "name": "demo-package",
+     > "version": "1.0.0",
+     > ~~~
+
 # Webpack
 
 1. 工程化概念
@@ -1477,7 +1521,28 @@ bootstrap是基于HTML、CSS、javaScript的前端框架。
    * 组件化
    * 规范化
    * 自动化
-2. 接口
+   
+2. webpack基本介绍
+
+   * webpack 是前端项目工程化的具体解决方案。
+   * 主要功能：它提供了友好的前端模块化开发支持，以及代码压缩混淆、处理浏览器端 JavaScript 的兼容性、性能优化等强大的功能。
+
+3. 基本使用步骤
+
+   * 项目搭建
+
+     ![image-20220521130504580](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20220521130504580.png)
+
+   * 安装webpack相关包
+
+     ~~~ 
+     npm install webpack@5.42.1 webpack-cli@4.7.2 -D
+     ~~~
+* 配置webpack
+  
+  ![image-20220521123744928](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20220521123744928.png)
+  
+   * 空间
 
 # Vue
 
@@ -1495,7 +1560,12 @@ bootstrap是基于HTML、CSS、javaScript的前端框架。
 
    Vue.js 的核心是一个允许采用简洁的模板语法来声明式地将数据渲染进 DOM 的系统，只关注视图层，易于上手。所有东西都是响应式的。
 
-2. 优势
+2. 主要特性
+
+   * 数据驱动视图
+   * 双向数据绑定
+   
+3. 优势
 
    * 轻量级渐进式框架
    * 视图、数据和结构的分离
@@ -1511,11 +1581,20 @@ bootstrap是基于HTML、CSS、javaScript的前端框架。
 
 1. 插值语法：常用解析标签体内容
 2. 指令：常用于解析标签（包括标签属性，标签体内容，绑定事件等）
-   * v-bind:动态绑定(简写为:)
-   * v-on用于监听DOM事件（可简写为@）
-   * v-once
-   * v-html更新innerHTML
-   * v-model
+   > 指令按照不同的用途，一般分为六类
+   >
+   > * 内容渲染
+   >   * v-text，会覆盖原有内容
+   >   * v-html更新innerHTML，可解析html标签
+   > * 属性绑定
+   >   * v-bind:动态绑定(简写为:)
+   > * 事件绑定
+   >   * v-on用于监听DOM事件（可简写为@）
+   > * 双向绑定
+   >   * v-model
+   > * 条件渲染
+   >   * v-once
+   > * 列表渲染
 
 #### 数据绑定
 
@@ -1524,15 +1603,14 @@ bootstrap是基于HTML、CSS、javaScript的前端框架。
   * v-model只能应用在表单类元素上
   * v-model:value可以简写为v-model，应为v-model默认收集value的值
 
-~~~ html
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<script src="vue.js" type="text/javascript" charset="utf-8"></script>
-	</head>
 
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<meta charset="utf-8">
+			<title></title>
+			<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+		</head>
 	<body>
 		<div id="app">
 			单项数据绑定：<input type="text" v-bind:value="value1" /><br>
@@ -1549,16 +1627,12 @@ bootstrap是基于HTML、CSS、javaScript的前端框架。
 			});
 		</script>
 	</body>
-</html>
-
-~~~
-
 #### el与data的两种写法
 
 data与el的2种写法：
 
 1. el有2种写法
-   * .new Vue时候配置e1属性。
+   * .new Vue时候配置el属性。
    * 先创建Vue实例，随后再通过vm . $mount( ' #root' )指定e1的值。
 
 2. data有2种写法
@@ -1612,7 +1686,6 @@ data与el的2种写法：
 		</script>
 	</body>
 </html>
-
 ~~~
 
 #### MVVM模型
@@ -2013,6 +2086,7 @@ data与el的2种写法：
    	</body>
    </html>
    
+   ~~~
 
 3. 列表排序
 
@@ -2205,12 +2279,14 @@ data与el的2种写法：
 
      * ~~~java
        props:['xxx']
-
+       ~~~
+     ~~~
+       
      * ~~~javascript
        props:{
            xxx:String
        }
-       ~~~
+     ~~~
 
      * ~~~javascript
        props:{
@@ -2307,11 +2383,88 @@ data与el的2种写法：
 > └─uni.scss              这里是uni-app内置的常用样式变量 
 > ```
 
-## 基础开发
+## 基础配置
 
-### 全局外观配置
+### 全局和页面配置
 
+### 页面配置
 
+### tabbar配置
+
+### condition启动模式
+
+## 组件基本使用
+
+## 生命周期
+
+### 应用生命周期
+
+| 函数名   | 说明                                        |
+| -------- | ------------------------------------------- |
+| onLaunch | 当uni-app初始化完成时触发（全局只触发一次） |
+| onShow   | 当uni-app启动或从后台及进入前台显示         |
+| onHide   | 当uni-app从前台进入后台                     |
+| onError  | 当uni-app报错时触发                         |
+
+### 页面生命周期
+
+## 网络请求
+
+官网API地址：https://uniapp.dcloud.io/api/request/request.html
+
+~~~ vue
+<template>
+	<view>
+		<button type="default" @click="getData">发送请求</button>
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+				
+			}
+		},
+		methods: {
+			getData(){
+				uni.request({
+					url:'http://localhost:8081/user/findAll',
+					method:'GET',
+					data:{
+						page:5,
+						limit:6
+					},
+					success(res) {
+						console.log(res);
+					}
+				})
+			}
+		}
+	}
+</script>
+
+<style>
+
+</style>
+
+~~~
+
+## 数据缓存
+
+官网API地址：https://uniapp.dcloud.io/api/storage/storage.html#setstorage
+
+~~~ javascript
+uni.setStorage({
+							key:"uses",
+							data:res.data.data
+						})
+~~~
+
+## 导航跳转
+
+1. navigator进行跳转
+2. l用编程式导航进行跳转
 
 # NodeJS学习笔记
 
