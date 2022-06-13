@@ -182,7 +182,12 @@ html使用<!---->表示注释
   
   ![image-20210526120446548](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20210526120446548.png)
 
-+++
+## HtML5
+
+参考资料：https://www.w3school.com.cn/html/html5_intro.asp
+
+1. 什么是html5
+2. 新内容
 
 # CSS学习总结
 
@@ -772,7 +777,7 @@ var 对象名=new Object();
    delete person.age;   // 或 delete person["age"];
    ```
 
-#### this关键词
+#### this关键字
 
 #### Object
 
@@ -885,11 +890,13 @@ var arr=new Array(1,2);//数组元素是1,2
 ```
 
 3. JS数组的常用属性/方法
-   * length 数组长度
-   * join() 将所有数组元素以指定分隔符进行连接
-   * pop() 删除并返回数组的最后一个元素
-   * push() 向数组的末尾添加一个或更多元素，并返回新长度
-   * reverse() 颠倒数组中元素的顺序
+
+   > * length 数组长度
+   > * toString()将所有数组元素以逗号分隔装换为字符串
+   > * join() 将所有数组元素以指定分隔符进行连接
+   > * pop() 删除并返回数组的最后一个元素
+   > * push() 向数组的末尾添加一个或更多元素，并返回新长度
+   > * reverse() 颠倒数组中元素的顺序
 
 ### 正则对象
 

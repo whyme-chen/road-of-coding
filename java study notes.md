@@ -5115,6 +5115,8 @@ HttpServlet --抽象类
 
 # JSON
 
+参考资料：https://www.json.org/json-en.html
+
 1. 概念：**JavaScript Object Notation**，JavaScript对象标记法
    * JSON是一种存储和交换数据的语法
    * JSON是一种轻量级的**数据交换格式**
@@ -6067,7 +6069,7 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
 3. 常用操作
 
-# SPring MVC
+# Spring MVC
 
 参考文档：https://pdai.tech/files/kaitao-springMVC.pdf
 
@@ -6923,6 +6925,8 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    > ```
 
 # SSM整合
+
+1. 整合步骤
 
 # MybatisPlus
 
@@ -8191,6 +8195,3 @@ git管理的文件有三种状态：已修改（modified）,已暂存（staged�
 > 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
 ## 跨域问题（CROS）
-
-
-
