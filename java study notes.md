@@ -1,4 +1,4 @@
-基础编程
+# 基础编程
 
 ## java发展史
 
@@ -5297,8 +5297,6 @@ redis中文网：https://www.redis.net.cn/
 
 2. 安装
 
-   
-
    在windows中：解压即可
 
 3. 启动服务
@@ -6075,7 +6073,7 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
 ## 1.  概述
 
-SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻量级Web框架，属于SpringFrameWork的后续产品，已经融合在Spring Web Flow中。SpringMVC已经成为目前最主流的MVC框架之一，并且随着Spring3.0 的发布,全面超越Struts2,成为最优秀的MVC框架。它通过一套注解， 让-个简单的Java类成为处理请求的控制器，而无须实现任何接口。同时它还支持RESTful编程风格的请求。
+SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻量级Web框架，属于SpringFrameWork的后续产品，已经融合在Spring Web Flow中。SpringMVC已经成为目前最主流的MVC框架之一，并且随着Spring3.0 的发布,全面超越Struts2,成为最优秀的MVC框架。它通过一套注解， 让一个简单的Java类成为处理请求的控制器，而无须实现任何接口。同时它还支持RESTful编程风格的请求。
 
 ![image-20220318144526046](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318144526046.png)
 
@@ -6290,7 +6288,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
      >      ![image-20220405145947871](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220405145947871.png)
      > 3. 数组类型参数
      >    
-     >    * 要求Controller中业务方法数组名称n要与请求参数的name一致，参数值会自动映射匹配
+     >    * 要求Controller中业务方法数组名称要与请求参数的name一致，参数值会自动映射匹配
      > 4. 集合类型参数
      >    * 场景一：获得集合参数时，要将集合参数包装到一个POJO中
      >    * 场景二：使用ajax提交时，可以指定contentType为json形式，那么方法参数位置使用@RequestBody可以直接接收集合数据而无需使用pojo进行封装

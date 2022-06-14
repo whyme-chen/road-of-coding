@@ -896,7 +896,16 @@ var arr=new Array(1,2);//数组元素是1,2
    > * join() 将所有数组元素以指定分隔符进行连接
    > * pop() 删除并返回数组的最后一个元素
    > * push() 向数组的末尾添加一个或更多元素，并返回新长度
+   > * shift()删除首个数组元素，并把所有其他元素“位移”到更低的索引
+   > * unshift()在开头向数组添加新元素，并“反向位移”旧元素
+   > * delete
+   > * splice()
+   > * concat()通过合并（连接）现有数组来创建一个新数组：
+   > * slice()用数组的某个片段切出新数组。
+   > * 排序
+   >   * sort()
    > * reverse() 颠倒数组中元素的顺序
+   > * 查找最值
 
 ### 正则对象
 
@@ -1366,6 +1375,15 @@ DOM是将标记型文档中所有内容（标签、文本、属性）都封装�
 ## 七、ECMAScript（ES6-ES11）
 
 ES全称EcmaScript，是脚本语言的规范，JavaScript是EcmaScript的一种实现。
+
+### ES6新特性
+
+- JavaScript let
+- JavaScript const
+- 幂 (**)
+- 默认参数值
+- Array.find()
+- Array.findIndex()
 
 # BootStrap
 
