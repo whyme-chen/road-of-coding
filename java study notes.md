@@ -7624,7 +7624,9 @@ public class SwaggerConfiguration {
 
 3. 常用语法标签
 
-   * 
+
+
+# 支付
 
 # Idea
 
@@ -8142,6 +8144,64 @@ git管理的文件有三种状态：已修改（modified）,已暂存（staged�
 
 > 注意：如果当前本地仓库不是从远程仓库克隆，而是本地创建的仓库，并且仓库中存在文件，此时再从远程仓库拉取文件的时候会报错(fatal: refusing to merge unrelated histories )解决此问题可以在git pull命令后加入参数--allow-unrelated-histories
 
+# 微服务技术
+
+## 微服务简介
+
+### 微服务技术栈
+
+![image-20220616221642790](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202206162216086.png)
+
+![image-20220616221927980](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202206162257980.png)
+
+![image-20220616222141070](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202206162258405.png)
+
+### 微服务架构演变
+
+1. 单体架构：将业务所有功能集中在一个项目中开发，生成一个包进行部署
+
+   * 优点：架构简单、部署成本低
+   * 缺点：耦合度高
+
+2. 分布式架构：根据业务功能对系统拆分，每个业务模块作为一个独立项目开发，称为一个服务
+
+   * 优点：降低服务耦合度，有利于服务升级扩展
+   * 服务治理（分布式架构的要考虑的问题）
+     * 服务拆分粒度如何?
+     * 服务集群地址如何维护?
+     * 服务之间如何实现远程调用?
+     * 服务健康状态如何感知?
+
+3. 微服务：微服务是一种经过良好架构设计的分布式架构方案
+
+   * 微服务架构特征:
+
+     * 单一职责:微服务拆分粒度更小，每-一个服务都对应唯一的业务能力，做到单一职责,避免重复业务开发
+     * 面向服务：微服务对外暴露业务接口
+     * 自治：团队独立、技术独立、数据独立、部署独立
+     * 隔离性强：服务调用做好隔离、容错、降级,避免出现级联问题
+
+   * 结构：在国内最知名的微服务技术框架就是SpringCloud和阿里巴巴Dubbo。
+
+   * 技术对比
+
+     ![image-20220616225122343](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202206162258252.png)
+
+## Spring Cloud
+
+1. 简介
+
+2. 版本兼容性
+
+   ![image-20220616225638824](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20220616225638824.png)
+
+### 服务拆分及远程调用
+
+1. 服务拆分注意事项：
+   * 不同微服务，不重复开发相同业务
+   * 微服务数据独立，不访问其他微服务的数据库
+   * 微服务可以将自己的业务暴露为接口，供其他服务使用
+
 # 开发经验
 
 ## POJO
@@ -8193,3 +8253,8 @@ git管理的文件有三种状态：已修改（modified）,已暂存（staged�
 > 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
 ## 跨域问题（CROS）
+
+# 学习路线/资源
+
+[2022黑马程序员Java学习路线图 - 哔哩哔哩](https://www.bilibili.com/read/cv9965357?from=articleDetail)
+
