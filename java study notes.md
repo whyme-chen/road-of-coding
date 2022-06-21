@@ -8193,7 +8193,7 @@ git管理的文件有三种状态：已修改（modified）,已暂存（staged�
 
 2. 版本兼容性
 
-   ![image-20220616225638824](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20220616225638824.png)
+   ![image-20220616225638824](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202206181721335.png)
 
 ### 服务拆分及远程调用
 
@@ -8201,6 +8201,120 @@ git管理的文件有三种状态：已修改（modified）,已暂存（staged�
    * 不同微服务，不重复开发相同业务
    * 微服务数据独立，不访问其他微服务的数据库
    * 微服务可以将自己的业务暴露为接口，供其他服务使用
+   
+2. 服务远程调用
+
+   > 1. 注册RestTemplate
+   >
+   >    ![image-20220617224745750](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202206181721514.png)
+   >
+   > 2. 服务远程调用RestTemplate
+   >
+   >    ![image-20220617225833140](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202206181721414.png)
+
+3. 提供者与消费者
+
+   * 服务提供者与消费者是相对的
+
+### EureKa注册中心
+
+1.  服务调用中的问题
+
+   * 服务消费者该如何获取服务提供者的地址信息?
+   * 如果有多个服务提供者,消费者该如何选择?
+   * 消费者如何得知服务提供者的健康状态? 
+
+2. eureka的作用
+
+   * EurekaServer：服务端，注册中心
+     * 记录服务信息
+     * 心跳监控
+   * EruekaClient：客户端
+     * Provider：服务提供者，将自身信息注册到注册中心，每隔30秒向注册中心发送心跳
+     * consumer：服务消费者，根据服务名称从注册中心拉取服务列表，基于服务列表做负载均衡，选中一个微服务后发起远程调用
+
+   ![image-20220618171448837](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202206181721711.png)
+
+3. 动手实践
+
+   * 搭建注册中心
+
+     ![image-20220618172353099](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202206181723946.png)
+
+   * 服务注册
+
+     ![image-20220618175957800](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202206181800933.png)
+
+     模拟多实例部署：
+   
+     ![image-20220618215953095](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202206182200358.png)
+   
+   * 服务发现
+   
+     ![image-20220618220255386](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202206182202134.png)
+   
+   总结：
+   
+   ![image-20220618235120394](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20220618235120394.png)
+
+### Ribbon负载均衡
+
+1. 负载均衡流程
+
+   ![image-20220619111019572](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20220619111019572.png)
+
+   ![image-20220619111733756](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202206191119756.png)
+
+2. 负载均衡策略
+
+   ![image-20220619111906061](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202206191124670.png)
+
+   ![image-20220619111926430](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202206191124252.png)
+
+   ![image-20220619112416337](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202206191124665.png)
+
+3. 饥饿加载
+
+   ![image-20220619113011093](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202206191130698.png)
+
+### Nacos注册中心
+
+1. 安装nacos
+
+   * 下载：在Nacos的GitHub页面，提供有下载链接，可以下载编译好的Nacos服务端或者源代码：
+     * GitHub主页：https://github.com/alibaba/nacos
+     * GitHub的Release下载页：https://github.com/alibaba/nacos/releases
+   * 配置：Nacos的默认端口是8848，若电脑上的其它进程占用了8848端口，请先尝试关闭该进程。**如果无法关闭占用8848端口的进程**，也可以进入nacos的conf目录中的配置文件application.properties修改的端口。
+   * 启动
+     * 双击bin目录中的startup.cmd
+     * 执行命令startup.cmd -m standalone
+   * 访问：在浏览器输入地址：http://127.0.0.1:8848/nacos即可，登录默认的账号和密码都是nacos进入。
+
+2. nacos的依赖
+
+   父工程：
+
+   ```xml
+   <dependency>
+       <groupId>com.alibaba.cloud</groupId>
+       <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+       <version>2.2.5.RELEASE</version>
+       <type>pom</type>
+       <scope>import</scope>
+   </dependency>
+   ```
+
+   客户端：
+
+   ```xml
+   <!-- nacos客户端依赖包 -->
+   <dependency>
+       <groupId>com.alibaba.cloud</groupId>
+       <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+   </dependency>
+   ```
+
+3. 看来就
 
 # 开发经验
 
