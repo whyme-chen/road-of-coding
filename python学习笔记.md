@@ -525,13 +525,28 @@ Python 的数据类型：数字类型、布尔型和字符串类型。
 
 ## Excel
 
-# 网络爬虫
+# 网络爬虫（数据采集）
 
 ## 概述
 
 1. 爬虫：全称应为网络爬虫，搜索引擎就是网络爬虫的应用。是一种按照一定规则，自动你抓取互联网信息的程序或脚本。
 
-2. 背景调研（合法使用爬虫）
+2. 应用
+
+   * 零售业
+   * 金融行业
+
+3. 构建流程
+
+   ```python
+   1. 确定目标网站，这个目标网站就是你要获取数据的网站。
+   2. 确定你要获取数据的页面的 URL。
+   3. 对第 2 步中的 URL 发起请求以获取页面的 HTML 代码。
+   4. 使用解析工具从 HTML 中获取想要的数据。
+   5. 将第 4 步中获取到的数据保存到 JSON 或 CSV 文件中或者保存成其他格式。
+   ```
+
+4. 背景调研（合法使用爬虫）
 
    > 在深入讨 论爬取一个网站 之前，我们首先需要对目标站点的规模和结构进行一定程度的了解。例如网站自身的robots.txt和Sitemap文件
 
@@ -552,10 +567,11 @@ Python 的数据类型：数字类型、布尔型和字符串类型。
    > ~~~python
    > import builtwith
    > builtwith.parse('要进行分析的URL')
+   > ~~~
 
-3. 本质：模拟浏览器打开网页，获取网页中我们想要的部分数据。
+5. 本质：模拟浏览器打开网页，获取网页中我们想要的部分数据。
 
-4. 分类
+6. 分类
 
    * 通用爬虫
 
@@ -563,7 +579,13 @@ Python 的数据类型：数字类型、布尔型和字符串类型。
 
    * 聚焦爬虫
 
-5. 接口
+7. 接口
+
+## HTTP协议
+
+### 基本概述
+
+### 请求响应过程
 
 ## 快速入门
 
@@ -573,7 +595,23 @@ Python 的数据类型：数字类型、布尔型和字符串类型。
    * 遍历每个网页的数据库ID
    * 跟踪网页链接
 
+## Scrapy框架
 
 
 
+# Jupyter Notebook
 
+使用参考：https://blog.csdn.net/Bocker_Will/article/details/122828050
+
+插件推荐：
+
+* https://blog.csdn.net/weixin_43373042/article/details/122757680?spm=1001.2101.3001.6650.18&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-18-122757680-blog-109736618.pc_relevant_paycolumn_v3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-18-122757680-blog-109736618.pc_relevant_paycolumn_v3&utm_relevant_index=23
+* https://blog.csdn.net/qq_41554005/article/details/109736988
+
+## 魔法函数
+
+参考资料：https://blog.csdn.net/qq_41554005/article/details/109736618
+
+# Anaconda
+
+参考资料：https://zhuanlan.zhihu.com/p/32925500

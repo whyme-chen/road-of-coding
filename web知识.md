@@ -1385,6 +1385,10 @@ ES全称EcmaScript，是脚本语言的规范，JavaScript是EcmaScript的一种
 - Array.find()
 - Array.findIndex()
 
+## 知识点总结
+
+参看资料：https://blog.csdn.net/Augenstern_QXL/article/details/119249534
+
 # BootStrap
 
 ### bootstrap概述
