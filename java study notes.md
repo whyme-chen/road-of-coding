@@ -36,8 +36,15 @@ java 1.9后提供。
 3. 类与对象
    * 类：对某一类事物的共性抽象概念
    * 对象：描述的是一个具体的事物
-4. this关键字
-   * 使用this调用属性
+   
+4. 构造器
+
+   ![image-20220914202459869](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209142025665.png)
+
+5. this关键字：
+
+   * 代表当前对象的地址
+   * 使用this调用属性（当前对象的成员变量、方法）
    * 使用this调用方法
 
 ## 类
@@ -135,9 +142,11 @@ java 1.9后提供。
    * 对象的多态性：父子实例之间的转换处理
      * 对象向上转型
      * 对象向下转型
-2. instanof关键字
+2. instanof关键字：保证对象向下转型的正确性
 
-保证对象向下转型的正确性
+### JavaBean
+
+![image-20220914203132422](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209142031407.png)
 
 ### Object类
 
@@ -164,7 +173,7 @@ java 1.9后提供。
 
 ### String类
 
-#### String类两种实例化方式的区别
+#### String类两种实例化方式
 
 * 直接赋值的对象实例化模式：只会产生一个实例化对象并且会自动保存到对象池中，以实现字符串实例重用
 * 使用构造方法的实例化模式：会产生两个实例对象并且不会自动入池，无法实现对象重用，但是可以利用intern()方法实现手动入池
@@ -801,10 +810,14 @@ try{
 
 1. 常用方法
 
+   ![image-20220914211516448](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209142115036.png)
+
 2. 底层实现原理
 
    > * 底层基于数组实现，根据所以定位元素快，但是增删元素时需要做移位操作
    > * 初始化时，默认创建长度为10的数组
+
+3. 边遍历边删除
 
 #### LinkedList
 
@@ -935,6 +948,9 @@ window的时代开启了多进程设计，在一个时间段可以同时运行�
 
 在java中提供了一个java.lang.Thread的程序类，只要一个类继承了此类就表示这个类为线程的主体类。在该主体类中覆盖重写run()方法，多线程要执行的功能都应该再run()方法内部进行定义。需要说明的是：正常情况下只需产生一个实例化对象，然后调用类中提供的方法。但是run()方法是不能被直接调用的，而是需要使用start()方法来启动多线程实现线程的调度。
 
+* 优点：编码简单
+* 缺点：因为该类已继承Thread类，无法继承其他类，故不利于扩
+
 ```java
 class MyThread extends Thread{
     @Override
@@ -960,6 +976,9 @@ public class ThreadDemo {
 
 #### 基于Ruanable接口实现多线程
 
+* 优点：可以继承其他类和实现其他接口，扩展性强
+* 缺点：编码较为复杂，多次封装
+
 ```java
 package test;
 
@@ -969,28 +988,45 @@ package test;
     2.创建一个MyRunnable类的对象和Thread类的对象，将MyRunnable的对象作为参数传输Thread类的构造方法中
     3.启动线程
 */
+public class ThreadDemo2 {
+    public static void main(String[] args) {
+        Thread thread1 = new Thread(new MyRunnable());
+        thread1.start();
 
-public class MyRunnable implements Runnable {
+        //匿名内部类形式
+        Thread thread2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 100; i++) {
+                    System.out.println("son2 thread: "+i);
+                }
+            }
+        });
+        thread2.start();
 
-    @Override
-    public void run() {
-        // TODO Auto-generated method stub
-        for (int i = 0; i < 50; i++) {
-            System.out.println(Thread.currentThread().getName()+":"+i);
+        //lambda表达式形式
+        Thread thread3 = new Thread(()->{
+            for (int i = 0; i < 100; i++) {
+                System.out.println("son3 thread: "+i);
+            }
+        });
+        thread3.start();
+
+        for (int i = 0; i < 100; i++) {
+            System.out.println("father thread: "+i);
         }
     }
-
 }
 
-public class Test03 {
-    public static void main(String[] args) {
-        MyRunnable myRunnable=new MyRunnable();
-        Thread thread=new Thread(myRunnable,"thread1");
-        Thread thread2=new Thread(myRunnable,"thread2");
-        thread.start();
-        thread2.start();
+class MyRunnable implements Runnable{
+    @Override
+    public void run() {
+        for (int i = 0; i < 100; i++) {
+            System.out.println("son1 thread: "+i);
+        }
     }
 }
+
 ```
 
 #### Thread和Runnable关系
@@ -1014,6 +1050,11 @@ public class Thread extends Object implements Runnable {}
 #### Callable实现多线程
 
 传统的多线程实现是依靠Runnable接口，但是Runnable接口有一个缺点：线程执行完毕后无法获取一个返回值。从JDK1.5之后提出了一个新的线程实现接口：java.util.concurrent.Callable。
+
+![image-20220909233414588](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209092337483.png)
+
+* 优点：扩展性强
+* 缺点：编码较为复杂
 
 ![image-20210721211443958](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20210721211443958.png)
 
@@ -1044,13 +1085,17 @@ public class ThreadDemo{
 
 ![image-20210721212820134](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20210721212820134.png)
 
+![image-20220913202914929](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209132029314.png)
+
+![image-20220913203242411](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209132032460.png)
+
 ### 3. 线程常用方法
 
 1. 线程的命名与取得
    
    * 构造方法：public Thread(Runnable target,String name)
    * 设置名字：publid final void setName(String name)
-   * 取得名字：public final Sttring getName()
+   * 取得名字：public final String getName()
 
 2. 线程控制
    
@@ -1075,8 +1120,218 @@ public class ThreadDemo{
      * public final void setPriority(int newPriority)：更改线程的优先级
    
    注意：线程默认优先级为5；线程优先级的范围是：1-10；线程优先级高仅仅表示线程获取的CPU时间片的几率高，但是要在次数比较多或者多次运行的时候才能看到想要的效果。
+   
+   ![image-20220910173947436](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209101739700.png)
 
-### 4. 线程同步
+### 4. 线程安全
+
+1. 线程安全问题： 多个线程同时操作同一个共享资源的时候可能出现的业务安全问题。
+
+2.  出现原因：
+   * 存在多线程并发
+   * 同时访问共享资源
+   * 存在修改共享资源的行为
+   
+3. 模拟案例
+
+   ~~~java
+   /**
+    *
+    * An account simulation class
+    *
+    * @author WenJianChen
+    * @version 1.0
+    * @date 2022/9/10 17:54
+    *
+    */
+   public class Account {
+       private int cardID;
+       private int money;
+   
+       /**
+        * draw money
+        * @param money
+        * @return
+        */
+       public void drawMoney(int money){
+           String name = Thread.currentThread().getName();
+           if (money<=this.money){
+               System.out.println(name+"draw money successfully");
+               this.money-=money;
+               System.out.println("balance: "+this.money);
+           }else {
+               System.out.println("sorry,"+name+" Insufficient balance");
+           }
+       }
+   
+       @Override
+       public String toString() {
+           return "Account{" +
+                   "cardID=" + cardID +
+                   ", money=" + money +
+                   '}';
+       }
+   
+       public Account() {
+           this.cardID = cardID;
+           this.money = money;
+       }
+   
+       public int getCardID() {
+           return cardID;
+       }
+   
+       public void setCardID(int cardID) {
+           this.cardID = cardID;
+       }
+   
+       public int getMoney() {
+           return money;
+       }
+   
+       public void setMoney(int money) {
+           this.money = money;
+       }
+   }
+   ========================================
+   /**
+    * @author WenJianChen
+    * @version 1.0
+    * @date 2022/9/10 18:25
+    */
+   public class ThreadDemo5 {
+       public static void main(String[] args) {
+           Account account = new Account();
+           account.setCardID(1);
+           account.setMoney(100000);
+   
+           new DrawMoney(account,"小明").start();
+           new DrawMoney(account,"小红").start();
+       }
+   }
+   
+   class DrawMoney extends Thread{
+       private Account account;
+   
+       public DrawMoney(Account account,String threadName){
+           super(threadName);
+           this.account=account;
+       }
+   
+       @Override
+       public void run() {
+           account.drawMoney(100000);
+       }
+   }
+   ~~~
+
+### 5. 线程同步
+
+1. 同步思想
+
+   * 加锁： 多个线程依次访问共享资源
+
+     * 同步代码块
+
+       > 理论上： 锁对象只要对于当前同时执行的线程来说是同一个对象即可。
+       >
+       > 规范上：讲义使用共享资源作为锁对象。对于实例方法建议使用this作为锁对象，对于静态方法讲义使用字节码（类名.class）对象作为锁对象。
+       >
+       > synchronized（同步锁对象）{
+       >
+       > ​	操作共享资源的代码
+       >
+       > }
+
+     * 同步方法
+
+       > * 同步方法其实底层也是有隐式锁对象的，只是锁的范围是整个方法代码。
+       > * 如果方法是实例方法:同步方法默认用this作为的锁对象。但是代码要高度面向对象!
+       > * 如果方法是静态方法:同步方法默认用类名.class作为的锁对象。
+       >
+       > 修饰符 synchronized 返回值类型 方法名称（形参列表）{
+       >
+       > ​	操作共享资源的代码		
+       >
+       > }
+
+     * Lock锁
+
+       > ![image-20220910231502796](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209102315950.png)
+
+
+### 6. 线程通信
+
+1. 线程通信：线程相互发送数据
+
+2. 常见模型
+
+   * 生产者与消费者模型
+
+     ![image-20220912130658196](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209121307430.png)
+
+### 7. 线程池
+
+1. 线程池：可以复用线程的技术
+
+2. 基本原理
+
+   ![image-20220912131231401](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209121312471.png)
+
+3. API和参数
+
+   ![image-20220912131322867](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209121313452.png)
+
+   ![image-20220912131429879](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209121314545.png)
+
+   ![image-20220913191802427](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209131918792.png)
+
+   ![image-20220913191826706](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209131918660.png)
+
+   ![image-20220913194838758](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209131948194.png)
+
+   注意：
+
+   * 新任务提交时发现核心线程都在忙，任务队列也满了，并且还可以创建临时线程，此时才会创建临时线程。
+   * 核心线程和临时线程都在忙，任务队列也满了，新的任务过来的时候才会开始任务拒绝。
+
+### 8. 定时器
+
+1. 定时器：一种控制任务延时调用，或者周期调用的技术。可用于闹钟、定时邮件的发送。
+
+2. 实现方式
+
+   * Timer
+   * ScheduleExecutorService
+
+   ![image-20220913200705966](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209132007407.png)
+
+   ![image-20220913201527702](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209132015465.png)
+
+3. 代码演示
+
+   ~~~ java
+       public static void main(String[] args) {
+           Timer timer = new Timer();
+           timer.schedule(new TimerTask() {
+               @Override
+               public void run() {
+                   System.out.println(Thread.currentThread().getName()+"输出了");
+               }
+           },3000,3000);
+       }
+   ======================================
+   public static void main(String[] args) {
+           ScheduledExecutorService pool = Executors.newScheduledThreadPool(3);
+   
+           pool.scheduleAtFixedRate(new TimerTask() {
+               @Override
+               public void run() {
+                   System.out.println(Thread.currentThread().getName()+" 输出了");
+               }
+           },0,2, TimeUnit.SECONDS);
+       }
+   ~~~
 
 # Junit单元测试
 
@@ -8345,6 +8600,10 @@ git管理的文件有三种状态：已修改（modified）,已暂存（staged�
    * 空间
 
 5. 接口
+
+# 并发编程
+
+
 
 # 开发经验
 
