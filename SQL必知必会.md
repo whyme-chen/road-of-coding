@@ -155,7 +155,7 @@ SELECT 列名 FROM 表名 WHERE 条件;
 
 
 
-# MySQL 知识总结
+# MySQL 学习
 
 参考链接：https://blog.csdn.net/fannyoona/article/details/105565198
 
