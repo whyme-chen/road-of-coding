@@ -157,7 +157,144 @@ SELECT 列名 FROM 表名 WHERE 条件;
 
 # MySQL 学习
 
+学习视频：https://www.bilibili.com/video/BV1Kr4y1i7ru/?spm_id_from=333.999.0.0&vd_source=fabefd3fabfadb9324761989b55c26ea
+
 参考链接：https://blog.csdn.net/fannyoona/article/details/105565198
+
+## 概述
+
+1. 基本概念
+
+   ![image-20220929184318530](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209291843086.png)
+
+2. 目前主流的数据库管理系统
+
+3. mysql的安装及启动
+
+   * 版本
+   * 安装
+   * 启动
+   * 连接
+
+4. 数据模型
+
+   * 二维表
+
+## SQL
+
+1. 通用语法
+
+   ![image-20220929185932212](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209291859003.png)
+
+2. SQL语句的分类
+
+   ![image-20220929190026906](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209291900741.png)
+
+3. mysql数据类型
+
+   * 数值类型
+
+     ![image-20220929192216973](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209291922020.png)
+
+   * 字符串类型
+
+     ![image-20220929192405663](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209291936879.png) 
+
+   * 日期类型
+
+     ![image-20220929193610041](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209291936189.png)
+
+4. 图形化界面
+
+   * sqlyog
+   * Navicat
+   * DataGrip
+
+### DDL
+
+1. 数据库操作
+
+   ![image-20220929190845682](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209291909371.png)
+
+2. 表操作
+
+   ![image-20220929191028497](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209291910688.png)
+
+   ![image-20220929191929527](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209291919876.png)
+
+   ![image-20220929195033414](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209291950632.png)
+
+   ![image-20220929195114357](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209291951052.png)
+
+   ![image-20220929195213082](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209291952213.png)
+
+   ![image-20220929195324785](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209291953147.png)
+
+3. 小结：
+
+   ![image-20220929195550259](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209291955107.png)
+
+### DML
+
+1. 添加数据（insert）
+
+   ![image-20220930183201553](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209301832066.png)
+
+2. 修改数据（update）
+
+   ![image-20220930184320840](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209301843301.png)
+
+3. 删除数据（delete）
+
+   ![image-20220930184520139](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209301845289.png)
+
+### DQL
+
+1. 基础查询
+
+   ![image-20220930184903204](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209301849223.png)
+
+   ![image-20220930185018702](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209301850330.png)
+
+2. 条件查询
+
+   ![image-20220930185806321](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209301858782.png)
+
+3. 聚合函数
+
+   ![image-20220930190708198](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209301907635.png)
+
+4. 分组查询
+
+   ![image-20220930191026093](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209301910187.png)
+
+5. 排序查询
+
+   ![image-20220930191553376](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209301915129.png)
+
+6. 分页查询
+
+   ![image-20220930191951888](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209301919617.png)
+
+7. DQL语句执行顺序
+
+   ![image-20220930192506277](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209301925589.png)
+
+8. 小结
+
+   ![image-20220930192826816](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209301928109.png)
+
+### DCL
+
+1. 管理用户
+
+   ![image-20220930193235515](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209301932090.png)
+
+2. 权限控制
+
+   ![image-20220930193601788](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209301936081.png)
+
+   ![image-20220930193701408](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209301937630.png)
 
 ### 1. 常用命令
 
