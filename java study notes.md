@@ -1541,6 +1541,27 @@ public class Test04 {
    
    ![image-20211227202726241](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211227202726241.png)
 
+# java Web概述
+
+1. 相关技术栈
+   * 数据库相关
+     * mysql
+     * jdbc
+     * mybatis
+   * 前端网页相关
+     * HTML+CSS
+     * JavaScript
+     * ajax
+     * Vue
+     * ElementUI
+   * javaWeb核心
+     * Tomcat+HTTP+Servlet
+     * JSP
+     * Cookie+Session
+     * Filter+Lister
+
+![image-20221104200959033](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211042010915.png)
+
 # MySQL数据库
 
 ## 概述及环境准备
@@ -1621,7 +1642,7 @@ public class Test04 {
    double
    date（只包含年月日）
    datetime（包含年月日时分秒）
-   timestamp（时间错类型）
+   timestamp（时间戳类型）
    varchar（字符串）
    
    2. 查询
@@ -1630,6 +1651,7 @@ public class Test04 {
    
    * 查询表结构
    desc 表名
+   show create table 表名
    
    3. 修改
    * 修改表名
@@ -1691,7 +1713,6 @@ public class Test04 {
    分页公式：（当前页数-1）*每页记录数
    ```
 
-7. 规范
 
 ## DML语句（数据操作）
 
@@ -1728,37 +1749,35 @@ public class Test04 {
    revoke 权限 on 数据库.* from 用户名@主机名;
    ```
 
-3. 约束
-   
-   ```sql
-   对表中数据进行限定，保证数据的正确性，有效性和完整性。
-   分类：
-   主键约束（primary key）
-   主键：非空且唯一
-   一张表中只能有一个字段为主键
-   主键就是表中记录的唯一标识
-   删除主键（alter table 表名 drop primary key;）
-   附：自动增长
-   概念：如果某一列是数值类型的，使用auto_ncreament可以完成值的自动增长
-   非空约束（not null）
-   在创建表时就进行约束
-   创建表后添加非空约束
-   唯一约束（unique）
-   创建表时添加唯一约束
-   创建完后添加唯一约束
-   删除唯一约束（alter table 表名 drop index 列名;）
-   外键约束（foregin key）
-   在创建表时可以添加外键
-   create table 表名（
-                       外键列
-                       constraint 外键名称 foreign key 外键列名称 reference 主表名称（主表列名称;
-               删除外键：
-   alter table 表名 drop forigen key 外键名称；
-           创建表之后添加外键：
-   alter table 表名 add constraint 外键名称 foreign key（外键字段名称）reference 主表名称（主表列名称）
-           级联操作：
-   添加级联操作：alter table add constraint 外键名称 foreign key referen 主表名称（主表列名称）on update cascade on delete cascade；
-   ```
+## 约束
+
+1. 概念：对表中数据进行限定，保证数据的正确性，有效性和完整性。
+
+2. 分类
+
+   * 主键约束（primary key）
+
+     > 主键：非空且唯一，一张表中只能有一个字段为主键，主键就是表中记录的唯一标识
+     >    删除主键（alter table 表名 drop primary key;）
+     >
+     > 自动增长：如果某一列是数值类型的，使用auto_ncreament可以完成值的自动增长
+
+   * 非空约束
+
+   * 唯一约束
+
+   * 检查约束
+
+   * 默认约束
+
+   * 外键约束
+
+   ![image-20221104202706822](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211042027411.png)
+
+   > 注意：mysql不支持检查约束
+
+3. 添加约束
+
 
 ## 数据库备份和恢复
 
@@ -8668,6 +8687,14 @@ git管理的文件有三种状态：已修改（modified）,已暂存（staged�
 > 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
 ## 跨域问题（CROS）
+
+### 字符编码
+
+1. ASCII
+2. GBK
+3. Unicode
+   * UTF-32
+   * UTF-8
 
 # 学习路线/资源
 

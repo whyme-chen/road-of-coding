@@ -1,160 +1,3 @@
-# SQL必知必会读书笔记
-
-## 数据库基础
-
-### 基本概念
-
-1. 数据库
-
-   保存有组织的数据的容器
-
-2. 表
-
-   某种特定类型数据的结构化清单
-
-3. 列和数据类型
-
-   列：表中的一个字段，所有的表都是由一个或多个列组合而成。
-
-   数据类型：每个列都有相应的数据类型来限制该列中存储的数据
-
-4. 行
-
-   表中的一个记录。
-
-5. 主键
-
-   一列（或一组列），其值可以唯一标识表中每一行。
-
-   主键应该满足如下条件：
-
-   > + 任意两行都不具有相同的主键值
-   > + 每一行都必须具有一个主键值（主键值列不允许NULL值）
-   > + 主键列中的值不允许修改或更新
-   > + 主键值不能重复（如果某行从表中删除，它的主键不能赋给以后的新行）
-
-+++
-
-### 什么是SQL
-
-SQL是结构化查询语言（Structured Query Language）的缩写。SQL是一种专门用来与数据库沟通的语言。
-
-+++
-
-## 检索数据
-
-### SELECT语句
-
-1. 检索单个列
-
-   ~~~sql
-   SELECT 列名 FROM 表名;
-   ~~~
-
-   注意：SQL语句是不区分大小写的。
-
-   ​			在处理SQL语句时，其中所有空格都是被忽略的。
-
-2. 检索多个列
-
-   ~~~sql
-   SELECT 列名1,列名2,.... FROM 表名;
-   ~~~
-
-3. 检索所有列
-
-   ~~~sql
-   SELECT * FROM 表名;
-   ~~~
-
-4. 检索不同的值
-
-   ~~~sql
-   SELECT DISTINICT 列名 FROM 表名; 
-   ~~~
-
-   注意：distinct关键字作用于所有列，而不是只作用域紧跟其后的一列。
-
-5. 限制结果
-
-   ~~~sql
-   //SQL Server和Access中，使用top关键字来限定返回结果的行数
-   SELECT TOP 行数 列名 FROM 表名;
-   //DB2中
-   SELECT 列名 FROM 表名 FETCH FIRST 行数 ROWS ONLY;
-   //Oracle中，基于ROWNUM（行计数器）实现
-   SELEct 列名 FROM 表名 WHERE ROWNUM <=行数;
-   //MySQL、MariaDB、PostgreSQL、SQLite，使用LIMIT子句实现
-   SELECT 列名 FROM 表名 LIMIT 行数;
-   SELECT 列名 FROM 表名 LIMIT 行数 OFFSET 起始行;//注意：第一个被检索的是0行，而非1行
-   ~~~
-
-6. 注释
-
-   使用--（两个连字符）或者#
-
-   /**/进行多行注释
-
-+++
-
-## 排序检索数据
-
-### 排序数据
-
-1. 使用子句order by对检索出的数据进行排序。
-
-   ~~~sql
-   SELECT 列名 FROM 表名 ORDER BY 列名;
-   ~~~
-
-   注意：在指定一条order by子句时，应该保证它是select语句中的最后一条子句。否则，会出现错误。
-
-2. 按多个列排序
-
-   ~~~sql
-   SELECT 列名 FROM 表名 ORDER BY 列名1,列名2,...;
-   ~~~
-
-3. 按列位置排序
-
-### 指定排序方向
-
-使用关键字DESC来实现指定降序排序。 
-
-~~~sql
-SELECT 列名 FROM 表名 ORDER BY 列名 DESC;
-~~~
-
-+++
-
-## 过滤数据
-
-使用where子句指定搜索条件。
-
-### 使用where子句
-
-~~~sql
-SELECT 列名 FROM 表名 WHERE 条件;
-~~~
-
-### where子句操作符
-
-## 高级数据过滤
-
-## 使用存储过程
-
-### 什么是存储过程
-
-
-
-### 为什么要使用存储过程
-
-
-
-### 怎么使用存储过程
-
-
-
 # MySQL 学习
 
 学习视频：https://www.bilibili.com/video/BV1Kr4y1i7ru/?spm_id_from=333.999.0.0&vd_source=fabefd3fabfadb9324761989b55c26ea
@@ -180,7 +23,7 @@ SELECT 列名 FROM 表名 WHERE 条件;
 
    * 二维表
 
-## SQL
+## SQL语句
 
 1. 通用语法
 
@@ -295,6 +138,60 @@ SELECT 列名 FROM 表名 WHERE 条件;
    ![image-20220930193601788](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209301936081.png)
 
    ![image-20220930193701408](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209301937630.png)
+
+## 函数
+
+1. 概念：函数是指一段可以直接被另一段程序调用的程序或代码。
+
+2. 字符串函数
+
+   ![image-20221117185754047](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211171858195.png)
+
+3. 数值函数
+
+   ![image-20221117190537640](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211171905738.png)
+
+4. 日期函数
+
+   ![image-20221117191308114](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211171913400.png)
+
+5. 流程函数
+
+   ![image-20221117193120191](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211171931769.png)
+
+## 约束
+
+1. 概念：约束是作用于表中字段上的规则，用于限制存储在表中的数据。
+
+2. 目的：保证数据库中数据的正确、有效性和完整性。
+
+3. 分类
+
+   ![image-20221117193229448](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211171932772.png)
+
+4. 外键约束
+
+   * 外键用来让两张表的数据之间建立连接,从而保证数据的一致性和完整性。
+
+   * 语法
+
+     ![image-20221117194730658](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211171947413.png)
+
+   * 删除/更新行为
+
+     ![image-20221117195653639](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211171958957.png)
+
+## 多表查询
+
+### 多表关系
+
+1. 多表间基本关系
+   * 一对一
+   * 一对多
+   * 多对多
+2. 接口
+
+## 常用操作汇总
 
 ### 1. 常用命令
 
@@ -479,7 +376,7 @@ IN/NOT IN、ANY/SOME、ALL
 		limit (page-1)*size,size;
 ~~~
 
-### 9. DML语句
+### 9. 表数据相关（DML）
 
 ~~~sql
 1. 插入语句insert
@@ -493,10 +390,10 @@ IN/NOT IN、ANY/SOME、ALL
 	delete from 表名 where 筛选条件
 ~~~
 
-### 10. DDL语句
+### 10. 数据库或表结构相关（DDL语句）
 
 ~~~sql
-#常见约束
+常见约束
 
 CREATE TABLE 表名(
 	字段名 字段类型 列级约束
@@ -522,12 +419,12 @@ CREATE TABLE 表名(
 约束的添加分类：
 	1、列级约束：六大约束语法上都支持，但外键约束没有效果
 	2、表级约束：除了非空、默认约束，其他都支持
+~~~
 
 ### 12. 事务
 
 事务：一个或一组sql语句组成一个执行单元，这个执行单元要么全部执行，要么全部不执行。如果单元中某条sql语句一旦执行失败或产生错误，整个单元将会回滚。
-
-​~~~sql
+~~~sql
 /*
 事务的创建
 
@@ -556,6 +453,7 @@ rollback;回滚事务
 save point 节点名;#设置保存点
 
 */
+
 CREATE DATABASE test;
 
 CREATE TABLE account(
@@ -588,6 +486,7 @@ DELETE FROM account WHERE id=2;
 
 ROLLBACK TO a;#回滚到保存点
 SELECT * FROM account;#1号删了，2号没删
+~~~
 
 ### 13. 存储过程
 
@@ -599,7 +498,7 @@ SELECT * FROM account;#1号删了，2号没删
 2、简化操作
 3、减少了编译次数，并且减少了和数据库服务器的连接次数，提高了效率
 
-​~~~sql
+~~~sql
 #一、创建语法
 
 CREATE PROCEDURE 存储过程名(参数列表)
@@ -625,13 +524,14 @@ INOUT:该参数既可以作为输入又可以作为输出，也就是既需要�
 DELIMITER 结束标记
 例如：
 DELIMITER $
-#二、调用语法
 
+#二、调用语法
 CALL 存储过程名(实参列表);
+~~~
 
 ### 14. 函数
 
-​~~~sql
+~~~sql
 #一、创建语法
 CREATE FUNCTION 函数名(参数列表) RETURNS 返回类型
 BEGIN
@@ -951,6 +851,157 @@ select * from employees limit 11,15;
 ### SQL语句练习
 
 常用SQL语句练习案例链接：https://www.cnblogs.com/Diyo/p/11424844.html
+
+# 《SQL必知必会》学习笔记
+
+## 数据库基础
+
+### 基本概念
+
+1. 数据库
+
+   保存有组织的数据的容器
+
+2. 表
+
+   某种特定类型数据的结构化清单
+
+3. 列和数据类型
+
+   列：表中的一个字段，所有的表都是由一个或多个列组合而成。
+
+   数据类型：每个列都有相应的数据类型来限制该列中存储的数据
+
+4. 行
+
+   表中的一个记录。
+
+5. 主键
+
+   一列（或一组列），其值可以唯一标识表中每一行。
+
+   主键应该满足如下条件：
+
+   > + 任意两行都不具有相同的主键值
+   > + 每一行都必须具有一个主键值（主键值列不允许NULL值）
+   > + 主键列中的值不允许修改或更新
+   > + 主键值不能重复（如果某行从表中删除，它的主键不能赋给以后的新行）
+
+### 什么是SQL
+
+SQL是结构化查询语言（Structured Query Language）的缩写。SQL是一种专门用来与数据库沟通的语言。
+
+## 检索数据
+
+### SELECT语句
+
+1. 检索单个列
+
+   ~~~sql
+   SELECT 列名 FROM 表名;
+   ~~~
+
+   注意：SQL语句是不区分大小写的。
+
+   ​			在处理SQL语句时，其中所有空格都是被忽略的。
+
+2. 检索多个列
+
+   ~~~sql
+   SELECT 列名1,列名2,.... FROM 表名;
+   ~~~
+
+3. 检索所有列
+
+   ~~~sql
+   SELECT * FROM 表名;
+   ~~~
+
+4. 检索不同的值
+
+   ~~~sql
+   SELECT DISTINICT 列名 FROM 表名; 
+   ~~~
+
+   注意：distinct关键字作用于所有列，而不是只作用域紧跟其后的一列。
+
+5. 限制结果
+
+   ~~~sql
+   //SQL Server和Access中，使用top关键字来限定返回结果的行数
+   SELECT TOP 行数 列名 FROM 表名;
+   //DB2中
+   SELECT 列名 FROM 表名 FETCH FIRST 行数 ROWS ONLY;
+   //Oracle中，基于ROWNUM（行计数器）实现
+   SELEct 列名 FROM 表名 WHERE ROWNUM <=行数;
+   //MySQL、MariaDB、PostgreSQL、SQLite，使用LIMIT子句实现
+   SELECT 列名 FROM 表名 LIMIT 行数;
+   SELECT 列名 FROM 表名 LIMIT 行数 OFFSET 起始行;//注意：第一个被检索的是0行，而非1行
+   ~~~
+
+6. 注释
+
+   使用--（两个连字符）或者#
+
+   /**/进行多行注释
+
+## 排序检索数据
+
+### 排序数据
+
+1. 使用子句order by对检索出的数据进行排序。
+
+   ~~~sql
+   SELECT 列名 FROM 表名 ORDER BY 列名;
+   ~~~
+
+   注意：在指定一条order by子句时，应该保证它是select语句中的最后一条子句。否则，会出现错误。
+
+2. 按多个列排序
+
+   ~~~sql
+   SELECT 列名 FROM 表名 ORDER BY 列名1,列名2,...;
+   ~~~
+
+3. 按列位置排序
+
+### 指定排序方向
+
+使用关键字DESC来实现指定降序排序。 
+
+~~~sql
+SELECT 列名 FROM 表名 ORDER BY 列名 DESC;
+~~~
+
++++
+
+## 过滤数据
+
+使用where子句指定搜索条件。
+
+### 使用where子句
+
+~~~sql
+SELECT 列名 FROM 表名 WHERE 条件;
+~~~
+
+### where子句操作符
+
+## 高级数据过滤
+
+## 使用存储过程
+
+### 什么是存储过程
+
+
+
+### 为什么要使用存储过程
+
+
+
+### 怎么使用存储过程
+
+
 
 
 
