@@ -183,13 +183,157 @@
 
 ## 多表查询
 
-### 多表关系
-
 1. 多表间基本关系
    * 一对一
    * 一对多
    * 多对多
-2. 接口
+   
+2. 笛卡尔积
+
+3. 多表查询的分类
+
+   * 连接查询
+     * 内连接：相当于查询A、B交集部分数据
+     * 外连接
+       * 左外连接：查询左表所有数据，以及两张表交集部分数据
+       * 右外连接：查询右表所有数据，以及两张表交集部分数据
+     * 自连接：当前表与自身的连接查询，自连接必须使用表的别名
+   * 子查询
+
+4. 内连接
+
+   ![image-20221117204115574](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211172046948.png)
+
+5. 外连接
+
+   ![image-20221117204620913](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211172046393.png)
+
+6. 自连接
+
+   ![image-20221117205212885](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211172052309.png)
+
+7. 联合查询
+
+   ![image-20221117205448015](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211172054517.png)
+
+8. 子查询
+
+   * 标量子查询(子查询结果为单个值)
+     * 常用操作符：=、>=、<=
+   * 列子查询(子查询结果为一列
+     * 常用的操作符: IN、NOT IN、ANY、 SOME、ALL
+   * 行子查询(子查询结果为一行)
+   * 表子查询(子查询结果为多行多列
+
+   > 注意：子查询的位置可以在where、from、select之后
+
+## 事务
+
+1. 概念：事务是一组操作的集合，它是一个不可分割的工作单位，事务会把所有的操作作为一一个整体一起向系统提交或撤销操作请求，即这些操作要么同时成功，要么同时失败。
+
+2. 基本操作
+
+   * 方式一：
+
+     ![image-20221117213224636](D:\学习\road-of-coding\java study notes.assets\image-20221117213224636.png)
+
+   * 方式二：
+
+     ![image-20221117213306222](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211172133460.png)
+
+3. 四大特性(CIAD)
+
+   * 原子性. (Atomicity) ：事务是不可分割的最小操作单元，要么全部成功，要么全部失败。
+   * 一致性(Consistency) ：事务完成时，必须使所有的数据都保持一 -致状态。
+   * 隔离性(Isolation)：数据库系统提供的隔离机制，保证事务在不受外部并发操作影响的独立环境下运行。
+   * 持久性(Durability) ：事务一旦提交或回滚，它对数据库中的数据的改变就是永久的。
+
+4. 并发事务
+
+   * 引发的问题
+
+     * 脏读
+     * 不可重复读
+     * 幻读
+
+     ![image-20221117214004968](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211172140596.png)
+
+   * 事务的隔离级别
+
+     * 类型
+
+       ![image-20221117214200429](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211172142141.png)
+
+     * 操作
+
+       ![image-20221117214316834](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211172144698.png)
+
+## 存储引擎
+
+### MYSQL体系结构
+
+![image-20221118204613913](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211182046122.png)
+
+![image-20221118204717244](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211182047687.png)
+
+### 存储引擎
+
+1. 存储引擎：存储引擎就是存储数据、建立索弧更新/查询数据等技术的实现方式。存储引擎是基于表的，而不是基于库的,所以存储引擎也可被称为表类型。
+
+2. 查看当前数据库支持的存储引擎
+
+   ~~~sql
+   show engines;
+   ~~~
+
+3. 在创建表时，指定存储引擎
+
+   ~~~sql
+   create table 表名(
+       # 字段
+   	...
+   ) engine = INNODB;
+   ~~~
+
+4. 存储引擎特点
+
+   * INNODB
+
+     ![image-20221118210239601](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211182108215.png)
+
+     ![image-20221118210838607](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211182108992.png)
+
+   * MYISAM
+
+     ![image-20221118211056369](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211182110733.png)
+
+   * Memory
+
+     ![image-20221118211131982](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211182111068.png)
+
+   ![image-20221118211217014](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211182112545.png)
+
+   > 注：MySQL中存储引擎为INNODB的表的文件在目录C:\ProgramData\MySQL\MySQL Server 8.0\Data中（Windows），可以通过cmd命令行命令ibd2sdi提取查看文件数据
+
+5. 存储引擎的选择
+
+   ![image-20221118211341200](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211182113097.png)
+
+## INNODB
+
+## 索引
+
+## SQL优化
+
+## 视图
+
+## 存储过程
+
+## 触发器
+
+## 锁
+
+## MYSQL管理
 
 ## 常用操作汇总
 
