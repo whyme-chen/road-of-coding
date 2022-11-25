@@ -112,19 +112,47 @@
 
 ### 打包压缩命令
 
-1. tar
+1. tar命令 
 
    ![image-20221119134305526](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353171.png)
+   
+   > cvf打包，xvf解包，zcvf打压缩包，zxvf解旺包
 
 ### 文本编辑命令
 
+1. vi/vim
+
+   ![image-20221120202048921](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211202020494.png)
+
 ### 查找命令
+
+1. find命令
+
+   ![image-20221120203432544](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211202034929.png)
+
+2. grep命令
+
+   ![image-20221120203545011](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211202035320.png)
 
 ### 软件安装命令
 
 1. 软件安装方式
 
    ![image-20221118231233904](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211182312501.png)
+   
+   * yum
+   
+     > 常用指令：
+     >
+     > yum list
+     >
+     > yum install
+     >
+     > yum remove
+     >
+     > 
+     >
+     > yum源配置
    
 2. jdk安装（解压方式）
 
@@ -154,5 +182,10 @@
 
 ![image-20221119122455628](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353373.png)
 
-## 项目部署
+### 项目部署
 
+1. 手动部署
+
+2. shell脚本部署
+
+   ![image-20221120204540453](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211202045621.png)

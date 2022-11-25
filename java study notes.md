@@ -5673,15 +5673,23 @@ redis中文网：https://www.redis.net.cn/
 
 maven本质是一个项目管理工具，将项目开发和管理过程抽象为一个项目对象模型（POM）
 
+官网：https://maven.apache.org
+
+中央仓库：https://mavnrepository.com
+
+重要概念：
+
+* 项目对象模型（POM）
+* 依赖管理（Dependency）
+* 仓库
+
 ![image-20211003195950696](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211003195950696.png)
 
 ### 2. Maven能解决什么问题（作用）
 
-* 导入jar包
-* 编译代码
-* 自动运行单元测试
-* 打包、生成报表
-* 部署项目
+* 项目构建
+* 统一开发结构
+* 依赖的管理
 
 ### 3. Maven的安装
 
@@ -5760,9 +5768,11 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 1. Maven对项目构建的生命周期划分为3套
    
    > clean：清理工作
-   > 
+   >
+   > ​	
+   >
    > default：核心工作，例如：编译，测试，打包，部署等
-   > 
+   >
    > site：产生报告，发布站点等
 
 ### 9.创建Maven项目
@@ -5823,25 +5833,37 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
 2. 依赖传递
 
+   ![image-20221120192641610](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211201928160.png)
+
 3. 可选依赖
-   
+
    > 在依赖中添加选项
    > 
    > <optional>true</optional>
 
 4. 排除依赖
 
+   ![image-20221120193000182](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211201930581.png)
+
 5. 依赖范围
-   
+
    > 依赖的jar默认在所有范围内均可使用，可以通过scope标签来设置其作用范围
-   > 
+   >
    > 作用范围：
-   > 
+   >
    > * 主程序范围有效（main文件夹范围内）
    > * 测试程序范围有效（test文件夹范围内）
    > * 是否参与打包（package指令范围内）
+   >
+   > ![image-20221120193408645](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211201934150.png)
+   >
+   > ![image-20221120193756025](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211201937486.png)
 
 ## 二、Maven高级
+
+### 分模块开发与设计
+
+
 
 # Spring
 

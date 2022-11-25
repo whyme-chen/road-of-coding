@@ -319,9 +319,47 @@
 
    ![image-20221118211341200](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211182113097.png)
 
-## INNODB
+### INNODB
 
 ## 索引
+
+### 概述
+
+1. 索引：索引(index)是帮助MySQL高效获取数据的数据结构(有序)。
+
+2. 优缺点
+
+   ![image-20221125203610782](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211252036399.png)
+
+### 索引结构
+
+1. MySQL的索引是在存储引擎层实现的，不同的存储引擎有不同的结构，主要包含以下几种:
+
+   ![image-20221125203708806](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211252037696.png)
+
+   ![image-20221125203802196](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211252038644.png)
+
+#### B+树索引
+
+1. 二叉树结构的缺点：顺序插入时，会形成-一个链表, 查询性能大大降低。大数据量情况下，层级较深,检索速度慢。
+
+2. 平衡二叉树结构的缺点：大数据量情况下，层级较深，检索速度慢。
+
+3. B-Tree
+
+   ![image-20221125204507836](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211252045218.png)
+
+4. B+Tree
+
+   * 相对于B-Tree的区别
+     * 所有数据都会出现在叶子节点
+     * 叶子节点形成一个单向链表
+
+   ![image-20221125204806093](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211252048354.png)
+
+5. mysql中的B+Tree：MySQL索引数据结构对经典的B+Tree进行了优化。在原B+Tree的基础. 上,增加一个指向相邻叶子节点的链表指针，就形成了带有顺序指针的B+Tree,提高区间访问的性能。
+
+   ![image-20221125205030347](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211252050009.png)
 
 ## SQL优化
 
