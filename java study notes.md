@@ -19,9 +19,37 @@ java 1.9后提供。
 
 ## 数据类型
 
+### 基本数据类型及其包装类
+
+1. byte
+2. char
+3. short
+4. int
+5. long
+6. float
+7. double
+8. boolean
+
+### 类型转换
+
+1. 强制类型转换
+2. 隐式类型转换
+
 ## 运算符
 
 ## 控制逻辑
+
+### 条件控制
+
+1. if
+2. switch
+   * 从 Java 7 开始，可以在 switch 条件判断语句中使用 String 对象。
+
+### 循环控制
+
+1. while
+2. do while
+3. for
 
 # 面向对象编程
 
@@ -29,6 +57,10 @@ java 1.9后提供。
 * 封装性
 * 继承性
 * 多态性
+  * 编译时多态：主要指方法的重载
+  * 运行时多态：
+    * 指程序中定义的对象引用所指向的具体类型在运行期间才确定。
+    * 三个条件：继承、重写（覆盖）、向上转型
 2. 面向对象程序开发三个步骤：
 * OOA：面向对象分析
 * OOD：面向对象设计
@@ -168,10 +200,34 @@ java 1.9后提供。
    
    参考文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html#method.summary
    
-   | 方法                         | 描述  |
-   | -------------------------- | --- |
-   | String toString()          |     |
-   | boolean equals(Object obj) |     |
+
+### 类图
+
+1. 泛化关系：用来描述继承关系，在 Java 中使用 extends 关键字。
+
+   ![img](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211301307206.png)
+
+2. 实现关系：用来实现一个接口，在 Java 中使用 implements 关键字。
+
+   ![img](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211301308200.png)
+
+3. 聚合关系：表示整体由部分组成，但是整体和部分不是强依赖的，整体不存在了部分还是会存在。
+
+   ![img](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211301308330.png)
+
+4. 组合关系：和聚合不同，组合中整体和部分是强依赖的，整体不存在了部分也不存在了。
+
+   ![组合关系](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211301307859.png)
+
+5. 关联关系：表示不同类对象之间有关联，这是一种静态关系，与运行过程的状态无关，在最开始就可以确定。
+
+   ![img](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211301309291.png)
+
+6. 依赖关系：和关联关系不同的是，依赖关系是在运行过程中起作用的。A 类和 B 类是依赖关系主要有三种形式:
+
+   - A 类是 B 类中的(某中方法的)局部变量；
+   - A 类是 B 类方法当中的一个参数；
+   - A 类向 B 类发送消息，从而影响 B 类发生变化；
 
 ## 字符串
 
@@ -345,7 +401,7 @@ API文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/la
    
    * 进行标准设置
    * 表示一种操作的能力
-   * 暴露远程方法视图（常用语RPC分布式开发中使用 ）
+   * 暴露远程方法视图（常用于RPC分布式开发中使用 ）
 
 3. **抽象类和接口的区别**
    
@@ -356,6 +412,16 @@ API文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/la
    | 子类使用 | 子类通过extends关键字只能继承一个抽象类                                           | 子类通过implements关键字可以实现多个接口 |
    | 两者关系 | 抽象类可以实现若干个接口                                                      | 接口不允许继承抽象类，但是可以继承多个接口     |
    | 使用   | 1. 抽象类或接口必须定义子类；2. 子类一定要覆写抽象类或接口中的所有抽象方法；3. 通过子类的向上转型实现抽象类或接口的实例化 |                           |
+   
+4. 抽象类和接口的选择
+
+   * 使用接口:
+     * 需要让不相关的类都实现一个方法，例如不相关的类都可以实现 Compareable 接口中的 compareTo() 方法；
+     * 需要使用多重继承。
+   * 使用抽象类:
+     * 需要在几个相关的类中共享代码。
+     * 需要能控制继承来的成员的访问权限，而不是都为 public。
+     * 需要继承非静态和非常量字段。
 
 ## 枚举类
 
@@ -401,6 +467,34 @@ public class Client{
 # 常用类
 
 ### Objcet类
+
+参考文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html#method.summary
+
+#### 简介
+
+#### 常用方法
+
+1. equals（）
+
+2. hashCode（）
+
+3. toString（）
+
+4. clone（）
+
+   *  clone() 是 Object 的 protected 方法，它不是 public，一个类不显式去重写 clone()，其它类就不能直接去调用该类实例的 clone() 方法。
+
+   * clone() 方法并不是 Cloneable 接口的方法，而是 Object 的一个 protected 方法。Cloneable 接口只是规定，如果一个类没有实现 Cloneable 接口又调用了 clone() 方法，就会抛出 CloneNotSupportedException。
+
+   * 浅拷贝：拷贝对象和原始对象的引用类型引用同一个对象。
+
+   * 深拷贝：拷贝对象和原始对象的引用类型引用不同对象。
+
+   * 使用 clone() 方法来拷贝一个对象即复杂又有风险，它会抛出异常，并且还需要类型转换。Effective Java 书上讲到，最好不要去使用 clone()，可以使用拷贝构造函数或者拷贝工厂来拷贝一个对象。
+
+     ------
+
+     著作权归@pdai所有 原文链接：https://pdai.tech/md/java/basic/java-basic-lan-basic.html
 
 ### Scanner类
 
@@ -826,10 +920,12 @@ try{
 
 2. 底层实现原理
 
-   > * 底层基于数组实现，根据所以定位元素快，但是增删元素时需要做移位操作
+   > * 底层基于数组实现，根据索引定位元素快，但是增删元素时需要做移位操作
    > * 初始化时，默认创建长度为10的数组
 
-3. 边遍历边删除
+3. 特点
+
+4. 边遍历边删除
 
 #### LinkedList
 
@@ -842,6 +938,8 @@ try{
    >   ![image-20220402170854567](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220402170854567.png)
    >
    > * LinkedList可以完成栈和队列的操作
+
+#### Vector
 
 ```java
 import java.util.LinkedList;
@@ -1352,7 +1450,7 @@ public class ThreadDemo{
    * 黑盒测试
    * 白盒测试
 
-2. Junit使用
+2. Junit使用（白盒测试）
    
    步骤：
    
@@ -1372,7 +1470,11 @@ public class ThreadDemo{
 
 反射：将类的各个组成部分封装为其他对象，这就是反射机制。
 
+## Class类
+
 ![image-20210202115502782](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20210202115502782.png)
+
+![image-20221201133204597](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202212011332544.png)
 
 如果想要实现反射的处理操作，那么首先要采用的就是Object中所提供的的一个方法获取Class对象信息：public final Class<?> getClass();
 
@@ -1384,7 +1486,7 @@ public class ThreadDemo{
    
    注意：同一个字节码文件（*.class）在一次程序运行中，只会被加载一次，不论通过哪种方式获得的Class对象都是同一个对象
 
-2. 反射获取类结构信息
+2. Class类方法（获取类结构信息）
    
    * 获取包名
      
@@ -1418,6 +1520,126 @@ public class ThreadDemo{
    * 获取类名
      
      * getName()
+
+~~~java
+package reflect;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
+/**
+ * 方法演示
+ * @author WenJianChen
+ * @version 1.0
+ * @date 2022/12/1 13:36
+ */
+public class ReflectDemo {
+    public static void main(String[] args) throws ClassNotFoundException {
+        Person person = new Person();
+        person.setName("chen");
+        person.setId("123456789");
+        Class<? extends Person> personClass = person.getClass();
+//        Class<?> personClass = Class.forName("reflect.Person");
+//        Class<Person> personClass = Person.class;
+        System.out.println("成员变量");
+        for (Field field : personClass.getFields()) {
+            System.out.println(field);
+        }
+
+        System.out.println("--------------------");
+        System.out.println("成员方法");
+        for (Method method : personClass.getMethods()) {
+            System.out.println(method.toString());
+        }
+
+        System.out.println("--------------------");
+        System.out.println("构造方法");
+        for (Constructor<?> constructor : personClass.getConstructors()) {
+            System.out.println(constructor.toString());
+        }
+        
+                System.out.println("===================================");
+        Field name = personClass.getDeclaredField("name");
+        //暴力反射，忽略访问权限安全检查
+        name.setAccessible(true);
+        System.out.println(name.get(person));
+
+        name.set(person,"wang");
+        System.out.println(person.getName());
+
+                System.out.println("-------------------------------");
+
+        Constructor<? extends Person> noParameterConstructor = personClass.getConstructor();
+        //创建对象
+        Person person2=noParameterConstructor.newInstance();
+        person2.setId("987654321");
+        person2.setName("LiMing");
+        System.out.println(person2);
+
+        System.out.println("----------------------");
+        Method eatMethod = personClass.getMethod("eat");
+        //执行方法
+        eatMethod.invoke(person);
+    }
+}
+
+~~~
+
+~~~java
+package reflect;
+
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Properties;
+
+/**
+ * 案例：创建任意类的对象并执行任意方法
+ * 实现方式：
+ *      * 设置配置文件，将需要创建的全类名和需要执行的方法进行定义说明
+ *      * 读取配置文件
+ *      * 利用反射加载类文件后创建对象并执行方法
+ *
+ * @author WenJianChen
+ * @version 1.0
+ * @date 2022/12/1 14:30
+ */
+public class ReflectDemo2 {
+    public static void main(String[] args) throws IOException, InstantiationException, IllegalAccessException, InvocationTargetException {
+        Properties properties = new Properties();
+        //获得类加载器
+        ClassLoader classLoader = ReflectDemo2.class.getClassLoader();
+        properties.load(classLoader.getResourceAsStream("property.properties"));
+
+        //获取文件数据
+        String className = properties.getProperty("className");
+        String methodName = properties.getProperty("methodName");
+
+        Class<?> aClass = null;
+        try {
+            aClass = Class.forName(className);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("没有指定的类，请检查配置文件是否错误或创建指定类");
+        }
+
+        Object instance = aClass.newInstance();
+
+        Method method = null;
+        try {
+            method = aClass.getMethod(methodName);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            System.out.println("没有指定方法，请检查配置文件是否错误或在指定类中创建指定方法");
+        }
+
+        method.invoke(instance);
+
+    }
+}
+
+~~~
 
 ## 反射实例化对象
 
@@ -8710,7 +8932,7 @@ git管理的文件有三种状态：已修改（modified）,已暂存（staged�
 
 ## 跨域问题（CROS）
 
-### 字符编码
+## 字符编码问题
 
 1. ASCII
 2. GBK
@@ -8720,5 +8942,8 @@ git管理的文件有三种状态：已修改（modified）,已暂存（staged�
 
 # 学习路线/资源
 
-[2022黑马程序员Java学习路线图 - 哔哩哔哩](https://www.bilibili.com/read/cv9965357?from=articleDetail)
+1. [2022黑马程序员Java学习路线图 - 哔哩哔哩](https://www.bilibili.com/read/cv9965357?from=articleDetail)
+2. [Java全栈知识体系](https://pdai.tech/)
+
+
 
