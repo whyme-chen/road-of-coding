@@ -720,9 +720,27 @@ Lambda表达式提供有如下几种格式：
 
 # 异常捕获和处理
 
-### 基本结构
+参考：https://pdai.tech/md/java/basic/java-basic-x-exception.html
 
-在java中通过try、catch和finally关键词来实现异常的捕获和处理，常用基本结构如下：
+## 异常的类型
+
+![img](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202212022314508.png)
+
+* Throwable： Java 语言中所有错误与异常的超类。包含了其线程创建时线程执行堆栈的快照，它提供了 printStackTrace() 等接口用于获取堆栈跟踪数据等信息。
+* Error：程序中无法处理的错误，表示运行应用程序中出现了严重的错误，由JVM抛出。
+* Exception：程序本身可以捕获并且可以处理的异常。Exception 这种异常又分为两类：运行时异常和编译时异常。
+* checked exception和unchecked exception
+  * RuntimeException及其子类和Error均属于unchecked exception
+  * 除RuntimeException及其子类外的异常都属于checked exception
+
+## 基本结构和处理流程
+
+在java中通过try、catch和finally、throw和throws关键词来实现异常的捕获和处理，常用基本结构如下：
+
+* try-catch
+* try-catch-finally
+* try-finally
+* try-with-resource
 
 ```java
 try{
@@ -731,16 +749,28 @@ try{
     //异常处理
 }finally{
     //不管是否出现异常，都执行的代码
+    //只有finally块，执行完成之后，才会回来执行try或者catch块中的return或者throw语句，如果finally中使用了return或者throw等终止方法的语句，则就不会跳回执行，直接停止。
+
 }
 ```
 
-### 处理流程
+## 自定义异常类
 
-### throw和throws关键字
+习惯上，定义一个异常类应包含两个构造函数，一个无参构造函数和一个带有详细描述信息的构造函数（Throwable 的 toString 方法会打印这些详细信息，调试时很有用）。
 
-### 自定义异常类
+~~~java
+public class MyException extends Exception{
+    public MyException(){
+        
+    }
+    public MyException(String msg){
+        super(msg);
+    }
+    //....
+}
+~~~
 
-### assert断言
+## assert断言
 
 从JDK1.4之后开始追加一个断言的功能，确定代码执行到某行之后一定是所期待的结果。在实际开发之中，断言不一定是准确的，也有可能出现偏差，但是这种偏差不应该影响程序的执行。
 
@@ -1038,7 +1068,412 @@ public class LinkedListDemo {
 
 ## 二、字符集
 
-## 三、I/O流
+1. 相关概念
+2. ASCII
+3. GBK
+4. Unicode
+
+## 三、I/O流基础
+
+### 概述
+
+1. 流：是一种抽象概念，是对数据传输的总称。也就是说数据在设备间的传输称为流，流的本质是数据传输。I0流就是用来处理设备间数据传输问题的。
+2. 常见的应用：文件复制;文件上传;文件下载
+3. 分类
+   * 按照数据操作分
+     * 文件
+     * 数组
+     * 管道
+     * 基本数据类型
+     * 缓冲操作
+     * 打印
+     * 对象序列化和反序列化
+     * 转换
+   * 按照数据类型分
+     * 字节流
+       * 字节输入流（InputStream）
+         * ByteArrayInputStream
+         * PipedInputStream
+         * FileInputStream
+         * FilterInputStream
+           * BufferedInputStream
+           * DataInputStream
+       * 字节输出流（OutputStream）
+         * ByteArrayOutputStream
+         * PipedOutputStream
+         * FileOutputStream
+         * FilterOutputStream
+           * BufferedOutputStream
+           * DataOutputStream
+           * PrintStream
+         * ObjectOutputStream
+     * 字符流
+       * 字符输入流（Reader）
+         * CharArrayReader
+         * PipedReader
+         * FilterReader
+         * BufferedReader
+         * InputStreamReader
+           * FileReader
+       * 字符输出流（Writer）
+         * CharArrayWriter
+         * PipedWriter
+         * FilterWriter
+         * BufferedWriter
+         * OutputStreamWriter
+           * FileWriter
+         * PrintWriter
+     * 字节流和字符流的区别：
+       * 字节流读取单个字节，字符流读取单个字符(一个字符根据编码的不同，对应的字节也不同，如 UTF-8 编码中文汉字是 3 个字节，GBK编码中文汉字是 2 个字节。) 
+       * 字节流用来处理二进制文件(图片、MP3、视频文件)，字符流用来处理文本文件(可以看做是特殊的二进制文件，使用了某种编码，人可以阅读)。
+
+### 字节输出流（OutputStream）
+
+1. 常用实现类
+
+   * FileOutputStream
+   * BufferedOutputStream
+
+2. 常用方法
+
+   ![image-20221228181241689](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202212281812241.png)
+
+3. 空间
+
+### 字节输入流（InputStream）
+
+1. 常用实现类
+   * FileInputStream
+   * BufferedInputStream
+2. 空间
+
+### 字符输入流(InputStreamReader)
+
+1. 常用类
+
+   * InputStreamReader
+   * FileReader
+   * BufferedReader
+
+2. 读数据的2种方式
+
+   ![image-20221230180301466](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202212301803038.png)
+
+### 字符输出流（OutputStreamWriter）
+
+1. 写数据的5种方式
+
+   ![image-20221230175500549](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202212301755663.png)
+
+```java
+package com.chen.file;
+
+/**
+ * @author WenJianChen
+ * @version 1.0
+ * @date 2022/12/30 17:43
+ */
+public class InputStreamReaderDemo {
+    public static void main(String[] args) throws IOException {
+//        InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream("InputAndOutput\\test.txt"), StandardCharsets.UTF_8);
+//        int len;
+//        while ((len=inputStreamReader.read())!=-1){
+//            System.out.print((char) len);
+//        }
+//        inputStreamReader.close();
+
+
+//        InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream("InputAndOutput\\src\\com\\chen\\file\\BufferedInputStreamDemo.java"));
+//        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream("InputAndOutput\\test.java"));
+//
+//        char[] ch = new char[1024];
+//        int len;
+//        while((len=inputStreamReader.read(ch))!=-1){
+//            outputStreamWriter.write(ch,0,len);
+//            outputStreamWriter.flush();
+//        }
+//
+//        inputStreamReader.close();
+//        outputStreamWriter.close();
+        
+        FileReader fileReader = new FileReader("InputAndOutput\\src\\com\\chen\\file\\BufferedInputStreamDemo.java");
+        FileWriter fileWriter = new FileWriter("InputAndOutput\\test.java");
+
+        char[] chars = new char[1024];
+        int len;
+        while ((len=fileReader.read(chars))!=-1){
+            fileWriter.write(chars,0,len);
+            fileWriter.flush();
+        }
+
+        fileReader.close();
+        fileWriter.close();
+
+        BufferedReader bufferedReader = new BufferedReader(new FileReader("InputAndOutput\\test.java"));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("InputAndOutput\\test2.java"));
+
+        String line;
+        while((line=bufferedReader.readLine())!=null){
+            bufferedWriter.write(line);
+            bufferedWriter.newLine();
+            bufferedWriter.flush();
+        }
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}
+```
+
+### 复制文件及其异常处理
+
+1. 复制文件
+
+   ~~~java
+   public static void copyFile(File srcFile,File destFile) throws IOException {
+           BufferedInputStream bis = new BufferedInputStream(new FileInputStream(srcFile));
+           BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(destFile));
+   
+           byte[] bytes = new byte[1024];
+           int len;
+           while ((len=bis.read(bytes))!=-1){
+               bos.write(bytes,0,len);
+           }
+   
+           bis.close();
+           bos.close();
+       }
+   ~~~
+
+2. 异常处理
+
+   ![image-20230105090357888](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301050904199.png)
+
+   ~~~java
+   public static void copyFile(File srcFile,File destFile) throws IOException {
+           BufferedInputStream bis = new BufferedInputStream(new FileInputStream(srcFile));
+           BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(destFile));
+   
+           byte[] bytes = new byte[1024];
+           int len;
+           while ((len=bis.read(bytes))!=-1){
+               bos.write(bytes,0,len);
+           }
+   
+           bis.close();
+           bos.close();
+       }
+   
+       /**
+        * 常规异常处理
+        * @param srcFile
+        * @param destFile
+        */
+       public static void copyFile2(File srcFile,File destFile) {
+           BufferedInputStream bis = null;
+           BufferedOutputStream bos = null;
+           try {
+               bis = new BufferedInputStream(new FileInputStream(srcFile));
+               bos = new BufferedOutputStream(new FileOutputStream(destFile));
+   
+               byte[] bytes = new byte[1024];
+               int len;
+               while ((len=bis.read(bytes))!=-1){
+                   bos.write(bytes,0,len);
+               }
+           } catch (IOException e) {
+               e.printStackTrace();
+           } finally {
+               if (bis!=null){
+                   try {
+                       bis.close();
+                   } catch (IOException e) {
+                       e.printStackTrace();
+                   }
+               }
+               if (bos!=null){
+                   try {
+                       bos.close();
+                   } catch (IOException e) {
+                       e.printStackTrace();
+                   }
+               }
+           }
+       }
+   
+       /**
+        * JDK7 处理
+        * @param srcFile
+        * @param destFile
+        */
+       public static void copyFile3(File srcFile,File destFile) {
+           try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(srcFile));
+           BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(destFile));){
+   
+               byte[] bytes = new byte[1024];
+               int len;
+               while ((len=bis.read(bytes))!=-1){
+                   bos.write(bytes,0,len);
+               }
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+       }
+   
+       /**
+        * JDK9 处理
+        * @param srcFile
+        * @param destFile
+        */
+   //    public static void copyFile4(File srcFile,File destFile) {
+   //        BufferedInputStream bis = new BufferedInputStream(new FileInputStream(srcFile));
+   //        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(destFile));
+   //        try (bis;bos){
+   //            byte[] bytes = new byte[1024];
+   //            int len;
+   //            while ((len=bis.read(bytes))!=-1){
+   //                bos.write(bytes,0,len);
+   //            }
+   //        } catch (IOException e) {
+   //            e.printStackTrace();
+   //        }
+   //    }
+   
+   ~~~
+
+### 特殊操作流
+
+#### 标准输入输出流
+
+![image-20230105093202370](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301050932510.png)
+
+![image-20230105093242144](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301050932224.png)
+
+#### 打印流
+
+1. 分类
+
+   * 字节打印流：PrintStream
+   * 字符打印流：PrintWriter
+
+2. 特点
+
+   * 只负责输出数据，不负责读取数据
+   * 有特有方法
+
+3. 字节打印流（PrintStream）
+
+   * PringStream(String fileName)：使用指定的文件名创建新的打印流
+   * 使用继承父类的方法写数据，查看的时候会转码，使用自己特有方法写数据原样输出
+
+4. 字符打印流
+
+   * 构造方法
+
+     ![image-20230105094225259](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301050942091.png)
+
+### 对象序列化
+
+1. 概念：对象序列化是指将对象保存到磁盘中或者在网络中传输对象。这种机制就是使用一个字节序列表示一个对象，该字节序列包含：对象的类型、对象的数据和对象中存储的属性等信息。字节序列写到文件之后，相当于文件中持久保存了一个对象信息。要实现序列化和反序列化就要使用对象序列化流和对象反序列化流。
+
+2. 对象序列化流（ObjectOutputStream）
+
+   ![image-20230105100920603](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051009928.png)
+
+   ~~~java
+           ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("InputAndOutput\\ObjectOutputStream.txt"));
+   
+           objectOutputStream.writeObject(new Student("00001","whymechen",22));
+   
+           objectOutputStream.close();
+   ~~~
+
+3. 对象反序列化流（ObjectInputStream）
+
+   ![image-20230105101507054](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051015801.png)
+
+   ~~~java
+           ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("InputAndOutput\\ObjectOutputStream.txt"));
+           Student student = (Student) objectInputStream.readObject();
+   
+           System.out.println(student.toString());
+   
+           objectInputStream.close();
+   ~~~
+
+4. 常见问题及解决
+
+   ![image-20230105102330823](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051023459.png)
+
+### Properties
+
+1. 概述：Properties是一个Map体系的集合类。Properties可以保存到流中或从流中加载。
+
+2. 特有方法
+
+   ![image-20230105134657581](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051346314.png)
+
+3. 与IO流结合
+
+   ![image-20230105135440885](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051354966.png)
+
+~~~java
+public class PropertiesDemo {
+    public static void main(String[] args) throws IOException {
+//        Properties properties = new Properties();
+//        properties.put("0001","xiaoming");
+//        properties.put("0002","zhangsan");
+//        properties.put("0003","lisi");
+//
+//        for (Object key : properties.keySet()) {
+//            Object value = properties.get(key);
+//            System.out.println(key+" "+value);
+//        }
+
+        //Properties特有方法
+//        Properties properties = new Properties();
+//        properties.setProperty("chen","25");
+//        properties.setProperty("wang","22");
+//        properties.setProperty("li","23");
+//
+//        System.out.println(properties.getProperty("chen"));
+//        System.out.println("======================================");
+//
+//        for (String name : properties.stringPropertyNames()) {
+//            System.out.println(name+" "+properties.getProperty(name));
+//        }
+
+//        myStore();
+        myLoad();
+    }
+
+    private static void myLoad() throws IOException {
+        Properties properties = new Properties();
+        //文件中的数据保存到集合
+        BufferedReader bufferedReader = new BufferedReader(new FileReader("InputAndOutput\\propertiesDemo.txt"));
+        properties.load(bufferedReader);
+
+        System.out.println(properties);
+
+        bufferedReader.close();
+    }
+
+    private static void myStore() throws IOException {
+        //集合中的数据保存到文件
+        Properties properties = new Properties();
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("InputAndOutput\\propertiesDemo.txt"));
+
+        properties.setProperty("0001","张三");
+        properties.setProperty("0002","李四");
+        properties.setProperty("0003","王五");
+
+        properties.store(bufferedWriter,null);
+
+        bufferedWriter.close();
+    }
+}
+
+~~~
 
 # 多线程
 
@@ -1762,6 +2197,160 @@ public class Test04 {
    * 调用注解中的抽象方法获取属性值
    
    ![image-20211227202726241](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211227202726241.png)
+   
+   ~~~java
+   @Property(className = "reflect.Person",methodName = "eat")
+   public class ReflectDemo {
+       public static void main(String[] args) throws IOException, InstantiationException, IllegalAccessException, InvocationTargetException {
+           Class<ReflectDemo> reflectDemoClass = ReflectDemo.class;
+           Property annotation = reflectDemoClass.getAnnotation(Property.class);
+           String className = annotation.className();
+           String methodName = annotation.methodName();
+           System.out.println(className);
+           System.out.println(methodName);
+       }
+   }
+   ~~~
+
+# JVM
+
+## 类加载机制
+
+### 字节码文件（.class）
+
+参考：https://pdai.tech/md/java/jvm/java-jvm-class.html
+
+1. 字节码文件：class文件本质上是一个以8位字节为基础单位的二进制流，各个数据项目严格按照顺序紧凑的排列在class文件中。jvm根据其特定的规则解析该二进制数据，从而得到相关信息。
+
+2. 文件结构属性
+
+   ![img](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202212012327723.png)
+
+3. 地方
+
+# 网络编程
+
+1. 网络编程：在网络通信协议下，实现网络互连的不同计算机上运行的程序可以进行数据交换。
+
+2. 三要素
+   * IP地址
+     * IPv4和Ipv6
+     * 常用命令
+       * ipconfig
+       * ping
+   * 端口
+   * 协议
+     * TCP
+     * UDP
+   
+3. UDP协议通信
+
+   * java提供DataGramSocket类作为基于UDP协议的Socket
+
+   * 发送数据
+
+     > ①创建发送端的Socket对象(DatagramSocket)
+     > ②创建数据， 并把数据打包
+     > ③调用DatagramSocket对象的方法发送数据
+     > ④关闭发送端
+
+   * 接受数据
+
+     > ①创建接收端的Socket对象(DatagramSocket)
+     > ②创建一个数据包， 用于接收数据
+     > ③调用DatagramSocket对象的方法接收数据
+     > ④解析数据包, 并把数据在控制台显示
+     > ⑤关闭接收端
+
+   ~~~java
+   //接受数据
+   public class Demo1 {
+       public static void main(String[] args) throws IOException {
+           DatagramSocket datagramSocket = new DatagramSocket(10086);
+           //创建数据包
+           byte[] bytes = new byte[1024];
+           DatagramPacket datagramPacket = new DatagramPacket(bytes,bytes.length);
+           //接受数据
+           datagramSocket.receive(datagramPacket);
+           //解析数据并在控制台显示
+           byte[] data = datagramPacket.getData();
+           System.out.println(new String(data,0,data.length));
+       }
+   }
+   
+   //=========================================
+   //发送数据
+   public class Demo {
+       public static void main(String[] args) throws IOException {
+   //        InetAddress hostName = Inet4Address.getByName("192.168.137.1");
+   //        InetAddress localHost = Inet4Address.getLocalHost();
+   //        System.out.println(hostName);
+   //        System.out.println(localHost.getHostAddress());
+   
+           DatagramSocket datagramSocket = new DatagramSocket();
+           byte[] bytes = "hello world".getBytes(StandardCharsets.UTF_8);
+           InetAddress localHost = InetAddress.getLocalHost();
+           DatagramPacket datagramPacket = new DatagramPacket(bytes, bytes.length, localHost, 10086);
+           datagramSocket.send(datagramPacket);
+           datagramSocket.close();
+       }
+   ~~~
+
+4. TCP协议通信
+
+   * Java对基于TCP协议的的网络提供了良好的封装，使用Socket对象来代表两端的通信端口， 并通过Socket产生I0流来进行网络通信
+     Java为客户端提供了Socket类,为服务器端提供了ServerSocket类
+
+   * 发送数据
+
+     > ①创建客户端的Socket对象(Socket)
+     > ②获取输出流， 写数据
+     > ③释放资源
+
+   * 接收数据
+
+     > ①创建服务器端的Socket对象(ServerSocket)
+     > ②监听客户端连接, 返回一个Socket对象
+     > ③获取输入流， 读数据,并把数据显示在控制台
+     > ④释放资源
+
+   ~~~java
+   public class TcpClient {
+       public static void main(String[] args) throws IOException {
+           Socket socket = new Socket(InetAddress.getByName("192.168.137.1"),10086);
+           //获得输出流，写数据
+           OutputStream outputStream = socket.getOutputStream();
+           outputStream.write("hello world!server......".getBytes());
+   
+           InputStream inputStream = socket.getInputStream();
+           byte[] bytes = new byte[1024];
+           int len = inputStream.read(bytes);
+           System.out.println(new String(bytes,0,len));
+   
+           socket.close();
+       }
+   }
+   
+   //============================================
+   public class TcpServer {
+       public static void main(String[] args) throws IOException {
+           ServerSocket serverSocket = new ServerSocket(10086);
+   
+           Socket accept = serverSocket.accept();
+   
+           InputStream inputStream = accept.getInputStream();
+           byte[] bytes = new byte[1024];
+           int len = inputStream.read(bytes);
+           System.out.println(new String(bytes, 0, len));
+   
+           OutputStream outputStream = accept.getOutputStream();
+           outputStream.write("hello client..".getBytes());
+   
+           accept.close();
+           serverSocket.close();
+       }
+   }
+   ~~~
 
 # java Web概述
 
@@ -6089,26 +6678,29 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
 # Spring
 
-学习参考视频：https://www.bilibili.com/video/BV1WZ4y1P7Bp?p=1
+学习参考视频：
 
-## 一、Spring简介
+* https://www.bilibili.com/video/BV1WZ4y1P7Bp?p=1
+* https://www.bilibili.com/video/BV1Fi4y1S7ix/?p=2&spm_id_from=pageDriver&vd_source=fabefd3fabfadb9324761989b55c26ea
+
+## Spring简介
+
+官网：https://spring.io
 
 1. spring是什么
-   
+
    spring是分层的的javaSE/EE应用full-stack**轻量级开源框架**，以IOC（inverse of control:反转控制）和AOP（aspect oriented programing:面向切面编程）为内核。提供了展现层SpringMVC和持久层Spring JDBCTemplate以及业务层事务管理等众多的企业级应用技术，还能整合开源世界众多著名的第三方框架和类库，逐渐成为使用最多的JavaEE企业应用开源框架。
-   
-   * 控制反转：（IOC是一种思想）
-     * 控制：指谁来控制对象的创建。传统应用程序对象是由程序本身通过new关键字来控制。而使用Spring后，由Spring通过反射机制来创建对象。
-     * 反转：程序本身不去创建对象而变为被动的接收对象。
 
 2. 理念：使现有技术更加实用。
 
 3. Spring发展历程
-   
+
    ![image-20220117162012206](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220117162012206.png)
 
+   ![image-20221203114939964](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202212031149763.png)
+
 4. Spring的优势
-   
+
    * 方便解耦，简化开发
    * AOP编程的支持
    * 声明式事务的支持
@@ -6117,11 +6709,23 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
    * 减低JavaEE API的使用难度
    * java源码经典学习范例
 
-5. SPring的体系结构
-   
+5. Spring framework的体系结构
+
    ![image-20220117162143652](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220117162143652.png)
 
-## 二、Spring快速入门
+   ![image-20221203115337228](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202212031153901.png)
+
+## 核心概念
+
+1. 控制反转：（IOC是一种思想）
+   * 使用对象时，由主动new产生对象转换为由外部提供对象,此过程中对象创建控制权由程序转移到外部，此思想称为控制反转。
+   * Spring技术对IoC思想进行了实现。Spring提供了一个容器，称为IoC容器，用来充当IoC思想中的外部。IoC容器负责对象的创建、初始化等-系列工作， 被创建或被管理的对象在IoC容器中统称为Bean。
+   * 控制：指谁来控制对象的创建。传统应用程序对象是由程序本身通过new关键字来控制。而使用Spring后，由Spring通过反射机制来创建对象。
+   * 反转：程序本身不去创建对象而变为被动的接收对象。
+2. 依赖注入（DI）
+   * 在容器中建立bean与bean之间的依赖关系的整个过程, 称为依赖注入。
+
+## 三、Spring快速入门
 
 1. Spring程序开发步骤
    * 导入Spring开发的基本包坐标
@@ -7885,11 +8489,17 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 ### 发送邮件
 
+#### 基本概念
+
 1. SMTP（Simple Mail Transfer Protocol）：简单邮件传输协议，用于发送电子邮件的传输协议
 2. POP3（Post Office Protocol - Version 3）：用于接收电子邮件的标准协议
 3. IMAP（Interface Mail Access Protocol）：互联网消息协议，是POP3的替代协议
 
-#### 使用
+#### 基于JavaMail实现
+
+参考：https://www.cnblogs.com/antLaddie/p/15583991.html
+
+#### 基于Springboot实现
 
 1. 导入依赖
 
@@ -7993,7 +8603,8 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    
    ~~~
 
-4. 接口
+
+### 定时任务
 
 ## 原理
 
@@ -8088,6 +8699,10 @@ public class SwaggerConfiguration {
 
 ![img](https://img2020.cnblogs.com/blog/2088791/202112/2088791-20211229104433596-25349310.png)
 
+# Apifox
+
+官网：https://www.apifox.cn/
+
 # Thymeleaf
 
 1. 简介
@@ -8157,6 +8772,8 @@ public class SwaggerConfiguration {
 # Idea
 
 参考资料：https://www.bilibili.com/video/BV1PW411X75p?from=search&seid=1533766256313085594&spm_id_from=333.337.0.0
+
+官方文档：https://www.jetbrains.com/help/idea/getting-started.html
 
 ## 常用配置
 
