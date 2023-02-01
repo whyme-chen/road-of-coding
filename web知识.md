@@ -1,5 +1,7 @@
 # HTML学习总结
 
+参考资料：https://www.w3school.com.cn/html/html5_intro.asp
+
 ## 常见浏览器
 
 * IE浏览器
@@ -14,6 +16,22 @@
 * 表现标准：用于设置网页元素的版式、颜色、大小等外观样式，主要指的是CSS
 * 行为标准：网页模型的定义及交互的编写，主要包括DOM和ECMAScript
 
+## HTML基本骨架
+
+~~~html
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<body>
+        
+	</body>
+</html>
+
+~~~
+
 ## 注释
 
 html使用<!---->表示注释
@@ -22,27 +40,6 @@ html使用<!---->表示注释
 
 * 标题标签
   
-  ```html
-  <!DOCTYPE html>
-  <html>
-      <head>
-          <meta charset="utf-8"></meat>
-      <title></title>
-      </head>
-      <body>
-          <!--
-          h1~h6，越来越小
-          -->
-          <h1>
-  
-          </h1>
-          <h2>
-  
-          </h2>
-      </body>
-  </html>
-  ```
-
 * 水平线
 
 * 段落标签
@@ -66,15 +63,25 @@ html使用<!---->表示注释
   -->
   ```
 
-* img标签
-  
-  ```html
-  <!--
-  重要属性
-  1. src：图像存储位置
-  2. alt：为图像定义一串预备的可替换的文本。替换文本属性的值是用户定义的。
-  -->
-  ```
+* 媒体标签
+
+  * img标签
+
+    * 重要属性
+      * src：图像存储位置
+      * alt：为图像定义一串预备的可替换的文本。替换文本属性的值是用户定义的。
+
+  * audio标签
+
+    ![image-20230105151210477](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051512736.png)
+
+    * 注意：音频标签目前支持3 E种格式: MP3、Wav、 Ogg
+
+  * video标签
+
+    ![image-20230105151438602](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051514010.png)
+
+    * 注意：视频标签目前支持E种格式: MP4、WebM、Ogg
 
 * base标签：设置a标签整体链接状态。
   
@@ -105,7 +112,7 @@ html使用<!---->表示注释
   -->
   ```
 
-* 常用文本格式标签
+* 文本格式标签
   
   ```html
   <!DOCTYPE html>
@@ -122,7 +129,7 @@ html使用<!---->表示注释
   </html>
   ```
 
-* 自定义列表
+* 列表
   
   ```html
   <!DOCTYPE html>
@@ -148,23 +155,42 @@ html使用<!---->表示注释
 * 表格
   
   ```html
+  
+  <!--使用rowspan和colspan两个属性来合并单元格，注意只有同一个结构标签中的单元格才能合并，不能跨结构标签合并（即不能跨thead，tbody，tfoot合并）-->
   <table border="1">
-      <tr>
-          <th>Heading</th>
-          <th>Another Heading</th>
-      </tr>
-      <tr>
-          <td>row 1, cell 1</td>
-          <td>row 1, cell 2</td>
-      </tr>
-      <tr>
-          <td>row 2, cell 1</td>
-          <td>row 2, cell 2</td>
-      </tr>
+      <caption>表格名</caption>
+      <thead>
+           <tr>
+              <th>Heading</th>
+              <th>Another Heading</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td>row 1, cell 1</td>
+              <td>row 1, cell 2</td>
+          </tr>
+        <tr>
+              <td>row 2, cell 1</td>
+              <td>row 2, cell 2</td>
+          </tr>
+      </tbody>
+      <tfoot></tfoot>
   </table>
   ```
-
+  
 * div和span标签
+
+* 语义化标签
+
+  * 在HTML5新版本中，推出了- -些有语义的布局标签供开发者使用
+  * 常见标签
+    * header
+    * nav
+    * footer
+    * aside
+    * section
+    * article
 
 * iframe标签
   
@@ -178,33 +204,64 @@ html使用<!---->表示注释
   -->
   ```
 
-* 特殊字符
-  
-  ![image-20210526120446548](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20210526120446548.png)
+* 表单标签
 
-## HtML5
+  * input标签
 
-参考资料：https://www.w3school.com.cn/html/html5_intro.asp
+    * 通过type属性不同，展示不同的效果
 
-1. 什么是html5
-2. 新内容
+      ![image-20230105155021642](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051550647.png)
+
+    * placholder属性用于占位符，即提示信息
+
+    * radio属性：通过name属性进行分组，checked属性表示默认选中。
+
+    * file属性：通过multiple属性允许上传多个文件
+
+  * button标签
+
+    * type属性值如下
+
+      ![image-20230105160107117](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051601778.png)
+
+    * 注意：谷歌浏览器中button默认是提交按钮。button是双标签，更便于包裹其他内容（文字、图标）。
+
+  * select标签
+
+    * option标签是下拉菜单中的每一项。
+    * 常用属性：selected表示默认选中。
+
+  * textarea标签
+
+    * 常见属性：cols表示文本域可见宽度，rows表示文本域可见高度。
+
+  * lable标签：常用于绑定内容与表单标签的关系
+
+    * 使用方法：
+      * 方法1：使用lable标签包裹内容，为表单标签添加id，将id填入lable标签中的for属性中。
+      * 方法2：直接使用lable标签把内容和表单标签包裹。
+
+* 字符实体
+
+  ![image-20230105161602755](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051616864.png)
 
 # CSS学习总结
 
-## 语法规则
+1. CSS特性
+   * 继承性
+   * 层叠性
+   * 优先级
 
-![image-20210526121911824](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20210526121911824.png)
+## 引入方式
 
-## 书写方式
-
-* 嵌入式
+* 内嵌式：使用style标签。
   
   ```html
   <style>
   </style>
   ```
 
-* 外链式
+* 外链式：将样式单独写在css文件中，通过link标签引入。
   
   ```html
   <link rel="stylesheet" type="text/css" href="">
@@ -214,42 +271,201 @@ html使用<!---->表示注释
 
 ## 选择器
 
-* 基本选择器
-  * 通用选择器
-  * 标签选择器
-  * 类选择器
-  * id选择器
-* 组合选择器
-  * 多元素选择器
-  * 后代元素选择器（空格）
-  * 子元素选择器（>）
-  * 相邻兄弟选择器(+)
-  * 通用兄弟选择器（~）
-* 伪类选择器
-  * ::link
-  * ::hover
-  * ::active
-  * ::visited
-* 伪元素选择器
-* 属性选择器
-  * [attribute]：选取带有指定属性的元素
-  * [attribute="value"]：选取带有指定属性和值的元素
-  * [attribute~="value"]：选取属性值包含指定词的元素
-  * [attrbute|="value"]：选取指定属性以指定值开头的元素（值必须是完整或单独的单词）
-  * [attribute^="value"]：选取指定属性以指定值开头元素（值不必是完整单词）
-  * [attribute$="value"]：选取指定属性以指定值结尾的元素
-  * [attribute*="value"]：选取属性值包含指定词的元素（值不必是完整的单词）
+### 基本选择器
 
-## 字体属性
+* 通用选择器
 
-* font-style
-* font-weight
-* font-size
-* font-family
+  ![image-20230105181249672](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051812727.png)
+
+* 标签选择器
+
+  ![image-20230105180936199](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051809661.png)
+
+* 类选择器
+
+  ![image-20230105181000007](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051810684.png)
+
+* id选择器
+
+  ![image-20230105181112761](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051811495.png)
+
+### 组合选择器
+
+1. 多元素选择器（并集）
+
+   ![image-20230105192618904](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051926717.png)
+
+2. 交集选择器
+
+   ![image-20230105192948343](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051929922.png)
+
+3. 后代元素选择器（空格）
+
+   ![image-20230105192451518](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051924814.png)
+
+4. 子元素选择器（>）
+
+   ![image-20230105192546301](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051925146.png)
+
+5. 相邻兄弟选择器(+)
+
+6. 通用兄弟选择器（~）
+
+### 伪类选择器
+
+1. :link
+
+2. :hover
+
+   ![image-20230105193036046](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051930701.png)
+
+3. :active
+
+4. :visited
+
+5. :fitst-child
+
+6. :last-child
+
+7. nth-child(n)
+
+8. nth-last-child(n)
+
+### 伪元素选择器
+
+1. 概念：一般页面中的非主体内容可以使用伪元素，由CSS模拟出来的标签效果，并非真正的标签。
+2. 常用的伪元素
+   * ::before
+   * ::after
+3. 注意
+   * 必须设置content属性才能生效
+   * 伪元素默认是行内元素。
+
+### 属性选择器
+
+* [attribute]：选取带有指定属性的元素
+* [attribute="value"]：选取带有指定属性和值的元素
+* [attribute~="value"]：选取属性值包含指定词的元素
+* [attrbute|="value"]：选取指定属性以指定值开头的元素（值必须是完整或单独的单词）
+* [attribute^="value"]：选取指定属性以指定值开头元素（值不必是完整单词）
+* [attribute$="value"]：选取指定属性以指定值结尾的元素
+* [attribute*="value"]：选取属性值包含指定词的元素（值不必是完整的单词）
+
+### 选择器的优先级
+
+1. 优先级
+
+   ![image-20230105201009800](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301052010129.png)
+
+2. 权重叠加计算
+
+   ![image-20230105201545247](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301052015372.png)
+
+3. 注意点
+
+   * !important写在属性值的后面，分号的前面!
+   * !important不能提升继承的优先级，只要是继承优先级最低!
+   * 实际开发中不建议使用!important。
+
+## 字体和文本样式
+
+### 字体样式
+
+1. font-size：字体大小
+
+   * 谷歌浏览器默认文字大小是16px，单位需要设置，否则无效
+
+2. font-style：字体样式
+
+   * 取值
+     * 正常（默认值）：normal
+     * 倾斜：italic
+
+3. font-weight：字体粗细
+
+   * 取值：
+     * 关键字
+       * 正常：normal
+       * 加粗：bold
+     * 纯数字：100-999的整百数
+       * 正常：400
+       * 加粗：700
+   * 不是所有字体都提供了九种粗细，因此部分取值页面中无变化。实际开发中以正常、加粗两种取值使用最多。
+
+4. font-family：字体类型
+
+   ![image-20230105182327436](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051823313.png)
+
+   ![image-20230105182553706](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051825606.png)
+
+5. font：字体类型，font属性连写
+
+   ![image-20230105184541371](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051845850.png)
+
+### 文本样式
+
+1. text-indent：文本缩进
+   * 取值
+     * 数字+px
+     * 数字+em（1em=当前font-size大小，推荐）
+2. text-align：文本对齐
+   * 取值
+     * left
+     * center
+     * right
+3. text-decoration：文本修饰
+   * 取值
+     * underline：下划线
+     * line-through：删除线
+     * overline：上划线
+     * none：无装饰线
+4. line-height：行高
+
+## 背景相关属性
+
+1. 背景颜色：background-color
+
+2. 背景图片：background-image
+
+   * 背景图片和img标签的区别
+
+3. 背景平铺：background-repeat
+
+   * 属性值：
+
+     ![image-20230105193839629](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051938980.png)
+
+4. 背景位置：background-position
+
+   * 属性值：
+
+     ![image-20230105194024449](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051940417.png)
+
+   * 方位名词取值和坐标取值可以混使用，第一个取值表示水平，第二个取值表示垂直。
+
+5. 背景相关属性连写
+
+## 元素显示模式
+
+1. 块级元素
+
+   ![image-20230105195237865](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051952766.png)
+
+2. 行内元素
+
+   ![image-20230105195343256](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051953558.png)
+
+3. 行内块元素
+
+   ![image-20230105195519877](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051955326.png)
+
+4. 元素模式间的转换
+
+   ![image-20230105195825725](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051958713.png)
 
 ## 布局
 
-* display属性
+* display属性：用于元素模式的转换
   
   注意：display：none和visibility：hidden的区别
 
@@ -280,7 +496,52 @@ html使用<!---->表示注释
 | [z-index](https://www.w3school.com.cn/cssref/pr_pos_z-index.asp)     | 设置元素的堆叠顺序。     |
 
 * overflow属性
-* 大健康
+
+### 浮动
+
+1. 标准流
+
+   ![image-20230107162802118](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301071628069.png)
+
+2. 行内块元素的问题
+
+   * 浏览器解析行内块或者行内标签的时候，如果标签换行书写则会产生一个空格的距离。
+
+   ~~~html
+   		<!-- 会产生间距 -->
+   		<div class="one">one</div>
+   		<div class="two">two</div>
+   		<!-- 不会产生间距 -->
+   		<div class="one">one</div><div class="two">two</div>
+   ~~~
+
+3. 浮动的作用
+
+   * 早期：图文环绕
+   * 现在：网页布局
+
+4. 浮动的特点
+
+   * 浮动元素会脱离标准流，在标准流中不占位置。
+   * 浮动元素比标准流高半个级别，可以覆盖标准流中的元素
+   * 浮动找浮动，下一个浮动元素会在上一个浮动元素后面左右浮动
+
+5. css建议书写顺序
+
+   > 1. 浮动或display
+   > 2. 盒子模型
+   > 3. 文字样式
+
+6. 清除浮动
+
+   * 含义：清除浮动带来的影响，如果子元素浮动了，此时子元素不能撑开标准流的块级父元素。
+   * 原因：子元素浮动脱离标准元素后不占位置
+   * 目的：父元素应该有自己的高度，从而不影响其他网页元素的布局。
+   * 方法：
+     * 额外标签
+     * 单伪元素
+     * 双伪元素
+     * overflow属性
 
 ### Flex布局
 
@@ -337,6 +598,10 @@ html使用<!---->表示注释
 </html>
 ~~~
 
+## 颜色
+
+![image-20230105192325160](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051923036.png)
+
 ## 单位
 
 ### 绝对单位
@@ -363,6 +628,30 @@ html使用<!---->表示注释
 | vmin | 相对于视口*较小尺寸的 1％                           |
 | vmax | 相对于视口*较大尺寸的 1％                           |
 | %    | 相对于父元素                                   |
+
+## 盒子模型
+
+1. 简介
+
+   ![image-20230105203406122](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301052034471.png)
+
+2. 内容的宽度和高度（width和height）
+
+3. 边框（border）
+
+4. 外边距（margin）
+
+   * 外边距折叠现象：垂直布局的块级元素，上下的margin会合并，最终为两者中的最大值。可以只设置一个元素的margin解决此问题。
+   * 塌陷现象：互相嵌套的块级元素，子元素的margin-top会作用在父元素上，导致父元素一起向下移动。
+     * 方法1：给父元素设置border-top或者padding-top (分隔父子元素的margin-top)
+     * 方法2：给父元素设置overflow: hidden
+     * 方法3：转换成行内块元素
+     * 方法4：设置浮动
+   * 行内元素的垂直内外边距
+
+5. 内边距（padding）
+
+## 浏览器调试工具（google）
 
 # JavaScript学习笔记
 

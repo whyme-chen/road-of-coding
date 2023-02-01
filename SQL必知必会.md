@@ -190,7 +190,7 @@
    
 2. 笛卡尔积
 
-3. 多表查询的分类
+   1. 多表查询的分类
 
    * 连接查询
      * 内连接：相当于查询A、B交集部分数据
@@ -235,7 +235,7 @@
 
    * 方式一：
 
-     ![image-20221117213224636](D:\学习\road-of-coding\java study notes.assets\image-20221117213224636.png)
+     ![image-20221117213224636](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301131453535.png)
 
    * 方式二：
 
@@ -244,7 +244,7 @@
 3. 四大特性(CIAD)
 
    * 原子性. (Atomicity) ：事务是不可分割的最小操作单元，要么全部成功，要么全部失败。
-   * 一致性(Consistency) ：事务完成时，必须使所有的数据都保持一 -致状态。
+   * 一致性(Consistency) ：事务完成时，必须使所有的数据都保持一致状态。
    * 隔离性(Isolation)：数据库系统提供的隔离机制，保证事务在不受外部并发操作影响的独立环境下运行。
    * 持久性(Durability) ：事务一旦提交或回滚，它对数据库中的数据的改变就是永久的。
 
@@ -253,7 +253,11 @@
    * 引发的问题
 
      * 脏读
+   
      * 不可重复读
+
+       ![image-20230124094712069](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301240947657.png)
+
      * 幻读
 
      ![image-20221117214004968](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211172140596.png)
@@ -263,9 +267,9 @@
      * 类型
 
        ![image-20221117214200429](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211172142141.png)
-
+   
      * 操作
-
+   
        ![image-20221117214316834](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211172144698.png)
 
 ## 存储引擎
@@ -278,7 +282,7 @@
 
 ### 存储引擎
 
-1. 存储引擎：存储引擎就是存储数据、建立索弧更新/查询数据等技术的实现方式。存储引擎是基于表的，而不是基于库的,所以存储引擎也可被称为表类型。
+1. 存储引擎：存储引擎就是存储数据、建立索弧更新/查询数据等技术的实现方式。**存储引擎是基于表的**，而不是基于库的,所以存储引擎也可被称为表类型。
 
 2. 查看当前数据库支持的存储引擎
 
@@ -325,7 +329,7 @@
 
 ### 概述
 
-1. 索引：索引(index)是帮助MySQL高效获取数据的数据结构(有序)。
+1. 索引：索引(index)是帮助MySQL高效获取数据的**数据结构**(有序)。
 
 2. 优缺点
 
@@ -339,15 +343,25 @@
 
    ![image-20221125203802196](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211252038644.png)
 
+#### B-Tree
+
+* 特性
+  * 允许一个结点包含过个key
+  * 对于M阶B树，每个结点最多有M-1个key并以升序排列，每个结点最多有M个子结点，根结点至少有两个子结点。
+
+![image-20221125204507836](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211252045218.png)
+
+#### B+树
+
+* 特性：B树的变形
+  * 非叶结点仅具有索引作用（即非叶子结点只存储key不存储value）
+  * 树的所有叶结点构成一个有序链表，即可以按照key排序的次序遍历全部数据
+
 #### B+树索引
 
 1. 二叉树结构的缺点：顺序插入时，会形成-一个链表, 查询性能大大降低。大数据量情况下，层级较深,检索速度慢。
 
 2. 平衡二叉树结构的缺点：大数据量情况下，层级较深，检索速度慢。
-
-3. B-Tree
-
-   ![image-20221125204507836](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211252045218.png)
 
 4. B+Tree
 
@@ -360,6 +374,39 @@
 5. mysql中的B+Tree：MySQL索引数据结构对经典的B+Tree进行了优化。在原B+Tree的基础. 上,增加一个指向相邻叶子节点的链表指针，就形成了带有顺序指针的B+Tree,提高区间访问的性能。
 
    ![image-20221125205030347](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211252050009.png)
+
+#### Hash索引
+
+1. 哈希索引就是采用一-定的hash算法，将键值换算成新的hash值，映射到对应的槽位上,然后存储在hash表中。
+2. 特点
+   * Hash索引只能用于对等比较(=，in)， 不支持范围查询(between, >，<, ..
+   * 无法利用索引完成排序操作
+   * 查询效率高，通常只需要- -次检索就可以了 ，效率通常要高于B+tree索引
+3. 支持的存储引擎：在MySQL中，支持hash索引的是Memory引擎, 而InnoDB中具 有自适应hash功能，hash索引是存储引擎根据B+Tree索引在指定条件下自动构建的。
+
+### 索引分类
+
+![image-20230124113618926](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301241136671.png)
+
+在InnoDB存储引擎中，根据索引的存储形式，又可以分为以下两种：
+
+![image-20230124113741695](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301241137594.png)
+
+聚集索引的选取规则：
+
+* 如果存在主键，主键索引就是聚集索引。
+* 如果不存在主键，将使用第一价唯一(UNIQUE) 索引作为聚集索引。
+* 如果表没有主键，或没有合适的唯一索引， 则InnoDB会自动生成-个rowid作为隐藏的聚集索引。
+
+![image-20230124114228364](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301241142549.png)
+
+![image-20230124114341385](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301241143026.png)
+
+### 索引语法
+
+![image-20230125221021096](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301252210103.png)
+
+
 
 ## SQL优化
 
@@ -1030,9 +1077,11 @@ select department_name from departments where exists(select * from employees whe
 select * from employees limit 11,15; 
 ~~~
 
-### SQL语句练习
+## SQL语句练习
 
 常用SQL语句练习案例链接：https://www.cnblogs.com/Diyo/p/11424844.html
+
+牛客网：https://www.nowcoder.com/？
 
 # 《SQL必知必会》学习笔记
 

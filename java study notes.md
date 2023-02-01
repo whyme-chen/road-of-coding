@@ -581,7 +581,7 @@ Runtime描述的是运行时的状态，也就是说在整个JVM中，Runtime类
 
 #### Calendar
 
-### java8新增日期类
+#### java8新增日期类
 
 # 包的定义及使用
 
@@ -2642,6 +2642,20 @@ public class Test04 {
    
    * 数据库设置隔离级别：set global transaction isolation level 级别字符串;
 
+## 数据库设计
+
+### 范式
+
+1.  概念：设计关系数据库时，遵从不同的规范要求，设计出合理的关系型数据库,这些不同的规范要求被称为不同的范式，各种范式**呈递次规范**,越高的范式数据库冗余越小。目前关系数据库有六种范式:第-范式(1NF) 、第二范式(2NF)、第三范式(3NF)、巴斯科德范式(BCNF) 、第四范式(4NF)和第五范式(5NF,又称完美范式)。
+2. 分类
+   * 第一范式（1NF）：每一列都是不可分割的原子数据项
+   * 第二范式（2NF）：在1NF的基础上，非码属性必须完全依赖于候选码
+     * 函数依赖：如果通过A属性(属性组)的值，可以确定唯- -B属性的值。则称B依赖于A
+     * 完全函数依赖
+     * 部分函数依赖
+     * 传递函数依赖
+   * 第三范式（3NF）：在2NF的基础上，任何非主属性不依赖于其他非主属性（消除传递依赖）
+
 # JDBC
 
 ## 基本操作
@@ -2691,20 +2705,20 @@ public class Test04 {
    ```
 
 3. JDBC各接口和类详解
-   
+
    * DriverManger：驱动管理对象
      
      * 功能：
        * 注册驱动(mysql5后的驱动jar包可以省略注册驱动步骤)
          * static void registerDriver(Driver driver)
-         * Class.forName(“com.mysql.cj.jdbc.Driver”)
+         * Class.forName(“com.mysql.cj.jdbc.Driver”)（Driver类中的静态代码块执行）
        * 获取数据库连接
          * 方法：Static Connection getConnection(String url,String user,String password)
          * 参数：
            * url：jdbc:mysql://ip地址:端口号/数据库名称?serverTimezone=UTC
            * user：用户名
            * password：密码
-   
+
    * Connection：数据库连接对象
      
      * 功能：
@@ -2733,21 +2747,19 @@ public class Test04 {
            ```
            void rollback()
            ```
-   
+
    * Statement：执行sql对象
-     
+
      * 执行sql
-       
-       * ```
-         boolean execute(String sql)
-         int executeUpdate(String sql)//执行DML语句
-         ResultSet executeQuery(String sql)//执行DQL语句
-         ```
-   
+
+       > boolean execute(String sql)
+       > int executeUpdate(String sql)//执行DML、DDL语句
+       > ResultSet executeQuery(String sql)//执行DQL语句
+
    * ResultSet：结果集对象，封装查询结果
      
      * next（）方法：游标向下移动一行
-     * getxxx（参数）方法：xxx代表数据类型，参数可以代表列编号或列名称
+     * getxxx（参数）方法：xxx代表数据类型，参数可以代表列编号或列名称（从1开始）
      
      ```java
      package cn.itcast.jdbc;
@@ -2804,7 +2816,7 @@ public class Test04 {
          }
      }
      ```
-   
+
    * PreparedStatement：执行sql对象
      
      * SQL注入问题：在拼接sql时，有一些特殊关键字参与字符串的拼接，会造成安全性问题。
@@ -5229,7 +5241,7 @@ HttpServlet --抽象类
    
    ![image-20220418082619232](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220418082619232.png)
 
-# 三层架构：软件设计架构
+# 软件设计架构
 
 1. 三层架构
    
@@ -7605,19 +7617,34 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 # Mybatis
 
+官网参考文档：https://mybatis.org/mybatis-3/zh/getting-started.html
+
 ## Mybatis简介
 
 1. 原始jdbc操作分析
    
-   ![image-20220420142447641](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420142447641.png)
-
-2. mybatis概述
+   * 硬编码（mybatis使用配置文件解决）
+  * 注册驱动，获取连接
+     * sql语句
+   * 操作繁琐（mybatis自动完成）
+     * 手动设置参数
+     * 手动封装结果集
    
+   ![image-20220420142447641](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420142447641.png)
+   
+2. mybatis概述
+
    ![image-20220420142638250](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420142638250.png)
 
 ## 快速入门
 
 1. 开发步骤
+   
+   * 创建数据库表，定义对应POJO类
+   * 引入mybatis模块包
+   * 编写mybatis核心配置文件
+   * 编写sql映射文件
+   * 加载核心配置文件获得会话对象执行sql语句
    
    ![image-20220420143426954](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420143426954.png)
    
@@ -7684,18 +7711,20 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
            SqlSession sqlSession = sqlSessionFactory.openSession();
            //执行操作 参数：namespace+id
            List<Object> userList = sqlSession.selectList("userMapper.findAll");
-           System.out.println(userList);
+        System.out.println(userList);
            sqlSession.close();
    
        }
    }
    ```
-
+   
 2. Mybatis映射文件
 
    ![image-20220420144902922](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420144902922.png)
 
 3. Mybatis核心配置文件概述
+
+   参考文档：https://mybatis.org/mybatis-3/zh/configuration.html#properties
 
    ![image-20211120114452462](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimgimage-20211120114452462.png)
 
@@ -7896,14 +7925,6 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
            SqlSession sqlSession = sqlSessionFactory.openSession();
            //执行操作 参数：namespace+id
    
-           //查询操作
-   //        List<Object> userList = sqlSession.selectList("userMapper.findAll");
-   //        System.out.println(userList);
-   
-           //插入操作
-   //        int insert = sqlSession.insert("userMapper.save", user);
-   //        System.out.println(insert);
-   //
    //        /*Mybatis执行更新操作，提交事务*/
    //        sqlSession.commit();
    
@@ -7917,7 +7938,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
        }
    }
    ```
-
+   
 3. 删除操作
 
    ```xml
@@ -8001,13 +8022,34 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
        }
    }
    ```
+   
+4. 查询操作
 
-## Mybatis的Dao实现
+   > 在进行查询时表的列名和实体类的字段名不一致时，解决方法如下：
+   >
+   > * 给列起别名或者使用sql片段
+   > * 使用resultMap进行映射
+
+## Mapper代理
 
 1. 传统实现方式：手动对Dao进行实现
 
 2. 代理开发方式：由Mybatis实现Dao接口
-   
+
+   > 1.定义与SQL映射文件同名的Mapper接口，并且将Mapper接口和SQL映射文件放置在同- -目录下
+   > 2.设置SQL映射文件的namespace属性为Mapper接口全限定名
+   > 3.在Mapper接口中定义方法，方法名就是SQL映射文件中sq|语句的id,并保持参数类型和返回值
+   > 类型一致
+   > 4.编码：通过SqlSession的getMapper方法获取Mapper接口的代理对象。调用对应方 法完成sq的执行
+   >
+   > 细节:如果Mapper接口名称和SQL映射文件名称相同,并在同一目录下，则可以使用包扫描的方式简
+   > 化SQL映射文件的加载
+
+   ~~~java
+   UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+           List<User> users = userMapper.selectAll();
+   ~~~
+
    ![image-20211120112940959](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211120112940959.png)
 
 ![image-20220420155719754](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420155719754.png)
@@ -8608,6 +8650,14 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 ## 原理
 
+# Nginx
+
+学习参考：[黑马程序员Nginx教程](https://www.bilibili.com/video/BV1ov41187bq/?vd_source=fabefd3fabfadb9324761989b55c26ea)
+
+# 日志
+
+
+
 # Swagger
 
 官网：https://swagger.io/
@@ -8766,8 +8816,6 @@ public class SwaggerConfiguration {
      ~~~
 
 3. 常用语法标签
-
-# 支付
 
 # Idea
 
@@ -9556,6 +9604,10 @@ git管理的文件有三种状态：已修改（modified）,已暂存（staged�
 3. Unicode
    * UTF-32
    * UTF-8
+
+## Windows常用cmd命令
+
+### 网络命令
 
 # 学习路线/资源
 
