@@ -466,7 +466,7 @@ public class Client{
 
 # 常用类
 
-### Objcet类
+## Objcet类
 
 参考文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html#method.summary
 
@@ -496,15 +496,15 @@ public class Client{
 
      著作权归@pdai所有 原文链接：https://pdai.tech/md/java/basic/java-basic-lan-basic.html
 
-### Scanner类
+## Scanner类
 
-### Math类
+## Math类
 
-### String类
+## String类
 
-### StringBuilder类
+## StringBuilder类
 
-### StringBuffer类
+## StringBuffer类
 
 String类是所有项目中都会使用到的一个功能类，这个类拥有如下特性：
 
@@ -609,7 +609,7 @@ Runtime描述的是运行时的状态，也就是说在整个JVM中，Runtime类
    * java.applet：java的最原始的使用形式，直接嵌套在网页上执行的程序包
    * java.awt、javax.swing：java的图形界面开发包（GUI），其中awt属于重量级的组件，而swing是轻量级的组件
 
-### 访问控制权限
+## 访问控制权限
 
 java中一共定义由四种访问控制权限分别为：public、default（不写）、protected、private。它们的区别如下：
 
@@ -620,7 +620,7 @@ java中一共定义由四种访问控制权限分别为：public、default（不
 | 不同包的子类  | √      |         | √         |         |
 | 不同包所有类  | √      |         |           |         |
 
-### 生成jar文件
+## 生成jar文件
 
 当一个项目完成后会存在大量* .class文件，那么此时对于这些文件的管理可以利用一种特殊压缩结构的形式进行处理。这种结构在java中就被称为jar文件。如果想要将程序打包为jar文件可以直接利用jdk中提供的jar命令进行处理。（使用“jar --help”命令查看相关命令）
 
@@ -896,7 +896,7 @@ public class MyException extends Exception{
 
 # 集合
 
-### 1. 集合概述
+## 集合概述
 
 1. 体系结构
 
@@ -938,7 +938,7 @@ public class MyException extends Exception{
 
    使用迭代器遍历是删除操作应该用迭代器删除，而不是使用集合本身执行删除操作。使用增强for时无法解决遍历的同时执行删除元素操作。
 
-### 2. List集合
+## List集合
 
 元素有序、可重复、有索引
 
@@ -1011,7 +1011,7 @@ public class LinkedListDemo {
 }
 ```
 
-### 3. Set集合
+## Set集合
 
 * 元素无序、不重复、无索引
 * Set的实现类是基于Map来实现的
@@ -1028,25 +1028,25 @@ public class LinkedListDemo {
 
 > 注意：TreeSet按照大小默认升序排序、是不重复、无索引的
 
-### 4. Map
+## Map
 
 参考链接：https://www.cnblogs.com/haimishasha/p/10790508.html#autoid-4-2-0
 
-#### HashMap
+### HashMap
 
-#### LinkedHashMap
+### LinkedHashMap
 
-#### TreeMap
+### TreeMap
 
-#### SortedMap
+### SortedMap
 
-#### HashTable
+### HashTable
 
-#### WeakedHashMap
+### WeakedHashMap
 
 # I/O操作
 
-## 一、 File类
+## File类
 
 1. File类：位于java.io.File包中，代表操作系统中文件对象（文件及文件夹）
 
@@ -1066,14 +1066,14 @@ public class LinkedListDemo {
    
    * 搜索文件
 
-## 二、字符集
+## 字符集
 
 1. 相关概念
 2. ASCII
 3. GBK
 4. Unicode
 
-## 三、I/O流基础
+## I/O流基础
 
 ### 概述
 
@@ -2129,6 +2129,20 @@ public class Test04 {
 2. 优势：利用反射实现工厂设计模式最大的优势在于，对于接口子类的扩充将不再影响到工厂类的定义。
    
    ![image-20210831103603429](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20210831103603429.png)
+
+## 动态代理
+
+
+
+1. 为什么需要代理：实现无侵入式的给对象增强功能
+
+2. 代码实现
+
+   ![image-20230216231907501](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302162319458.png)
+
+### 代理模式
+
+参考博客：https://blog.csdn.net/qq_43478882/article/details/124191700
 
 # 注解（Annoation）
 
@@ -3674,9 +3688,6 @@ public class JDBCTemplateDemo2 {
 
 ### Tomcat
 
-1. 下载：官网下载即可
-2. 安装：解压安装包即可
-3. 卸载：删除安装文件即可
 4. Tomcat目录结构
 
 ![image-20210206095655879](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210206095655879.png)
@@ -3731,9 +3742,11 @@ public class JDBCTemplateDemo2 {
 1. IDEA会为每一个tomcat部署的项目单独建立一份配置文件
 2. 工作空间项目和tomcat部署的web项目
    * tomcat真正访问的是“tomcat部署的web项目”，“tomcat部署的web项目”对应着工作空间中的web目录下的所有资源
-   * WEB—INF目录下的资源不能被浏览器直接访问
+   * **WEB—INF目录下的资源不能被浏览器直接访问**
 
 # HTTP协议
+
+参考：https://www.runoob.com/http/http-tutorial.html
 
 ### 概念：Hyper Text Transfer Protocol（超文本传输协议）。
 
@@ -3765,6 +3778,9 @@ public class JDBCTemplateDemo2 {
   * 常见请求头：
     * user-Agent：浏览器告诉服务器，访问时使用的浏览器版本信息（可以在服务器端获取该头的信息，解决浏览器的兼容性问题）
     * Referer：告诉服务器，当前请求从哪里来（可以用于防盗链和统计工作）
+      * 防盗链
+      * 统计工作
+    * Connection
 
 * **请求空行**
 
@@ -3797,13 +3813,7 @@ public class JDBCTemplateDemo2 {
 
 ### 一、概念
 
-运行在服务器端的小程序。
-
-Servlet本质上就是一个接口，定义了java类被浏览器访问到（tomcat识别）的规则。
-
-![image-20210907170723274](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210907170723274.png)
-
-在Servlet通常需要接收请求、处理请求、完成响应。
+运行在服务器端的小程序。Servlet本质上就是一个接口，定义了java类被浏览器访问到（tomcat识别）的规则。在Servlet通常需要接收请求、处理请求、完成响应。
 
 ### 二、快速入门
 
@@ -3838,13 +3848,13 @@ Servlet本质上就是一个接口，定义了java类被浏览器访问到（tom
 
 #### 底层逻辑执行原理
 
-![image-20210208095117534](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210208095117534.png)
-
 1. 当服务器接收到客户端浏览器的请求后，会解析请求URL路径，获取访问的Servlet资源路径
 2. 查找web.xml文件，是否有对象的<utl-pattern>标签内容
 3. 如果有，则再找到对应的<servlet-class>全类名
 4. tomcat会将字节码文件加载进内存，并且创建其对象
 5. 调用其方法
+
+![image-20230203175027461](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302031806502.png)
 
 #### servlet的生命周期
 
@@ -3983,7 +3993,7 @@ HttpServlet --抽象类
 
 #### request对象和response对象原理
 
-![image-20210911152738491](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210911152738491.png)
+![image-20230208130455779](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302081305920.png)
 
 注意：
 
@@ -4069,10 +4079,6 @@ HttpServlet --抽象类
      > 3. 使用jdbcTemplate技术封装JDBC
      > 4. 登录成功舔砖SuccessServlet展示：登录成功！用户名，欢迎您
      > 5. 登录失败跳转到FailServlet展示：登录失败，用户名或密码错误
-   
-   * 分析
-     
-     ![image-20210920170258264](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210920170258264.png)
    
    * 开发步骤
      
@@ -4234,15 +4240,19 @@ HttpServlet --抽象类
    
    * 设置响应头：setHeader(String name,String value)
    
+     * 常见的响应头：
+       * Content-Type：服务器告诉客户端本次响应体数据格式及编码格式
+       * Content-disposition：告诉客户端以什么格式打开响应体数据
+   
    * 设置响应体
      
      * 步骤
        
-       > 1. 获取输出流
+    > 1. 获取输出流
        >    * 字节输出流：PrintWriter getWriter（）
        >    * 字符输出流：ServletOutputStream getOutputStream（）
        > 2. 使用输出流，将输出到客户端浏览器
-
+   
 2. 设置输出缓冲
    
    > 通常情况下，服务器输出的到客户端的内容不会直接写到客户端，而是先写到一个输出缓冲区，当满足一下条件时才将缓冲区中的内容写入到客户端：
@@ -4315,7 +4325,7 @@ HttpServlet --抽象类
 * 重定向的特点：
   
   > 1. 地址栏发生变化
-  > 2. 重定向i访问其他站点
+  > 2. 重定向可以访问其他站点
   > 3. 重定向是两次请求，不能使用request域共享数据
 
 * 转发的特点
@@ -4395,14 +4405,14 @@ HttpServlet --抽象类
 
 ### 五、ServletContext
 
-1. ServletContext概述：服务器会为每一个应用创建一个ServletContext对象（ServletContext对象在服务器启动时创建，在服务器关闭时销毁，代表整个web应用）
+1. ServletContext概述：服务器会为每一个应用创建一个ServletContext对象（ServletContext对象在服务器启动时创建，在服务器关闭时销毁，**代表整个web应用**）
    
    * ServletContext对象的作用是在整个web应用的动态资源之间共享数据。
 
 2. 获取：
    
    * 通过request对象获取：request.getServletContext()
-   * 通过HttpServlet获取：getServletContext()
+   * 通过HttpServlet获取：this.getServletContext()
 
 3. 功能
    
@@ -4424,79 +4434,13 @@ HttpServlet --抽象类
    * 获取文件的真实路径（服务器路径）
      
      > getRealPath()
+  >
+     > ![image-20230208151221843](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302081512706.png)
 
-4. 案例：**文件下载**
-   
-   * 需求
-     
-     > 1. 页面显示超链接
-     > 2. 点击超链接后弹出下载提示框
-     > 3. 完成图片文件下载
-   
-   * 分析
-     
-     > 超链接指向的资源如果能够被浏览器解析，则在浏览器中展示，否则弹出下载提示框
-     > 
-     > 使用响应头设置资源的打开方式：
-     > 
-     > content-disposition：attachment；filename=xxx
-   
-   * 实现
-     
-     > 1. 定义页面，使超链接的href指向servlet，传递资源名称filename
-     > 2. 定义servlet
-     >    1. 获取文件名称
-     >    2. 使用字节输入流加载文件进内存
-     >    3. 指定response的响应头
-     >    4. 将数据写入response输出流
-     
-     ```java
-     package cn.itcast.servlet;
-     
-     import javax.servlet.ServletContext;
-     import javax.servlet.ServletException;
-     import javax.servlet.ServletOutputStream;
-     import javax.servlet.annotation.WebServlet;
-     import javax.servlet.http.HttpServlet;
-     import javax.servlet.http.HttpServletRequest;
-     import javax.servlet.http.HttpServletResponse;
-     import java.io.FileInputStream;
-     import java.io.IOException;
-     
-     @WebServlet("/DownloadServlet")
-     public class DownloadServlet extends HttpServlet {
-         protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-             //获取文件名
-             String filename = request.getParameter("filename");
-             //使用字节输入流加载文件进内存
-             ServletContext servletContext = this.getServletContext();
-             String realPath = servletContext.getRealPath("/img/"+filename);
-             FileInputStream fileInputStream = new FileInputStream(realPath);
-     
-             //设置响应头类型
-             String mimeType = servletContext.getMimeType(filename);
-             response.setHeader("content-type",mimeType);
-     
-             //设置响应头打开方式
-             response.setHeader("content-disposition","attachment;filename"+filename);
-             ServletOutputStream outputStream = response.getOutputStream();
-             byte[] bytes = new byte[1024 * 8];
-             int len = 0;
-             while((len=fileInputStream.read(bytes)) != -1){
-                 outputStream.write(bytes,0,len);
-             }
-             fileInputStream.close();
-         }
-     
-         protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-             this.doPost(request, response);
-         }
-     }
-     ```
 
-# 文件上传和下载
+### 文件上传和下载
 
-## 文件上传
+#### 文件上传
 
 1. 文件上传：将本地文件通过流写入到服务器
 
@@ -4544,9 +4488,75 @@ HttpServlet --抽象类
    > 
    > 3. 编写文件上传servlet
 
-6. 空间
 
-## 文件下载
+#### 文件下载
+
+* 需求
+
+  > 1. 页面显示超链接
+  > 2. 点击超链接后弹出下载提示框
+  > 3. 完成图片文件下载
+
+* 分析
+
+  > 超链接指向的资源如果能够被浏览器解析，则在浏览器中展示，否则弹出下载提示框
+  >
+  > 使用响应头设置资源的打开方式：
+  >
+  > content-disposition：attachment；filename=xxx
+
+* 实现
+
+  > 1. 定义页面，使超链接的href指向servlet，传递资源名称filename
+  > 2. 定义servlet
+  >    1. 获取文件名称
+  >    2. 使用字节输入流加载文件进内存
+  >    3. 指定response的响应头
+  >    4. 将数据写入response输出流
+
+  ```java
+  package cn.itcast.servlet;
+  
+  import javax.servlet.ServletContext;
+  import javax.servlet.ServletException;
+  import javax.servlet.ServletOutputStream;
+  import javax.servlet.annotation.WebServlet;
+  import javax.servlet.http.HttpServlet;
+  import javax.servlet.http.HttpServletRequest;
+  import javax.servlet.http.HttpServletResponse;
+  import java.io.FileInputStream;
+  import java.io.IOException;
+  
+  @WebServlet("/DownloadServlet")
+  public class DownloadServlet extends HttpServlet {
+      protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+          //获取文件名
+          String filename = request.getParameter("filename");
+          //使用字节输入流加载文件进内存
+          ServletContext servletContext = this.getServletContext();
+          String realPath = servletContext.getRealPath("/img/"+filename);
+          FileInputStream fileInputStream = new FileInputStream(realPath);
+  
+          //设置响应头类型
+          String mimeType = servletContext.getMimeType(filename);
+          response.setHeader("content-type",mimeType);
+  
+          //设置响应头打开方式
+          response.setHeader("content-disposition","attachment;filename"+filename);
+          ServletOutputStream outputStream = response.getOutputStream();
+          byte[] bytes = new byte[1024 * 8];
+          int len = 0;
+          while((len=fileInputStream.read(bytes)) != -1){
+              outputStream.write(bytes,0,len);
+          }
+          fileInputStream.close();
+      }
+  
+      protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+          this.doPost(request, response);
+      }
+  }
+  ```
 
 # 会话技术
 
@@ -4637,22 +4647,101 @@ HttpServlet --抽象类
 
 3. 原理：基于响应头set-cookie和请求头cookie实现
 
+   ![image-20230208225302569](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302082253382.png)
+
 4. cookie细节
-   
+
    * 一次可不可以发送多个cookie？可以
-   * cookie在浏览器中保存多长时间？默认情况下，浏览器被关闭，cookie被清除
+   * cookie在浏览器中保存多长时间？
+     * 默认情况下，浏览器被关闭，cookie被清除
+     * 持久化存储：
+       * setmaxAge(int seconds)
+         * 正数：将Cookie数据写入硬盘文件。
+         * 负数：默认值
+         * 零：删除Cookie信息
    * cookie能不能存中文？
-   * cookie获取范围多大？
+     * tomcat8以前，不支持
+     * tomcat后，支持，但任然不支持特殊字符
+   * cookie获取范围多大？（共享问题）
+     * setPath(String path)：设置cookie的获取范围。默认情况下，设置当前的虚拟目录。可通过设置path为”/“在多个web项目中共享
+     * 不同tomcat服务器之间共享cookie：setDomain(String path)。如果设置一 级域名相同，那么多个服务器之间cookie可以共享
 
 5. cookie的特点
-   
+
    * cookie存储数据在客户端浏览器
-   * 浏览器对于单个cookie的大小有限制（4KB）而且对于同一域名下的总cookie数也有限制
+   * 浏览器对于单个cookie的大小有限制（4KB）而且对于同一域名下的总cookie数也有限制（20个）
 
 6. cookie的作用
-   
+
    * cookie一般用于存储少量的不太敏感的信息
    * 在不登录的情况下，完成服务器对客户端的身份识别
+
+7. 案例
+
+   * 需求
+
+     > 设置一个servlet，若为第一次访问则显示欢迎，否则显示上一次登录时间。
+
+   * 分析
+
+     > 1.可以采用cookie来完成
+     > 2.在服务器中的Servlet判断是否有一个名为lastTime的cookie
+     > 	有:不是第一次访问
+     > 		响应数据:欢迎回来，您上次访问时间为:xxx
+     > 		写回cookie : lastTime=xxx
+     > 	没有:是第一次访问
+     > 		响应数据:您好，欢迎您首次访问
+     > 		写回Cookie : lastTime=xxx
+
+   ~~~java
+   package org.example;
+   
+   import javax.servlet.ServletException;
+   import javax.servlet.http.Cookie;
+   import javax.servlet.http.HttpServlet;
+   import javax.servlet.http.HttpServletRequest;
+   import javax.servlet.http.HttpServletResponse;
+   import java.io.IOException;
+   import java.text.SimpleDateFormat;
+   import java.util.Date;
+   
+   /**
+    * @author WenJianChen
+    * @version 1.0
+    * @date 2023/2/8 18:19
+    */
+   public class CookieDemo1 extends HttpServlet {
+       @Override
+       protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+           this.doPost(req, resp);
+       }
+   
+       @Override
+       protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+           resp.setContentType("text/html;charset=utf-8");
+           Cookie[] cookies = req.getCookies();
+           if (cookies!=null&&cookies.length>0){
+               SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日HH:mm:ss");
+               for (Cookie cookie : cookies) {
+                   //存在名为lastTime的cookie，即不是第一次访问
+                   if ("lastTime".equals(cookie.getName())){
+                       //响应数据
+                       resp.getWriter().write("欢迎回来,您上次访问时间为："+cookie.getValue());
+                       //更新cookie
+                       cookie.setValue(dateFormat.format(new Date()));
+                       resp.addCookie(cookie);
+                       return;
+                   }
+               }
+               //不存在名为lastTime的cookie，即为第一次访问
+               resp.getWriter().write("您好，欢迎访问！");
+               Cookie lastTimeCookie = new Cookie("lastTime",dateFormat.format(new Date()));
+               resp.addCookie(lastTimeCookie);
+           }
+       }
+   }
+   
+   ~~~
 
 ## 2. Session
 
@@ -4717,7 +4806,7 @@ HttpServlet --抽象类
 
 3. 原理：session的实现是依赖于cookie的
    
-   ![image-20211001112805649](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211001112805649.png)
+   ![image-20230209105946957](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302091059318.png)
 
 4. 细节
    
@@ -4728,7 +4817,7 @@ HttpServlet --抽象类
        * session的钝化：在服务器正常关闭前，将session对象序列化到硬盘上
        * session的活化：在服务器启动后，将session转化为内存中的session对象
    * session的失效时间是多久？（什么时候被销毁）
-     * 服务器关闭时，或者默认失效时间30分钟，或者session对象调用invalidate（）方法
+     * 服务器关闭时，或者默认失效时间30分钟，或者session对象调用invalidate（）方法销毁
 
 5. 特点
    
@@ -4753,10 +4842,10 @@ HttpServlet --抽象类
 
 2. 分析
    
-   ![image-20211001135402947](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211001135402947.png)
+   ![image-20230209111623952](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302091116757.png)
 
 3. 实现
-   
+
    * 验证码servlet
      
      ```java
@@ -4825,7 +4914,7 @@ HttpServlet --抽象类
          }
      }
      ```
-   
+
    * 登录servlet
      
      ```java
@@ -4963,17 +5052,19 @@ HttpServlet --抽象类
 
 ## JSP快速入门
 
-1. JSP：Java Server Pages，java服务器端页面
+1. JSP：Java Server Pages，java服务器端页面，既可以写html代码，也可以写java代码
 
 2. 原理：
    
    * jsp本质是就是一个Servlet
 
-3. JSP的脚本：Jsp定义Java代码的方式
+   ![image-20230209104054079](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302091040604.png)
    
-   * <%  %>
-   * <%!  %>
-   * <%= %>
+3. JSP的脚本：Jsp定义Java代码的方式
+
+   * 代码标签<%  %>：定义的java代码在service方法
+   * 声明标签<%!  %>：定义的java代码，在jsp转换后为成员变量
+   * 表达式标签<%= %>：定义的java代码，相当于输出语句，将内容输出到页面
 
 4. 指令标签
    
@@ -4995,7 +5086,7 @@ HttpServlet --抽象类
        > 
        > import：导包
        > 
-       > language
+       > language：
        > 
        > errorPage：当前页面发生异常后跳转的页面
        > 
@@ -5041,7 +5132,7 @@ HttpServlet --抽象类
    >   * name
    >   * value
 
-6. 注释
+6. 注释标签
    
    ```
    <%-- --%>
@@ -5050,85 +5141,105 @@ HttpServlet --抽象类
 7. JSP的内置对象：在JSP页面中不需要获取和创建，可以直接使用的对象（共9个）
    
    > 变量名                    真实类型
-   > 
+   >
    > pageContext        PageContext        当前页面共享数据（可以获取其他八个内置对象）
+   >
    > 
-   > request                HttpServletRequest        一次请求访问的多次资源
+   >
+   > request                HttpServletRequest        一次请求访问的多次资源（转发）
+   >
    > 
+   >
    > response            HttpServletResponse        
+   >
    > 
+   >
    > session                HttpSession        一次会话的多个请求间共享数据
+   >
    > 
+   >
    > out                        JspWriter        输出对象
+   >
+   > ​	response.write输出始终先于out输出
+   >
    > 
+   >
    > page                    Object        当前页面
+   >
    > 
+   >
    > application        ServletContext        所有用户间共享数据
+   >
    > 
+   >
    > exception            Throwable
+   >
    > 
+   >
    > config                    ServletConfig
+   >
    > 
+   >
    > 内置对象详解：
-   > 
+   >
    > 1. request：封装了由客户端生成的HTTP请求的所有细节。
-   >    
+   >
    >    * getParameter（）：获取请求参数值
-   >    
+   >
    >    * getParameterValues（）：获取表单提交信息
-   >    
+   >
    >    * 中文乱码问题
-   >    
+   >
    >    * 获取客户端相关信息
-   >      
+   >
    >      ![image-20211112193622070](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211112193622070.png)
-   >    
+   >
    >    * 在作用域中管理属性：setAttribute（），getAttribute（），removeAttribute（）
-   >    
+   >
    >    * 获取cookie：getCookies（），
-   >    
+   >
    >    * 获取国际化信息：getLocale（），getLocales（）
-   > 
+   >
    > 2. response
-   >    
+   >
    >    * 重定向网页：sendRedirect（）
-   >    
+   >
    >    * 设置输出缓冲
-   >      
+   >
    >      ![image-20211112194500530](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211112194500530.png)
-   >    
+   >
    >    * 处理HTTP文件头：setContentType（），setHeader（）
-   > 
+   >
    > 3. session
-   >    
+   >
    >    * session中常用方法
-   >      
+   >
    >      ![image-20211112195036752](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211112195036752.png)
-   > 
+   >
    > 4. out：通过out对象向客户端浏览器输出信息并管理应用服务器的输出缓冲区
-   >    
+   >
    >    * 向客户端输出数据：print（），println（）
-   >    
+   >
    >    * 管理相应缓冲区：clear（），clearBuffer（）
-   >      
+   >
    >      ![image-20211112200846954](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211112200846954.png)
-   > 
+   >
    > 5. application：用于保存所有应用程序中的共有数据，在服务器启动时自动创建，服务器停止时自动销毁
-   >    
+   >
    >    * 应用程序初始化参数：getInitParameter（），getAttributeNames（）
-   > 
+   >
    > 6. pageContext：可以通过该对象获得其他内置对象
-   >    
+   >
    >    ![image-20211112201007238](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211112201007238.png)
-   > 
+   >
    > 7. page：代表JSP页面本身，只在JSP页面内才是合法的
-   > 
+   >
    > 8. config：获得服务器的配置信息
-   >    
+   >
    >    ![image-20211112201203556](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211112201203556.png)
-   > 
+   >
    > 9. exception：只用在包含“isErrorPage=true”的页面才可以使用
-   >    
+   >
    >    ![image-20211112201433931](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211112201433931.png)
 
 ## EL表达式
@@ -5144,7 +5255,7 @@ HttpServlet --抽象类
    * jsp默认支持EL表达式
    * 忽略EL表达式
      * 设置jsp中page指令的属性isELIgnored=“ture”
-     * \${表达式}
+     * 或者使用\\${表达式}
 
 5. 使用
    
@@ -5160,7 +5271,7 @@ HttpServlet --抽象类
    
    * 获取值
      
-     * el表达式只能从域对象中获取值
+     * **el表达式只能从域对象中获取值**
      
      * 语法：
        
@@ -5180,8 +5291,9 @@ HttpServlet --抽象类
    
    * 隐式对象
      
-     > * el表达式中由11个隐式对象
+     > * el表达式中有11个隐式对象
      > * pageContext：获取其他八个内置对象
+     >   * ${pageContext.request.contextPath}：多态获取虚拟目录
 
 ## JSTL标签
 
@@ -5240,6 +5352,15 @@ HttpServlet --抽象类
    * 控制器：获取用户输入，调用模型，将数据交给视图进行展示
    
    ![image-20220418082619232](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220418082619232.png)
+   
+2. 优点：
+
+   * 耦合性低，方便维护，利于分工
+   * 可重用性高
+
+3. 缺点：
+
+   * 使得项目架构变得复杂
 
 # 软件设计架构
 
@@ -6490,9 +6611,9 @@ redis中文网：https://www.redis.net.cn/
 
 # Maven
 
-## 一、Maven基础
+## Maven基础
 
-### 1.什么是Maven
+### 什么是Maven
 
 maven本质是一个项目管理工具，将项目开发和管理过程抽象为一个项目对象模型（POM）
 
@@ -6508,13 +6629,13 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
 ![image-20211003195950696](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211003195950696.png)
 
-### 2. Maven能解决什么问题（作用）
+###  Maven能解决什么问题（作用）
 
 * 项目构建
 * 统一开发结构
 * 依赖的管理
 
-### 3. Maven的安装
+### Maven的安装
 
 * 下载Maven压缩包，并解压
 * 环境配置
@@ -6546,7 +6667,7 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
 ![image-20211001224629124](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211001224629124.png)
 
-### 4. Maven仓库
+### Maven仓库
 
 * 本地仓库
 * 远程仓库（私服）
@@ -6554,7 +6675,7 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
 ![image-20211001222603530](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211001222603530.png)
 
-### 5. Maven坐标
+### Maven坐标
 
 1. 坐标：被Maven管理的资源的唯一标识
    
@@ -6566,7 +6687,7 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
    > 
    > package：定义该项目的打包方式（不是maven坐标的组成）
 
-### 6. 仓库配置
+### 仓库配置
 
 1. 本地仓库配置
    
@@ -6578,7 +6699,7 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
 2. 远程仓库配置
 
-### 7. Maven常用命令
+### Maven常用命令
 
 > * compile：编译
 > * clean：清理
@@ -6586,17 +6707,25 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 > * test：测试
 > * install：安装到本地仓库
 
-### 8. Maven的生命周期与插件
+### Maven的生命周期与插件
 
-1. Maven对项目构建的生命周期划分为3套
+1. Maven对项目构建的生命周期划分为3个阶段
    
    > clean：清理工作
    >
-   > ​	
+   > ​	![image-20230217162630995](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171626834.png)
    >
    > default：核心工作，例如：编译，测试，打包，部署等
    >
+   > ![image-20230217162710233](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171627097.png)
+   >
    > site：产生报告，发布站点等
+   >
+   > ![image-20230217162747671](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171627448.png)
+   
+2. 插件
+
+   ![image-20230217163459866](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171635337.png)
 
 ### 9.创建Maven项目
 
@@ -6682,7 +6811,7 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
    >
    > ![image-20221120193756025](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211201937486.png)
 
-## 二、Maven高级
+## Maven高级
 
 ### 分模块开发与设计
 
@@ -6721,7 +6850,7 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
    * 减低JavaEE API的使用难度
    * java源码经典学习范例
 
-5. Spring framework的体系结构
+5. Spring framework的体系结构（4.0系统结构）
 
    ![image-20220117162143652](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220117162143652.png)
 
@@ -6737,7 +6866,9 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 2. 依赖注入（DI）
    * 在容器中建立bean与bean之间的依赖关系的整个过程, 称为依赖注入。
 
-## 三、Spring快速入门
+![image-20230211175056032](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302111751185.png)
+
+## Spring快速入门
 
 1. Spring程序开发步骤
    * 导入Spring开发的基本包坐标
@@ -6746,7 +6877,7 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
    * 在Spring配置文件中配置UserDapImpl
    * 使用Spring的API获得Bean实例
 
-## 三、Spring配置文件
+## Spring配置文件
 
 ### bean的配置
 
@@ -6758,7 +6889,7 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
    
    * id：Bean实例在Spring容器中的唯一标识
    * class：Bean的全限定名
-
+   * name：Bena的别名
 2. Bean标签的范围配置
    
    scope：指定对象的作用范围，取值如下：
@@ -6773,7 +6904,7 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
    
    总结：
    
-   * 当scope的取值为singleton时，Bean的实例化个数为1个，Dean的实例化时机为当Spring核心文件被加载时，实例化配置的Bean实例。Bean的生命周期：
+   * 当scope的取值为singleton时，Bean的实例化个数为1个，Bean的实例化时机为当Spring核心文件被加载时，实例化配置的Bean实例。Bean的生命周期：
      * 对象创建：当应用加载，创建容器时，对象就被创建了
      * 对象运行：只要容器在，对象就一直活着
      * 对象销毁：当应用卸载，销毁容器时，对象就被销毁了
@@ -6784,19 +6915,86 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
 3. Bean生命周期配置
    
-   * init-method:指定类中的初始化方法名称
-   * destroy-method：指定类中销毁方法名称
+   * 在配置文件中配置
+     * init-method:指定类中的初始化方法名称
+     * destroy-method：指定类中销毁方法名称
+   * 在类定义时配置：实现InitalizingBean和DisposableBean两个接口
 
-4. Bean实例化三种方式
-   
+   ![image-20230211230417682](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302112304813.png)
+
+   ![image-20230211230501166](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302112305816.png)
+
+4. **Bean实例化**三种方式
+
    * 无参构造方法实例化
+
    * 工厂静态方法实例化（factory-method属性指定类中实例化方法）
+
+     > ```
+     > public class UserDaoFactory {
+     >     public static UserDao getUserDao(){
+     >         return new UserDaoImpl();
+     >     }
+     > }
+     > ===============================
+     > <bean id="userDao2" class="factory.UserDaoFactory" factory-method="getUserDao"></bean>
+     > ```
+
    * 工厂实例方法实例化（factory-bean和factory-method属性指定实例化方法）
 
-5. Bean的依赖注入（Dependency injection）
-   
+     > ```
+     > public class UserDaoFactory {
+     >     public UserDao getUserDao2(){
+     >         return new UserDaoImpl();
+     >     }
+     > }
+     > ==============================
+     > bean id="userDaoFactory" class="factory.UserDaoFactory"/>
+     > <bean id="userDao2" factory-bean="userDaoFactory" factory-method="getUserDao2"/>
+     > ```
+
+   * 方式三的改进：
+
+     > ```
+     > public class UserDaoFactoryBean implements FactoryBean<UserDao> {
+     >     /**
+     >      * 代替原始实例工厂中的创建实例的对象
+     >      * @return
+     >      * @throws Exception
+     >      */
+     >     @Override
+     >     public UserDao getObject() throws Exception {
+     >         return new UserDaoImpl();
+     >     }
+     > 
+     >     /**
+     >      *
+     >      * @return
+     >      */
+     >     @Override
+     >     public Class<?> getObjectType() {
+     >         return UserDao.class;
+     >     }
+     >     
+     >     /**
+     >      * 是否单列对象
+     >      * @return
+     >      */
+     >     @Override
+     >     public boolean isSingleton() {
+     >         return true;
+     >     }
+     > }
+     > ==================================
+     >     <bean id="userDao" class="factory.UserDaoFactoryBean"/>
+     > ```
+
+### 依赖注入
+
+1. Bean的依赖注入（Dependency injection）
+
    * 概念：是Spring框架核心IOC的具体实现
-   
+
    * 注入方式：
      
      * set方法
@@ -6806,8 +7004,24 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
          ![image-20220118193841130](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220118193841130.png)
      
      * 有参构造
+     
+   * 注入方式的选择：
+
+     ![image-20230212110259762](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121103544.png)
+
+   ```
+   <!--setter方法-->
+   <bean id="userService" class="service.impl.UserServiceImpl">
+       <property name="userDao" ref="userDao"/>
+   </bean>
    
-6. 依赖注入的数据类型
+   <!--有参构造方式-->
+   <bean id="userService" class="service.impl.UserServiceImpl">
+       <constructor-arg name="userDao" ref="userDao"/>
+   </bean>
+   ```
+
+2. 依赖注入的数据类型
 
    * 普通数据类型
 
@@ -6835,11 +7049,30 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
      </property>
      ~~~
 
-7. 引入其他配置文件（分模块开发）
-   
+3. 引入其他配置文件（分模块开发）
+
    ```xml
-   <import resource"" />
+   <import resource="" />
    ```
+   
+4. 依赖自动装配
+
+   * IoC容器根据bean所依赖的资源在容器中自动查找并注入到bean中的过程称为自动装配
+   * 自动装配的方式
+     * 按类型（常用）
+     * 按名称
+     * 按构造方法
+     * 不启用自动装配
+   * 注意：
+     * 自动装配用于引用类型依赖注入, 不能对简单类型进行操作
+     * 使用按类型装配时( byType )必须保障容器中相同类型的bean唯一，推荐使用
+     * 使用按名称装配时( byName )必须保障容器中具有指定名称的bean , 因变量名与配置耦合, 不推荐使用
+     * 自动装配优先级低于setter注入与构造器注入,同时出现时自动装配配置失效
+
+   ```
+   <bean id="userService" class="service.impl.UserServiceImpl" autowire="byType"/>
+   ```
+
 
 ### 配置数据源（连接池）
 
@@ -6993,8 +7226,16 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
 5. 抽取jdbc配置文件
 
-   ![image-20220317195738972](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220317195738972.png)
+   * 开启context命名空间
 
+   * 使用context命名空间，加载指定的properties文件
+   
+     ![image-20230212142741153](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121427993.png)
+   
+   * 使用el表达式读取加载的属性值
+   
+   ![image-20220317195738972](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220317195738972.png)
+   
    ```xml
    <?xml version="1.0" encoding="UTF-8"?>
    <beans xmlns="http://www.springframework.org/schema/beans"
@@ -7044,7 +7285,9 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 > 
 > <import>标签：导入其他的spring的分文件
 
-## 四、Spring相关API
+## Spring相关API
+
+### 容器
 
 1. ApplicationContext继承体系
 
@@ -7058,30 +7301,82 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 3. getBean()方法
    * 传递id
    * 传递class
+   
+4. 
 
-## 五、Spring注解开发
+5. BeanFactory和FactoryBean
+
+   > **BeanFactory**定义了IOC容器的最基本形式，并提供了IOC容器应遵守的的最基本的接口，也就是Spring IOC所遵守的最底层和最基本的编程规范。在Spring代码中，BeanFactory只是个接口，并不是IOC容器的具体实现，但是Spring容器给出了很多种实现，如 DefaultListableBeanFactory、XmlBeanFactory、ApplicationContext等，都是附加了某种功能的实现。
+   >
+   > 
+   >
+   > **FactoryBean** 一般情况下，Spring通过反射机制利用<bean>的class属性指定实现类实例化Bean，在某些情况下，实例化Bean过程比较复杂，如果按照传统的方式，则需要在<bean>中提供大量的配置信息。配置方式的灵活性是受限的，这时采用编码的方式可能会得到一个简单的方案。Spring为此提供了一个org.springframework.bean.factory.FactoryBean的工厂类接口，用户可以通过实现该接口定制实例化Bean的逻辑。 FactoryBean接口对于Spring框架来说占用重要的地位，Spring自身就提供了70多个FactoryBean的实现。它们隐藏了实例化一些复杂Bean的细节，给上层应用带来了便利。从Spring3.0开始，FactoryBean开始支持泛型，即接口声明改为FactoryBean<T>的形式
+
+## Spring注解开发
 
 1. Spring原始注解（主要代替<bean>标签的配置）
-   
-   Spring是轻代码中配置的框架，配置比较繁重，影响开发效率，所以注解开发是一种趋势。
+
+   > Spring是轻代码中配置的框架，配置比较繁重，影响开发效率，所以注解开发是一种趋势。
 
    ![image-20220317200213868](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220317200213868.png)
-   
+
    > 注意：
    >
-   > * 使用注解时需要进行组件扫描配置
+   > 使用注解时需要进行组件扫描配置
    >
-   >   ![image-20220317225758957](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220317225758957.png)
-   >
-   > * Qualifier
-   >
-   >   ~~~java
-   >       @Autowired//按照类型从Spring容器中进行匹配
-   >       @Qualifier("userDao")//按照id值从容器中进行匹配，但是需要结合@Autowired使用
-   >       private UserDao userDao;
-   >   ~~~
-   
-2. Spring新注解
+   > ![image-20220317225758957](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220317225758957.png)
+
+2. 常用注解
+
+   * @Component：定义Bean
+
+     * 衍生注解
+       * @Controller：用于表现层Bean定义
+       * @Servcie：用于业务层Bean定义
+       * @Repository：用于数据层Bean定义
+
+   * @Scope+@PostConstruct+@PreDestory：设置Bean的作用范围与生命周期
+
+     ```
+     @Repository("userDao")
+     @Scope("singleton")
+     public class UserDaoImpl implements UserDao {
+         @PostConstruct
+         public void init(){
+             System.out.println("init...........");
+         }
+         @PreDestroy
+         public void destroy(){
+             System.out.println("destroy........");
+         }
+     }
+     ```
+
+   * @Configuration+@ComponentScan
+
+     ![image-20230212152955095](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121529302.png)
+
+   * @Value：实现简单类型的注入
+
+   * @Qualifier：按照id值从容器中进行匹配，但是需要结合@Autowired使用
+
+     ![image-20230212161055301](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121610894.png)
+
+   * @Autowired：按照类型从Spring容器中进行匹配。该注解可以使用在成员变量、set方法和构造器上
+
+     ![image-20230212161016594](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121610133.png)
+
+   * @PropertySource：加载properties文件
+
+     ![image-20230212161527968](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121615596.png)
+
+   * @Bean：将方法返回值添加到Spring容器中
+
+     ![image-20230212163828252](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121638962.png)
+
+   * @Import
+
+3. Spring新注解
 
    * 使用场景：
      
@@ -7145,7 +7440,13 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
        }
    ~~~
 
-## 七、Spring集成Junit
+4. xml配置与注解配置的比较
+
+   ![image-20230212164250939](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121642225.png)
+
+## Spring与其他框架的集成
+
+### Spring集成Junit
 
 1. 原始Junit测试Spring时存在的问题
    
@@ -7188,7 +7489,7 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
    }
    ~~~
 
-## 八、Spring与Web集成
+### Spring与Web集成
 
 1. ApplicationContext的获取：被获取多次
 
@@ -7200,7 +7501,228 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
    ![image-20220318103032314](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318103032314.png)
 
-## 九、Spring JDBC Template
+### Spring与Mybatis的集成
+
+参考：http://www.mybatis.cn/archives/769.html
+
+1. 步骤
+
+   > 导入相关包mybatis-spring、spring-jdbc（spring操作数据库必须要导的包）
+
+2. mybatis的单独配置类
+
+   ```java
+   package org.config;
+   
+   import org.mybatis.spring.SqlSessionFactoryBean;
+   import org.mybatis.spring.mapper.MapperScannerConfigurer;
+   import org.springframework.context.annotation.Bean;
+   
+   import javax.sql.DataSource;
+   
+   /**
+    * @author WenJianChen
+    * @version 1.0
+    * @date 2023/2/12 19:23
+    */
+   public class MybatisConfiguration {
+   
+       @Bean
+       public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource){
+           SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+           sqlSessionFactoryBean.setTypeAliasesPackage("org.domain");
+           sqlSessionFactoryBean.setDataSource(dataSource);
+           return sqlSessionFactoryBean;
+       }
+   
+       @Bean
+       public MapperScannerConfigurer mapperScannerConfigurer(){
+           MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
+           mapperScannerConfigurer.setBasePackage("org.dao");
+           return mapperScannerConfigurer;
+       }
+   }
+   ```
+
+## Spring Aop
+
+### AOP简介
+
+1. AOP (Aspect Oriented Progr amming)：面向切面编程，一种编程范式,指导开发者如何组织程序结构。
+
+2. 作用：在不惊动原始设计的基础上为其进行功能增强
+
+3. Spring理念；无侵入式
+
+4. AOP核心概念
+
+   * 连接点（JoinPoint）：程序执行过程中的任意位置，粒度为执行方法、抛出异常、设置变量等
+   * 切入点（PointCut）：匹配连接点的式子
+     * 在SpringAOP中，一个切入点可以只描述一个具体方法，也可以匹配多个方法
+   * 通知：在切入点处执行的操作，也就是共性功能。在SpringAOP中，功能最终以方法的形式呈现。
+   * 通知类（Advice）：定义通知的类
+   * 切面（Aspect）：描述通知与切入点的对应关系
+* 目标对象( Target ) ：原始功能去掉共性功能对应的类产生的对象, 这种对象是无法直接完成最终工作的
+   * 代理( Proxy ) ：目标对象无法直接完成工作,需要对其进行功能回填,通过原始对象的代理对象实现
+   
+   ![image-20230212205103543](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302122051537.png)
+
+### 入门案例
+
+1. 思路分析
+
+   ![image-20230212210719558](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302122107730.png)
+
+2. 代码实现
+
+   ```java
+   //在配置类中使用@EnableAspectJAutoProxy()注解表示开启AOP自动配置注解功能
+   @Component
+   @Aspect
+   public class BookDaoAdvice {
+   
+       /**
+        * 切入点
+        */
+       @Pointcut("execution(void org.dao.impl.BookDaoImpl.save())")
+       private void pt(){}
+   
+       /**
+        * 通知（共性方法）
+        */
+       @Before(value = "pt()")
+       public void printCurrentTime(){
+           System.out.println(System.currentTimeMillis());
+       }
+   }
+   ```
+
+### AOP工作流程
+
+> 1. Spring容器启动
+> 2. 读取所有切面配置中的切入点
+> 3. 初始化bean ,判定bean对应的类中的方法是否匹配到任意切入点
+>    * 匹配失败 ,创建对象
+>    * 匹配成功 ,创建原始对象(目标对象)的代理对象
+> 4. 获取bean执行方法
+>    * 获取bean ,调用方法并执行,完成操作
+>    * 获取的bean是代理对象时 , 根据代理对象的运行模式运行原始方法与增强的内容,完成操作
+
+### AOP切入点表达式
+
+![image-20230216113833124](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302161138435.png)
+
+![image-20230216113947331](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302161139730.png)
+
+![image-20230216114218398](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302161142871.png)
+
+![image-20230216122818670](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302161228497.png)
+
+### AOP的通知类型
+
+1. 类型
+
+   * 前置通知
+
+     ![image-20230216172145390](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302161721211.png)
+
+   * 后置通知
+
+     ![image-20230216172240954](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302161722931.png)
+
+   * 环绕通知（重点）
+
+     ![image-20230216172226509](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302161722551.png)
+
+     ![](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302161723388.png)
+
+   * 返回后通知
+
+     ![image-20230216182821208](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302161828568.png)
+
+   * 抛出异常后通知
+
+     ![image-20230216182842665](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302161828945.png)
+
+2. 案例：测量业务层接口执行效率
+
+   ~~~java
+   @Component
+   @Aspect
+   public class UserServiceAdvice {
+   
+       @Pointcut("execution(* org.service.*Service.*(..))")
+       public void point(){}
+   
+       @Around("point()")
+       public void testExecution(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+           Signature signature = proceedingJoinPoint.getSignature();
+           String className = signature.getDeclaringTypeName();
+           String name = signature.getName();
+   
+           long start = System.currentTimeMillis();
+           for (int i = 0; i < 100000; i++) {
+               proceedingJoinPoint.proceed();
+           }
+           long end = System.currentTimeMillis();
+           System.out.println("执行"+className+"."+name+"方法100000次，耗时为："+(end-start)+"ms");
+       }
+   }
+   
+   ~~~
+
+### AOP通知获取数据
+
+1. 获取参数
+
+   ![image-20230216210513433](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302162105290.png)
+
+2. 获取返回值类型
+
+   ![image-20230216210533107](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302162105130.png)
+
+3. 获取异常
+
+   ![image-20230216210630874](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302162106648.png)
+
+![image-20230216204057235](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302162040119.png)
+
+## Spring事务
+
+1. 事务的作用：在数据层保障一系列的数据库操作同成功同失败。
+
+2. Spring事务的作用：在数据层或业务层保障一系列的数据库操作同成功同失败。
+
+3. 实现
+
+   * 在业务层添加事务管理器
+
+     ![image-20230217111241449](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171112335.png)
+
+   * 设置事务管理器
+
+     ![image-20230217111340020](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171113400.png)
+
+   * 开启注解式事务驱动
+
+     ![image-20230217111439817](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171114547.png)
+
+4. spring事务角色
+
+   * 事务管理员：发起事务方,在Spring中通常指代业务层开启事务的方法。
+   * 事务协调员：加入事务方,在Spring中通常指代数据层方法,也可以是业务层方法。
+
+5. 事务相关配置
+
+   ![image-20230217112303737](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171123496.png)
+
+   * 事务的传播行为：事务协调员对事务管理员所携带事务的处理态度
+
+     ![image-20230217115236161](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171152993.png)
+
+     ![image-20230217115402849](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171154816.png)
+
+## Spring JDBC Template
 
 1. 简介
 
@@ -7217,29 +7739,97 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
 参考文档：https://pdai.tech/files/kaitao-springMVC.pdf
 
-## 1.  概述
+## 概述
 
-SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻量级Web框架，属于SpringFrameWork的后续产品，已经融合在Spring Web Flow中。SpringMVC已经成为目前最主流的MVC框架之一，并且随着Spring3.0 的发布,全面超越Struts2,成为最优秀的MVC框架。它通过一套注解， 让一个简单的Java类成为处理请求的控制器，而无须实现任何接口。同时它还支持RESTful编程风格的请求。
+SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻量级**Web框架**，属于SpringFrameWork的后续产品，已经融合在Spring Web Flow中。SpringMVC已经成为目前最主流的MVC框架之一，并且随着Spring3.0 的发布,全面超越Struts2,成为最优秀的MVC框架。它通过一套注解， 让一个简单的Java类成为处理请求的控制器，而无须实现任何接口。同时它还支持RESTful编程风格的请求。
 
 ![image-20220318144526046](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318144526046.png)
 
 1. SpringMVC开发步骤
    
-   > 1. 导入SpringMVC相关坐标
-   > 2. 配置SpringMVC核心控制器DispathcerServlet（web.xml中）
-   > 3. 创建Controller类和视 图页面
-   > 4. 使用注解配置Controller类中业务方法的映射地址
-   > 5. 配置SpringMVC核心文件spring-mvc.xml
-   > 6. 客户端发起请求测试
+   > 1. 导入SpringMVC相关坐标（spring-webmvc和javax.servlet-api）
+   >
+   >    ![image-20230217150326040](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171503843.png)
+   >
+   > 2. 配置SpringMVC核心控制器DispathcerServlet（即将SpringMVC容器配置到Servlet容器中）
+   >
+   >    * web.xml中配置
+   >
+>    ```xml
+   >    <?xml version="1.0" encoding="UTF-8"?>
+   >    <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+   >             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   >             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+   >             version="4.0">
+   >    
+   >        <!--配置SpringMVC的前端控制器-->
+   >        <servlet>
+   >            <servlet-name>DispatcherServlet</servlet-name>
+   >            <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+   >            <init-param>
+   >                <param-name>contextConfigLocation</param-name>
+   >                <param-value>classpath:spring-mvc.xml</param-value>
+   >            </init-param>
+   >            <load-on-startup>1</load-on-startup>
+   >        </servlet>
+   >        <servlet-mapping>
+   >            <servlet-name>DispatcherServlet</servlet-name>
+   >            <url-pattern>/</url-pattern>
+   >        </servlet-mapping>
+   >        
+   >        <!--全局初始化参数-->
+   >        <context-param>
+   >            <param-name>contextConfiguration</param-name>
+   >            <param-value>classpath:applicationContext.xml</param-value>
+   >        </context-param>
+   >        
+   >        <!--配置监听器-->
+   >        <listener>
+   >            <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+   >        </listener>
+   >    
+   >        <servlet>
+   >            <servlet-name>UserServlet</servlet-name>
+   >            <servlet-class></servlet-class>
+   >        </servlet>
+   >        <servlet-mapping>
+   >            <servlet-name>UserServlet</servlet-name>
+   >            <url-pattern>/userServlet</url-pattern>
+   >        </servlet-mapping>
+   >    </web-app>
+   >    ```
+   >
+   >    * 注解配置
+   >
+   >      * 方式一：继承类
+   >
+   >        ![image-20230217150514749](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171505624.png)
+   >
+   >      * 方式二：继承AbstractAnnotationConfigDispatcherServletInitializer类
+   >
+   > 3. 创建Controller类和视图页面，并使用注解配置Controller类中业务方法的映射地址
+   >
+   >    ![image-20230217150357914](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171503983.png)
+   >
+   >    ![image-20230217165530465](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171655397.png)
+   >
+   > 4. 配置SpringMVC核心文件（spring-mvc.xml或者注解形式）
+   >    ![image-20230217150429514](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171504191.png)
+   >
+   > 5. 客户端发起请求测试
    
    ![image-20220318144920983](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318144920983.png)
+   
+2. SpingMvc工作流程分析
+   
+   ![image-20230217164118218](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171641527.png)
+   
+3. SpringMvc组件解析
 
-2. SpringMvc组件解析
-   
    ![](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318152049532.png)
-   
+
    相关组件解析：
-   
+
    > 1、前端控制器DispatcherServlet（不需要程序员开发）由框架提供，在web.xml中配置。
    > 作用：接收请求，响应结果，相当于转发器，中央处理器。
    > 
@@ -7261,21 +7851,21 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    > 作用：把数据展现给用户的页面
    > View是一个接口，实现类支持不同的View技术（jsp、freemarker、pdf等）
 
-3. SpringMVC注解解析
-   
+4. SpringMVC注解解析
+
    ![image-20220318152957666](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318152957666.png)
 
-4. SpringMVC配置文件解析
+5. SpringMVC配置文件解析
 
    ![image-20220331215507482](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220331215507482.png)
 
-5. 接口了
+6. 接口了
 
-## 2. SpringMVC的数据响应
+## SpringMVC的数据响应
 
 1. 响应方式
    
-   * 页面跳转
+   * 响应页面
      
      * 直接返回字符串：该方式会将返回的字符串与视图解析器的前后缀拼接后跳转
      
@@ -7418,7 +8008,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    </beans>
    ```
 
-## 3. SpringMVC获得请求数据
+## SpringMVC获得请求数据
 
 1. 获得请求参数
    
@@ -7439,39 +8029,57 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
      >    * 场景一：获得集合参数时，要将集合参数包装到一个POJO中
      >    * 场景二：使用ajax提交时，可以指定contentType为json形式，那么方法参数位置使用@RequestBody可以直接接收集合数据而无需使用pojo进行封装
    
-2. 请求数据乱码问题 
-   
+2. json数据的传递
+
+   * json数组
+   * json对象（pojo对象）
+   * json数组（pojo对象）
+
+   > 导入json数据转换相关坐标；
+   >
+   > 在Springmvc核心配置类中使用@EnableWebMvc注解开启自动转换json数据支持；
+   >
+   > 在方法参数列表中使用@RequestBody；
+
+3. 日期型参数传递
+
+   ![image-20230217210033145](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302172100213.png)
+
+   ![image-20230217210306168](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302172103665.png)
+
+4. 请求数据乱码问题 
+
    ![image-20220405152715147](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220405152715147.png)
 
-3. 参数绑定注解@requestParam
-   
+5. 参数绑定注解@requestParam
+
    > 当请求的参数名称与Controller的业务方法参数名称不一致时，需要通过@requestParam显式绑定
-   
+
    ![image-20220405153031913](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220405153031913.png)
-   
+
    ![image-20220405153138966](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220405153138966.png)
 
-4. 获得Restful风格的参数
-   
+6. 获得Restful风格的参数
+
    ![image-20220405153525637](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220405153525637.png)
-   
+
    ![image-20220405153710199](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220405153710199.png)
 
-5. 自定义类型转换器
-   
+7. 自定义类型转换器
+
    ![image-20220405154129353](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220405154129353.png)
 
-6. 获得Servlet相关API
+8. 获得Servlet相关API
 
    ![image-20220418102302878](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220418102302878.png)
 
-7. 获得请求头
+9. 获得请求头
 
    ![image-20220418102429751](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220418102429751.png)
 
    ![image-20220418102854916](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220418102854916.png)
 
-8. 文件上传
+10. 文件上传
 
    > 文件上传客户端三要素
    >
@@ -7505,7 +8113,55 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 > 6. @RequestHeader和@CookieValue
 > 7. 文件上传
 
-## 4. SpringMVC拦截器
+## 常用注解
+
+1. @Controller
+
+   ![image-20230217163613096](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171636503.png)
+
+2. @RequestMapping
+
+   ![image-20230217163647192](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171636056.png)
+
+   ![image-20230217195614852](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171956520.png)
+
+3. @ResponseBody
+
+   ![image-20230217163724874](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171637324.png)
+
+   ![image-20230217211033227](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302172110991.png)
+
+4. @ComponentScan
+
+   ![image-20230217165647448](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171656095.png)
+
+5. @RequestParam
+
+   ![image-20230217202336638](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302172023846.png)
+
+6. @EnableWebMvc
+
+7. @RequestBody
+
+   ![image-20230217203851685](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302172038466.png)
+
+8. @DateTimeFormat
+
+9. @PathValuable
+
+   ![image-20230217212235074](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302172122963.png)
+
+   ![image-20230217212314561](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302172123084.png)
+
+10. @RestController
+
+    ![image-20230217212728180](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302172127944.png)
+
+11. @GetMapping
+
+    ![image-20230217212804306](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302172128512.png)
+
+## SpringMVC拦截器
 
 ### 拦截器概念
 
@@ -7613,7 +8269,36 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 ### 小案例：用户登录权限控制
 
+## REST风格
 
+1. 简介
+
+   REST（Representational State Transfer）,表现形式转态转换。
+
+   * 传统风格资源描述形式
+     * http://localhost/user/getById?id=1
+     * http://localhost/user/saveUser
+   * REST风格描述形式
+     * http://localhost/user/1
+     * http://localhost/user
+   * 优点
+     * 隐藏资源的访问行为，无法通过地址得知对资源是何种操作
+     * 书写简化
+   * 按照REST风格访问资源时使用**行为动作**区分对资源的操作
+     * http://localhost/users查询全部用户信息 GET（查询）
+     * http://localhost/users/1查询指定用户信息 GET
+     * http://localhost/users添加用户信息 POST（新增或保存）
+     * http://localhost/users修改用户信息 PUT（修改或更新）
+     * http://localhost/users/1删除指定用户信息 DELETE（删除）
+   * 根据REST风格对资源进行访问称为RESTful
+
+2. 入门案例
+
+   ![image-20220223213459243](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220223213459243.png)
+
+   请求路径参数
+
+   ![image-20220223213435601](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220223213435601.png)
 
 # Mybatis
 
@@ -7629,9 +8314,9 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    * 操作繁琐（mybatis自动完成）
      * 手动设置参数
      * 手动封装结果集
-   
+
    ![image-20220420142447641](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420142447641.png)
-   
+
 2. mybatis概述
 
    ![image-20220420142638250](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420142638250.png)
@@ -8098,10 +8783,6 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    > </mappers>
    > ```
 
-# SSM整合
-
-1. 整合步骤
-
 # MybatisPlus
 
 官网地址：https://baomidou.com/pages/226c21/#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%B7%A5%E7%A8%8B
@@ -8379,38 +9060,6 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
      * 导入配置类
      * 导入ImportSelector接口实现类
      * 导入ImportBeanDefinitionRegister接口的实现类
-2. 就
-
-### REST风格
-
-1. 简介
-
-   REST（Representational State Transfer）,表现形式转态转换。
-
-   * 传统风格资源描述形式
-     * http://localhost/user/getById?id=1
-     * http://localhost/user/saveUser
-   * REST风格描述形式
-     * http://localhost/user/1
-     * http://localhost/user
-   * 优点
-     * 隐藏资源的访问行为，无法通过地址得知对资源是何种操作
-     * 书写简化
-   * 按照REST风格访问资源时使用行为动作区分对资源的操作
-     * http://localhost/users查询全部用户信息 GET（查询）
-     * http://localhost/users/1查询指定用户信息 GET
-     * http://localhost/users添加用户信息 POST（新增或保存）
-     * http://localhost/users修改用户信息 PUT（修改或更新）
-     * http://localhost/users/1删除指定用户信息 DELETE（删除）
-   * 根据REST风格对资源进行访问称为RESTful
-
-2. 入门案例
-
-   ![image-20220223213459243](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220223213459243.png)
-
-   请求路径参数
-
-   ![image-20220223213435601](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220223213435601.png)
 
 ## 应用
 
@@ -8654,9 +9303,131 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 学习参考：[黑马程序员Nginx教程](https://www.bilibili.com/video/BV1ov41187bq/?vd_source=fabefd3fabfadb9324761989b55c26ea)
 
+## 概述
+
+​	Nginx是一款高性能的http 服务器/反向代理服务器及电子邮件( IMAP/POP3)代理服务器。由俄罗斯的程序设计师伊戈尔.西索夫(Igor Sysoev)所开发，官方测试nginx 能够支支撑5万并发链接，并且cpu、 内存等资源消耗却非常低，运行非常稳定。
+
+1. 应用场景
+   * http 服务器。Nginx是一个http服务可以独立提供http 服务。可以做网页静态服
+   * 虚拟主机。可以实现在一台服务器虚拟出多个网站。例如个人网站使用的虚拟主机。
+   * 反向代理，负载均衡。当网站的访问量达到一定程度后，单台服务器不能满足用户的请求时，需要用多台服务器集群可以使用nginx 做反向代理。并且多台服务器可以平均分担负载，不会因为某台服务器负载高宕机而某台服务器闲置的情况。
+2. 下载与安装
+
+## 功能
+
+### 静态资源部署
+
+### 虚拟主机
+
+### 反向代理
+
 # 日志
 
+## 日志概述
 
+1. 日志的概念
+   * 日志文件：日志文件是用于记录系统操作事件的文件集合，可分为事件日志和消息日志。具有处理历史数据、诊断问题的追踪以及理解系统的活动等重要作用。
+     * 调试日志
+     * 系统日志
+   * 日志门面
+2. java的日志框架
+   * 日志实现：JUL（java util logging）、logback、log4j、log4j2
+   * 日志门面：JCL（Jakarta Commons Logging）、Slf4j（Simple Logging  Facade fo java）
+
+## JUL
+
+参考博客：https://blog.csdn.net/weixin_43472934/article/details/122024844
+
+参考文档：https://docs.oracle.com/javase/8/docs/api/
+
+​		JUL全称Java util Logging是java原生的日志框架，使用时不需要另外引用第三方类库,相对其他日志框架使用方便，学习简单，能够在小型应用中灵活使用。
+
+1. 架构
+
+   ![image-20230203203450628](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302032034663.png)
+
+2. 快速入门
+
+   ~~~java
+   package org.example;
+   
+   
+   import org.junit.Test;
+   
+   import java.io.IOException;
+   import java.util.logging.*;
+   
+   /**
+    * Hello world!
+    * @author chenwenjian
+    */
+   public class JulDemo1
+   {
+       Logger logger = Logger.getLogger("org.example.JulDemo1");
+   
+       @Test
+       public void quickStart()
+       {
+           logger.info("这是一个info信息");
+           logger.log(Level.INFO,"这是使用logger的log方法输出的info信息");
+   
+           String name = "chen wen jian";
+           int age = 22;
+           logger.log(Level.INFO,"用户信息：{0},{1}",new Object[]{name,age});
+       }
+   
+       @Test
+       public void testLoggerLevel(){
+           logger.severe("severe");
+           logger.warning("warning");
+           logger.info("info");
+           logger.config("config");
+           logger.fine("fine");
+           logger.finer("finer");
+           logger.finest("finest");
+       }
+   
+       @Test
+       public void testLoggerConfig() throws IOException {
+           //关闭默认配置
+           logger.setUseParentHandlers(false);
+   
+           //自定义配置日志级别
+           //创建ConsoleHandle对象
+           ConsoleHandler consoleHandler = new ConsoleHandler();
+           SimpleFormatter simpleFormatter = new SimpleFormatter();
+   
+           //进行关联
+           consoleHandler.setFormatter(simpleFormatter);
+           logger.addHandler(consoleHandler);
+   
+           logger.setLevel(Level.ALL);
+           consoleHandler.setLevel(Level.ALL);
+   
+           FileHandler fileHandler = new FileHandler("D:/hp/IntelliJIDEAProjects/LoggingDemo/JULDemo/logs/jul.log", true);
+           fileHandler.setFormatter(simpleFormatter);
+           fileHandler.setLevel(Level.ALL);
+           logger.addHandler(fileHandler);
+   
+           logger.severe("severe");
+           logger.warning("warning");
+           logger.info("info");
+           logger.config("config");
+           logger.fine("fine");
+           logger.finer("finer");
+           logger.finest("finest");
+       }
+   }
+   
+   ~~~
+
+3. 配置文件
+
+4. 执行流程和原理
+
+## Slf4j
+
+官网：https://www.slf4j.org/
 
 # Swagger
 
@@ -8819,7 +9590,9 @@ public class SwaggerConfiguration {
 
 # Idea
 
-参考资料：https://www.bilibili.com/video/BV1PW411X75p?from=search&seid=1533766256313085594&spm_id_from=333.337.0.0
+参考视频：
+
+* https://www.bilibili.com/video/BV1PW411X75p?from=search&seid=1533766256313085594&spm_id_from=333.337.0.0
 
 官方文档：https://www.jetbrains.com/help/idea/getting-started.html
 
@@ -8828,12 +9601,6 @@ public class SwaggerConfiguration {
 1. 目录结构
    
    ![image-20211227103126984](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211227103126984.png)
-
-## 集成Tomcat
-
-## 版本控制
-
-## 配置Maven
 
 ## 常用快捷键
 
@@ -8995,7 +9762,11 @@ public class SwaggerConfiguration {
 
 # git和GitHub
 
-使用参考链接：https://www.cnblogs.com/syp172654682/p/7689328.html
+参考链接：
+
+* https://www.cnblogs.com/syp172654682/p/7689328.html
+* https://hx.dcloud.net.cn/Tutorial/SourceControl/Git/README
+* https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%AE%80%E4%BB%8B
 
 ### 1. 版本控制
 

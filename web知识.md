@@ -1,4 +1,4 @@
-# HTML学习总结
+# HTML
 
 参考资料：https://www.w3school.com.cn/html/html5_intro.asp
 
@@ -245,7 +245,7 @@ html使用<!---->表示注释
 
   ![image-20230105161602755](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301051616864.png)
 
-# CSS学习总结
+# CSS
 
 1. CSS特性
    * 继承性
@@ -653,59 +653,51 @@ html使用<!---->表示注释
 
 ## 浏览器调试工具（google）
 
-# JavaScript学习笔记
+# JavaScript
+
+权威网站：https://developer.mozilla.org/zh-CN/
 
 ## 一、JavaScript概述
 
-1. JavaScript是什么
+1. JavaScript
    
    * web上强大的脚本语言。
    
    * 脚本语言：无法独立执行，必须嵌入到其他语言中结合使用，浏览器解释执行
 
-2. JavaScript能够干什么
+2. JavaScript功能/作用：
    
-   控制页面特效展示
-
+   * 页面特效
+* 表单验证
+   * 数据交互
+   * 服务器端编程（nodejs）
+   
 3. 语言特征
-   
+
    没有访问系统文件的权限
-   
+
    浏览器解释执行
 
 4. 浏览器执行JS
-   
+
    * 浏览器分成两部分，一部分是渲染引擎，一部分是JS引擎
      * 渲染引擎（俗称内核）：用于解析HTML和CSS
      * JS引擎（JS解释器）：读取网页js代码
-   
+
 5. javaScript组成
 
-   ECMAScript：规定JS语法和基本对象
+   * ECMAScript：规定JS语法和基本对象
 
-   DOM（文档对象模型）：处理网页内容的方法和接口
+   * DOM（文档对象模型）：处理网页内容的方法和接口
+   * BOM（浏览器对象模型）：与浏览器交互的方法和接口
 
-   BOM（浏览器对象模型）：与浏览器交互的方法和接口
+6. 引入方式（书写位置）
 
-6. 引入方式
-
-   内部脚本
-
-   外部引入
+   * 内部脚本
+   * 外部引入
+   * 行内
 
    注意：<script>标签中使用了src属性，则不能在标签内部写代码
-
-+++
-
-### javaScript显示数据
-
-```
-1.使用window.alert()弹出警告框
-2.使用document.write()方法将内容写到HTML文档中
-3.使用innerHTML写入到HTML元素
-4.使用console.log()写入到浏览器控制台
-注意：在 HTML 文档完全加载后使用 document.write() 将删除所有已有的 HTML ：
-```
 
 ## 二、基本语法
 
@@ -735,6 +727,20 @@ ECMAScript中一切变量区分大小写
   ~~~html
   /*注释内容*/
   ~~~
+
+### 输入输出
+
+1. 输出
+
+   > 1.使用window.alert()弹出警告框
+   > 2.使用document.write()方法将内容写到HTML文档中
+   > 3.使用innerHTML写入到HTML元素
+   > 4.使用console.log()写入到浏览器控制台
+   > 注意：在 HTML 文档完全加载后使用 document.write() 将删除所有已有的 HTML ：
+
+2. 输出
+
+   > prompt()：显示一一个对话框，对话框中包含一条文字信息，用来提示用户输入文字
 
 ### 严格模式
 
@@ -766,13 +772,13 @@ function doSomething(){
 1. 变量的声明
    
    ```javascript
-   var 变量名;
+   let 变量名;
    ```
    
    > 注意：
    >
    > * 变量是名称，字面量是值。
-   > * ECMAScript中标量是松散类型的，即可以用来保存任何类型的数据。
+   > * ECMAScript中变量是松散类型的，即可以用来保存任何类型的数据。
    > * 严格模式下，不能定义名为eval或argument的变量，否则会导致语法错误。
    
 2. 变量命名规则（遵循标识符命名规则）
@@ -780,6 +786,21 @@ function doSomething(){
    * 由数字、字母、下划线和$组成
    * 不能以数字开头
    * 不能是关键字
+   * 严格区分大小写
+   
+3. var和let的区别
+
+   ![image-20230214130242527](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302141302073.png)
+
+### 常量
+
+1. 概念：一经定义，值不予许改变
+
+2. 声明
+
+   > const 常量名
+
+3. 命名规范：与变量一致
 
 ### 作用域
 
@@ -827,17 +848,17 @@ function doSomething(){
 
 * 比较运算符
 
-  | 运算符 | 描述           |
-  | :----- | :------------- |
-  | ==     | 等于           |
-  | ===    | 等值等型       |
-  | !=     | 不相等         |
-  | !==    | 不等值或不等型 |
-  | >      | 大于           |
-  | <      | 小于           |
-  | >=     | 大于或等于     |
-  | <=     | 小于或等于     |
-  | ?      | 三元运算符     |
+  | 运算符  | 描述           |
+  | :------ | :------------- |
+  | **==**  | 等于           |
+  | **===** | 等值等型       |
+  | !=      | 不相等         |
+  | **!==** | 不等值或不等型 |
+  | >       | 大于           |
+  | <       | 小于           |
+  | >=      | 大于或等于     |
+  | <=      | 小于或等于     |
+  | ?       | 三元运算符     |
   
   > === 全等（值和类型都进行比较）
   >
@@ -872,8 +893,10 @@ function doSomething(){
   | >>     | 有符号右位移 | 5 >> 1  | 0101 >> 1    | 0010 | 2      |
   | >>>    | 零填充右位移 | 5 >>> 1 | 0101 >>> 1   | 0010 | 2      |
 
-### 语句
+### 表达式和语句
 
+> 表达式可被求值
+>
 > ECMAScript中语句以一个分号结尾，若省略分号，则由解析器确定语句的结尾。以分号结束语句不是必需的，但我们仍然强烈建议您这么做。
 
 ### 流程控制
@@ -882,12 +905,19 @@ function doSomething(){
 
 2. 判断结构
    * if
+   
+     > 小括号内的结果若不是布尔类型时，会发生隐式转换转为布尔类型
+   
    * switch
+   
+     > 找到跟小括号里数据全等的case值，并执行里面对应的代码。若没有全等===的则执行default里的代码
+   
+   * 三元运算符
 3. 循环结构
    * do-while
    * while
    * for
-     * for-in
+     * for-in：常用语循环对象的属性
 4. label语句
 5. break和continue语句
 6. with语句
@@ -903,14 +933,37 @@ ECMAScript中有5中简单数据类(Number,String,Boolean,Null,Undefine)和1种�
 #### 基本数据类型（5种）
 
 * String
+
+  > * 模板字符串
+  >
+  >   * ~~~js
+  >     let name = 'chen'
+  >     let age = 20
+  >     document.write(`i am ${name},now is ${age} years old`)
+  >     //必须使用反引号包裹字符串
+  >     ~~~
+
 * Boolean
+
 * Number
+
+  > NaN（Not a Number）：表示不是一个数字
+
 * Null
+
 * Undefined
 
 注意：undefined==null（null和undefined的值相等，但类型不等）
 
 #### 数据类型的转换
+
+* 隐式转换
+
+  > +号作为正号解析可以转换成数字型，任何数据和字符串相加结果都是字符串
+
+* 显示转换
+
+  * 转为数字：Number()
 
 ```html
 <!DOCTYPE html>
@@ -935,8 +988,8 @@ ECMAScript中有5中简单数据类(Number,String,Boolean,Null,Undefine)和1种�
             /*
              * 其他数据类型转换为数值型
              * 1.Number()
-             * 2.parseInt()
-             * 3.parseFloat()
+             * 2.parseInt()：只保留整数
+             * 3.parseFloat()：可以保留小数
              */
             var s2='123';
             var s3=null;
@@ -960,6 +1013,8 @@ ECMAScript中有5中简单数据类(Number,String,Boolean,Null,Undefine)和1种�
 </html>
 ```
 
+
+
 ### 函数
 
 #### 自定义函数
@@ -972,8 +1027,10 @@ ECMAScript中有5中简单数据类(Number,String,Boolean,Null,Undefine)和1种�
    }
    ~~~
 
-2. 参数的理解
+2. 参数的理解 
 
+   * 形参:声明函数时写在函数名右边小括号里的叫形参(形式上的参数)
+   * 实参:调用函数时写在函数名右边小括号里的叫实参(实际上的参数)
    * ECMAScript函数不介意传递进入函数的参数个数和类型。（原因是ECMAScript中参数在内部使用一个数组来表示）
    * 在函数体中可以通过argments对象（不是Array实例）访问参数数组
 
@@ -1092,41 +1149,7 @@ var 对象名=new Object();
   }
   ~~~
 
-#### Array类型
-
-#### Date类型
-
-#### RegExp类型
-
-#### Function类型
-
-#### 基本包装类型
-
-#### 单体内置对象
-
-### 事件
-
-HTML 事件是发生在 HTML 元素上的“事情”。
-
-~~~ html
-<!--使用单引号-->
-<element event='一些 JavaScript'>
-<!--使用双引号-->
-<element event="一些 JavaScript">
-~~~
-
-常用html事件
-
-| 事件        | 描述                         |
-| :---------- | :--------------------------- |
-| onchange    | HTML 元素已被改变            |
-| onclick     | 用户点击了 HTML 元素         |
-| onmouseover | 用户把鼠标移动到 HTML 元素上 |
-| onmouseout  | 用户把鼠标移开 HTML 元素     |
-| onkeydown   | 用户按下键盘按键             |
-| onload      | 浏览器已经完成页面加载       |
-
-### 字符串
+#### 字符串
 
 ~~~ javascript
 //常用属性和方法
@@ -1169,13 +1192,13 @@ HTML 事件是发生在 HTML 元素上的“事情”。
 
 ```javascript
 //方式一
-var arr=[1,2,3];
+let arr=[1,2,3];
 //方式二
-var arr=new Array();//数组长度默认为0
+let arr=new Array();//数组长度默认为0
 //方式三
-var arr=new Array(4);//指定数组长度
+let arr=new Array(4);//指定数组长度
 //方式四
-var arr=new Array(1,2);//数组元素是1,2
+let arr=new Array(1,2);//数组元素是1,2
 ```
 
 3. JS数组的常用属性/方法
@@ -1195,6 +1218,7 @@ var arr=new Array(1,2);//数组元素是1,2
    >   * sort()
    > * reverse() 颠倒数组中元素的顺序
    > * 查找最值
+   > * 
 
 ### 正则对象
 
@@ -1254,6 +1278,28 @@ var arr=new Array(1,2);//数组元素是1,2
      | [\xxx](https://www.w3school.com.cn/jsref/jsref_regexp_octal.asp)         | 查找以八进制数 xxx 规定的字符。            |
      | [\xdd](https://www.w3school.com.cn/jsref/jsref_regexp_hex.asp)           | 查找以十六进制数 dd 规定的字符。            |
      | [\uxxxx](https://www.w3school.com.cn/jsref/jsref_regexp_unicode_hex.asp) | 查找以十六进制数 xxxx 规定的 Unicode 字符。 |
+
+### 事件
+
+HTML 事件是发生在 HTML 元素上的“事情”。
+
+~~~ html
+<!--使用单引号-->
+<element event='一些 JavaScript'>
+<!--使用双引号-->
+<element event="一些 JavaScript">
+~~~
+
+常用html事件
+
+| 事件        | 描述                         |
+| :---------- | :--------------------------- |
+| onchange    | HTML 元素已被改变            |
+| onclick     | 用户点击了 HTML 元素         |
+| onmouseover | 用户把鼠标移动到 HTML 元素上 |
+| onmouseout  | 用户把鼠标移开 HTML 元素     |
+| onkeydown   | 用户按下键盘按键             |
+| onload      | 浏览器已经完成页面加载       |
 
 ### 表单验证
 
@@ -1705,7 +1751,7 @@ bootstrap是基于HTML、CSS、javaScript的前端框架。
 | ---------------- | ------------------- |
 | .container-fluid | 类用于100%宽度，占据全部视口的容器 |
 
-# jQuery学习笔记
+# jQuery
 
 ## 一、简介
 
@@ -1797,6 +1843,9 @@ bootstrap是基于HTML、CSS、javaScript的前端框架。
 
 *  https://blog.csdn.net/qq_416814621/article/details/111042374
 * https://www.runoob.com/nodejs/nodejs-npm.html
+* https://www.jianshu.com/p/b1ca85169f4a
+* https://www.cnblogs.com/zhuyutang/p/14863011.html
+* https://www.cnblogs.com/nxmxl/p/14677596.html
 
 1. 什么是npm
 
@@ -2656,7 +2705,7 @@ data与el的2种写法：
 
 ## Vue3
 
-# uni-app开发框架
+# uni-app
 
 官网地址：https://uniapp.dcloud.io/
 
@@ -2784,14 +2833,50 @@ uni.setStorage({
 1. navigator进行跳转
 2. l用编程式导航进行跳转
 
-# NodeJS学习笔记
+# NodeJS
 
-## npm
+官网：https://nodejs.org/en/
 
-参考链接：
+## 简介
 
-https://www.jianshu.com/p/b1ca85169f4a
+1. node：Node.js是一个基于Chrome V8引擎的JavaScript 运行环境。
 
-https://www.cnblogs.com/zhuyutang/p/14863011.html
+   ![image-20230214092653066](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302140926106.png)
 
-https://www.cnblogs.com/nxmxl/p/14677596.html
+2. node的作用：
+
+   ![image-20230214092723293](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302140927016.png)
+
+3. node安装
+
+4. 使用node执行JavaScript代码
+
+   > * 打开命令行终端
+   > * 使用node 待运行js代码路径
+
+## 内置模块
+
+### fs文件系统模块
+
+1. fs模块：fs模块是Node.js官方提供的、用来操作文件的模块。它提供了一 系列的方法和属性,用来满足用户对文件的操作需求。
+
+2. 常用API接口
+
+   > * fs.readFile():用来读取指定文件中的内容
+   >
+   >   ![image-20230214094504034](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302140945328.png)
+   >
+   > * fs.writeFile0方法，用来向指定的文件中写入内容
+   >
+   >   ![image-20230214101437708](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302141014694.png)
+   >
+   > 注意：
+   >
+   > ![image-20230214111002041](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302141110906.png)
+
+3. 
+
+# Hbuilder
+
+官网文档：https://hx.dcloud.net.cn/Tutorial/StartedTutorial
+
