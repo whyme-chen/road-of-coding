@@ -116,7 +116,7 @@
 
    ![image-20221119134305526](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353171.png)
    
-   > cvf打包，xvf解包，zcvf打压缩包，zxvf解旺包
+   > cvf打包，xvf解包，zcvf打压缩包，zxvf解压包
 
 ### 文本编辑命令
 

@@ -470,9 +470,7 @@ public class Client{
 
 参考文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html#method.summary
 
-#### 简介
-
-#### 常用方法
+### 常用方法
 
 1. equals（）
 
@@ -492,19 +490,12 @@ public class Client{
 
    * 使用 clone() 方法来拷贝一个对象即复杂又有风险，它会抛出异常，并且还需要类型转换。Effective Java 书上讲到，最好不要去使用 clone()，可以使用拷贝构造函数或者拷贝工厂来拷贝一个对象。
 
-     ------
-
-     著作权归@pdai所有 原文链接：https://pdai.tech/md/java/basic/java-basic-lan-basic.html
 
 ## Scanner类
 
 ## Math类
 
-## String类
-
-## StringBuilder类
-
-## StringBuffer类
+## String、StringBuffer和StringBuilder
 
 String类是所有项目中都会使用到的一个功能类，这个类拥有如下特性：
 
@@ -520,7 +511,7 @@ StringBuilder类的功能和StringBuffer类的功能相同，但是StringBuffer�
 
 文档参考：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/StringBuffer.html
 
-### CharSequence接口
+## CharSequence接口
 
 描述字符串结构的接口，在这个接口中发现有三种常用子类：
 
@@ -530,23 +521,23 @@ StringBuilder类的功能和StringBuffer类的功能相同，但是StringBuffer�
 
 文档参考：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/CharSequence.html
 
-### AutoCloseable接口
+## AutoCloseable接口
 
 AutoCloseable主要用于日后惊喜你资源开发的处理上，以实现资源的自动关闭。
 
 文档参考：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/AutoCloseable.html
 
-### Runtime类
+## Runtime类
 
 Runtime描述的是运行时的状态，也就是说在整个JVM中，Runtime类是唯一一个与JVM运行状态有关的类。
 
 文档参考：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Runtime.html
 
-### Comparable接口和Comparator接口
+## Comparable接口和Comparator接口
 
 参考资料：https://www.jb51.net/article/93973.htm
 
-### System类
+## System类
 
 * 常用方法
   * 数组拷贝：static void arraycopy(Object src, int srcPos, Object dest, int destPos, int length)
@@ -555,17 +546,17 @@ Runtime描述的是运行时的状态，也就是说在整个JVM中，Runtime类
 
 参考文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/System.html
 
-### Cleaner类
+## Cleaner类
 
-### 日期与时间相关类
+## 日期与时间相关类
 
-#### Date
+### Date
 
 参考文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/Date.html
 
 1. Date类对象在java中代表当前所在系统的此刻日期时间
 
-#### SimpleDateFormat
+### SimpleDateFormat
 
 参考文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/text/SimpleDateFormat.html
 
@@ -579,9 +570,9 @@ Runtime描述的是运行时的状态，也就是说在整个JVM中，Runtime类
       
       ![image-20211228204547690](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211228204547690.png)
 
-#### Calendar
+### Calendar
 
-#### java8新增日期类
+### java8新增日期类
 
 # 包的定义及使用
 
@@ -914,15 +905,6 @@ public class MyException extends Exception{
 
    > * 数据个数不确定，需要进行增删元素的场景
 
-3. 迭代器
-
-   参考文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/Iterator.html
-
-   > 注意：
-   >
-   > 1. 增强for循环：自jdk1.5开始出现，内部原始是Iterator迭代器。
-   > 2. 实现了Iterator接口的类才可以使用迭代器和增强for循环。
-
 4. 常见数据结构
 
    * 栈、队列
@@ -932,17 +914,42 @@ public class MyException extends Exception{
    * 平衡二叉树（任意结点的左右子树高度差不超过1）
    * 红黑树
 
-5. 集合的并发修改异常问题
+## Collection集合
 
-   ![image-20220402172317221](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220402172317221.png)
+1. 简介：单列集合的顶层接口、无法使用new关键字直接创建，需要使用多态的方式来实现。
 
-   使用迭代器遍历是删除操作应该用迭代器删除，而不是使用集合本身执行删除操作。使用增强for时无法解决遍历的同时执行删除元素操作。
+2. 常用方法
+
+   ![image-20230218152511044](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302181525037.png)
+
+3. 遍历：使用迭代器进行遍历。
+
+## 迭代器及遍历
+
+参考文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/Iterator.html
+
+1. 迭代器
+
+   ![image-20230218152649500](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302181526220.png)
+
+   > 注意：
+   >
+   > 1. 增强for循环：自jdk1.5开始出现，内部原始是Iterator迭代器。
+   > 2. 实现了Iterator接口的类才可以使用迭代器和增强for循环。
+
+2. iterator的fail-fast和fail-safe机制
+
+   * fail-fast机制：且发现遍历的同时其它人来修改，则立刻抛异常
+   * fail-safe机制：发现遍历的同时其它人来修改，应当能有应对策略，例如牺牲一致性 来让整个遍历运行完成
+
+   > ArrayList是fail-fast的典型代表，遍历的同时不能修改
+   > CopyOnWriteArrayList是fail-safe的典型代表，遍历的同时可以修改，原理是读写分离
 
 ## List集合
 
 元素有序、可重复、有索引
 
-#### ArrayList
+### ArrayList
 
 1. 常用方法
 
@@ -951,13 +958,25 @@ public class MyException extends Exception{
 2. 底层实现原理
 
    > * 底层基于数组实现，根据索引定位元素快，但是增删元素时需要做移位操作
-   > * 初始化时，默认创建长度为10的数组
+   >
+   > * 初始化时，若调用无参构造则初始容量为0，
+   >
+   > * 扩容规则：
+   >
+   >   * 调用add()方法添加元素时，默认初次扩容长度为10，第二次开始扩容为原来的1.5倍
+   >   * 调用addAll方法时，初次扩容元素长度若小于10则扩容后长度为10，若初次扩容长度大于10则为扩容元素的长度。（或者说是元素长度和10二者之间的较大值）
+   >
+   >   ![image-20230218144311632](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302181443509.png)
 
-3. 特点
+3. 遍历
 
-4. 边遍历边删除
+   ArrayList采用fail-fast机制，遍历是不允许修改，否则会抛出异常。
 
-#### LinkedList
+4. ListIterator
+
+   ![image-20230218153725584](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302181537846.png)
+
+### LinkedList
 
 1. 常用方法
 
@@ -968,8 +987,12 @@ public class MyException extends Exception{
    >   ![image-20220402170854567](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220402170854567.png)
    >
    > * LinkedList可以完成栈和队列的操作
+   
+3. ArrayList和LinkedList的比较
 
-#### Vector
+   ![image-20230218150626703](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302181506765.png)
+
+### Vector
 
 ```java
 import java.util.LinkedList;
@@ -1016,17 +1039,48 @@ public class LinkedListDemo {
 * 元素无序、不重复、无索引
 * Set的实现类是基于Map来实现的
 
-#### HashSet
+### 哈希值
 
-1. 底层实现
+![image-20230218154116983](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302181541747.png)
+
+### HashSet
+
+1. 特点
+
+   * 底层数据结构是哈希表
+   * 对集合的迭代顺序不作任何保证，也就是说不保证存储和取出的元素顺序一致
+   * 没有带索弓|的方法，所以不能使用普通for循环遍历
+   * 由于是Set集合，所以是不包含重复元素的集合
+
+2. 底层原理
+
+   * 保证元素唯一性
+
+     要保证元素唯一性， 需要重写hashCode()和equals()。
+
+     ![image-20230218154652172](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302181546683.png)
 
 #### LinkedHashSet
 
 > 注意：LinkedHashSet是有序、不重复、无索引
 
-#### TreeSet
+1. 特点
+   * 哈希表和链表实现的Set接口，具有可预测的迭代次序
+   * 由链表保证元素有序,也就是说元素的存储和取出顺序是一致的
+   * 由哈希表保证元素唯一，也就是说没有重复的元素
+
+### TreeSet
 
 > 注意：TreeSet按照大小默认升序排序、是不重复、无索引的
+
+1. 特点
+
+   ![image-20230218182847835](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302181828513.png)
+
+2. Comparable接口和Compartor类
+
+   * 用TreeSet集合存储自定义对象，无参构造方法使用的是自然排序对元素进行排序的自然排序，就是让元素所属的类实现Comparable接口，重写compareTo(T o)方法重写方法时，-定要注意排序规则必须按照要求的主要条件和次要条件来写
+   * 用TreeSet集合存储自定义对象，带参构造方法使用的是比较器排序对元素进行排序的比较器排序,就是让集合构造方法接收Comparator的实现类对象，重写compare(T o1,T o2)方法
 
 ## Map
 
@@ -1034,15 +1088,38 @@ public class LinkedListDemo {
 
 ### HashMap
 
-### LinkedHashMap
+1. 特点
+
+2. 底层原理
+
+   * HashMap在jdk1.7中底层数据结构使用的是数组+链表。在jdk1.8中使用的是数组+链表或红黑树
+   * 链表过长解决方法：
+     * 扩容
+     * 树化
+       * 只有当链表长度超过树化阈值8，且数组长度大于64才会尝试树化
+   * 树化后退化
+     * 在扩容时如果拆分树时，树元素个数<= 6则会退化链表,
+     * remove树节点时，若root、root.left、 root.right、 root.left.left 有一一个为null ,也会退化为链表
+
+3. 常见面试
+
+   ![image-20230219120133521](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302191201564.png)
+
+   ![image-20230219181151936](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302191811015.png)
+
+   ![image-20230219211521433](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302192115430.png)
+
+4. 常用方法
+
+   ![image-20230219105815926](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302191058116.png)
+
+   ![image-20230219105909038](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302191059258.png)
+
+#### LinkedHashMap
 
 ### TreeMap
 
-### SortedMap
-
 ### HashTable
-
-### WeakedHashMap
 
 # I/O操作
 
@@ -1630,6 +1707,8 @@ public class ThreadDemo{
 
 ![image-20210721212820134](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20210721212820134.png)
 
+![image-20230220221305153](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302202213059.png)
+
 ![image-20220913202914929](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209132029314.png)
 
 ![image-20220913203242411](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209132032460.png)
@@ -1645,8 +1724,8 @@ public class ThreadDemo{
 2. 线程控制
    
    * public static void sleep(long millis)：使当前正在执行的线程停留（暂停执行）指定的毫秒数
-   * void joiin()：等待这个线程死亡
-   * void setDaemon(boolean on)：将此线程标记为守护线程，党运行的线程都是守护线程时，java虚拟机将退出
+   * void join()：等待这个线程死亡
+   * void setDaemon(boolean on)：将此线程标记为守护线程，当运行的线程都是守护线程时，java虚拟机将退出
 
 3. 线程中断
 
@@ -1657,7 +1736,7 @@ public class ThreadDemo{
      * 分时调度模型
      * 抢占式调度模型
      
-     java使用的线程调度方式是抢占式调度模型。
+     **java使用的线程调度方式是抢占式调度模型。**
    
    * 设置和获取线程优先级
      
@@ -1675,7 +1754,7 @@ public class ThreadDemo{
 2.  出现原因：
    * 存在多线程并发
    * 同时访问共享资源
-   * 存在修改共享资源的行为
+   * 存在修改共享资源的行为(可破坏)
    
 3. 模拟案例
 
@@ -1769,6 +1848,14 @@ public class ThreadDemo{
        }
    }
    ~~~
+   
+4. 常见的线程安全的类
+
+   * StringBuffer
+   * Vector
+   * HashTable
+
+   ![image-20230220224942536](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302202249194.png)
 
 ### 5. 线程同步
 
@@ -1780,13 +1867,13 @@ public class ThreadDemo{
 
        > 理论上： 锁对象只要对于当前同时执行的线程来说是同一个对象即可。
        >
-       > 规范上：讲义使用共享资源作为锁对象。对于实例方法建议使用this作为锁对象，对于静态方法讲义使用字节码（类名.class）对象作为锁对象。
+       > 规范上：建议使用共享资源作为锁对象。对于实例方法建议使用this作为锁对象，对于静态方法建议使用字节码（类名.class）对象作为锁对象。
        >
-       > synchronized（同步锁对象）{
+       > **synchronized（同步锁对象）{**
        >
-       > ​	操作共享资源的代码
+       > ​	**操作共享资源的代码**
        >
-       > }
+       > **}**
 
      * 同步方法
 
@@ -1794,11 +1881,11 @@ public class ThreadDemo{
        > * 如果方法是实例方法:同步方法默认用this作为的锁对象。但是代码要高度面向对象!
        > * 如果方法是静态方法:同步方法默认用类名.class作为的锁对象。
        >
-       > 修饰符 synchronized 返回值类型 方法名称（形参列表）{
+       > **修饰符 synchronized 返回值类型 方法名称（形参列表）{**
        >
-       > ​	操作共享资源的代码		
+       > ​	**操作共享资源的代码**		
        >
-       > }
+       > **}**
 
      * Lock锁
 
@@ -1813,6 +1900,8 @@ public class ThreadDemo{
 
    * 生产者与消费者模型
 
+     ![image-20230220225229649](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302202252952.png)
+     
      ![image-20220912130658196](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209121307430.png)
 
 ### 7. 线程池
@@ -1877,6 +1966,17 @@ public class ThreadDemo{
            },0,2, TimeUnit.SECONDS);
        }
    ~~~
+
+## ThreadLocal类
+
+从ava官方文档中的描述: ThreadLocal类用来提供线程内部的局部变量。这种变量在多线程环境下访问(通过get和set方法访问)时能保证各个线程的变量相对独立于其他线程内的变量。ThreadLocal实例通常来说都是
+private static类型的,用于关联线程和线程上下文。
+
+> * 线程并发:在多线程并发的场景下
+> * 传递数据:我们可以通过ThreadLocal在同一线程，不同组件中传递公共变量
+> * 线程隔离每个线程的变量都是独立的，不会互相影响
+
+### 常用方法
 
 # Junit单元测试
 
@@ -2226,22 +2326,6 @@ public class Test04 {
    }
    ~~~
 
-# JVM
-
-## 类加载机制
-
-### 字节码文件（.class）
-
-参考：https://pdai.tech/md/java/jvm/java-jvm-class.html
-
-1. 字节码文件：class文件本质上是一个以8位字节为基础单位的二进制流，各个数据项目严格按照顺序紧凑的排列在class文件中。jvm根据其特定的规则解析该二进制数据，从而得到相关信息。
-
-2. 文件结构属性
-
-   ![img](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202212012327723.png)
-
-3. 地方
-
 # 网络编程
 
 1. 网络编程：在网络通信协议下，实现网络互连的不同计算机上运行的程序可以进行数据交换。
@@ -2257,114 +2341,119 @@ public class Test04 {
      * TCP
      * UDP
    
-3. UDP协议通信
 
-   * java提供DataGramSocket类作为基于UDP协议的Socket
+## UDP协议通信
 
-   * 发送数据
+UDP协议通信
 
-     > ①创建发送端的Socket对象(DatagramSocket)
-     > ②创建数据， 并把数据打包
-     > ③调用DatagramSocket对象的方法发送数据
-     > ④关闭发送端
+* java提供DataGramSocket类作为基于UDP协议的Socket
 
-   * 接受数据
+* 发送数据
 
-     > ①创建接收端的Socket对象(DatagramSocket)
-     > ②创建一个数据包， 用于接收数据
-     > ③调用DatagramSocket对象的方法接收数据
-     > ④解析数据包, 并把数据在控制台显示
-     > ⑤关闭接收端
+  > ①创建发送端的Socket对象(DatagramSocket)
+  > ②创建数据， 并把数据打包
+  > ③调用DatagramSocket对象的方法发送数据
+  > ④关闭发送端
 
-   ~~~java
-   //接受数据
-   public class Demo1 {
-       public static void main(String[] args) throws IOException {
-           DatagramSocket datagramSocket = new DatagramSocket(10086);
-           //创建数据包
-           byte[] bytes = new byte[1024];
-           DatagramPacket datagramPacket = new DatagramPacket(bytes,bytes.length);
-           //接受数据
-           datagramSocket.receive(datagramPacket);
-           //解析数据并在控制台显示
-           byte[] data = datagramPacket.getData();
-           System.out.println(new String(data,0,data.length));
-       }
-   }
-   
-   //=========================================
-   //发送数据
-   public class Demo {
-       public static void main(String[] args) throws IOException {
-   //        InetAddress hostName = Inet4Address.getByName("192.168.137.1");
-   //        InetAddress localHost = Inet4Address.getLocalHost();
-   //        System.out.println(hostName);
-   //        System.out.println(localHost.getHostAddress());
-   
-           DatagramSocket datagramSocket = new DatagramSocket();
-           byte[] bytes = "hello world".getBytes(StandardCharsets.UTF_8);
-           InetAddress localHost = InetAddress.getLocalHost();
-           DatagramPacket datagramPacket = new DatagramPacket(bytes, bytes.length, localHost, 10086);
-           datagramSocket.send(datagramPacket);
-           datagramSocket.close();
-       }
-   ~~~
+* 接受数据
 
-4. TCP协议通信
+  > ①创建接收端的Socket对象(DatagramSocket)
+  > ②创建一个数据包， 用于接收数据
+  > ③调用DatagramSocket对象的方法接收数据
+  > ④解析数据包, 并把数据在控制台显示
+  > ⑤关闭接收端
 
-   * Java对基于TCP协议的的网络提供了良好的封装，使用Socket对象来代表两端的通信端口， 并通过Socket产生I0流来进行网络通信
-     Java为客户端提供了Socket类,为服务器端提供了ServerSocket类
+~~~java
+//接受数据
+public class Demo1 {
+    public static void main(String[] args) throws IOException {
+        DatagramSocket datagramSocket = new DatagramSocket(10086);
+        //创建数据包
+        byte[] bytes = new byte[1024];
+        DatagramPacket datagramPacket = new DatagramPacket(bytes,bytes.length);
+        //接受数据
+        datagramSocket.receive(datagramPacket);
+        //解析数据并在控制台显示
+        byte[] data = datagramPacket.getData();
+        System.out.println(new String(data,0,data.length));
+    }
+}
 
-   * 发送数据
+//=========================================
+//发送数据
+public class Demo {
+    public static void main(String[] args) throws IOException {
+//        InetAddress hostName = Inet4Address.getByName("192.168.137.1");
+//        InetAddress localHost = Inet4Address.getLocalHost();
+//        System.out.println(hostName);
+//        System.out.println(localHost.getHostAddress());
 
-     > ①创建客户端的Socket对象(Socket)
-     > ②获取输出流， 写数据
-     > ③释放资源
+        DatagramSocket datagramSocket = new DatagramSocket();
+        byte[] bytes = "hello world".getBytes(StandardCharsets.UTF_8);
+        InetAddress localHost = InetAddress.getLocalHost();
+        DatagramPacket datagramPacket = new DatagramPacket(bytes, bytes.length, localHost, 10086);
+        datagramSocket.send(datagramPacket);
+        datagramSocket.close();
+    }
+~~~
 
-   * 接收数据
+## TCP协议通信
 
-     > ①创建服务器端的Socket对象(ServerSocket)
-     > ②监听客户端连接, 返回一个Socket对象
-     > ③获取输入流， 读数据,并把数据显示在控制台
-     > ④释放资源
+TCP协议通信
 
-   ~~~java
-   public class TcpClient {
-       public static void main(String[] args) throws IOException {
-           Socket socket = new Socket(InetAddress.getByName("192.168.137.1"),10086);
-           //获得输出流，写数据
-           OutputStream outputStream = socket.getOutputStream();
-           outputStream.write("hello world!server......".getBytes());
-   
-           InputStream inputStream = socket.getInputStream();
-           byte[] bytes = new byte[1024];
-           int len = inputStream.read(bytes);
-           System.out.println(new String(bytes,0,len));
-   
-           socket.close();
-       }
-   }
-   
-   //============================================
-   public class TcpServer {
-       public static void main(String[] args) throws IOException {
-           ServerSocket serverSocket = new ServerSocket(10086);
-   
-           Socket accept = serverSocket.accept();
-   
-           InputStream inputStream = accept.getInputStream();
-           byte[] bytes = new byte[1024];
-           int len = inputStream.read(bytes);
-           System.out.println(new String(bytes, 0, len));
-   
-           OutputStream outputStream = accept.getOutputStream();
-           outputStream.write("hello client..".getBytes());
-   
-           accept.close();
-           serverSocket.close();
-       }
-   }
-   ~~~
+* Java对基于TCP协议的的网络提供了良好的封装，使用Socket对象来代表两端的通信端口， 并通过Socket产生I0流来进行网络通信
+  Java为客户端提供了Socket类,为服务器端提供了ServerSocket类
+
+* 发送数据
+
+  > ①创建客户端的Socket对象(Socket)
+  > ②获取输出流， 写数据
+  > ③释放资源
+
+* 接收数据
+
+  > ①创建服务器端的Socket对象(ServerSocket)
+  > ②监听客户端连接, 返回一个Socket对象
+  > ③获取输入流， 读数据,并把数据显示在控制台
+  > ④释放资源
+
+~~~java
+public class TcpClient {
+    public static void main(String[] args) throws IOException {
+        Socket socket = new Socket(InetAddress.getByName("192.168.137.1"),10086);
+        //获得输出流，写数据
+        OutputStream outputStream = socket.getOutputStream();
+        outputStream.write("hello world!server......".getBytes());
+
+        InputStream inputStream = socket.getInputStream();
+        byte[] bytes = new byte[1024];
+        int len = inputStream.read(bytes);
+        System.out.println(new String(bytes,0,len));
+
+        socket.close();
+    }
+}
+
+//============================================
+public class TcpServer {
+    public static void main(String[] args) throws IOException {
+        ServerSocket serverSocket = new ServerSocket(10086);
+
+        Socket accept = serverSocket.accept();
+
+        InputStream inputStream = accept.getInputStream();
+        byte[] bytes = new byte[1024];
+        int len = inputStream.read(bytes);
+        System.out.println(new String(bytes, 0, len));
+
+        OutputStream outputStream = accept.getOutputStream();
+        outputStream.write("hello client..".getBytes());
+
+        accept.close();
+        serverSocket.close();
+    }
+}
+~~~
 
 # java Web概述
 
@@ -7689,11 +7778,17 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
 ## Spring事务
 
+参考：https://www.bilibili.com/video/BV1WZ4y1P7Bp?p=138&spm_id_from=pageDriver&vd_source=fabefd3fabfadb9324761989b55c26ea
+
 1. 事务的作用：在数据层保障一系列的数据库操作同成功同失败。
 
 2. Spring事务的作用：在数据层或业务层保障一系列的数据库操作同成功同失败。
 
-3. 实现
+3. 实现(编程式的注解方式)
+
+   > 编程式
+   >
+   > 声明式：xml配置和注解配置
 
    * 在业务层添加事务管理器
 
@@ -7707,14 +7802,24 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
      ![image-20230217111439817](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171114547.png)
 
-4. spring事务角色
+4. 编程式事务的相关对象
+
+   ![image-20230218113305962](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302181133052.png)
+
+   ![image-20230218113330404](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302181133185.png)
+
+5. spring事务角色
 
    * 事务管理员：发起事务方,在Spring中通常指代业务层开启事务的方法。
    * 事务协调员：加入事务方,在Spring中通常指代数据层方法,也可以是业务层方法。
 
-5. 事务相关配置
+6. 事务相关配置
 
    ![image-20230217112303737](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171123496.png)
+
+   * 事务的隔离级别
+
+     ![image-20230218113506460](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302181135598.png)
 
    * 事务的传播行为：事务协调员对事务管理员所携带事务的处理态度
 
@@ -7745,121 +7850,145 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 ![image-20220318144526046](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318144526046.png)
 
-1. SpringMVC开发步骤
+### SpringMVC开发步骤
+
+1. 导入SpringMVC相关坐标（spring-webmvc和javax.servlet-api）
+
+   ![image-20230217150326040](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171503843.png)
+
+2. 配置SpringMVC核心控制器DispathcerServlet（即将SpringMVC容器配置到Servlet容器中）
+
+   * web.xml中配置
+
+     ```xml
+     <?xml version="1.0" encoding="UTF-8"?>
+     <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+              version="4.0">
+     <!--配置SpringMVC的前端控制器-->
+     <servlet>
+         <servlet-name>DispatcherServlet</servlet-name>
+         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+         <init-param>
+             <param-name>contextConfigLocation</param-name>
+             <param-value>classpath:spring-mvc.xml</param-value>
+         </init-param>
+         <load-on-startup>1</load-on-startup>
+     </servlet>
+     <servlet-mapping>
+         <servlet-name>DispatcherServlet</servlet-name>
+         <url-pattern>/</url-pattern>
+     </servlet-mapping>
+     
+     <!--全局初始化参数-->
+     <context-param>
+         <param-name>contextConfiguration</param-name>
+         <param-value>classpath:applicationContext.xml</param-value>
+     </context-param>
+     
+     <!--配置监听器-->
+     <listener>
+         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+     </listener>
+     
+     <servlet>
+         <servlet-name>UserServlet</servlet-name>
+         <servlet-class></servlet-class>
+     </servlet>
+     <servlet-mapping>
+         <servlet-name>UserServlet</servlet-name>
+         <url-pattern>/userServlet</url-pattern>
+     </servlet-mapping>
+     </web-app>
+     ```
+
+   * 注解配置
+
+     * 方式一：继承类
+
+       ![image-20230217150514749](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171505624.png)
+
+     * 方式二：继承AbstractAnnotationConfigDispatcherServletInitializer类
+
    
-   > 1. 导入SpringMVC相关坐标（spring-webmvc和javax.servlet-api）
-   >
-   >    ![image-20230217150326040](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171503843.png)
-   >
-   > 2. 配置SpringMVC核心控制器DispathcerServlet（即将SpringMVC容器配置到Servlet容器中）
-   >
-   >    * web.xml中配置
-   >
->    ```xml
-   >    <?xml version="1.0" encoding="UTF-8"?>
-   >    <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-   >             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   >             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
-   >             version="4.0">
-   >    
-   >        <!--配置SpringMVC的前端控制器-->
-   >        <servlet>
-   >            <servlet-name>DispatcherServlet</servlet-name>
-   >            <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-   >            <init-param>
-   >                <param-name>contextConfigLocation</param-name>
-   >                <param-value>classpath:spring-mvc.xml</param-value>
-   >            </init-param>
-   >            <load-on-startup>1</load-on-startup>
-   >        </servlet>
-   >        <servlet-mapping>
-   >            <servlet-name>DispatcherServlet</servlet-name>
-   >            <url-pattern>/</url-pattern>
-   >        </servlet-mapping>
-   >        
-   >        <!--全局初始化参数-->
-   >        <context-param>
-   >            <param-name>contextConfiguration</param-name>
-   >            <param-value>classpath:applicationContext.xml</param-value>
-   >        </context-param>
-   >        
-   >        <!--配置监听器-->
-   >        <listener>
-   >            <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-   >        </listener>
-   >    
-   >        <servlet>
-   >            <servlet-name>UserServlet</servlet-name>
-   >            <servlet-class></servlet-class>
-   >        </servlet>
-   >        <servlet-mapping>
-   >            <servlet-name>UserServlet</servlet-name>
-   >            <url-pattern>/userServlet</url-pattern>
-   >        </servlet-mapping>
-   >    </web-app>
-   >    ```
-   >
-   >    * 注解配置
-   >
-   >      * 方式一：继承类
-   >
-   >        ![image-20230217150514749](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171505624.png)
-   >
-   >      * 方式二：继承AbstractAnnotationConfigDispatcherServletInitializer类
-   >
-   > 3. 创建Controller类和视图页面，并使用注解配置Controller类中业务方法的映射地址
-   >
-   >    ![image-20230217150357914](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171503983.png)
-   >
-   >    ![image-20230217165530465](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171655397.png)
-   >
-   > 4. 配置SpringMVC核心文件（spring-mvc.xml或者注解形式）
-   >    ![image-20230217150429514](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171504191.png)
-   >
-   > 5. 客户端发起请求测试
-   
+
+3. 创建Controller类和视图页面，并使用注解配置Controller类中业务方法的映射地址
+
+![image-20230217150357914](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171503983.png)
+
+![image-20230217165530465](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171655397.png)
+
+4. 配置SpringMVC核心文件（spring-mvc.xml或者注解形式）
+   ![image-20230217150429514](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171504191.png)
+
+5. 客户端发起请求测试
+
    ![image-20220318144920983](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318144920983.png)
-   
-2. SpingMvc工作流程分析
-   
-   ![image-20230217164118218](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171641527.png)
-   
-3. SpringMvc组件解析
 
-   ![](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318152049532.png)
+### SpringMvc组件解析（执行流程分析）
 
-   相关组件解析：
+参考视频：https://www.bilibili.com/video/BV1WZ4y1P7Bp?p=46&vd_source=fabefd3fabfadb9324761989b55c26ea
 
-   > 1、前端控制器DispatcherServlet（不需要程序员开发）由框架提供，在web.xml中配置。
-   > 作用：接收请求，响应结果，相当于转发器，中央处理器。
-   > 
-   > 2、处理器映射器HandlerMapping（不需要程序员开发）由框架提供。
-   > 作用：根据请求的url查找Handler（处理器/Controller），可以通过XML和注解方式来映射。
-   > 
-   > 3、处理器适配器HandlerAdapter（不需要程序员开发）由框架提供。
-   > 作用：按照特定规则（HandlerAdapter要求的规则）去执行Handler中的方法。
-   > 
-   > 4、处理器Handler（也称之为Controller，需要程序员开发）
-   > 注意：编写Handler时按照HandlerAdapter的要求去做，这样适配器才可以去正确执行Handler。
-   > 作用：接受用户请求信息，调用业务方法处理请求，也称之为后端控制器。
-   > 
-   > 5、视图解析器ViewResolver（不需要程序员开发）由框架提供。
-   > 作用：进行视图解析，把逻辑视图解析成真正的物理视图。 
-   > SpringMVC框架支持多种View视图技术，包括：jstlView、freemarkerView、ThymeleafView等。
-   > 
-   > 6、视图View（需要工程师开发）
-   > 作用：把数据展现给用户的页面
-   > View是一个接口，实现类支持不同的View技术（jsp、freemarker、pdf等）
+![image-20230217164118218](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171641527.png)
 
-4. SpringMVC注解解析
+![](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318152049532.png)
 
-   ![image-20220318152957666](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318152957666.png)
+![image-20230218093259342](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302180933186.png)
 
-5. SpringMVC配置文件解析
+1. 用户发送请求至前端控制器DispatcherServlet.
 
-   ![image-20220331215507482](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220331215507482.png)
+2. DispatcherServlet收到请求调用HandlerMapping处理器映射器。
 
-6. 接口了
+3. 处理器映射器找到具体的处理器(可以根据xm|配置、注解进行查找), 生成处理器对象及处理器拦截器(如果有则生成)一并返回给DispatcherServlet.
+
+4. DispatcherServlet调用HandlerAdapter处理器适配器。
+
+5. HandlerAdapter经过适配调用具体的处理器(Controller,咖叫后端控制器)。
+
+6. Controller执行完成返回ModelAndView。
+
+7. HandlerAdapter将controller执行结果ModelAndView返回给
+
+   DispatcherServlet.
+
+8. DispatcherServlet将ModelAndView传给ViewReslover视图解析器。
+   ViewReslover解析后返回具体View。
+
+9. DispatcherServlet根据View进行渲染视图(即将模型数据填充至视图中)。
+
+10. DispatcherServlet响应用户。
+
+相关组件解析：
+
+> 1、前端控制器DispatcherServlet（不需要程序员开发）由框架提供，在web.xml中配置。
+> 作用：接收请求，响应结果，相当于转发器，中央处理器。
+> 
+> 2、处理器映射器HandlerMapping（不需要程序员开发）由框架提供。
+> 作用：根据请求的url查找Handler（处理器/Controller），可以通过XML和注解方式来映射。
+> 
+> 3、处理器适配器HandlerAdapter（不需要程序员开发）由框架提供。
+> 作用：按照特定规则（HandlerAdapter要求的规则）去执行Handler中的方法。
+> 
+> 4、处理器Handler（也称之为Controller，需要程序员开发）
+> 注意：编写Handler时按照HandlerAdapter的要求去做，这样适配器才可以去正确执行Handler。
+> 作用：接受用户请求信息，调用业务方法处理请求，也称之为后端控制器。
+> 
+> 5、视图解析器ViewResolver（不需要程序员开发）由框架提供。
+> 作用：进行视图解析，把逻辑视图解析成真正的物理视图。 
+> SpringMVC框架支持多种View视图技术，包括：jstlView、freemarkerView、ThymeleafView等。
+> 
+> 6、视图View（需要工程师开发）
+> 作用：把数据展现给用户的页面
+> View是一个接口，实现类支持不同的View技术（jsp、freemarker、pdf等）
+
+### SpringMVC注解解析
+
+![image-20220318152957666](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318152957666.png)
+
+### SpringMVC配置文件解析
+
+![image-20220331215507482](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220331215507482.png)
 
 ## SpringMVC的数据响应
 
@@ -8166,9 +8295,13 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 ### 拦截器概念
 
 1. 拦截器（Interceptor）：一种动态拦截方法调用的机制，在SpringMVC中动态拦截控制器方法的执行
+
+   ![image-20230218222658940](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302182227537.png)
+
 2. 作用：
    * 在指定的方法调用前后执行预先设定的代码
    * 组织原始方法的执行
+
 3. 拦截器和过滤器的区别
    * 归属不同：Filter属于Servlet技术，Interceptor属于SpringMVC技术
    * 拦截内容不同：Filter对所有访问进行增强，Interceptor仅针对SpringMVC的访问进行增强
@@ -8180,7 +8313,14 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 > 自定义拦截器步骤：
 >
 > 1. 创建拦截器
+>
+>    ![image-20230219103050487](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302191030255.png)
+>
 > 2. 配置拦截器
+>
+>    ![image-20230219103131384](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302191031403.png)
+>
+>    ![image-20230219103308637](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302191033662.png)
 
 1. 创建拦截器（实现HandlerInterceptor）
 
@@ -8263,11 +8403,19 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    
    ~~~
 
-#### 拦截器方法说明
+#### 拦截器参数
 
 ![image-20220427200921912](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220427200921912.png)
 
-### 小案例：用户登录权限控制
+![image-20230219103621141](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302191036427.png)
+
+![image-20230219103605664](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302191036320.png)
+
+![image-20230219103646624](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302191036475.png)
+
+#### 拦截器链
+
+![image-20230219104044255](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302191040323.png)
 
 ## REST风格
 
@@ -10312,9 +10460,21 @@ git管理的文件有三种状态：已修改（modified）,已暂存（staged�
 
 5. 接口
 
-# 并发编程
+# JVM
 
+## 类加载机制
 
+### 字节码文件（.class）
+
+参考：https://pdai.tech/md/java/jvm/java-jvm-class.html
+
+1. 字节码文件：class文件本质上是一个以8位字节为基础单位的二进制流，各个数据项目严格按照顺序紧凑的排列在class文件中。jvm根据其特定的规则解析该二进制数据，从而得到相关信息。
+
+2. 文件结构属性
+
+   ![img](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202212012327723.png)
+
+3. 地方
 
 # 开发经验
 
@@ -10379,6 +10539,80 @@ git管理的文件有三种状态：已修改（modified）,已暂存（staged�
 ## Windows常用cmd命令
 
 ### 网络命令
+
+## 单例模式
+
+单例模式的常见的五种实现方式。
+
+1. 饿汉式
+
+   * 可以使用反射、反序列化、Unsafe三种方式破坏单例
+
+   ```java
+   public class SingletonDemo1 implements Serializable {
+   
+       private static final SingletonDemo1 INSTANCE = new SingletonDemo1();
+   
+       private SingletonDemo1(){
+           //防止反射破坏单例
+           if (INSTANCE!=null){
+               throw new RuntimeException("对象不能重复创建");
+           }
+           System.out.println("构造方法。。。。。。");
+       }
+   
+       public static SingletonDemo1 getInstance(){
+           return INSTANCE;
+       }
+   
+       public static void otherMethod(){
+           System.out.println("otherMethod......");
+       }
+   
+       /**
+        * 防止反序列化破坏单例
+        */
+       public Object readResolve(){
+           return INSTANCE;
+       }
+   }
+   ```
+
+2. 懒汉式
+
+   ```java
+   public static synchronized SingletonDemo2 getInstance(){
+       if (INSTANCE==null){
+           INSTANCE = new SingletonDemo2();
+       }
+       return INSTANCE;
+   }
+   ```
+
+3. DCL懒汉式（双检索）
+
+   ```java
+   private static volatile SingletonDemo3 INSTANCE = null;
+   
+   public static SingletonDemo3 getInstance(){
+       if (INSTANCE==null){
+           synchronized (SingletonDemo3.class){
+               if (INSTANCE == null){
+                   INSTANCE = new SingletonDemo3();
+               }
+           };
+       }
+       return INSTANCE;
+   }
+   ```
+
+4. 内部类懒汉式
+
+5. 枚举
+
+### jdk中单例模式的应用
+
+RunTime、System中的Console对象、Collections
 
 # 学习路线/资源
 
