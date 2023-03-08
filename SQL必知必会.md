@@ -327,6 +327,8 @@
 
 ## 索引
 
+参考：[MySQL数据库索引的类型、命名规范、建立原则以及索引失效的情况](https://blog.csdn.net/u013068184/article/details/107298993/)
+
 ### 概述
 
 1. 索引：索引(index)是帮助MySQL高效获取数据的**数据结构**(有序)。
@@ -359,7 +361,7 @@
 
 #### B+树索引
 
-1. 二叉树结构的缺点：顺序插入时，会形成-一个链表, 查询性能大大降低。大数据量情况下，层级较深,检索速度慢。
+1. 二叉树结构的缺点：顺序插入时，会形成一个链表, 查询性能大大降低。大数据量情况下，层级较深,检索速度慢。
 
 2. 平衡二叉树结构的缺点：大数据量情况下，层级较深，检索速度慢。
 
@@ -406,7 +408,105 @@
 
 ![image-20230125221021096](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301252210103.png)
 
+> 索引的命名规则：
+>
+> 一般来说，每家公司可能存在自己的一套规范；也可参照以下的比较通用的索引命名规则（**通过索引类型简写前缀 + 下划线_ + 字段名（组合索引多个字段则继续加_）拼接而成，名称需使用小写字母，同时避免用到MySQL保留关键字**）：
+>
+> - 唯一索引：使用`uni_[字段名]`来命名，比如用户名唯一索引uni_username
+> - 非唯一索引：使用`idx_[字段名]`来命名，比如用户名普通索引idx_username，用户名手机号组合索引idx_username_phone
+
+### 索引使用规则
+
+1. 最左前缀法则
+
+   ![image-20230223182518862](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302231825372.png)
+
+2. 范围查询
+
+   ![image-20230223183526784](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302231835152.png)
+
+3. 索引列运算
+
+   ![image-20230224103045718](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302241030662.png)
+
+4. 字符串不使用引号：字符串类型字段使用时，不加引号，索引将失效。
+
+   ![image-20230224103408045](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302241034165.png)
+
+5. 模糊匹配
+
+   ![image-20230224103539825](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302241035551.png)
+
+6. or连接的条件
+
+   ![image-20230224103810315](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302241038198.png)
+
+7. 数据分布影响
+
+   ![image-20230224104144910](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302241041072.png)
+
+8. sql提示
+
+   ![image-20230224104518991](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302241045905.png)
+
+9. 覆盖索引
+
+   ![image-20230224105134743](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302241051349.png)
+
+10. 前缀索引
+
+    ![image-20230224105850013](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302241058045.png)
+
+    ![image-20230224111217203](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302241112654.png)
+
+11. 单列索引和联合索引（组合索引）
+
+    * 单列索引:即一个索引只包含单个列。
+    * 联合索引:即- -个索引包含了多个列。
+
+    ![image-20230224111919595](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302241119060.png)
+
+    > 在业务场景中，如果存在多个查询条件,考虑针对于查询字段建立索引时，建议建立联合索引，而非单列索引。
+    >
+    > 多条件联合查询时，MySQL优化器会评估哪个字段的索引效率更高，会选择该索引完成本次查询。
+
+### 设计原则
+
+1. 针对于数据量较大,且查询比较频繁的表建立索引。
+2. 针对于常作为查询条件(where) 、排序(order by)、分组(group by)操作的字段建立索引。
+3. 尽量选择区分度高的列作为索引，尽量建立唯一索引，区分度越高,使用索引的效率越高。
+4. 如果是字符串类型的字段,字段的长度较长，可以针对于字段的特点，建立前缀索引。
+5. 尽量使用联合索引，减少单列索引，查询时,联合索引很多时候可以覆盖索引，节省存储空间，避免回表,提高查询效率。
+6. 要控制索引的数量，索引并不是多多益善，索引越多,维护索引结构的代价也就越大,会影响增删改的效率。
+7. 如果索引列不能存储NULL值，请在创建表时使用NOT NULL约束它。当优化器知道每列是否包含NULL值时，它可以更好地确定哪个索引最有效地用于查询。
+
 ## SQL优化
+
+### SQL性能分析
+
+1. SQL执行频率
+
+   ![image-20230223103331778](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302231033899.png)
+
+   > com后一个_表示一类操作
+
+2. 慢查询日志
+
+   ![image-20230223103611305](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302231130225.png)
+
+3. profiles详情
+
+   ![image-20230223113419776](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302231134047.png)
+
+   ![image-20230223113655909](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302231136148.png)
+
+4. **ecplain执行计划**
+
+   ![image-20230223113824864](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302231138612.png)
+
+   ![image-20230223115318090](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302231808259.png)
+
+   ![image-20230223180744379](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302231807951.png)
 
 ## 视图
 
@@ -415,6 +515,40 @@
 ## 触发器
 
 ## 锁
+
+### 概述
+
+1. 锁：
+
+   锁是计算机协调多个进程或线程并发访问某-资源的机制。 在数据库中，除传统的计算资源(CPU、RAM、I/0) 的争用以外，数据也是一种供许多用户共享的资源。如何保证数据并发访问的一致性、 有效性是所有数据库必须解决的一个问题，锁冲突也是影响数据库并发访问性能的一一个重要因素。
+
+2. 分类
+
+   MySQL中按照锁的粒度进行划分，可以分为三类：
+
+   * 全局锁：锁定数据库中的所有表。
+   * 表级锁：每次操作锁住对应的整张表。
+   * 行级锁：每次操作锁住对应的数据行。
+
+### 全局锁
+
+1. 概念;
+
+   全局锁就是对整个数据库实例加锁,加锁后整个实例就处于只读状态，后续的DML的写语句，DDL语句，已经更新操作的事务提交语句将被阻塞。其典型的使用场景是做全库的逻辑备份,对所有的表进行锁定,从而获取一致性视图,保证数据的完整性。
+
+2. 操作
+
+   ![image-20230224114941860](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302241149276.png)
+
+   > FLUSH TABLES WITH READ LOCk;
+   > mysqldump -uroot -p4112 test > D:/test.sql（注意mysqldump并不是mysql中的命令而是工具，所以应该在cmd命令行中执行）
+   > UNLOCK tables;
+
+3. 特点
+
+### 表级锁
+
+### 行级锁
 
 ## MYSQL管理
 

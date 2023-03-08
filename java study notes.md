@@ -2520,7 +2520,7 @@ public class TcpServer {
    * 查询某个数据库的字符集（实际查看某个数据库的创建语句）
    show create database 数据库名称;
    
-   3. U（Updata）：修改
+   3. U（Update）：修改
    * 修改数据库字符集
    alter database 数据库名称 character set 字符集名称;
    
@@ -3837,7 +3837,9 @@ public class JDBCTemplateDemo2 {
 
 参考：https://www.runoob.com/http/http-tutorial.html
 
-### 概念：Hyper Text Transfer Protocol（超文本传输协议）。
+## 概念：
+
+Hyper Text Transfer Protocol（超文本传输协议）。
 
 * 定义了客户端和服务器端通信时，发送数据的格式
 * 特点：
@@ -3847,7 +3849,7 @@ public class JDBCTemplateDemo2 {
   * 无状态的：每次请求之间是相互独立的，不能交互数据
 * 历史版本
 
-### 请求消息数据格式（四部分）
+## 请求消息数据格式（四部分）
 
 * **请求行**
   
@@ -3875,7 +3877,7 @@ public class JDBCTemplateDemo2 {
 
 * **请求体（正文）**
 
-### 响应消息数据格式(四部分)
+## 响应消息数据格式(四部分)
 
 * **响应行**
   * 组成：协议/版本 响应状态码  状态码描述
@@ -8930,6 +8932,12 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    >     <package name="com.chen.dao"/>
    > </mappers>
    > ```
+
+## 常见面试题
+
+1. 传参时#和$符号有什么不同？
+
+   > \#传入的参数在SQL中显示为字符串（当成一个字符串），会对自动传入的数据加一个双引号。$传入的参数在SqL中直接显示为传入的值。\#可以防止SQL注入的风险（语句的拼接）；但$无法防止Sql注入。一般情况均使用#。
 
 # MybatisPlus
 
