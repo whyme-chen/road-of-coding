@@ -689,7 +689,9 @@ java中一共定义由四种访问控制权限分别为：public、default（不
 
 参考文档：https://docs.oracle.com/en/java/javase/16/docs/specs/jar/jar.html
 
-# Lambda表达式
+# Lambda表达式与函数式编程
+
+## Lamba表达式
 
 从JDK1.8开始为简化使用者进行代码开发，专门提供有Lambda表达式的支持。对于函数式编程比较著名的语言：haskell、Scala。
 
@@ -702,6 +704,14 @@ Lambda表达式提供有如下几种格式：
 * 如果只有一行语句返回：(参数，参数)->语句
 
 利用Lambda表达式可以摆脱传统面向对象只用关于结构的限制，使得代码更加简便。
+
+## 函数式编程
+
+参考：
+
+* https://www.finclip.com/news/f/38498.html
+
+* https://juejin.cn/post/7056354222689746974
 
 # 正则表达式
 
