@@ -229,7 +229,11 @@
 
 ## 事务
 
-1. 概念：事务是一组操作的集合，它是一个不可分割的工作单位，事务会把所有的操作作为一一个整体一起向系统提交或撤销操作请求，即这些操作要么同时成功，要么同时失败。
+1. 概念：事务是**一组操作的集合**，它是一个不可分割的工作单位，事务会把所有的操作作为一一个整体一起向系统提交或撤销操作请求，即这些操作要么同时成功，要么同时失败。
+
+   * 保留点：要支持回退部分事务，必须在事务处理块中的合适位置放置占位符，这就是保留点。每个保留点都要取能够标识它的唯一名字，以便在回退时，DBMS知道回退到何处。MySQL中的语句如下：
+
+     >  SAVEPOINT 保留点标识名；
 
 2. 基本操作
 
@@ -253,7 +257,7 @@
    * 引发的问题
 
      * 脏读：读到了其他事务未提交的数据。
-   
+
      * 不可重复读：最开始读到的数据和事务结束前的任意时刻读到的同一批数据出现不一致的情况。
 
        ![image-20230124094712069](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202301240947657.png)
@@ -267,9 +271,9 @@
      * 类型
 
        ![image-20221117214200429](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211172142141.png)
-   
+
      * 操作
-   
+
        ![image-20221117214316834](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211172144698.png)
 
 ## 存储引擎
@@ -532,7 +536,7 @@
 
 ### 全局锁
 
-1. 概念;
+1. 概念：
 
    全局锁就是对整个数据库实例加锁,加锁后整个实例就处于只读状态，后续的DML的写语句，DDL语句，已经更新操作的事务提交语句将被阻塞。其典型的使用场景是做全库的逻辑备份,对所有的表进行锁定,从而获取一致性视图,保证数据的完整性。
 
@@ -540,17 +544,100 @@
 
    ![image-20230224114941860](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302241149276.png)
 
-   > FLUSH TABLES WITH READ LOCk;
-   > mysqldump -uroot -p4112 test > D:/test.sql（注意mysqldump并不是mysql中的命令而是工具，所以应该在cmd命令行中执行）
-   > UNLOCK tables;
+   > 1. FLUSH TABLES WITH READ LOCk;
+   > 2. mysqldump -uroot -p4112 test > D:/test.sql（注意mysqldump并不是mysql中的命令而是工具，所以应该在cmd命令行中执行）
+   > 3. UNLOCK tables;
 
 3. 特点
 
+   > 如果在主库上备份，那么在备份期间都不能执行更新，业务基本上就得停摆。
+   > 如果在从库.上备份，那么在备份期间从库不能执行主库同步过来的二进制日志(binlog) ,会导致主从延迟。
+   >
+   > 注意：
+   >
+   > 在InnoDB引擎中，我们可以在备份时加上参数--single-transaction参数来完成不加锁的一致性数据备份。命令如下：
+   > mysqldump --single. .transaction -uroot -p123456 itcast > itcast.sql
+
 ### 表级锁
+
+1. 概念：对数据库表进行加锁。锁定粒度大,发生锁冲突的概率最高,并发度最低。应用在MyISAM、InnoDB、 BDB等存储引擎中。
+
+2. 分类
+
+   * 表锁
+
+     * 表共享读锁：读锁不会阻塞其他客户端的读,但是会阻塞写。
+     * 表独占写锁：写锁既会阻塞其他客户端的读，又会阻塞其他客户端的写。
+
+     操作语法：
+
+     > 加锁: lock tables表名... read/write。
+     > 释放锁: unlock tables /客户端断开连接。
+
+   * 元数据锁（meta data lock,MDL）
+
+     * MDL加锁过程是系统自动控制，无需显式使用，在访问一-张表的时候会自动加上。MDL锁主要作用是维护表元数据的数据一致性, 在表上有活动事务的时候,不可以对元数据进行写入操作。**为了避免DML和DDL冲突，保证读写的正确性。**
+
+     * 查看元数据锁
+
+       > select object_ type,object_ schema,object name,lock_ _type,lock_ duration from performance_ schema.metadata_ _locks ;
+
+     ![image-20230407112041372](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304071120409.png)
+
+   * 意向锁
+
+     * 为了避免DML在执行时,加的行锁与表锁的冲突,在InnoDB中引入了意向锁,使得表锁不用检查每行数据是否加锁,使用意向锁来减少表锁的检查。
+
+     * 分类
+
+       * 意向共享锁（IS）：由语句select ... lock in share mode添加。与表锁共享锁(read) 兼容,与表锁排它锁(write) 互斥。.
+       * 意向排他锁（IX）：由insert、update、 delete、 select ... for update添加。与表锁共享锁(read) 及排它锁(write) 都互斥。意向锁之间不会互斥。
+
+     * 查看意向锁和行锁加锁情况
+
+       > select object_ schema,object_ name,index_ name,lock_ _type,lock_ mode,lock_ data from performance_ schema.data_ locks;
 
 ### 行级锁
 
-## MYSQL管理
+1. 概念：
+
+   行级锁，每次操作锁住对应的行数据。锁定粒度最小,发生锁冲突的概率最低,并发度最高。应用在InnoPB存储引擎中。InnoDB的数据是基于索引组织的，行锁是通过对索引.上的索引项加锁来实现的，而不是对记录加的锁。
+
+2. 分类
+
+   * 行锁(Record Lock) ：锁定单个行记录的锁,防止其他事务对此行进行update和delete。在RC、RR隔离级别下都支持。InnoDB实现的行锁：
+
+     * 共享锁（S）：允许一个事务去读一-行， 阻止其他事务获得相同数据集的排它锁。
+     * 排他锁（X）：允许获取排他锁的事务更新数据，阻止其他事务获得相同数据集的共享锁和排他锁。
+
+     ![image-20230407153600649](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304071536684.png)
+
+     ![image-20230407153634429](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304071536658.png)
+
+     > 默认情况下，InnoDB在REPEATABLE READ事务隔离级别运行，InnoDB使用next-key锁进行搜索和索引扫描，以防止幻读。
+     > 1. 针对唯一-索引进行检索时,对已存在的记录进行等值匹配时，将会自动优化为行锁。
+     > 2. InnoDB的行锁是针对于索引加的锁， 不通过索引条件检索数据，那么InnoDB将对表中的所有记录加锁，此时就会**升级为表锁**。
+
+   * 间隙锁(Gap Lock) ：锁定索引记录间隙(不含该记录)，确保索引记录间隙不变,防止其他事务在这个间隙进行insert,产生幻读。在RR隔离级别下都支持。
+
+     > 默认情况下，InnoDB在REPEATABLE READ事务隔离级别运行，InnoDB使用next-key锁进行搜索和索引扫描，以防止幻读。
+     > 1. 索引.上的等值查询(唯一 索引), 给不存在的记录加锁时,优化为间隙锁。
+     > 2. 索引. 上的等值查询(普通索引),向右遍历时最后一一个值不满足查询 需求时，next-key lock退化为间隙锁。
+     > 3. 索引上的范围查询(唯一索引)-- 会访问到不满足条件的第一个值为止。
+     >
+     > 注意：注意:间隙锁唯一目的是防止其他事务插入间隙。间隙锁可以共存，- -个事务采用的间隙锁不会阻止另一个事务在同一间隙上采用间隙锁。
+
+   * 临键锁(Next-Key Lock) ：行锁和间隙锁组合,同时锁住数据，并锁住数据前面的间隙Gap。在RR隔离级别下支持。
+
+## MYSQL运维
+
+### 日志
+
+### 主从复制
+
+### 分库分表
+
+### 读写分离
 
 ## 常用操作汇总
 
