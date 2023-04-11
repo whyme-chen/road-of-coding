@@ -1913,6 +1913,18 @@ bootstrap是基于HTML、CSS、javaScript的前端框架。
 
 # Vue
 
+1.vue官网：https://cn.vuejs.org/
+
+2.vue-cli（vue脚手架,基于webpack,用于快速构建vue项目）：https://cli.vuejs.org/zh/guide/
+
+3.vuex（vue官方提供的状态管理机制）：https://vuex.vuejs.org/zh/
+
+　　vuex介绍（vue官网介绍）：https://vuex.vuejs.org/zh
+
+4.vue-router（vue 路由，实现单页面应用）：https://router.vuejs.org/zh/
+
+5.vue-loader：https://vue-loader.vuejs.org/zh/
+
 ## Vue基础
 
 ### 简介
@@ -1961,6 +1973,7 @@ bootstrap是基于HTML、CSS、javaScript的前端框架。
    >   * v-model
    > * 条件渲染
    >   * v-once
+   >   * v-if
    > * 列表渲染
 
 #### 数据绑定
@@ -2582,57 +2595,24 @@ data与el的2种写法：
 
 ### 组件
 
-1. 组件
-2. VueComponent
+1. 组件：实现应用中局部功能代码和资源的集合，可复用的Vue实例
+
 3. 单文件组件
-4. 组件化编码流程（通用）
-   * 实现静态组件：抽取组件，使用组件实现静态页面效果
-   * 展示动态数据
-     * 数据的类型，名称
-     * 数据保存在哪个组件
-   * 交互： 从绑定事件监听开始
 
-## Vue-cli
+4. 组件注册
+   
+   * 全局注册
+   * 局部注册
+   
+5. VueComponent解析
 
-1. vue脚手架是vue官方提供标准化开发工具
+5. Vue实例和组件实例区别：组件是可复用的Vue实例
 
-2. 使用步骤
-
-   * 全局安装
-
-     > npm install -g @vue/cli
-
-   * 切换到要创建项目的目录，执行创建命令
-
-     > vue create xxx
-
-   * 启动项目
-
-     > npm run serve
-
-   备注：
-
-   * 若出现下载缓慢请配置npm淘宝镜像：npm config set registry https//registry.npm.taobao.org
-   * Vue脚手架隐藏了所有webpack相关的配置，若要查看具体配置，可以执行：vue inspect > output.js
-
-3. 结构分析
-
-4. render函数
-
-   > 关于不用版本的Vue
-   >
-   > 1. vue.js和vue.runtijme.xx.js的区别
-   >    * vue.js是完整版的Vue，包含核心功能和模板解析器
-   >    * vue.runtime.xx.js是运行版Vue，只包含核心功能
-   > 2. 因为vue.runtime.xxx.js没有模板解析器，所以不能使用template配置项，需要使用render函数接收到的createElement函数去指定具体内容
-
-5. 修改默认配置
-
-   > 配置默认隐藏，可以使用vue inspect > output.js查看配置
+   ![image-20230410120337874](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304101203368.png)
 
 6. ref属性
 
-   * 作用：被用来给元素或子组件注册引用信息，引用信息将会注册在父组件的 `$refs` 对象上。如果在普通的 DOM 元素上使用，引用指向的就是 DOM 元素；如果用在子组件上，引用就指向组件实例：
+   * 作用：被用来给元素或子组件注册引用信息（类似id属性），引用信息将会注册在父组件的 `$refs` 对象上。如果在普通的 DOM 元素上使用，引用指向的就是 DOM 元素；如果用在子组件上，引用就指向组件实例：
    * 说明：因为 `ref` 本身是作为渲染结果被创建的，在初始渲染的时候你不能访问它们，它们还不存在！`$refs` 也不是响应式的，因此你不应该用它在模板中做数据绑定
    * 使用方式
      * 在标签上添加ref属性
@@ -2647,13 +2627,12 @@ data与el的2种写法：
      * ~~~java
        props:['xxx']
        ~~~
-     ~~~
-       
+
      * ~~~javascript
-       props:{
-           xxx:String
-       }
-     ~~~
+         props:{
+             xxx:String
+         }
+       ~~~
 
      * ~~~javascript
        props:{
@@ -2668,7 +2647,8 @@ data与el的2种写法：
        }
        ~~~
 
-   * 注意：props是只读的，Vue底层会检测对props的修改，若进行修改，则会发出警告
+     > 注意：props是只读的，Vue底层会检测对props的修改，若进行修改，则会发出警告
+
 
    | 选项      | 类型                                                         | 说明                                                         |
    | --------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -2691,13 +2671,84 @@ data与el的2种写法：
 
 10. scoped样式
 
-11. 插槽
+    * 作用:让样式在局部生效，防止冲突。
 
-    
+    * 写法:
 
-12. 就
+      ~~~
+       <style scoped> 
+      ~~~
+
+11. 插槽：让父组件可以向子组件指定位置插入html结构， 也是一种组件间通信的方式，适用于父组件===>子组件。
+
+    * 默认插槽
+    * 具名插槽
+    * 作用域插槽：数据在组件的自身，但根据数据生成的结构需要组件的使用者来决定。(games数据在Category组件中， 但使用数据所遍历出来的结构由Ap组件决定)
+
+12. 组件化编码流程（通用）
+
+    * 实现静态组件：抽取组件，使用组件实现静态页面效果
+    * 展示动态数据
+      * 数据的类型，名称
+      * 数据保存在哪个组件
+    * 交互： 从绑定事件监听开始
+
+## Vue-cli
+
+1. vue-cli：vue官方提供标准化开发工具，简化了程序员基于webpack创建工程化的Vue项目的过程。
+
+2. 使用步骤
+
+   * 全局安装
+
+     > npm install -g @vue/cli
+
+   * 切换到要创建项目的目录，执行创建命令
+
+     > vue create xxx
+
+   * 启动项目
+
+     > npm run serve
+
+   备注：
+
+   * 若出现下载缓慢，可以配置npm淘宝镜像：
+
+     > npm config set registry https//registry.npm.taobao.org
+
+   * Vue脚手架隐藏了所有webpack相关的配置，若要查看具体配置，可以执行：
+
+     > vue inspect > output.js
+
+3. 文件结构分析
+
+   ![image-20230410143059062](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304101431686.png)
+
+   ![image-20230407231806780](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304072318799.png)
+
+4. render函数
+
+   > 关于不同版本的Vue
+   >
+   > 1. vue.js和vue.runtijme.xx.js的区别
+   >    * vue.js是完整版的Vue，包含核心功能和模板解析器
+   >    * vue.runtime.xx.js是运行版Vue，只包含核心功能
+   > 2. 因为vue.runtime.xxx.js没有模板解析器，所以不能使用template配置项，需要使用render函数接收到的createElement函数去指定具体内容
+
+5. 修改默认配置
+
+   > 配置默认隐藏，可以使用vue inspect > output.js查看配置
+   >
+   > 使用vue. config. js可以对脚手架进行个性化定制，详情见: https://cli. vuejs .org/zh
 
 ## Vue-router
+
+库地址：https://github.com/vuejs/vue-router
+
+文档地址：https://router.vuejs.org/zh/installation.html
+
+1. 路由：对应关系
 
 ## Vuex
 

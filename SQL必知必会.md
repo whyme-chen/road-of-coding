@@ -198,6 +198,9 @@
        * 左外连接：查询左表所有数据，以及两张表交集部分数据
        * 右外连接：查询右表所有数据，以及两张表交集部分数据
      * 自连接：当前表与自身的连接查询，自连接必须使用表的别名
+     
+     > - 内连接（inner join）：取出连接表中匹配到的数据，**匹配不到的不保留**
+     > - 外连接（outer join）：取出连接表中匹配到的数据，**匹配不到的也会保留，其值为NULL**
    * 子查询
 
 4. 内连接
@@ -272,8 +275,16 @@
 
        ![image-20221117214200429](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211172142141.png)
 
+       > **未提交读(READ UNCOMMITTED)** 事务中的修改，即使没有提交，对其它事务也是可见的。
+  >
+       > **提交读(READ COMMITTED)** 一个事务只能读取已经提交的事务所做的修改。换句话说，一个事务所做的修改在提交之前对其它事务是不可见的。
+       >
+       > **可重复读(REPEATABLE READ)** 保证在同一个事务中多次读取同样数据的结果是一样的。
+       >
+       > **可串行化(SERIALIZABLE)** 强制事务串行执行。
+     
      * 操作
-
+     
        ![image-20221117214316834](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211172144698.png)
 
 ## 存储引擎
@@ -328,6 +339,70 @@
    ![image-20221118211341200](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211182113097.png)
 
 ### INNODB
+
+#### 逻辑存储结构
+
+![image-20230411111557034](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304111116203.png)
+
+#### 架构
+
+1. 磁盘结构
+
+![image-20230411111837097](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304111121349.png)
+
+![image-20230411112220057](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304111122440.png)
+
+![image-20230411112229829](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304111122634.png)
+
+![image-20230411112420051](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304111124026.png)
+
+![image-20230411113533662](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304111135208.png)
+
+![image-20230411113548724](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304111135294.png)
+
+![image-20230411113721403](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304111137243.png)
+
+2. 后台线程
+
+![image-20230411114127293](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304111141878.png)
+
+#### 事务原理
+
+![image-20230411114432339](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304111144604.png)
+
+1. redo log
+
+   ![image-20230411115018723](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304111150979.png)
+
+2. undo log
+
+   ![image-20230411115159877](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304111152107.png)
+
+#### MVCC(多版本并发控制)
+
+参考资料：https://blog.csdn.net/qq_33591903/article/details/120927753
+
+1. 概念
+
+   ![image-20230411174133562](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304111741902.png)
+
+2. 隐藏字段
+
+   ![image-20230411174057851](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304111740919.png)
+
+3. undo log日志：主要用于事务 回滚时恢复原来的数据
+
+   ![image-20230411174234417](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304111742417.png)
+
+4. undo log版本链
+
+   ![image-20230411175020962](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304111750144.png)
+
+5. readview
+
+   ![image-20230411175243898](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304111752394.png)
+
+   ![image-20230411175326993](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304111753962.png)
 
 ## 索引
 
@@ -518,7 +593,24 @@
 
 ## 触发器
 
+1. 简介
+
+   * 触发器是与表有关的数据库对象,指在insert/update/delete之前或之后,触发并执行触发器中定义的SQL语句集合。
+   * 触发器可以协助应用在数据库端确保数据的完整性,日志记录,数据校验等操作。
+   * 使用别名OLD和NEW来引用触发器中发生变化的记录内容,这与其他的数据库是相似的。
+   * 现在触发器还只支持行级触发,不支持语句级触发。
+
+2. 类型
+
+   ![image-20230411104801727](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304111048749.png)
+
+3. 语法
+
+   ![image-20230411110636030](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304111106477.png)
+
 ## 锁
+
+参考：https://blog.csdn.net/qq_33591903/article/details/106763311
 
 ### 概述
 
@@ -618,7 +710,7 @@
      > 1. 针对唯一-索引进行检索时,对已存在的记录进行等值匹配时，将会自动优化为行锁。
      > 2. InnoDB的行锁是针对于索引加的锁， 不通过索引条件检索数据，那么InnoDB将对表中的所有记录加锁，此时就会**升级为表锁**。
 
-   * 间隙锁(Gap Lock) ：锁定索引记录间隙(不含该记录)，确保索引记录间隙不变,防止其他事务在这个间隙进行insert,产生幻读。在RR隔离级别下都支持。
+   * 间隙锁(Gap Lock) ：锁定索引记录间隙(不含该记录)，确保索引记录间隙不变,防止其他事务在这个间隙进行insert,产生幻读**。在RR隔离级别下都支持。**
 
      > 默认情况下，InnoDB在REPEATABLE READ事务隔离级别运行，InnoDB使用next-key锁进行搜索和索引扫描，以防止幻读。
      > 1. 索引.上的等值查询(唯一 索引), 给不存在的记录加锁时,优化为间隙锁。
@@ -627,11 +719,13 @@
      >
      > 注意：注意:间隙锁唯一目的是防止其他事务插入间隙。间隙锁可以共存，- -个事务采用的间隙锁不会阻止另一个事务在同一间隙上采用间隙锁。
 
-   * 临键锁(Next-Key Lock) ：行锁和间隙锁组合,同时锁住数据，并锁住数据前面的间隙Gap。在RR隔离级别下支持。
+   * 临键锁(Next-Key Lock) ：行锁和间隙锁组合,同时锁住数据，并锁住数据前面的间隙Gap。**在RR隔离级别下支持**。
 
 ## MYSQL运维
 
 ### 日志
+
+参考资料：https://blog.csdn.net/qq_33591903/article/details/120517405
 
 ### 主从复制
 
