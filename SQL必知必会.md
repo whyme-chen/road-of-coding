@@ -276,17 +276,15 @@
        ![image-20221117214200429](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211172142141.png)
 
        > **未提交读(READ UNCOMMITTED)** 事务中的修改，即使没有提交，对其它事务也是可见的。
-  >
-       > **提交读(READ COMMITTED)** 一个事务只能读取已经提交的事务所做的修改。换句话说，一个事务所做的修改在提交之前对其它事务是不可见的。
        >
-       > **可重复读(REPEATABLE READ)** 保证在同一个事务中多次读取同样数据的结果是一样的。
-       >
-       > **可串行化(SERIALIZABLE)** 强制事务串行执行。
-     
+       >  **提交读(READ COMMITTED)** 一个事务只能读取已经提交的事务所做的修改。换句话说，一个事务所做的修改在提交之前对其它事务是不可见的。
+       >  
+       >  **可重复读(REPEATABLE READ)** 保证在同一个事务中多次读取同样数据的结果是一样的。
+       >  
+       >   **可串行化(SERIALIZABLE)** 强制事务串行执行。
+       
      * 操作
-     
        ![image-20221117214316834](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211172144698.png)
-
 ## 存储引擎
 
 ### MYSQL体系结构

@@ -2650,12 +2650,12 @@ data与el的2种写法：
      > 注意：props是只读的，Vue底层会检测对props的修改，若进行修改，则会发出警告
 
 
-   | 选项      | 类型                                                         | 说明                                                         |
-   | --------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-   | type      | `String` 、 `Number` 、 `Boolean` 、 `Array` 、 `Object` 、 `Date` 、 `Function` 、 `Symbol` ，任何自定义构造函数、或上述内容组成的数组 | 会检查一个 `prop` 是否是给定的类型，否则抛出警告             |
-   | default   | any                                                          | 为该 `prop` 指定一个默认值。如果该 `prop` 没有被传入，则换做用这个值。对象或数组的默认值必须从一个工厂函数返回。 |
-   | required  | Boolean                                                      | 定义该 `prop` 是否是必填项                                   |
-   | validator | Function                                                     | 自定义验证函数会将该 `prop` 的值作为唯一的参数代入。在非生产环境下，如果该函数返回一个 `false` 的值 (也就是验证失败)，一个控制台警告将会被抛出 |
+| 选项      | 类型                                                         | 说明                                                         |
+| --------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| type      | `String` 、 `Number` 、 `Boolean` 、 `Array` 、 `Object` 、 `Date` 、 `Function` 、 `Symbol` ，任何自定义构造函数、或上述内容组成的数组 | 会检查一个 `prop` 是否是给定的类型，否则抛出警告             |
+| default   | any                                                          | 为该 `prop` 指定一个默认值。如果该 `prop` 没有被传入，则换做用这个值。对象或数组的默认值必须从一个工厂函数返回。 |
+| required  | Boolean                                                      | 定义该 `prop` 是否是必填项                                   |
+| validator | Function                                                     | 自定义验证函数会将该 `prop` 的值作为唯一的参数代入。在非生产环境下，如果该函数返回一个 `false` 的值 (也就是验证失败)，一个控制台警告将会被抛出 |
 
 8. mixins（混入）
 
@@ -2748,11 +2748,336 @@ data与el的2种写法：
 
 文档地址：https://router.vuejs.org/zh/installation.html
 
-1. 路由：对应关系
+1. 路由：一组key-value对应关系。
+2. 作用：实现SPA(single page web application) 应用
+
+### 快速入门
+
+1. 安装vue-router
+
+   ~~~js
+   npm install vue-router@4
+   ~~~
+
+2. 引入（main.js）
+
+   ~~~js
+   //main.js
+   import router from './router/index.js'
+   vue.use(VueRouter)
+   new Vue({
+     render: h => h(App),
+     router:router
+   }).$mount('#app')
+   ~~~
+
+3. 配置（router/index.js）
+
+   ~~~js
+   import VueRouter from "vue-router"
+   import Home from '../components/Home.vue'
+   import About from '../components/About.vue'
+   
+   const router = new VueRouter({
+   	routes:[
+   		{
+   			path:'/home',
+   			component: Home
+   		},
+   		{
+   			path:'/about',
+   			component: About
+   		}
+   	]
+   })
+   
+   export default router
+   ~~~
+
+4. 使用
+
+   ~~~vue
+   <template>
+   <div id="app">
+   	<router-link to="/home">Home</router-link><br>
+   	<router-link to="/about">About</router-link>
+   	<router-view></router-view>
+   </div>
+   </template>
+   ~~~
+
+> 注意点：
+>
+> * 路由组件通常存放在pages（或view）文件夹，一般组件通常存放在components文件夹
+> * 路由间切换时，“隐藏”了的路由组件，默认是被销毁掉的，需要的时候再去挂载。
+> * 每个组件都有自己的$route属性，里面存储着自己的路由信息
+> * 整个应用只有一个router，可以通过组件的$router 属性获取到
+
+### 嵌套路由（多级路由）
+
+1. 配置路由规则，使用children配置项
+
+   ~~~js
+   routes:[
+   		{
+   			path:'/home',
+   			component: Home,
+   			children:[
+   				{
+   					path:'news',
+   					component: News,
+   				},
+   				{
+   					path:'message',
+   					component: Message,
+   				}
+   			]
+   		},
+   		{
+   			path:'/about',
+   			component: About
+   		}
+   	]
+   ~~~
+
+2. 使用完整路径进行路由跳转
+
+   ~~~vue
+   <router-link to="/home/message">Message</router-link>
+   ~~~
+
+### 命名路由
+
+1. 作用：简化路由跳转
+
+2. 使用
+
+   步骤一：
+
+   ~~~js
+   {
+   			path:'/home',
+   			component: Home,
+   			children:[
+   				{
+   					path:'news',
+   					component: News,
+   				},
+   				{
+   					path:'message',
+   					component: Message,
+   					children:[
+   						{
+                               //给路由命名
+   							name:'detail',
+   							path:'detail',
+   							component:Detail
+   						}
+   					]
+   				}
+   			]
+   		}
+   ~~~
+
+   步骤二：
+
+   ~~~vue
+   //简化前使用path				
+   <router-link to="/home/message/detail">
+       跳转
+   </router-link>
+   
+   //简化后可以使用name			
+   <router-link :to="{name='detail'}">
+       跳转
+   </router-link>
+   ~~~
+
+### 参数传递
+
+#### query参数
+
+1. 传递参数
+
+   ~~~vue
+   <!-- 跳转路由并传递query参数，to的字符串写法 -->
+   <router-link :to="`/home/message/detail?id=${m.id}&title=${m.title}`">
+       {{m.title}}</router-link>
+   				
+   <!-- 跳转路由并传递query参数，to的对象写法 -->
+   <router-link :to="{
+   		path:'/home/message/detail',
+   		query:{
+   			id:m.id,
+   			title:m.title
+   			}
+   		}">
+   		{{m.title}}
+   		</router-link>
+   ~~~
+
+2. 接收参数
+
+   ~~~vue
+   <li>消息编号:{{$route.query.id}}</li>
+   <li>消息标题:{{$route.query.title}}</li>
+   ~~~
+
+#### params
+
+1. 配置路由，声明接收params参数
+
+   ~~~js
+   {
+   	path:'message',
+   	component: Message,
+   	children:[
+   		{
+   			name:'detail',
+   			path:'detail/:id/:title',
+   			component:Detail
+   		}
+       ]
+   }
+   ~~~
+
+2. 传递参数
+
+   ~~~vue
+   <!-- 路由跳转使用params参数 ，字符串写法-->
+   <router-link :to="`/home/message/detail/${m.id}/${m.title}`">{{m.title}}</router-link>
+   
+   <!-- 跳转路由并传递param参数，to的对象写法 -->
+   	<router-link :to="{
+   		name:'detail',
+   		query:{
+   			id:m.id,
+   			title:m.title
+   		}
+   	}">
+   	{{m.title}}
+   	</router-link>
+   ~~~
+
+   > 注意：路由携带params参数时，若使用to的对象写法，则不能使用path配置项，必须使用name配置!
+
+#### 路由的props配置
+
+1. 作用：让路由组件更方便的接收参数
+
+2. 配置
+
+   ![image-20230429115757587](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304291158910.png)
+
+### router-link的replace属性
+
+1. 作用：控制路由跳转时操作浏览器历史记录的模式
+
+2. 浏览器历史记录方式：共两种push和replace模式，push是追加历史记录，replace是替换当前记录。路由跳转时默认为push模式
+
+3. 开启replace模式：
+
+   ~~~vue
+   <!-- 简写方式 -->
+   <router-link replace></router-link>
+   
+   <!-- 完整方式 -->
+   <router-link :replace='true'></router-link>
+   ~~~
+
+### 编程式路由导航
+
+1. 作用：不借助router-link标签实现路由跳转，让路由跳转更灵活
+
+2. 实现：
+
+   ~~~js
+   pushShow(m){
+   				this.$router.push({
+   					name:'detail',
+   					params:{
+   						id:m.id,
+   						title:m.title
+   					}
+   				})
+   			},
+   replaceShow(m){
+   				this.$router.replace({
+   					name:'detail',
+   					params:{
+   						id:m.id,
+   						title:m.title
+   					}
+   				})
+   			}
+   this.$router.forward();//前进
+   this.$router.forward();//后退
+   this.$router.forward();//可前进可后退
+   ~~~
+
+### 缓存路由组件
+
+1. 作用：让不展示的路由组件保持挂载，不被销毁。
+
+2. 具体实现
+
+   ~~~vue
+   <keep-alive include="组件名">
+   	<router-view></router-view>
+   </keep-alive>
+   ~~~
+
+### 生命周期钩子
+
+1. 作用：路由组件特有的两个钩子，用于捕获路由组件的激活状态
+2. 具体说明：
+   * activated：路由组件被激活时触发
+   * deactivate：路由组件失活时触发
+
+### 路由守卫
+
+1. 作用：对路由进行权限控制
+
+2. 分类：全局守卫、独享守卫、组件内守卫
+
+3. 全局守卫
+
+   ![image-20230429175228447](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304291752302.png)
+
+4. 独享路由守卫
+
+   ~~~js
+   {
+   					path:'news',
+   					component: News,
+   					beforeEnter: () => {
+   						console.log("enter,news")
+   					}
+   				}
+   ~~~
+
+5. 组件内路由
+
+   ![image-20230429180439959](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304291804271.png)
+
+6. 路由器的两种工作模式
+
+   * 路由器有两种工作模式hash和history
+   * hash模式的hash值（#后的内容）不会包含在http请求中，
+   * hash模式地址中永远带着#号；若以后将地址通过第三方手机app分享，若app校验严格，则地址会被标记为不合法；兼容性较好
+   * history地址干净，较美观；兼容性相比hash模式略差；应用部署上线时需要后端人员支持，解决刷新页面服务端404的问题
 
 ## Vuex
 
-## element-ui
+## Vue UI组件库
+
+1. 移动端常见UI组件库
+   * Vant：https://youzan.github.io/vant
+   * Cube UI：https://didi.github.io/cube-ui
+   * Mint UI：http://mint-ui.github.io
+2. PC端常用UI组件库
+   * Element UI：https://element.eleme.cn
+   * IView UI：https://www.iviewui.com
 
 ## Vue3
 

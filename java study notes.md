@@ -461,13 +461,10 @@ public class Client{
 
 ## 内部类
 
-### 普通内部类
-
-### 静态内部类
-
-### 方法中定义内部类
-
-### 匿名内部类
+1. 普通内部类（成员内部类）
+2. 静态内部类
+3. 方法中定义内部类（局部内部类）
+4. 匿名内部类
 
 # 常用类
 
@@ -792,15 +789,15 @@ public class MyException extends Exception{
    > * 泛型可以定义在类、接口和方法上
 
 3. 泛型通配符
-   
+
    * 通配符（？）
      
      > ?可以在”使用泛型“的时候代表一切类型(可以理解为T,V,K,E等实在定义时使用)
-   
+
    * 泛型上限
-   
+
    * 泛型下限
-   
+
    ```java
    package generics;
    
@@ -824,9 +821,7 @@ public class MyException extends Exception{
        public static void compete(ArrayList<? extends Car> cars){
    
        }
-   ```
-   
-   }
+       }
    
    class Car{
    
@@ -839,28 +834,28 @@ public class MyException extends Exception{
    class BAOMA extends Car{
    
    }
+   ```
 
-```
 4. 泛型类
 
-```java
-package generics;
-
-/**
- * 泛型类
- 在类的名字后加上泛型标识
- */
-public class MyArrayList<E> {
-    public void add(E e){
-
-    }
-
-    public void remove(E e){
-
-    }
-
-}
-```
+   ```java
+   package generics;
+   
+   /**
+    * 泛型类
+    在类的名字后加上泛型标识
+    */
+   public class MyArrayList<E> {
+       public void add(E e){
+   
+       }
+   
+       public void remove(E e){
+   
+       }
+   
+   }
+   ```
 
 5. 泛型接口
    
@@ -1006,9 +1001,7 @@ public class MyArrayList<E> {
    
    ![image-20230218150626703](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302181506765.png)
 
-### Vector
-
-```java
+~~~java
 import java.util.LinkedList;
 
 public class LinkedListDemo {
@@ -1046,7 +1039,9 @@ public class LinkedListDemo {
         System.out.println(queue.toString());
     }
 }
-```
+~~~
+
+### Vector
 
 ## Set集合
 
@@ -1061,7 +1056,7 @@ public class LinkedListDemo {
 
 1. 特点
    
-   * 底层数据结构是哈希表
+   * 底层数据结构是HashMap
    * 对集合的迭代顺序不作任何保证，也就是说不保证存储和取出的元素顺序一致
    * 没有带索弓|的方法，所以不能使用普通for循环遍历
    * 由于是Set集合，所以是不包含重复元素的集合
@@ -1085,14 +1080,16 @@ public class LinkedListDemo {
 
 ### TreeSet
 
-> 注意：TreeSet按照大小默认升序排序、是不重复、无索引的
+> 注意：TreeSet按照大小默认升序排序、是不重复、无索引的。
+>
+> 底层是红黑树
 
 1. 特点
-   
+
    ![image-20230218182847835](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302181828513.png)
 
 2. Comparable接口和Compartor类
-   
+
    * 用TreeSet集合存储自定义对象，无参构造方法使用的是自然排序对元素进行排序的自然排序，就是让元素所属的类实现Comparable接口，重写compareTo(T o)方法重写方法时，-定要注意排序规则必须按照要求的主要条件和次要条件来写
    * 用TreeSet集合存储自定义对象，带参构造方法使用的是比较器排序对元素进行排序的比较器排序,就是让集合构造方法接收Comparator的实现类对象，重写compare(T o1,T o2)方法
 
@@ -1101,6 +1098,8 @@ public class LinkedListDemo {
 参考链接：https://www.cnblogs.com/haimishasha/p/10790508.html#autoid-4-2-0
 
 ### HashMap
+
+参考：https://zhuanlan.zhihu.com/p/21673805
 
 1. 特点
 
@@ -1218,6 +1217,8 @@ public class LinkedListDemo {
        * 字节流读取单个字节，字符流读取单个字符(一个字符根据编码的不同，对应的字节也不同，如 UTF-8 编码中文汉字是 3 个字节，GBK编码中文汉字是 2 个字节。) 
        * 字节流用来处理二进制文件(图片、MP3、视频文件)，字符流用来处理文本文件(可以看做是特殊的二进制文件，使用了某种编码，人可以阅读)。
 
+![image-20230418222346754](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304182223037.png)
+
 ### 字节输出流（OutputStream）
 
 1. 常用实现类
@@ -1236,7 +1237,6 @@ public class LinkedListDemo {
 1. 常用实现类
    * FileInputStream
    * BufferedInputStream
-2. 空间
 
 ### 字符输入流(InputStreamReader)
 
@@ -1563,6 +1563,28 @@ public class PropertiesDemo {
     }
 }
 ```
+
+### java NIO
+
+1. 简介：
+
+2. 与传统IO的区别
+
+   * 传统 IO 基于字节流和字符流进行操作（面向流），而 NIO 基于 Channel 和 Buffer(缓冲区)进行操作（面向缓冲区），数据总是从通道读取到缓冲区中，或者从缓冲区写入到通道中。
+
+   * Selector(选择区)用于监听多个通道的事件（比如：连接打开，
+
+     数据到达）
+
+3. 核心部分
+
+   * Channel(通道)
+   * Buffer(缓冲区)
+   * Selector
+
+4. nio包
+
+   ![image-20230418223501025](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304182235383.png)
 
 # 多线程
 
@@ -1988,6 +2010,8 @@ private static类型的,用于关联线程和线程上下文。
 > * 线程隔离每个线程的变量都是独立的，不会互相影响
 
 ### 常用方法
+
+## 锁
 
 # Junit单元测试
 
@@ -7443,7 +7467,7 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 >   * <list>标签
 >   * \<map>标签
 >   * <properties>标签
-> * <constructor-arg>标签
+> * <constructor-arg>标签 
 > 
 > <import>标签：导入其他的spring的分文件
 
@@ -7465,8 +7489,6 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
    
    * 传递id
    * 传递class
-
-4. 
 
 5. BeanFactory和FactoryBean
    
@@ -9114,7 +9136,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 ### 快速上手
 
-1. 概述：SringBoot是由Pivtal团队提供的全心框架，其设计目的是用来简化Spring的初始搭建和开发过程。
+1. 概述：SringBoot是由Pivtal团队提供的全新框架，其设计目的是用来简化Spring的初始搭建和开发过程。
 
 2. 优势对比
    
@@ -9480,51 +9502,47 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
        private String text = "<a href='https://www.baidu.com/'>前往百度</a>";
    ```
    
-       /**
-        * 发送简单邮件
-        */
-       @Override
-       public void sendMail() {
-           SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-           //设置基本信息
-           simpleMailMessage.setFrom(form);//whymechen将替代邮箱好+"whymechen"
-           simpleMailMessage.setTo(to);
-           simpleMailMessage.setSubject(subject);
-           simpleMailMessage.setText(context);
-       
-           javaMailSender.send(simpleMailMessage);
-       }
-       
-       /**
-        * 发送多部件邮件
-        */
-       @Override
-       public void sendMultiPartsMail() {
-           try {
-               MimeMessage mimeMessage =javaMailSender.createMimeMessage();
-               MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,true);//true表示是否允许发送附件
-       
-               helper.setFrom(form);
-               helper.setTo(to);
-               helper.setSubject(subject);
-               helper.setText(text,true);//可以解析html
-       
-               //添加附件
-               File lanqiao = new File("C:\\Users\\hp\\Desktop\\蓝桥常见考点.txt");
-               helper.addAttachment(lanqiao.getName(),lanqiao);
-       
-               javaMailSender.send(mimeMessage);
-           } catch (MessagingException e) {
-               e.printStackTrace();
-           }
-       }
+   ```java
+   /**
+    * 发送简单邮件
+    */
+   @Override
+   public void sendMail() {
+       SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+       //设置基本信息
+       simpleMailMessage.setFrom(form);//whymechen将替代邮箱好+"whymechen"
+       simpleMailMessage.setTo(to);
+       simpleMailMessage.setSubject(subject);
+       simpleMailMessage.setText(context);
    
+       javaMailSender.send(simpleMailMessage);
    }
-
-```
-### 定时任务
-
-## 原理
+   
+   /**
+    * 发送多部件邮件
+    */
+   @Override
+   public void sendMultiPartsMail() {
+       try {
+           MimeMessage mimeMessage =javaMailSender.createMimeMessage();
+           MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,true);//true表示是否允许发送附件
+   
+           helper.setFrom(form);
+           helper.setTo(to);
+           helper.setSubject(subject);
+           helper.setText(text,true);//可以解析html
+   
+           //添加附件
+           File lanqiao = new File("C:\\Users\\hp\\Desktop\\蓝桥常见考点.txt");
+           helper.addAttachment(lanqiao.getName(),lanqiao);
+   
+           javaMailSender.send(mimeMessage);
+       } catch (MessagingException e) {
+           e.printStackTrace();
+       }
+   }
+   ```
+   
 
 # Nginx
 
@@ -9532,7 +9550,9 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 ## 概述
 
-​    Nginx是一款高性能的http 服务器/反向代理服务器及电子邮件( IMAP/POP3)代理服务器。由俄罗斯的程序设计师伊戈尔.西索夫(Igor Sysoev)所开发，官方测试nginx 能够支支撑5万并发链接，并且cpu、 内存等资源消耗却非常低，运行非常稳定。
+```
+Nginx是一款高性能的http 服务器/反向代理服务器及电子邮件( IMAP/POP3)代理服务器。由俄罗斯的程序设计师伊戈尔.西索夫(Igor Sysoev)所开发，官方测试nginx 能够支支撑5万并发链接，并且cpu、 内存等资源消耗却非常低，运行非常稳定。
+```
 
 1. 应用场景
    * http 服务器。Nginx是一个http服务可以独立提供http 服务。可以做网页静态服
@@ -9560,6 +9580,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 2. java的日志框架
    * 日志实现：JUL（java util logging）、logback、log4j、log4j2
    * 日志门面：JCL（Jakarta Commons Logging）、Slf4j（Simple Logging  Facade fo java）
+3. 日志发展历史：log4j ->JUL-->JCL--> sIf4j --> logback -> log4j2
 
 ## JUL
 
@@ -9567,7 +9588,9 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 参考文档：https://docs.oracle.com/javase/8/docs/api/
 
-​        JUL全称Java util Logging是java原生的日志框架，使用时不需要另外引用第三方类库,相对其他日志框架使用方便，学习简单，能够在小型应用中灵活使用。
+```
+    JUL全称Java util Logging是java原生的日志框架，使用时不需要另外引用第三方类库,相对其他日志框架使用方便，学习简单，能够在小型应用中灵活使用。
+```
 
 1. 架构
 
@@ -9577,83 +9600,147 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
    ~~~java
    package org.example;
-
-
-   import org.junit.Test;
-
-   import java.io.IOException;
-   import java.util.logging.*;
-
-   /**
-    * Hello world!
-    * @author chenwenjian
-    */
-   public class JulDemo1
-   {
-       Logger logger = Logger.getLogger("org.example.JulDemo1");
-
-       @Test
-       public void quickStart()
-       {
-           logger.info("这是一个info信息");
-           logger.log(Level.INFO,"这是使用logger的log方法输出的info信息");
-
-           String name = "chen wen jian";
-           int age = 22;
-           logger.log(Level.INFO,"用户信息：{0},{1}",new Object[]{name,age});
-       }
-
-       @Test
-       public void testLoggerLevel(){
-           logger.severe("severe");
-           logger.warning("warning");
-           logger.info("info");
-           logger.config("config");
-           logger.fine("fine");
-           logger.finer("finer");
-           logger.finest("finest");
-       }
-
-       @Test
-       public void testLoggerConfig() throws IOException {
-           //关闭默认配置
-           logger.setUseParentHandlers(false);
-
-           //自定义配置日志级别
-           //创建ConsoleHandle对象
-           ConsoleHandler consoleHandler = new ConsoleHandler();
-           SimpleFormatter simpleFormatter = new SimpleFormatter();
-
-           //进行关联
-           consoleHandler.setFormatter(simpleFormatter);
-           logger.addHandler(consoleHandler);
-
-           logger.setLevel(Level.ALL);
-           consoleHandler.setLevel(Level.ALL);
-
-           FileHandler fileHandler = new FileHandler("D:/hp/IntelliJIDEAProjects/LoggingDemo/JULDemo/logs/jul.log", true);
-           fileHandler.setFormatter(simpleFormatter);
-           fileHandler.setLevel(Level.ALL);
-           logger.addHandler(fileHandler);
-
-           logger.severe("severe");
-           logger.warning("warning");
-           logger.info("info");
-           logger.config("config");
-           logger.fine("fine");
-           logger.finer("finer");
-           logger.finest("finest");
-       }
-   }
-```
-
-3. 配置文件
-
-4. 执行流程和原理
+    import org.junit.Test;
+   
+      import java.io.IOException;
+      import java.util.logging.*;
+   
+      /**
+       * Hello world!
+       * @author chenwenjian
+       */
+      public class JulDemo1
+      {
+          Logger logger = Logger.getLogger("org.example.JulDemo1");
+           @Test
+      public void quickStart()
+      {
+          logger.info("这是一个info信息");
+          logger.log(Level.INFO,"这是使用logger的log方法输出的info信息");
+   
+          String name = "chen wen jian";
+          int age = 22;
+          logger.log(Level.INFO,"用户信息：{0},{1}",new Object[]{name,age});
+      }
+   
+      @Test
+      public void testLoggerLevel(){
+          logger.severe("severe");
+          logger.warning("warning");
+          logger.info("info");
+          logger.config("config");
+          logger.fine("fine");
+          logger.finer("finer");
+          logger.finest("finest");
+      }
+   
+      @Test
+      public void testLoggerConfig() throws IOException {
+          //关闭默认配置
+          logger.setUseParentHandlers(false);
+   
+          //自定义配置日志级别
+          //创建ConsoleHandle对象
+          ConsoleHandler consoleHandler = new ConsoleHandler();
+          SimpleFormatter simpleFormatter = new SimpleFormatter();
+   
+          //进行关联
+          consoleHandler.setFormatter(simpleFormatter);
+          logger.addHandler(consoleHandler);
+   
+          logger.setLevel(Level.ALL);
+          consoleHandler.setLevel(Level.ALL);
+   
+          FileHandler fileHandler = new FileHandler("D:/hp/IntelliJIDEAProjects/LoggingDemo/JULDemo/logs/jul.log", true);
+          fileHandler.setFormatter(simpleFormatter);
+          fileHandler.setLevel(Level.ALL);
+          logger.addHandler(fileHandler);
+   
+          logger.severe("severe");
+          logger.warning("warning");
+          logger.info("info");
+          logger.config("config");
+          logger.fine("fine");
+          logger.finer("finer");
+          logger.finest("finest");
+      }
+   ~~~
 
 ## Slf4j
 
 官网：https://www.slf4j.org/
+
+### 日志门面
+
+1. 日志门面：类似于JDBC的思想，将定义与实现进行分离
+2. 常见的日志门面
+   * JCL
+   * Slf4J
+3. 常见的日志实现
+   * JUL
+   * Log4j
+   * logback
+   * log4j2
+
+### Slf4j
+
+#### 概述
+
+1. Slf4j：简单日志门面(Simple Logging Facade For Java) SLF4J主要是为了给Java日志访问提供一套标准、规范的API框架，其主要意义在于提供接口，具体的实现可以交由其他日志框架，例如log4j和logback等。当然slf4j自己也提供了功能较为简单的实现，但是一般很少用到。对于一般的Java项目而言，日志框架会选择slf4j-api作为门面，配上具体的实现框架（log4j、logback等），中间使用桥接器完成桥接。
+2. 主要功能
+   * 日志框架的绑定
+   * 日志框架的桥接
+
+#### Slf4j简单内置实现
+
+1. 导入依赖
+
+   ~~~xml
+       <!--Slf4j日志门面-->
+       <dependency>
+         <groupId>org.slf4j</groupId>
+         <artifactId>slf4j-api</artifactId>
+         <version>2.0.4</version>
+       </dependency>
+   
+       <!--Slf4j简单内置实现-->
+       <dependency>
+         <groupId>org.slf4j</groupId>
+         <artifactId>slf4j-simple</artifactId>
+         <version>2.0.4</version>
+       </dependency>
+   ~~~
+
+2. 使用示例
+
+   ~~~java
+   package org.example;
+   
+   import org.slf4j.Logger;
+   import org.slf4j.LoggerFactory;
+   
+   /**
+    * 简单内置实现测试
+    * @author chenwenjian
+    */
+   public class Slf4jTest01
+   {
+       public static final Logger LOGGER = LoggerFactory.getLogger(Slf4jTest01.class);
+   
+       public static void main( String[] args ) {
+           LOGGER.info("info level............");
+           String name = "chenwenjian";
+           Integer age = 22;
+           LOGGER.info("用户信息：{},{}",name,age);
+       }
+   }
+   ~~~
+
+#### 日志绑定
+
+![image-20230415165537188](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304151655635.png)
+
+##### 
 
 # Swagger
 
@@ -9664,7 +9751,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 * https://blog.csdn.net/YR_112233/article/details/122630446
 * https://blog.csdn.net/weixin_46645338/article/details/123895447
 
-### 简介
+## 简介
 
 1. 简介
 2. 作用
@@ -10348,6 +10435,10 @@ git管理的文件有三种状态：已修改（modified）,已暂存（staged�
 
 3. 地方
 
+### 加载流程
+
+### 类加载器
+
 # 开发经验
 
 ## POJO、DO、BO、DTO、VO
@@ -10408,7 +10499,7 @@ git管理的文件有三种状态：已修改（modified）,已暂存（staged�
    * UTF-32
    * UTF-8
 
-## Windows常用cmd命令
+## 常用cmd命令
 
 ### 网络命令
 
