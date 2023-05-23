@@ -43,7 +43,7 @@
 
 4. Linux安装
 
-   * 虚拟机方式：
+   * 虚拟机方式：（https://blog.csdn.net/huaijiu123/article/details/82083452）
 
      ![image-20221118224115904](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211182241660.png)
 
@@ -181,37 +181,54 @@
 
 ### 文件目录操作命令
 
-1. ls命令
+1. pwd
+
+   * 作用：查看当前所在目录
+
+2. ls命令
 
    ![image-20221119130854252](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191352461.png)
 
-2. cd命令
+3. cd命令
 
    ![image-20221119131441984](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191352647.png)
 
-3. cat命令
+4. cat命令
 
    ![image-20221119131517425](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191352523.png)
 
-4. more命令
+   > 创建并打开一个新的文件：`cat > 文件名称`
+
+5. more命令
 
    ![image-20221119131749688](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353211.png)
 
-5. tail
+6. head
+
+   * 作用：查看文件开头的内容
+   * 常用操作：`head -n 文件名称`显示某个文件的开始的n行数据，默认显示10行。
+
+7. tail
 
    ![image-20221119132442044](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353220.png)
 
-6. mkdir命令
+8. mkdir命令
 
    ![image-20221119132652551](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353925.png)
 
-7. rmdir命令
+9. rmdir命令
 
    ![image-20221119132818838](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353381.png)
 
-8. rm命令
+10. rm命令
 
    ![image-20221119132945812](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353834.png)
+
+   注意：`rm -ri 目录或文件`用于在删除前询问是否删除。一般不建议使用 `rm -rf` 进行文件删除。rm 命令中不跟 r 参数，无法删除目录，只能删除文件
+
+11. touch
+
+    * 作用：创建文件
 
 ### 拷贝移动命令
 
@@ -229,6 +246,8 @@
 
    ![image-20221119134305526](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353171.png)
    
+   ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRA2Eibiak8oCrCXafbcjDzWhbUINefxh8Duib8b9ib71TDhmFN9mrpoJRdrA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+   
    > cvf打包，xvf解包，zcvf打压缩包，zxvf解压包
 
 ### 文本编辑命令
@@ -236,6 +255,26 @@
 1. vi/vim
 
    ![image-20221120202048921](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211202020494.png)
+
+   vi 的三种模式如下：
+
+   * 命令模式
+
+   当用户使用 vi 命令打开文件后，则进入命令模式，用户可以输入命令来执行各种功能。
+
+   ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRAhuicP6icN2Z3pOgn9vOQ9FhiaSYG6SfJTEpvjjS7cFyTpHr6pQzshPOwg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+   * 输入模式
+
+   如果用户要对文件做修改，则可以使用下面几种命令，进入输入模式，用户进入输入模式之后，可以任意修改文件，除了 Esc 键外，用户输入的任何字符都会被作为内容写入文件中，用户输入 Esc 可以对文件进行相关操作。
+
+   ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRA3IcL5vreJibBhZMJJk3dR43SKaiaC8LnCmIhCnCNeNgMXDDSNU2DfYmA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+   * 末行模式
+
+   如果用户完成编辑命令，则可以按照 esc + “:” 进入末行模式，用户可以对文件内容继续进行搜索，也可以输入 “:wq!” 进行文件保存并退出，或者输入 “:q!” 强制退出文件编辑。
+
+   ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRA1pv5MGYicSUfMnZkaTdTqvHAsuMZlSE25RkwqBGD9wH2KaPjm4h46Lg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 
 ### 查找命令
 
@@ -247,12 +286,29 @@
 
    ![image-20221120203545011](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211202035320.png)
 
+### 进程操作命令
+
+1. ps
+   * 作用：查看 Linux 操作系统中正在运行的过程，并可以获得进程的 PID（进程的唯一标识），通过 PID 可以对进程进行相应的管理。
+   * 常用操作：
+     * `ps -ef | grep [进程关键字]`
+2. kill：当系统中有进程进入死循环，或者需要被关闭时，我们可以使用 kill 命令对其关闭
+
 ### 软件安装命令
 
 1. 软件安装方式
 
    ![image-20221118231233904](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211182312501.png)
    
+   * rpm
+   
+     > - 语法：`rpm [选项] [软件包]`
+     > - 查询是否已经安装了某软件包：`rpm -qa|grep [软件包关键词]`
+     > - 卸载已经安装的软件包：`rpm -e 软件包全名`
+     > - 安装软件包并查看进度：`rpm -ivh 软件包路径`
+     >
+     > ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRAb1icG3HB87Ox6bAq3uKNn2icc6G4gRE70L861YzphEyT8rSfmIph2jHg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+     
    * yum
    
      > 常用指令：
@@ -262,8 +318,6 @@
      > yum install
      >
      > yum remove
-     >
-     > 
      >
      > yum源配置
    
@@ -295,13 +349,89 @@
 
 ![image-20221119122455628](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353373.png)
 
+### 用户操作命令{#userOperation}
+
+1. su
+
+   * 作用：切换用户
+   * 常用操作：`su[用户名]`和 `su -[用户名]`都可以切换用户，前者类似于临时切换用户，当使用该命令进行切换新用户时，用户配置仍然沿用原来的用户配置，如环境变量、系统变量等。而后者进行切换用户时，环境变量、系统设置全部切换成新用户的用户配置。
+
+2. whoami
+
+   * 作用：常看当前登录用户
+
+3. groups
+
+   * 作用：查看当前登录yoghurt所属分组
+
+4. id
+
+   * 作用：查看当前用户UID和GID
+
+5. useradd
+
+   * 作用：添加新用户
+
+   * 语法：
+
+     ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRAAljfmvoqz0GlTTgRV6qopysxnicFibVrnxFr2pN2gproxnYiadaRicuSjQ/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+6. password
+
+   * 作用：修改用户密码
+
+   * 语法：
+
+     ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRATetM0PqJcdSFUnf5ibhgKt4jxGcnnibQkl3qBfqYL4EIHHWfqgItibIUg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+7. userdel
+
+   * 作用：删除用户
+
+   * 语法：
+
+     ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRAm4Ik1Wic2XtARX9MpxZJtJX8nACCyEfGSNo2clgCT9qFRxMMkj21VoA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+8. usermod
+
+   * 作用：修改用户信息
+
+   * 语法：
+
+     ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRAenicHeVwwKqSPO88vHnAhfZT7x9V7GINN5L8RgE6pf23RaOZ4Z76uLg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+   * 常用操作：
+
+     - 修改用户登录名：`usermod -l 新用户名 旧用户名`
+     - 修改用户所属分组：`usermod -g 新组名称 用户名`
+
+9. groupadd
+
+   * 作用：添加用户组
+
+   * 语法：
+
+     ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRAzRQWzicFTXjiayCTxsic2r3s9gjZr8BnibvwSODBicySnGCODwZJZ2pXV5w/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+   * 常用命令：
+
+     * 修改用户登陆名：`groupadd 组名`
+     * 修改用户所属分组：`groupadd -g 组 GID 组名`
+
 ### 项目部署
 
 1. 手动部署
 
+   * 在后台运行java项目：`nohup java -jar jar-0.0.1-SNAPSHOT.jar &`
+
 2. shell脚本部署
 
    ![image-20221120204540453](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211202045621.png)
+
+### 其他
+
+1. clear：清屏命令
+2. man：查询命令详细参数
 
 ## 常用发行版
 
@@ -433,3 +563,74 @@ Alibaba Cloud Linux 2(原Aliyun Linux 2)是阿里云官方操作系统，为云�
 | 默认桌面   | 默认命令行                                           |
 | 平台       | x86-64                                               |
 | 生命周期   | 阿里云通过支持                                       |
+
+## 进程管理
+
+## Linux文件系统
+
+1. 基本目录结构
+
+   > - `/var`：包含在正常操作中被改变的文件、假脱机文件、记录文件、加锁文件、临时文件和页格式化文件等。
+   > - `/home`：包含用户的文件：参数设置文件、个性化文件、文档、数据、EMALL、缓存数据等，每增加一个用户，系统就会根据其用户名在 home 目录下新建和其他用户同名的文件夹，用于保存其用户配置。
+   > - `/proc`：包含虚幻的文件，他们实际上并不存在于磁盘上，也不占用任何空间（用 ls-l 可以显示它们的大小）当查看这些文件时，实际上是在访问存在内存中的信息，这些信息用于访问系统。
+   > - `/bin`：包含系统启动时需要的执行文件（二进制），这些文件可以被普通用户使用。
+   > - `/etc`：为操作系统的配置文件目录（防火墙、启动项）
+   > - `/root`：为系统管理员（也叫超级用户或根用户）的 Home 目录。
+   > - `/dev`：为设备目录，Linux 下设备被当成文件，这样一来硬件被抽象化、便于读写、网络共享以及需要临时装载到文件系统中，正常情况下，设备会有一个独立的子目录，这些设备的内容会出现在独立的子目录下。
+
+## 权限管理
+
+### 用户和用户组
+
+1. 用户：
+
+   用户是指在一个操作系统中，一系列权限的集合体，操作人员通过用户名和口令可以在系统中执行某一些被允许的操作。不同的用户可以具有不同的权限。Linux 操作系统中每个用户都具有唯一标识 UID，当使用命令创建用户时，如果不指定用户的 UID，则系统将自动为其分配 UID。
+
+2. 用户组：
+
+   用户组就是具有相同特征的用户的集合体，在 Linux 系统中，每一个用户都属于至少一个用户组。Linux 操作系统中每个用户分组都具有唯一标识 GID，当使用命令创建用户组时，如果不指定用户组的 GID，则系统将自动为其分配 GID。当使用 -u 指定用户 id 时，用户 id 尽量大于500，以免冲突。因为 Linux 操作系统安装后，会默认建立一些用户，所以可能会占用 500 之内的 id 号。
+
+3. root用户：
+
+   - 系统有一个权限最大的用户，其名称为 root ，root 用户属于 root 用户组。
+   - 系统默认只有 root 权限可以添加和删除用户。
+   - 添加用户之后，如果没有给用户指定用户组，则系统会为用户添加一个同名的用户组，用户属于该组。
+   - root 切换到普通用户无需登录，普通用户切换到 root 用户需要登陆。
+   - root 可以给用户赋予和回收某一个文件的读、写、执行的权限。
+
+4. 常用操作命令：
+
+   [常用用户操作](#userOperation)
+
+### 权限操作
+
+Linux 操作系统为文件定义了读、写、执行三种权限，不同的用户或者用户组可以具有不同的权限，系统采用 “r”、“w”、“x” 来分别表示文件的读、写、执行权限。使用 ls -l 命令可以查看到用户在当前目录或者文件的操作权限。举例如下：
+
+~~~shell
+drwxr-xr-x 4 root root  4096 5月  18 23:44 project_management
+# d：代表 bin 数目目录而不是文件
+#rwx：代表拥有者具有读、写、执行的权限
+#r-x：代表同组用户具有读、执行的权限，但是没有写权限
+#r-x：代表其他组用户具有读、执行权限，没有写权限
+~~~
+
+1. 常用命令：
+
+   * chmod：变更权限。
+
+   * 语法：
+
+     * 选项
+
+       ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRAlGK1zvGzibmnP92LLEibGhcZyjBGInDANKsQeKhMxicOUrvqB0uIS9iaIw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+     * 参数：chmod 的参数可以分为两种，分别是权限模式和数字模式。**权限模式**使用 u、g、o 分别代表拥有者、同组用户、其他组用户，使用 + 和一代表赋予和收回权限，使用 r、w、x 代表读、写、执行权限。为了简化授权步骤，用户也可以采用**数字模式**进行授权，使用二进制的形式代表 r、w、x 三种权限，如 `101 (5) =r -x`，`111 (7) =rwx`，`100 (3) =r- -`。
+
+       ~~~shell
+       chmod -r U+X,G+W F01
+       # 将文件01的执行权限给当前用户，写权限赋给用户所在的用户组和其他用户。
+       chmod -r u=rwx,g=rw,o=rw f01
+       # 将文件 f01 的读、写、执行的权限赋给当前用户，将读、写权限赋给用户所在的用户组和其他用户。
+       chmod 753 -r f01
+       # 将文件 f01 的读、写、执行的权限赋给当前用户，将读和执行权限赋给用户组、将写和执行权限赋给其他用户。
+       ~~~

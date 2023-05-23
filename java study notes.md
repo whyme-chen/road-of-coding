@@ -8996,6 +8996,8 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 3. sql片段抽取
 
+## 映射文件
+
 ## 多表操作
 
 1. 一对一模型
@@ -9134,12 +9136,12 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 ## 基础入门
 
-### 快速上手
+### 简介
 
 1. 概述：SringBoot是由Pivtal团队提供的全新框架，其设计目的是用来简化Spring的初始搭建和开发过程。
 
 2. 优势对比
-   
+
    * Spring程序
      * 依赖设置繁琐
      * 配置繁琐
@@ -9147,6 +9149,8 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
      * 起步依赖：提供依赖启动器简化构建配置，可快速构建独立的Spring应用
      * 辅助功能：直接嵌入Tomcat、Jetty和Undertow服务器（无需部署WAR文件）
      * 自动配置：简化常用工程相关配置
+
+### 快速上手
 
 3. 创建项目方式
    
@@ -9192,39 +9196,41 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 1. 属性配置
    
+   配置属性参考：https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties
+   
    ![image-20220223222016095](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220223222016095.png)
-   
-   注意：SpringBoot默认配置文件为application.properties，通过键值对配置
 
-2. 配置文件分类
+   注意：SpringBoot默认配置文件为application.properties，通过键值对配置
    
+2. 配置文件分类
+
    * properties
    * yml(主流)
    * yaml
-   
+
    ![image-20220223222330450](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220223222330450.png)
-   
-   > 注意：SpringBootp配置文件的加载顺序（优先级）：properties>yml>yaml
+
+   > 注意：SpringBootp配置文件的加载顺序（优先级）：**properties>yml>yaml**
    > 
    > 使用idea在yaml文件中配置时，代码提示失效解决方案：
    > 
    > ![image-20220224150428417](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220224150428417.png)
 
 3. yaml文件
-   
+
    * YAML（YAML Ain‘t Markup Lanuage），一种数据序列化格式
-   
+
    * 优点：
      
      * 容易阅读
      * 容易与脚本语言交互
      * 以数据为核心，重数据轻格式
-   
+
    * YAML文件扩展名
      
      * .yml
      * .yaml(主流)
-   
+
    * yaml语法规则
      
      ![image-20220224150924547](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220224150924547.png)
@@ -9232,7 +9238,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
      ![image-20220224151857640](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220224151857640.png)
      
      ![image-20220224152016549](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220224152016549.png)
-   
+
    * yaml数据读取
      
      ![image-20220224152744940](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220224152744940.png)
@@ -9244,7 +9250,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
      * 自定义对象封装指定数据
        
        ![image-20220224160118620](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220224160118620.png)
-   
+
    * 引用变量
      
      ![image-20220224155032097](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220224155032097.png)
@@ -9262,7 +9268,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 2. @ImportResource：在项目启动入口类中使用，将自定义配置文件加载到Spring上下文中（.xml文件）
 3. @Configuration：
 
-### 整合第三方技术
+### 技术整合
 
 #### 整合JUnit
 
@@ -9836,6 +9842,24 @@ public class SwaggerConfiguration {
 # Apifox
 
 官网：https://www.apifox.cn/
+
+# JWT
+
+参考：
+
+* https://blog.csdn.net/weixin_45410366/article/details/125031959
+* [JWT认证原理、流程整合springboot实战应用](https://www.bilibili.com/video/BV1i54y1m7cP/?spm_id_from=333.337.search-card.all.click&vd_source=fabefd3fabfadb9324761989b55c26ea)
+
+官网：https://jwt.io/introduction
+
+## 简介
+
+1. JWT（Json Web Token）：定义了一种紧凑的、自包含的方式，用于作为 JSON 对象在各方之间安全地传输信息。
+2. 作用：用于用户登录鉴权
+3. 认证方式对比
+   * session认证分析
+   * token认证分析
+4. JWT数据结构
 
 # Thymeleaf
 
