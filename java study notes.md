@@ -688,27 +688,326 @@ java中一共定义由四种访问控制权限分别为：public、default（不
 
 # Lambda表达式与函数式编程
 
-## Lamba表达式
-
-从JDK1.8开始为简化使用者进行代码开发，专门提供有Lambda表达式的支持。对于函数式编程比较著名的语言：haskell、Scala。
-
-Lambda表达式如果要使用，必须有一个重要的实现要求：SAM（Single Abstract Method）,只有一个抽象方法。
-
-Lambda表达式提供有如下几种格式：
-
-* 方法没有参数：()->{}
-* 方法有参数：()->{}
-* 如果只有一行语句返回：(参数，参数)->语句
-
-利用Lambda表达式可以摆脱传统面向对象只用关于结构的限制，使得代码更加简便。
+参考：https://www.bilibili.com/video/BV1Gh41187uR/?spm_id_from=333.337.search-card.all.click
 
 ## 函数式编程
 
 参考：
 
 * https://www.finclip.com/news/f/38498.html
-
 * https://juejin.cn/post/7056354222689746974
+
+1. 优势
+   * 大数量下处理集合效率高
+   * 代码可读性高
+   * 消灭嵌套地狱
+2. 函数式编程思想
+   * 面向对象思想需要关注用什么对象完成什么事情。函数式编程思想主要关注的是对数据进行了什么操作。
+3. 函数式接口
+4. 方法应用
+
+## Lamba表达式
+
+1. 概述：从JDK1.8开始为简化使用者进行代码开发，专门提供有Lambda表达式的支持（语法糖）。对于函数式编程比较著名的语言：haskell、Scala。
+2. 要求：Lambda表达式如果要使用，必须有一个重要的实现要求：SAM（Single Abstract Method）,只有一个抽象方法。
+3. 格式：Lambda表达式提供有如下几种格式：
+   * 方法没有参数：()->{}
+   * 方法有参数：(argument)->{}
+   * 如果只有一行语句返回：(参数，参数)->语句
+4. 省略规则
+   * 参数类型可以省略
+   * 方法体只有一句代码时大括号return和唯一-句代码的分号可以省略
+   * 方法只有-个参数时小括号可以省略
+   * 以上这些规则都记不住也可以省略不记
+
+利用Lambda表达式可以摆脱传统面向对象只用关于结构的限制，使得代码更加简便。
+
+~~~java
+package com.chen.lambda;
+
+public class LambdaDemo1 {
+    public static void main(String[] args) {
+        Thread thread1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(Thread.currentThread().getName());
+            }
+        },"thread1");
+
+        Thread thread2 = new Thread(() -> {
+            System.out.println(Thread.currentThread().getName());
+        }, "Thread2");
+
+        Thread thread3 = new Thread(() -> System.out.println(Thread.currentThread().getName()), "Thread3");
+
+        thread1.start();
+        thread2.start();
+        thread3.start();
+    }
+}
+~~~
+
+```java
+package com.chen.lambda;
+
+import java.util.function.IntBinaryOperator;
+
+public class LambdaDemo2 {
+    public static void main(String[] args) {
+        int calculate1 = calculate(new IntBinaryOperator() {
+            @Override
+            public int applyAsInt(int left, int right) {
+                return left + right;
+            }
+        });
+        System.out.println(calculate1);
+        System.out.println("============");
+
+        int calculate2 = calculate((int left, int right) -> {
+            return left + right;
+        });
+        System.out.println(calculate2);
+        System.out.println("============");
+
+        int calculate3 = calculate(Integer::sum);
+        System.out.println(calculate3);
+    }
+
+    public static int calculate(IntBinaryOperator operator){
+        int a =10;
+        int b=20;
+        return operator.applyAsInt(a,b);
+    }
+
+}
+```
+
+```java
+package com.chen.lambda;
+
+import java.util.Objects;
+import java.util.function.IntPredicate;
+
+public class LambdaDemo3 {
+    public static void main(String[] args) {
+        printNum(new IntPredicate() {
+            @Override
+            public boolean test(int value) {
+                return value%2==0;
+            }
+        });
+        System.out.println("=================");
+        printNum((int value) -> {return value%2!=0;});
+    }
+
+    public static void printNum(IntPredicate intPredicate){
+        int[] arr = {1,2,3,4,5,6,7,8,9,10};
+        for (int i :
+                arr) {
+            if (intPredicate.test(i)) {
+                System.out.println(i);
+            }
+        }
+    }
+}
+```
+
+## Stream流
+
+参考：https://blog.csdn.net/m0_64355285/article/details/122194444
+
+1. 概述：Java8的Stream使用的是函数式编程模式，如同它的名字一样，它可以被用来对集合或数组进行链状流式的操作。可以更方便的让我们对集合或数组操作。
+
+2. 常用操作（方法）
+
+   * 创建流
+
+     > 数组：`集合对象.stream()`
+     >
+     > 单列集合：`Arrays.steam（数组）`或者`Stream.of(数组)`
+     >
+     > 双列集合：转换为单列集合后创建
+     >
+     > ~~~java
+     > Map<String,Integer> map=new HashMap<>();
+     > map.put(1,"chen");
+     > map.put(2,"wang");
+     > map.put(3,"li");
+     > Stream<Map<String,Integer>> steam = map.entrySet().stream();
+     > ~~~
+
+   * 中间操作
+
+     * filter：可以对流中的元素进行条件过滤，符合过滤条件的才能继续留在流中。
+     * map：可以把对流中的元素进行计算或转换。
+     * distinct：可以去除流中的重复元素。 distinct方法是依赖Object的equals方法来判断是否是相同对象的。所以需要注意重写equals方法。
+     * sorted：可以对流中的元素进行排序。
+     * limit：可以设置流的最大长度，超出的部分将被抛弃。
+     * skip：跳过流中的前n个元素,返回剩下的元素
+     * flatMap：map只能把一个对象转换成另一 个对象来作为流中的元素。而flatMap可以把一 个对象转换成多 个对象作为流中的元素。
+
+   * 终结操作
+
+     * forEach：对流中的元素进行遍历操作，我们通过传入的参数去指定对遍历到的元素进行什么具体操作。
+     * count：可以用来获取当前流中元素的个数。
+     * max&min：可以来或者流中的最值。
+     * **collect**：把当前流转换成一个集合。
+     * 查找与匹配
+       * allMatch：可以用来判断是否有任意符合匹配条件的元素，结果为boolean类型。
+       * anyMatch：可以用来判断是否都符合匹配条件，结果为boolean类型。 如果都符合结果为true,否则结果为false。
+       * noneMatch：可以判断流中的元素是否都不符合匹配条件。如果都不符合结果为true,否则结果为false
+       * findAny：获取流中的任意一个元素。 该方法没有办法保证获取的一定是流中的第一个元素。
+       * findFirst：获取流中的第一个元素。
+     * **reduce**：对流中的数据按照你制定的计算方式计算出一个结果。reduce的作用是把stream中的元素给组合起来,我们可以传入一个初始值,它会按照我们的计算方式依次拿流中的元素和在初始化值的基础_上进行计算,计算结果再和后面的元素计算。
+
+   ~~~java
+   public class StreamDemo1 {
+       public static void main(String[] args) {
+           List<Author> authors = StreamDemo.getAuthors();
+   
+           // filter
+           // 打印所有名字长度大于3的作者名字
+           authors.stream()
+                   .filter(author -> author.getName().length()>3)
+                   .forEach(author -> System.out.println(author.getName()));
+           // map
+           // 对所有人年龄+5
+           authors.stream()
+                   .map(author -> author.getAge())
+                   .map(age -> age+5)
+                   .forEach(age -> System.out.println(age));
+           // distinct
+           // sorted
+           // 按年龄进行排序
+           authors.stream()
+                   .sorted((o1, o2) -> o1.getAge()-o2.getAge())
+                   .forEach(author -> System.out.println(author.toString()));
+           // limit
+           // skip
+           // flatMap
+           // 打印所有书籍的名字
+           authors.stream()
+                   .flatMap((Function<Author, Stream<?>>) author -> author.getBooks().stream())
+                   .forEach(o -> System.out.println(o.toString()));
+       }
+   }
+   
+   ~~~
+
+   ```java
+   public class StreamDemo2 {
+       public static void main(String[] args) {
+           List<Author> authors = StreamDemo.getAuthors();
+   
+           // forEach
+           // count
+           // max或min
+           System.out.println(authors.stream()
+                   .map(author -> author.getAge())
+                   .max((i1, i2) -> i1 - i2)
+                   .get());
+   
+           // collect
+           // 获取-一个存放所有作者名字的List集合。
+           List<String> collect = authors.stream()
+                   .distinct()
+                   .map(author -> author.getName())
+                   .collect(Collectors.toList());
+           System.out.println(collect);
+   
+           // 获取一个所有书名的Set集合。
+           List<Book> bookList = authors.stream()
+                   .flatMap((Function<Author, Stream<Book>>) author -> author.getBooks().stream())
+                   .distinct()
+                   .collect(Collectors.toList());
+           System.out.println(bookList);
+           
+           // 获取一个map集合，map的key为作者名, value为List<Book>
+           Map<String, List<Book>> map = authors.stream()
+                   .distinct()
+                   .collect(Collectors.toMap(author -> author.getName(), author -> author.getBooks()));
+           for (Map.Entry<String, List<Book>> stringListEntry : map.entrySet()) {
+               System.out.println(stringListEntry.getKey()+"-"+stringListEntry.getValue());
+           }
+   
+       }
+       
+       // allMatch
+           // 判断是否有年龄在29岁以上的作家
+           System.out.println(authors.stream()
+                   .anyMatch(author -> author.getAge() > 29));
+           // anyMatch
+           System.out.println(authors.stream()
+                   .allMatch(author -> author.getAge() > 40));
+           // noneMatch
+           System.out.println(authors.stream()
+                   .noneMatch(author -> author.getAge() > 50));
+           // findAny
+           // findFirst
+   
+           // reduce 归并
+           // 使用reduce求所有作者年龄的和
+           Integer sumAge = authors.stream()
+                   .distinct()
+                   .map(author -> author.getAge())
+                   .reduce(0, (result, element) -> result + element);
+           System.out.println(sumAge);
+           // 使用reduce求所有作者中年龄的最大值
+           Integer maxAge = authors.stream()
+                   .distinct()
+                   .map(author -> author.getAge())
+                   .reduce(Integer.MIN_VALUE, (result, element) -> result < element ? element : result);
+           System.out.println(maxAge);
+           // 使用reduce求所有作者中年龄的最小值
+   }
+   ```
+
+3. 注意事项
+
+   * 惰性求值(如果没有终结操作，中间操作是不会得到执行的)
+   * 流是一次性的(一旦一个流对象经过一 个终结操作后。这个流就不能再被使用)
+   * 不会影响原数据(我们在流中可以多数据做很多处理。但是正常情况下是不会影响原来集合中的元素的。这往往也是我们期望的)
+
+
+
+## 常用类和接口
+
+### Optional
+
+参考：https://blog.csdn.net/aaaPostcard/article/details/123596787
+
+1. 概述
+
+   在java编码过程中经常出现空指针异常，为了解决这个问题，通常的做法是在使用该变量前进行非空判断。但当变量为对象且其内部属性也为对象时，非常容易造成大片的非空判断语句，造成代码整体非常臃肿。使用Optional类可以写出更优雅的代码避免空指针异常。Optional就好像是包装类,可以把我们的具体数据封装Optional对象内部。然后我们去使用Optiona中封装好的方法操作封装进去的数
+   据就可以非常优雅的避免空指针异常。
+
+2. 常用操作
+
+   * 创建
+
+     ~~~java
+     Optional.ofNullable(对象)
+     ~~~
+
+     > 在实际开发中我们的数据很多是从数据库获取的。Mybatis从3.5版本可以也已经支持Optiona了。我们可以直接把dao方法的返口值类型定义成Optional类型，MyBastis 会自己把数据封装成Optional对象返回。封装的过程也不需要我们自己操作。
+
+   * 安全消费值
+
+   * 安全获取值
+
+   * 过滤
+
+   * 判断
+
+   * 数据转换
+
+java.util.function包下
+
+Consumer
+
+Supplier
+
+Predicate
 
 # 正则表达式
 
@@ -1129,6 +1428,10 @@ public class LinkedListDemo {
    ![image-20230219105909038](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302191059258.png)
 
 #### LinkedHashMap
+
+#### HashMap面试专题
+
+
 
 ### TreeMap
 
@@ -9268,6 +9571,37 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 2. @ImportResource：在项目启动入口类中使用，将自定义配置文件加载到Spring上下文中（.xml文件）
 3. @Configuration：
 
+### 高级配置
+
+1. 使用@ConfigurationProperties为第三方bean绑定属性
+
+   ![image-20230528163717624](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305281637305.png)
+
+   ![image-20230528164057851](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305281641781.png)
+
+2. 松散绑定
+
+   * @CanfigurationProperties绑定属性支持属性名宽松绑定，绑定前缀名命名规范:仅能使用纯小写字母、数字、下划线作为合法的字符
+   * 宽松绑定不支持注解@Value引用单个属性的方式
+
+3. 常用计量单位
+
+   ![image-20230528165141032](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305281651311.png)
+
+4. 开启Bean数据校验
+
+   * 添加JSR303规范坐标与Hibernate校验框架对应坐标
+
+     ![image-20230528170422423](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305281704053.png)
+
+   * 对Bean开启校验功能
+
+     ![image-20230528170501329](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305281705453.png)
+
+   * 设置校验规则
+
+     ![image-20230528170521320](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305281705729.png)
+
 ### 技术整合
 
 #### 整合JUnit
@@ -9299,13 +9633,22 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 1. 步骤
 
-> 1. 导入对应依赖（mybatis-plus，数据库驱动）
-> 2. 配置数据源
-> 3. 设计数据表
-> 4. 编写实体类
-> 5. 编写对应Mapper接口与映射，继承BaseMapper
+   > 1. 导入对应依赖（mybatis-plus，数据库驱动）
+   > 2. 配置数据源
+   > 3. 设计数据表
+   > 4. 编写实体类
+   > 5. 编写对应Mapper接口与映射，继承BaseMapper
+
+2. 业务层——快速开发
+
+   > 使用MyBatisPlus提供有业务层通用接口 (ISerivce<T>) 与业务层通用实现类 (ServiceImplM,T>)
+   >
+   > 在通用类基础上做功能重载或功能追加
+   > 注意重载时不要覆盖原始操作，避免原始提供的功能丢失
 
 #### 整合Druid
+
+#### 整合ES（Elasticsearch）
 
 ### 常用注解
 
@@ -9372,48 +9715,45 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
     * @author whyme-chen
     * @date 2022/4/30 9:30
     */
-   ```
-   
    @Data
    @TableName(value = "tb_user")
    @AllArgsConstructor
    @NoArgsConstructor
    @EqualsAndHashCode(callSuper = false)
    public class User {
-   
        /*
-       * EasyPoi的核心注解@Excel，通过在对象上添加@Excel注解，可以将对象信息直接导出到Excel中去，下面对注解中的属性做个介绍；
-           name：Excel中的列名；
-           width：指定列的宽度；
-           needMerge：是否需要纵向合并单元格；
-           format：当属性为时间类型时，设置时间的导出导出格式；
-           desensitizationRule：数据脱敏处理，3_4表示只显示字符串的前3位和后4位，其他为*号；
-           replace：对属性进行替换；
-           suffix：对数据添加后缀。
-       * */
-       
-       @TableId(value = "id",type = IdType.AUTO)
-       @Excel(name = "ID",width = 10)
-       private Long id;
-       
-       @Excel(name = "用户名",width = 30)
-       private String userName;
-       
-       @Excel(name = "密码",width = 40)
-       private String password;
-       
-       @Excel(name = "姓名",width = 30)
-       private String name;
-       
-       @Excel(name = "年龄",width = 20,replace = {"男_0", "女_1"})
-       private Integer age;
-       
-       @Excel(name = "邮箱",width = 50)
-       private String email;
+   * EasyPoi的核心注解@Excel，通过在对象上添加@Excel注解，可以将对象信息直接导出到Excel中去，下面对注解中的属性做个介绍；
+       name：Excel中的列名；
+       width：指定列的宽度；
+       needMerge：是否需要纵向合并单元格；
+       format：当属性为时间类型时，设置时间的导出导出格式；
+       desensitizationRule：数据脱敏处理，3_4表示只显示字符串的前3位和后4位，其他为*号；
+       replace：对属性进行替换；
+       suffix：对数据添加后缀。
+   * */
    
+   @TableId(value = "id",type = IdType.AUTO)
+   @Excel(name = "ID",width = 10)
+   private Long id;
+   
+   @Excel(name = "用户名",width = 30)
+   private String userName;
+   
+   @Excel(name = "密码",width = 40)
+   private String password;
+   
+   @Excel(name = "姓名",width = 30)
+   private String name;
+   
+   @Excel(name = "年龄",width = 20,replace = {"男_0", "女_1"})
+   private Integer age;
+   
+   @Excel(name = "邮箱",width = 50)
+   private String email;
    }
+   ```
+   
 
-```
 #### 导入
 
 1. 基于EasyPoi导入
@@ -9434,7 +9774,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
                return "导入失败！";
            }
        }
-```
+   ~~~
 
 ### 发送邮件
 
@@ -9549,6 +9889,221 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    }
    ```
    
+
+### 打包与运行
+
+#### Windows
+
+1. 使用Maven打包
+2. 使用`java -jar 工程名`运行jar包
+
+![image-20230524230040792](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305242300813.png)
+
+#### Linux
+
+1. 临时属性设置
+
+   ~~~shell
+   # 带属性数启动SpringBoot，携带多个属性启动SpringBoot，属性间使用空格分隔
+   java –jar springboot.jar –-server.port=80
+   ~~~
+
+2. 属性加载顺序
+
+   参考地址：https://docs.spring.io/spring-boot/docs/current/referencehtml/spring-boot-features.htmlboot-features-external-config
+
+3. 配置文件类别：多层级配置文件间的属性采用叠加并覆盖的形式作用于程序
+
+   ![image-20230524231842289](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305242318701.png)
+
+4. 自定义配置文件
+
+   ![image-20230524232149244](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305242321432.png)
+
+   注意：
+
+   * 单服务器项目: 使用自定义配置文件需求较低
+   * 多服务器项目: 使用自定义配置文件需求较高，将所有配置放置在一个目录中，统一管理
+   * 基于springcloud技术，所有的服务器将不再设置配置文件，而是通过配置中心进行设定，动态加载配置信息
+   
+5. 多环境开发
+
+   ![image-20230525221702051](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305252217588.png)
+
+   ![image-20230525221957097](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305252219487.png)
+
+   ![image-20230525222405129](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305252224524.png)
+
+   > 当Maven与SpringBoot同时对多环境进行控制时，以Mavn为主SpringBoot使用@..@占位符读取Maven对应的配置属性值。
+   >
+   > 基于SpringBoot读取Maven配置属性的前提下，如果在Idea下测工程时pom.xm1每次更新需要手动compile方可生效。
+
+### 日志控制
+
+#### 日志配置
+
+1. 日志级别
+2. 日志输出格式
+
+#### 日志文件
+
+### 热部署
+
+#### 开启部署
+
+1. 导入依赖
+
+   ~~~xml
+   <dependency>
+   <groupId>org.springframework.boot</groupId><artifactId>spring-boot-devtools</artifactId></dependency>
+   ~~~
+
+2. 重新编译（在IDEA中点击Build Project重新构建项目）
+
+> 可以通过设置IDEA来自动重新编译热部署，而不需要每次手动重新构建项目
+
+#### 热部署范围配置
+
+1. 默认不触发重启的目录列表
+
+   * /META-INF/maven
+   * /META-INF/resources
+   * /resources
+   * /static
+   * /public
+   * /templates
+
+2. 在springboot文件中配置热部署相关参数
+
+   ~~~yaml
+   devtools:
+   	restart:
+   		exclude: public/**,static/**
+   ~~~
+
+3. 设置高优先级属性禁用热部署
+
+   ~~~java
+   // 启动类
+   public static void main(String[] args) {
+   System,setProperty("spring.devtools.restart.enabled"，"false");SpringApplication.run(SSMPApplication.class);}
+   ~~~
+
+### 测试
+
+1. 加载测试专用属性（临时属性）
+
+   ![image-20230528171344770](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305281713010.png)
+
+   ![image-20230528171404475](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305281714883.png)
+
+2. 加载测试专用配置（临时配置）
+
+   ![image-20230528171655411](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305281716301.png)
+
+3. Web环境模拟测试
+
+   ![image-20230528172201797](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305281722173.png)
+
+   ~~~java
+   // 发送虚拟请求
+   
+   //创建web模拟环境
+   @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+   //开启虚拟mvc调用
+   @AutoConfigureMockMvc
+   class SpringbootConfigurationApplicationTests {
+   
+       @Test
+       void contextLoads(@Autowired MockMvc mockMvc) throws Exception {
+           RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/users");
+           mockMvc.perform(requestBuilder);
+       }
+   
+   }
+   
+   ~~~
+
+4. 数据层测试事务回滚：避免测试的脏数据污染数据库数据
+
+   ![image-20230528174924593](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305281749060.png)
+
+5. 测试用例数据设定
+
+   ![image-20230528175417549](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305281754324.png)
+
+### 数据层解决方案
+
+1. 数据源配置（SpringBoot提供了3种内嵌的数据源对象供开发者选择）
+   * HikariCP
+   * Tomcat提供DataSource
+   * CommonsDBCP
+2. 内置持久化技术：jdbcTemplate
+3. 数据库选用（SpringBoot提供了3种内嵌数据库供开发者选择，提高开发测试效率）
+   * H2
+   * HSQL
+   * Derby
+
+#### 整合Redis
+
+#### 整合MongoDB
+
+### 监控
+
+### 缓存
+
+1. 缓存：一种介于数据永久存储介质与数据应用之间的数据临时存储介质
+
+2. 作用：使用缓存可以有效的减少低速数据读取过程的次数(例如磁盘10)，提高系统性能
+
+3. spring缓存使用
+
+   * 引入依赖
+
+     ~~~xml
+             <dependency>
+                 <groupId>org.springframework.boot</groupId>
+                 <artifactId>spring-boot-starter-cache</artifactId>
+             </dependency> 
+     ~~~
+
+   * 开启缓存功能
+
+     ~~~java
+     @SpringBootApplication
+     //开启缓存功能
+     @EnableCaching
+     public class SpringBootCacheApplication {
+         public static void main(String[] args) {
+             SpringApplication.run(SpringBootCacheApplication.class,args);
+         }
+     }
+     ~~~
+
+   * 标注缓存
+
+     ```java
+     @Cacheable(value = "cacheSpace",key = "#id")
+     public User getById(Long id) {
+         return userMapper.selectById(id);
+     }
+     ```
+
+4. SpringBoot提供的缓存技术除了提供默认的缓存方案，还可以对其他缓存技术进行整合，统一接口方便缓存技术的开发与管理
+
+   * Generic
+   * JCache
+   * Ehcache
+   * Hazelcast
+   * Infinispan
+   * Couchbase
+   * Redis
+   * Caffenine
+   * Simple (默认)memcached
+
+### 任务
+
+### 消息
 
 # Nginx
 
