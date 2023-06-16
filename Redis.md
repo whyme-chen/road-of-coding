@@ -16,6 +16,12 @@
 
 #### Redis
 
+redis中文网：https://www.redis.net.cn/
+
+参考资料：
+
+* https://blog.csdn.net/hellozpc/article/details/81267030
+
 1. 简介：Redis诞生于2009年全称是Remote Dictionary Server,远程词典服务器，是一个基于内存的键值型NoSQL数据库。
 
 2. 特征：
@@ -27,16 +33,23 @@
    * 支持主从集群、分片集群。
    * 支持多语言客户端
 
-3. 安装
+3. redis应用场景
 
-4. 配置
+   * 缓存
+   * 任务队列
+   * 消息队列
+   * 分布式锁
 
-5. Reids客户端
+4. 安装
+
+5. 配置
+
+6. Reids客户端
 
    * 命令行客户端
    * 图形化客户端
 
-6. key的层级
+7. key的层级
 
    ![image-20230221150559429](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211506149.png)
 
@@ -98,9 +111,13 @@ Redis是一个key-value的数据库， key- 般是String类型，不过value的�
 
 ### Redis的java客户端
 
+redis的java客户端很多，官方推荐有三种：
+
 1. Jedis：以Redi s命令作为方法名称，学习成本低，简单实用。但是Jedis实例是线程不安全的，多线程环境下需要基于连接池来使用
 2. Lettuce：是基于Netty实现的，支持同步、异步和响应式编程方式，并且是线程安全的。支持Redis的哨兵模式、集群模式和管道模式。
 3. Redisson：基于Redis实现的分布式、可伸缩的Java数据结构集合。包含了诸如Map. Queue、Lock、Semaphore、Atomi cLong等强大功能
+
+spring对redis客户端进行了整合，提供了Spring Data Redis。
 
 #### Jedis
 
