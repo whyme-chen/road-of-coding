@@ -466,13 +466,13 @@ public class Client{
 3. 方法中定义内部类（局部内部类）
 4. 匿名内部类
 
-# 常用类
+## 常用类
 
-## Objcet类
+### Objcet类
 
 参考文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html#method.summary
 
-### 常用方法
+##### 常用方法
 
 1. equals（）
 
@@ -492,11 +492,11 @@ public class Client{
    
    * 使用 clone() 方法来拷贝一个对象即复杂又有风险，它会抛出异常，并且还需要类型转换。Effective Java 书上讲到，最好不要去使用 clone()，可以使用拷贝构造函数或者拷贝工厂来拷贝一个对象。
 
-## Scanner类
+### Scanner类
 
-## Math类
+### Math类
 
-## String、StringBuffer和StringBuilder
+### String、StringBuffer和StringBuilder
 
 String类是所有项目中都会使用到的一个功能类，这个类拥有如下特性：
 
@@ -512,7 +512,7 @@ StringBuilder类的功能和StringBuffer类的功能相同，但是StringBuffer�
 
 文档参考：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/StringBuffer.html
 
-## CharSequence接口
+### CharSequence接口
 
 描述字符串结构的接口，在这个接口中发现有三种常用子类：
 
@@ -522,23 +522,23 @@ StringBuilder类的功能和StringBuffer类的功能相同，但是StringBuffer�
 
 文档参考：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/CharSequence.html
 
-## AutoCloseable接口
+### AutoCloseable接口
 
 AutoCloseable主要用于日后惊喜你资源开发的处理上，以实现资源的自动关闭。
 
 文档参考：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/AutoCloseable.html
 
-## Runtime类
+### Runtime类
 
 Runtime描述的是运行时的状态，也就是说在整个JVM中，Runtime类是唯一一个与JVM运行状态有关的类。
 
 文档参考：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Runtime.html
 
-## Comparable接口和Comparator接口
+### Comparable接口和Comparator接口
 
 参考资料：https://www.jb51.net/article/93973.htm
 
-## System类
+### System类
 
 * 常用方法
   * 数组拷贝：static void arraycopy(Object src, int srcPos, Object dest, int destPos, int length)
@@ -547,17 +547,17 @@ Runtime描述的是运行时的状态，也就是说在整个JVM中，Runtime类
 
 参考文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/System.html
 
-## Cleaner类
+### Cleaner类
 
-## 日期与时间相关类
+### 日期与时间相关类
 
-### Date
+#### Date
 
 参考文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/Date.html
 
 1. Date类对象在java中代表当前所在系统的此刻日期时间
 
-### SimpleDateFormat
+#### SimpleDateFormat
 
 参考文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/text/SimpleDateFormat.html
 
@@ -571,9 +571,9 @@ Runtime描述的是运行时的状态，也就是说在整个JVM中，Runtime类
       
       ![image-20211228204547690](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211228204547690.png)
 
-### Calendar
+#### Calendar
 
-### java8新增日期类
+#### java8新增日期类
 
 # 包的定义及使用
 
