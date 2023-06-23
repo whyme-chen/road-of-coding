@@ -9502,54 +9502,6 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
      ![image-20230528170521320](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305281705729.png)
 
-### 技术整合
-
-#### 整合JUnit
-
-* 导入测试对应的starter
-
-* 测试类使用@SpringBootTest修饰
-  
-  ![image-20220224161459266](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220224161459266.png)
-
-* 使用自动装配的形式添加要测试的对象
-
-> 注意：
-> 
-> * 测试类如果存在与引导类所在包或子包中无需指定引导类
-> * 测试类如果不存在于引导类所在的包或子包中需要通过classes属性指定引导类
-
-#### 整合MyBatis
-
-1. 步骤
-   
-   > 1. 导入对应依赖（mybatis，数据库驱动）
-   > 2. 配置数据源
-   > 3. 设计数据表
-   > 4. 编写实体类
-   > 5. 编写对应Mapper接口与映射
-
-#### 整合MyBatis-Plus
-
-1. 步骤
-
-   > 1. 导入对应依赖（mybatis-plus，数据库驱动）
-   > 2. 配置数据源
-   > 3. 设计数据表
-   > 4. 编写实体类
-   > 5. 编写对应Mapper接口与映射，继承BaseMapper
-
-2. 业务层——快速开发
-
-   > 使用MyBatisPlus提供有业务层通用接口 (ISerivce<T>) 与业务层通用实现类 (ServiceImplM,T>)
-   >
-   > 在通用类基础上做功能重载或功能追加
-   > 注意重载时不要覆盖原始操作，避免原始提供的功能丢失
-
-#### 整合Druid
-
-#### 整合ES（Elasticsearch）
-
 ### 常用注解
 
 参考文章：https://juejin.cn/post/6844904136492711950
@@ -9688,18 +9640,17 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 参考：https://www.cnblogs.com/antLaddie/p/15583991.html
 
-#### 基于Springboot实现
+#### 整合JavaMail
 
 1. 导入依赖
    
    ```xml
            <dependency>
-               <groupId>org.projectlombok</groupId>
-               <artifactId>lombok</artifactId>
-               <optional>true</optional>
+               <groupId>org.springframework.boot</groupId>
+               <artifactId>spring-boot-starter-mail</artifactId>
            </dependency>
    ```
-
+   
 2. 配置
    
    ```yml
@@ -9746,10 +9697,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
        private String context = "测试邮件发送功能的实现";
        // 邮件正文2
        private String text = "<a href='https://www.baidu.com/'>前往百度</a>";
-   ```
-   
-   ```java
-   /**
+       /**
     * 发送简单邮件
     */
    @Override
@@ -9790,7 +9738,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    ```
    
 
-### 打包与运行
+### 打包与运维
 
 #### Windows
 
@@ -9836,7 +9784,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
    > 当Maven与SpringBoot同时对多环境进行控制时，以Mavn为主SpringBoot使用@..@占位符读取Maven对应的配置属性值。
    >
-   > 基于SpringBoot读取Maven配置属性的前提下，如果在Idea下测工程时pom.xm1每次更新需要手动compile方可生效。
+   > 基于SpringBoot读取Maven配置属性的前提下，如果在Idea下测工程时pom.xml每次更新需要手动compile方可生效。
 
 ### 日志控制
 
@@ -9891,6 +9839,23 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 ### 测试
 
+#### 整合JUnit
+
+* 导入测试对应的starter
+
+* 测试类使用@SpringBootTest修饰
+
+  ![image-20220224161459266](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220224161459266.png)
+
+* 使用自动装配的形式添加要测试的对象
+
+> 注意：
+>
+> * 测试类如果存在与引导类所在包或子包中无需指定引导类
+> * 测试类如果不存在于引导类所在的包或子包中需要通过classes属性指定引导类
+
+#### 测试配置
+
 1. 加载测试专用属性（临时属性）
 
    ![image-20230528171344770](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305281713010.png)
@@ -9944,11 +9909,74 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    * HSQL
    * Derby
 
+#### 整合MyBatis
+
+1. 步骤
+
+   > 1. 导入对应依赖（mybatis，数据库驱动）
+   > 2. 配置数据源
+   > 3. 设计数据表
+   > 4. 编写实体类
+   > 5. 编写对应Mapper接口与映射
+
+#### 整合MyBatis-Plus
+
+1. 步骤
+
+   > 1. 导入对应依赖（mybatis-plus，数据库驱动）
+   > 2. 配置数据源
+   > 3. 设计数据表
+   > 4. 编写实体类
+   > 5. 编写对应Mapper接口与映射，继承BaseMapper
+
+2. 业务层——快速开发
+
+   > 使用MyBatisPlus提供有业务层通用接口 (ISerivce<T>) 与业务层通用实现类 (ServiceImplM,T>)
+   >
+   > 在通用类基础上做功能重载或功能追加
+   > 注意重载时不要覆盖原始操作，避免原始提供的功能丢失
+
+#### 整合Druid
+
 #### 整合Redis
 
 #### 整合MongoDB
 
+#### 整合ES（Elasticsearch）
+
 ### 监控
+
+1. 监控的意义
+
+   * 监控服务状态
+   * 监控服务运行指标（内存、虚拟机、线程、请求）
+   * 监控日志
+   * 管理服务
+
+2. 监控实施方式
+
+   * 显示监控信息的服务器:用于获取服务信息,并显示对应的信息
+   * 运行的服务:启动时主动上报，告知监控服务器自己需要受到监控
+
+3. 可视化监控平台
+
+   * Spring Boot Admin,开源社区项目，用于管理和监控SpringBoot应用程序。客户端注册到服务端后，通过HTTP
+     请求方式，服务端定期从客户端获取对应的信息，并通过UI界面展示对应信息。
+
+     > https://github.com/codecentric/spring-boot-admin
+
+4. 监控原理
+
+   * Actuator提供了SpringBoot生产就绪功能，通过端点的配置与访问，获取端点信息
+   * 端点描述了一组监控信息，SpringBoot提供了多个内置端点，也可以根据需要自定义端点信息
+   * 访问当前应用所有端点信息: /actuator
+   * 访问端点详细信息: /actuator/端 点名称
+
+5. 自定义监控指标
+
+#### Spring Boot Admin
+
+项目地址：https://github.com/codecentric/spring-boot-admin
 
 ### 缓存
 
@@ -10001,9 +10029,207 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    * Caffenine
    * Simple (默认)memcached
 
-### 任务
+### 定时任务
+
+1. 常见业务：
+
+   * 年度报表
+   * 缓存统计报告
+
+2. JDK实现：java.util.Timer类和java.util.TimerTask类
+
+3. 市面上流行的定时任务技术框架
+
+   * Quartz
+   * Spring Task
+
+4. Cron表达式
+
+   参考：https://zhuanlan.zhihu.com/p/437328366
+
+   >  在线生成工具
+   >
+   > * https://cron.qqe2.com/
+   > * https://www.pppet.net/
+
+#### 整合Quartz
+
+相关概念：
+
+* 工作(Job) :用于定义具体执行的工作
+* 工作明细(JobDetail) :用于描述定时工作相关的信息
+* 触发器(Trigger) :用于描述触发工作的规则，通常使用cron表达式定义调度规则
+* 调度器(Scheduler) :描述了工作明细与触发器的对应关系
+
+1. 导入坐标
+
+   ~~~xml
+           <dependency>
+               <groupId>org.springframework.boot</groupId>
+               <artifactId>spring-boot-starter-quartz</artifactId>
+           </dependency>
+   ~~~
+
+2. 定义具体工作，继承QuartzJobBean
+
+   ~~~java
+   public class MyQuartz extends QuartzJobBean {
+       @Override
+       protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
+           System.out.println("now is "+new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss").format(new Date(System.currentTimeMillis())));
+       }
+   }
+   ~~~
+
+3. 配置（定义工作明细与触发器，并绑定对应关系）
+
+   ~~~java
+   @Configuration
+   public class QuartzConfig {
+   
+       @Bean
+       public JobDetail printJobDetail(){
+           // 绑定具体工作
+           return JobBuilder.newJob(MyQuartz.class).storeDurably().build();
+       }
+   
+       @Bean
+       public Trigger printTrigger(){
+           // 绑定对应工作明细
+           return TriggerBuilder.newTrigger()
+                   .forJob(printJobDetail())
+                   .withSchedule(CronScheduleBuilder.cronSchedule("0/5 * * * * ?"))
+                   .build();
+       }
+   }
+   ~~~
+
+#### Spring Task
+
+1. 开启定时任务，在启动类中使用@EnableScheduling
+
+   ~~~java
+   @SpringBootApplication
+   // 开启开启定时任务
+   @EnableScheduling
+   public class SpringbootTaskApplication {
+   
+       public static void main(String[] args) {
+           SpringApplication.run(SpringbootTaskApplication.class, args);
+       }
+   
+   }
+   ~~~
+
+2. 定义定时任务
+
+   ~~~java
+   @Component
+   public class SpringTaskDemo {
+       @Scheduled(cron = "* * * * * ?")
+       public void print(){
+           System.out.println("spring task is running.....");
+       }
+   }
+   ~~~
+
+3. 相关配置（application配置文件中）
+
+   ~~~yml
+   spring:
+     task:
+       scheduling:
+         # 任务调度线程池大小，默认为1
+         pool:
+           size: 1
+         # 调度线程名称前缀，默认scheduling
+         thread-name-prefix: task_
+         shutdown:
+           # 线程池关闭时等待所有任务完成
+           await-termination: false
+           # 调度线程关闭前最大等待时间，确保最后一定关闭
+           await-termination-period: 10s
+   
+   ~~~
 
 ### 消息
+
+1. 消息类型
+   * 同步消息
+   * **异步消息**
+2. 企业级应用中广泛使用的异步消息传递技术
+   * JMS（Java Message Service）：一个规范，等同于JDBC规范，提供了与消息服务相关的API接口
+     * JMS消息模型
+       * peer-2-peer:点对点模型，消息发送到一个队列中，队列保存消息。队列的消息只能被-一个消费者消费，或超时
+       * publish-subscribe:发布订阅模型，消息可以被多个消费者消费，生产者和消费者完全独立,不需要感知对方的存在
+     * JMS消息种类
+       * TextMessage
+       * MapMessage
+       * BytesMessage
+       * StreamMessage
+       * ObjectMessage
+       * Message ( 只有消息头和属性)
+     * JMS实现: ActiveMQ、 Redis、HornetMQ、 RabbitMQ、 RocketMQ (没有完全遵守JMS规范)
+   * AMQP（ advanced message queuing protocol） ：一种种协议(高级消息队列协议，也是消息代理规范) ,规范了网络交换的数据格式，兼容jMS
+     * 优点：具有跨平台性,服务器供应商，生产者，消费者可以使用不同的语言来实现
+     * AMQP消息模型
+       * direct exchange
+       * fanout exchange
+       * topic exchange
+       * headers exchange
+       * system exchange
+     * 消息种类：byte[]
+     * AMQP实现：RabbitMQ、 StormMQ、RocketMQ
+   * MOTT（Message Queueing Telemetry Transport）：消息队列遥测传输，专为小设备设计，是物联网(I0T) 生态
+     系统中主要成分之一
+
+#### 整合ActiveMQ
+
+#### 整合RabbitMQ
+
+#### 整合RocketMQ
+
+#### 整合Kafka
+
+## 原理分析
+
+### 自动配置
+
+#### Bean的加载方式和加载控制
+
+1. bean的加载
+
+   * xml
+
+   * 注解方式
+
+     * xml配置包扫描
+
+       ~~~xml
+       <context:component-scan base-package=""/>
+       ~~~
+
+     * @Component（@Controller、@Service、@Repository）标识自动以Bean、@Bean标识第三方Bean、@Import、@ImportResources
+
+   * 使用上下文对象在容器初始化完毕后注入bean（Application.registerBean的方式）
+
+   * 导入实现了ImportSelector接口的类，实现对导入源的编程式处理
+
+   * 导入实现了ImportBeanDefinitionRegistrar接口的类，通过BeanDefinition的注册器注册实名bean,实现对容器中bean的裁定，例如对现有bean的覆盖，进而达成不修改源代码的情况下更换实现的效果
+
+2. @Configuration的proxyBeanMethods属性
+
+   ![image-20230623111707253](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202306231117946.png)
+
+3. bean的控制
+
+#### Bean的依赖属性配置
+
+#### 自动配置原理
+
+#### 变更自动配置
+
+### 自定义starter
 
 # Nginx
 
