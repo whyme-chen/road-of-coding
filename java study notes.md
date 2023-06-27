@@ -11148,6 +11148,20 @@ $ git branch -dr [remote/branch]
 
 > 注意：如果当前本地仓库不是从远程仓库克隆，而是本地创建的仓库，并且仓库中存在文件，此时再从远程仓库拉取文件的时候会报错(fatal: refusing to merge unrelated histories )解决此问题可以在git pull命令后加入参数--allow-unrelated-histories
 
+# 开源第三方工具包
+
+参考：https://pdai.tech/md/develop/package/dev-package-x-overview.html
+
+## Apache Common包
+
+## Google Guava包
+
+## Hutool包
+
+## Spring工具类
+
+## Lombok
+
 # 开发经验
 
 ## POJO、DO、BO、DTO、VO
