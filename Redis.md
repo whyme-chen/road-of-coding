@@ -18,11 +18,13 @@
 
 redis中文网：https://www.redis.net.cn/
 
+redis官网：https://redis.io/
+
 参考资料：
 
 * https://blog.csdn.net/hellozpc/article/details/81267030
 
-1. 简介：Redis诞生于2009年全称是Remote Dictionary Server,远程词典服务器，是一个基于内存的键值型NoSQL数据库。
+1. 简介：Redis诞生于2009年全称是Remote Dictionary Server,远程词典服务器，是一个基于内存的**键值型**NoSQL数据库。
 
 2. 特征：
 
@@ -40,20 +42,27 @@ redis中文网：https://www.redis.net.cn/
    * 消息队列
    * 分布式锁
 
-4. 安装
+4. 安装和配置
 
-5. 配置
+   * Linux
+   * Windows
 
-6. Reids客户端
+5. Reids客户端
 
    * 命令行客户端
    * 图形化客户端
+     * RedisDesktopManager
+     * RDM
+     * Another Redis Desktop Manager
+   * 编程客户端
 
-7. key的层级
+6. key的层级
 
    ![image-20230221150559429](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211506149.png)
 
-### 数据类型
+### 数据类型及常用命令
+
+官方参考文档：https://redis.io/commands/
 
 Redis是一个key-value的数据库， key- 般是String类型，不过value的类型多种多样。
 
@@ -61,63 +70,51 @@ Redis是一个key-value的数据库， key- 般是String类型，不过value的�
 
    ![image-20230221112343749](D:\学习\road-of-coding\java study notes.assets\image-20230221112343749.png)
 
+#### 通用命令
+
+![image-20230221114644376](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211146926.png)
+
 #### String类型
 
 ![image-20230221114914932](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211149092.png)
+
+![image-20230221134053867](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211340328.png)
 
 #### Hash类型
 
 ![image-20230221152905957](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211529302.png)
 
+![image-20230221153343238](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211533319.png)
+
 #### List类型
 
 ![image-20230221153504668](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211535191.png)
+
+![image-20230221153711995](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211537923.png)
 
 #### Set类型
 
 ![image-20230221154227216](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211542836.png)
 
+![image-20230221154642114](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211546072.png)
+
 #### SortedSet类型
 
 ![image-20230221183350312](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211833894.png)
-
-### 常见命令
-
-官方参考文档：https://redis.io/commands/
-
-#### 通用命令
-
-![image-20230221114644376](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211146926.png)
-
-#### String类型的常见命令
-
-![image-20230221134053867](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211340328.png)
-
-#### Hash类型的常见命令
-
-![image-20230221153343238](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211533319.png)
-
-#### List类型的常见命令
-
-![image-20230221153711995](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211537923.png)
-
-#### Set类型的常见命令
-
-![image-20230221154642114](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211546072.png)
-
-#### SortedSet类型常见命令
 
 ![image-20230221183922957](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211839023.png)
 
 ### Redis的java客户端
 
+官方文档：https://www.redis.net.cn/clients/
+
 redis的java客户端很多，官方推荐有三种：
 
-1. Jedis：以Redi s命令作为方法名称，学习成本低，简单实用。但是Jedis实例是线程不安全的，多线程环境下需要基于连接池来使用
+1. Jedis：以Redis命令作为方法名称，学习成本低，简单实用。但是Jedis实例是线程不安全的，多线程环境下需要基于连接池来使用
 2. Lettuce：是基于Netty实现的，支持同步、异步和响应式编程方式，并且是线程安全的。支持Redis的哨兵模式、集群模式和管道模式。
 3. Redisson：基于Redis实现的分布式、可伸缩的Java数据结构集合。包含了诸如Map. Queue、Lock、Semaphore、Atomi cLong等强大功能
 
-spring对redis客户端进行了整合，提供了Spring Data Redis。
+   spring对redis客户端进行了整合，提供了Spring Data Redis。（可以兼容jdeis和lettuce）
 
 #### Jedis
 
@@ -133,8 +130,105 @@ spring对redis客户端进行了整合，提供了Spring Data Redis。
 
 1. 简介
 
+   官网地址：
+
    ![image-20230221202228761](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302212022639.png)
 
-2. 快速使用
+2. 相关API
 
    ![image-20230221202454506](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302212024218.png)
+
+3. 快速使用
+
+   springboot已经提供了对SpringDataRedis的支持，可以通过导入下列依赖快速集成。
+
+   ~~~xml
+    <!-- redis依赖 -->
+       <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-data-redis</artifactId>
+       </dependency>
+   
+       <!-- 连接池依赖 -->
+       <dependency>
+         <groupId>org.apache.commons</groupId>
+         <artifactId>commons-pool2</artifactId>
+       </dependency>
+   ~~~
+
+   然后在springboot配置文件中进行数据源连接的相关配置。
+
+   ~~~yml
+   spring:
+     redis:
+       host: 192.168.175.130
+       port: 6379
+       password: 4112
+       jedis:
+         pool:
+           # 最大连接
+           max-active: 8
+           # 最大空闲连接
+           max-idle: 8
+           # 最小空闲连接
+           min-idle: 0
+           # 最长连接等待时间
+           max-wait: 100
+   ~~~
+
+   接下来就可以使用RedisTemplate对象进行相关操作。
+
+   ~~~java
+   @SpringBootTest
+   class SpringDataRedisDemoApplicationTests {
+   
+       @Resource
+       private RedisTemplate redisTemplate;
+   
+       @Test
+       void testString(){
+           redisTemplate.opsForValue().set("username","chenwenjian");
+           System.out.println(redisTemplate.opsForValue().get("username"));
+       }
+   }
+   ~~~
+
+4. SpringDataRedis的序列化方式
+
+   RedisTemplate使用Object接收任意的值写入到redis中，写入前会默认使用jdk方式序列化key和value，该方式可读性较差，内存占用更高，并可能造成bug隐患。
+
+   通过查看RedisTemplate的源码，发现RedisSerializer有如下实现类。
+
+   ![image-20230702232236331](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202307022322490.png)
+
+   于是可以通过如下代码，自定义RedisRemplate的序列化方式。
+
+   
+
+5. StringRedisTemplate
+
+## 应用场景
+
+共享session
+
+企业缓存方案
+
+秒杀中Redis的应用
+
+社交APP中Redis的应用
+
+Redis特殊数据结构的应用
+
+## 设计及优化
+
+主从模式
+哨兵模式
+集群模式
+多级缓存
+Redis应用最佳实践
+
+## 原理分析
+
+Redis常见数据类型的底层结构
+Redis通信模型
+Redis的内存策略
