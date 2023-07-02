@@ -1000,7 +1000,9 @@ public class LambdaDemo3 {
    * 创建
 
      ~~~java
-     Optional.ofNullable(对象)
+     Optional.empty();
+     Optional.ofNullable(对象);
+  Optional.of(对象); // 若对象为null则会抛出NullpointerException
      ~~~
 
      > 在实际开发中我们的数据很多是从数据库获取的。Mybatis从3.5版本可以也已经支持Optiona了。我们可以直接把dao方法的返口值类型定义成Optional类型，MyBastis 会自己把数据封装成Optional对象返回。封装的过程也不需要我们自己操作。
@@ -1012,16 +1014,24 @@ public class LambdaDemo3 {
    * 过滤
 
    * 判断
-
+   
    * 数据转换
 
-java.util.function包下
+### java.util.function包
 
-Consumer
+参考文档：
 
-Supplier
+* [API文档](https://docs.oracle.com/javase/8/docs/api/index.html?java/util/function/package-summary.html)
+* [java.util.function包详解-Lambda](https://zhuanlan.zhihu.com/p/423809261)
 
-Predicate
+四大类
+
+* Consumer：accept方法对传入的实体参数进行处理
+
+* Supplier：get方法创建实体类型并返回
+
+* Predicate：test方法确定实体T是否满足约束，返回boolean
+* Function：apply方法对类型T实体进行相应的操作并返回类型为R的实体
 
 # 正则表达式
 
@@ -10528,8 +10538,9 @@ public class SwaggerConfiguration {
 
 参考：
 
-* https://blog.csdn.net/weixin_45410366/article/details/125031959
+* [什么是JWT？](https://blog.csdn.net/weixin_45410366/article/details/125031959)
 * [JWT认证原理、流程整合springboot实战应用](https://www.bilibili.com/video/BV1i54y1m7cP/?spm_id_from=333.337.search-card.all.click&vd_source=fabefd3fabfadb9324761989b55c26ea)
+* https://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html
 
 官网：https://jwt.io/introduction
 
@@ -10541,6 +10552,19 @@ public class SwaggerConfiguration {
    * session认证分析
    * token认证分析
 4. JWT数据结构
+   * Header
+   * Payload
+   * Signature
+5. 优点
+6. 缺点
+
+## 使用
+
+1. maven依赖
+
+## Sa-Token框架
+
+官网：https://sa-token.cc/
 
 # Thymeleaf
 
@@ -11301,13 +11325,44 @@ RunTime、System中的Console对象、Collections
 
 ## 阿里巴巴Java开发手册
 
+<<<<<<< HEAD
+## Base64和Base64URL
+
+### Base64
+
+参考：https://c.runoob.com/front-end/693/
+
+在线编码工具：https://c.runoob.com/front-end/693/
+
+### Base64URL
+
+Base64 存在以下问题：
+
+- 使用 `+` 作为第 62 个字符，使用 `=` 作为填充字符。这两个字符在 URL 中都有特殊含义，`+` 是空格，`=` 用于通过查询字符串作为 `键=值` 发送数据；
+- 使用 `/` 作为第 63 个字符，`/` 在 URL 和文件系统中都用作分隔符。
+
+为解决能够将编码结果用作文件名或 URL 地址的问题，Base64URL 对 Base64 标准进行了修改，在以下几个方面做了稍许调整：
+
+- 将 `+` 替换成了 `-`
+- 将 `/` 替换成了 `_`
+- 不再需要填充字符
+- 禁止行分隔符
+
+# 常用工具类
+
+## Hutool
+
+主页：https://www.hutool.cn/
+=======
 ## 源码阅读
 
 参考：
 
 * https://blog.csdn.net/ma_nong33/article/details/128923602
+>>>>>>> 6c83cb62ed6af42704e22784e00c03ded4935ed7
 
 # 学习路线/资源
 
 1. [2022黑马程序员Java学习路线图 - 哔哩哔哩](https://www.bilibili.com/read/cv9965357?from=articleDetail)
 2. [Java全栈知识体系](https://pdai.tech/)
+
