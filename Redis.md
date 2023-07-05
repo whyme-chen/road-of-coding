@@ -203,21 +203,83 @@ redis的java客户端很多，官方推荐有三种：
 
    于是可以通过如下代码，自定义RedisRemplate的序列化方式。
 
+   ~~~java
+   @Configuration
+   public class RedisConfig {
    
+       @Bean
+       public RedisTemplate<String,Object> getRedisTemplate(RedisConnectionFactory redisConnectionFactory){
+   
+           // 创建RedisTemplate对象
+           RedisTemplate<String, Object> template = new RedisTemplate<>();
+           // 设置连接工厂
+           template.setConnectionFactory(redisConnectionFactory);
+           // 创建Json序列化工具
+           GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer();
+           // 设置key的序列化
+           template.setKeySerializer(RedisSerializer.string());
+           template.setHashKeySerializer(RedisSerializer.string());
+           // 设置value的序列化
+           template.setValueSerializer(genericJackson2JsonRedisSerializer);
+           template.setHashValueSerializer(genericJackson2JsonRedisSerializer);
+           return template;
+       }
+   }
+   ~~~
 
 5. StringRedisTemplate
 
+   为了节省内存空间，我们并不会使用JSON序列化器来处理value，而是统一使 用String序列化器，要求只能存储String类型的key和value。当需要存储Java对象时，手动完成对象的序列化和反序列化。
+
+   Spring默认提供了一个StringRedisTemplate类，它的key和value的序列化方式默认就是String方式。省去了我们自定义RedisTemplate的过程：
+
 ## 应用场景
 
-共享session
+### 短信登录-共享Session
+
+### 基于Session实现登录
+
+1. 流程
+
+   ![image-20230704215604631](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202307042156639.png)
+
+2. 接口
+
+商户查询缓存
+优惠券秒杀
+达人探店
+好友关注
+附近的商户
+用户签到
+UV统计
+
+
 
 企业缓存方案
 
+缓存雪崩、穿透等问题
+
 秒杀中Redis的应用
+
+* Redis计数器
+* 分布式锁
+* 消息队列的应用
 
 社交APP中Redis的应用
 
 Redis特殊数据结构的应用
+
+
+
+点赞列表、排行榜小案例
+
+关注、取关、共同关注、消息推送小案例
+
+用户签到小案例（BitMap数据统计功能）
+
+附近商户小案例（GeoHash的应用）
+
+UV统计（HyperLogLog的统计功能）
 
 ## 设计及优化
 
