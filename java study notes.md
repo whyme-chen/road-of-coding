@@ -1002,7 +1002,7 @@ public class LambdaDemo3 {
      ~~~java
      Optional.empty();
      Optional.ofNullable(对象);
-  Optional.of(对象); // 若对象为null则会抛出NullpointerException
+    Optional.of(对象); // 若对象为null则会抛出NullpointerException
      ~~~
 
      > 在实际开发中我们的数据很多是从数据库获取的。Mybatis从3.5版本可以也已经支持Optiona了。我们可以直接把dao方法的返口值类型定义成Optional类型，MyBastis 会自己把数据封装成Optional对象返回。封装的过程也不需要我们自己操作。
@@ -9941,7 +9941,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 2. 业务层——快速开发
 
-   > 使用MyBatisPlus提供有业务层通用接口 (ISerivce<T>) 与业务层通用实现类 (ServiceImplM,T>)
+   > 使用MyBatisPlus提供有业务层通用接口 (ISerivce<T>) 与业务层通用实现类 (ServiceImpl<M,T>)
    >
    > 在通用类基础上做功能重载或功能追加
    > 注意重载时不要覆盖原始操作，避免原始提供的功能丢失
@@ -11181,6 +11181,8 @@ $ git branch -dr [remote/branch]
 
 ## Hutool包
 
+主页：https://www.hutool.cn/
+
 ## Spring工具类
 
 ## Lombok
@@ -11348,12 +11350,6 @@ Base64 存在以下问题：
 - 不再需要填充字符
 - 禁止行分隔符
 
-# 常用工具类
-
-## Hutool
-
-主页：https://www.hutool.cn/
-=======
 ## 源码阅读
 
 参考：
