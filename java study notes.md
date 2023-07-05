@@ -1000,9 +1000,7 @@ public class LambdaDemo3 {
    * 创建
 
      ~~~java
-     Optional.empty();
-     Optional.ofNullable(对象);
-  Optional.of(对象); // 若对象为null则会抛出NullpointerException
+     Optional.ofNullable(对象)
      ~~~
 
      > 在实际开发中我们的数据很多是从数据库获取的。Mybatis从3.5版本可以也已经支持Optiona了。我们可以直接把dao方法的返口值类型定义成Optional类型，MyBastis 会自己把数据封装成Optional对象返回。封装的过程也不需要我们自己操作。
@@ -1014,24 +1012,16 @@ public class LambdaDemo3 {
    * 过滤
 
    * 判断
-   
+
    * 数据转换
 
-### java.util.function包
+java.util.function包下
 
-参考文档：
+Consumer
 
-* [API文档](https://docs.oracle.com/javase/8/docs/api/index.html?java/util/function/package-summary.html)
-* [java.util.function包详解-Lambda](https://zhuanlan.zhihu.com/p/423809261)
+Supplier
 
-四大类
-
-* Consumer：accept方法对传入的实体参数进行处理
-
-* Supplier：get方法创建实体类型并返回
-
-* Predicate：test方法确定实体T是否满足约束，返回boolean
-* Function：apply方法对类型T实体进行相应的操作并返回类型为R的实体
+Predicate
 
 # 正则表达式
 
@@ -9251,6 +9241,22 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    
    > \#传入的参数在SQL中显示为字符串（当成一个字符串），会对自动传入的数据加一个双引号。$传入的参数在SqL中直接显示为传入的值。\#可以防止SQL注入的风险（语句的拼接）；但$无法防止Sql注入。一般情况均使用#。
 
+# SSM整合
+
+## 异常处理器
+
+1. 异常常见的位置
+   * 框架内部抛出的异常:因使用不合规导致
+   * 数据层抛出的异常:因外部服务器故障导致(例如:服务器访问超时)
+     业务层抛出的异常:因业务逻辑书写错误导致(例如:遍历业务书写操作，导致索引异常等)
+   * 表现层抛出的异常:因数据收集、校验等规则导致(例如:不匹配的数据类型间导致异常)
+   * 工具类抛出的异常:因工具类书写不严谨不够健壮导致(例如:必要释放的连接长期未释放等)
+2. 统一异常处理-aop思想
+3. 项目异常分类
+   * 业务异常（BusinessException）：数据不规范或规范产生的异常
+   * 系统异常（SystemException）：项目运行过程中可预计无法避免的异常
+   * 其他异常（Exception）：未预期的异常
+
 # MybatisPlus
 
 官网地址：https://baomidou.com/pages/226c21/#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%B7%A5%E7%A8%8B
@@ -10538,9 +10544,8 @@ public class SwaggerConfiguration {
 
 参考：
 
-* [什么是JWT？](https://blog.csdn.net/weixin_45410366/article/details/125031959)
+* https://blog.csdn.net/weixin_45410366/article/details/125031959
 * [JWT认证原理、流程整合springboot实战应用](https://www.bilibili.com/video/BV1i54y1m7cP/?spm_id_from=333.337.search-card.all.click&vd_source=fabefd3fabfadb9324761989b55c26ea)
-* https://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html
 
 官网：https://jwt.io/introduction
 
@@ -10552,19 +10557,6 @@ public class SwaggerConfiguration {
    * session认证分析
    * token认证分析
 4. JWT数据结构
-   * Header
-   * Payload
-   * Signature
-5. 优点
-6. 缺点
-
-## 使用
-
-1. maven依赖
-
-## Sa-Token框架
-
-官网：https://sa-token.cc/
 
 # Thymeleaf
 
@@ -11325,44 +11317,17 @@ RunTime、System中的Console对象、Collections
 
 ## 阿里巴巴Java开发手册
 
-<<<<<<< HEAD
-## Base64和Base64URL
-
-### Base64
-
-参考：https://c.runoob.com/front-end/693/
-
-在线编码工具：https://c.runoob.com/front-end/693/
-
-### Base64URL
-
-Base64 存在以下问题：
-
-- 使用 `+` 作为第 62 个字符，使用 `=` 作为填充字符。这两个字符在 URL 中都有特殊含义，`+` 是空格，`=` 用于通过查询字符串作为 `键=值` 发送数据；
-- 使用 `/` 作为第 63 个字符，`/` 在 URL 和文件系统中都用作分隔符。
-
-为解决能够将编码结果用作文件名或 URL 地址的问题，Base64URL 对 Base64 标准进行了修改，在以下几个方面做了稍许调整：
-
-- 将 `+` 替换成了 `-`
-- 将 `/` 替换成了 `_`
-- 不再需要填充字符
-- 禁止行分隔符
-
-# 常用工具类
-
-## Hutool
-
-主页：https://www.hutool.cn/
-=======
 ## 源码阅读
 
 参考：
 
 * https://blog.csdn.net/ma_nong33/article/details/128923602
->>>>>>> 6c83cb62ed6af42704e22784e00c03ded4935ed7
+
+## 参数校验
+
+参考：https://zhuanlan.zhihu.com/p/555789724
 
 # 学习路线/资源
 
 1. [2022黑马程序员Java学习路线图 - 哔哩哔哩](https://www.bilibili.com/read/cv9965357?from=articleDetail)
 2. [Java全栈知识体系](https://pdai.tech/)
-
