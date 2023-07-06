@@ -9251,6 +9251,22 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    
    > \#传入的参数在SQL中显示为字符串（当成一个字符串），会对自动传入的数据加一个双引号。$传入的参数在SqL中直接显示为传入的值。\#可以防止SQL注入的风险（语句的拼接）；但$无法防止Sql注入。一般情况均使用#。
 
+# SSM整合
+
+## 异常处理器
+
+1. 异常常见的位置
+   * 框架内部抛出的异常:因使用不合规导致
+   * 数据层抛出的异常:因外部服务器故障导致(例如:服务器访问超时)
+     业务层抛出的异常:因业务逻辑书写错误导致(例如:遍历业务书写操作，导致索引异常等)
+   * 表现层抛出的异常:因数据收集、校验等规则导致(例如:不匹配的数据类型间导致异常)
+   * 工具类抛出的异常:因工具类书写不严谨不够健壮导致(例如:必要释放的连接长期未释放等)
+2. 统一异常处理-aop思想
+3. 项目异常分类
+   * 业务异常（BusinessException）：数据不规范或规范产生的异常
+   * 系统异常（SystemException）：项目运行过程中可预计无法避免的异常
+   * 其他异常（Exception）：未预期的异常
+
 # MybatisPlus
 
 官网地址：https://baomidou.com/pages/226c21/#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%B7%A5%E7%A8%8B
@@ -11331,7 +11347,6 @@ RunTime、System中的Console对象、Collections
 
 ## 阿里巴巴Java开发手册
 
-<<<<<<< HEAD
 ## Base64和Base64URL
 
 ### Base64
@@ -11360,14 +11375,15 @@ Base64 存在以下问题：
 
 * https://blog.csdn.net/ma_nong33/article/details/128923602
 
-
-
-# 开源协议
+## 开源协议
 
 1. [木兰开源许可证](http://license.coscl.org.cn/)
+
+## 参数校验
+
+参考：https://zhuanlan.zhihu.com/p/555789724
 
 # 学习路线/资源
 
 1. [2022黑马程序员Java学习路线图 - 哔哩哔哩](https://www.bilibili.com/read/cv9965357?from=articleDetail)
 2. [Java全栈知识体系](https://pdai.tech/)
-
