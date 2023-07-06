@@ -11141,7 +11141,7 @@ $ git branch -dr [remote/branch]
    git tag -d <tagname>
    ~~~
 
-### 代码冲突
+### 代码冲突处理
 
 ## 远程仓库
 
@@ -11186,6 +11186,10 @@ $ git branch -dr [remote/branch]
 ## Spring工具类
 
 ## Lombok
+
+## MapStruct
+
+文档：https://mapstruct.org/documentation/stable/reference/pdf/mapstruct-reference-guide.pdf
 
 # 开发经验
 
@@ -11355,7 +11359,12 @@ Base64 存在以下问题：
 参考：
 
 * https://blog.csdn.net/ma_nong33/article/details/128923602
->>>>>>> 6c83cb62ed6af42704e22784e00c03ded4935ed7
+
+
+
+# 开源协议
+
+1. [木兰开源许可证](http://license.coscl.org.cn/)
 
 # 学习路线/资源
 
