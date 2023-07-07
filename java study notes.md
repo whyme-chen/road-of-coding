@@ -11381,7 +11381,7 @@ Base64 存在以下问题：
 
 ## 参数校验
 
-参考：https://zhuanlan.zhihu.com/p/555789724
+参考：https://pdai.tech/md/spring/springboot/springboot-x-interface-param.html
 
 # 学习路线/资源
 
