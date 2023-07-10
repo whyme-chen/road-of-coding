@@ -11251,6 +11251,8 @@ MapStruct是一款非常实用Java工具，主要用于解决对象之间的拷�
 
 参考：[十分钟搞懂Lombok使用与原理 - 掘金](https://juejin.cn/post/6844903557016076302)
 
+1. @Builder
+
 ## 字符编码问题
 
 1. ASCII
@@ -11373,7 +11375,25 @@ Base64 存在以下问题：
 
 ## 参数校验
 
-参考：https://zhuanlan.zhihu.com/p/555789724
+参考：
+
+* https://pdai.tech/md/spring/springboot/springboot-x-interface-param.html
+* [JSR303](https://beanvalidation.org/1.0/spec/#d0e32)
+
+1. 简单检验
+
+2. 分组检验
+
+3. @Valid和@Validated比较
+
+   在校验简单的controller入参时@Valid和@Validated基本没有什么区别，但是在分组检验、嵌套检验等场景下两者功能略有不同。
+
+   * @Validated可以根据不同的分组采用不同的验证机制，但是@Valid作为标准JSR-303规范，还没有吸收分组的功能。
+   * @Validated可以用在类型、方法和方法参数上，但是不能用在成员属性（字段）上；@Valid可以用在方法、构造函数、方法参数和成员属性（字段）上。
+
+4. 常用的校验注解
+
+5. 自定义Validation
 
 ## 异常处理器：统一异常处理
 
