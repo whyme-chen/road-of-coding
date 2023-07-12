@@ -10283,6 +10283,8 @@ Nginx是一款高性能的http 服务器/反向代理服务器及电子邮件( I
 
 # 日志
 
+参考：[java日志框架](https://www.bilibili.com/video/BV1iJ411H74S?p=1&vd_source=fabefd3fabfadb9324761989b55c26ea)
+
 ## 日志概述
 
 1. 日志的概念
@@ -10297,17 +10299,23 @@ Nginx是一款高性能的http 服务器/反向代理服务器及电子邮件( I
 
 ## JUL
 
-参考博客：https://blog.csdn.net/weixin_43472934/article/details/122024844
+参考：
 
-参考文档：https://docs.oracle.com/javase/8/docs/api/
+* https://blog.csdn.net/weixin_43472934/article/details/122024844
 
-```
-    JUL全称Java util Logging是java原生的日志框架，使用时不需要另外引用第三方类库,相对其他日志框架使用方便，学习简单，能够在小型应用中灵活使用。
-```
+* https://docs.oracle.com/javase/8/docs/api/ 
+
+ JUL全称Java util Logging是java原生的日志框架，使用时不需要另外引用第三方类库,相对其他日志框架使用方便，学习简单，能够在小型应用中灵活使用。
 
 1. 架构
 
    ![image-20230203203450628](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302032034663.png)
+
+   * Loggers：被称为记录器，应用程序通过获取Logger对象，调用其API来来发布日志信息。Logger通常时应用程序访问日志系统的入口程序。
+   * Appenders：也被称为Handlers，每个Logger都会关联一组Handlers，Logger会将日志交给关联Handlers处理，由Handlers负责将日志做记录。Handlers在此是一个抽象，其具体的实现决定了日志记录的位置可以是控制台、文件、网络上的其他日志服务或操作系统日志等。
+   * Layouts：也被称为Formatters，它负责对日志事件中的数据进行转换和格式化。Layouts决定了数据在一条日志记录中的最终形式。
+   * Level：每条日志消息都有一个关联的日志级别。该级别粗略指导了日志消息的重要性和紧迫，我可以将Level和Loggers、Appenders做关联以便于我们过滤消息。
+   * Filters：过滤器，根据需要定制哪些信息会被记录，哪些信息会被放过。
 
 2. 快速入门
 
@@ -10378,33 +10386,88 @@ Nginx是一款高性能的http 服务器/反向代理服务器及电子邮件( I
           logger.finest("finest");
       }
    ~~~
+   
+3. jul日志级别
+
+   java.util.logging.Level中定义了日志的级别：
+
+   * SEVERE（最高值）
+   * WARNING
+   * INFO （默认级别）
+   * CONFIG
+   * FINE
+   * FINER
+   * FINEST（最低值）
+
+   > 还有两个特殊的级别：
+   > OFF，可用来关闭日志记录。
+   > ALL，启用所有消息的日志记录。
+
+4. 自定义日志配置
+
+   ~~~java
+   @Test
+   public void testLogConfig() throws Exception {
+   // 1.创建日志记录器对象
+   Logger logger = Logger.getLogger("com.itheima.log.JULTest");
+   // 一、自定义日志级别
+   // a.关闭系统默认配置
+   logger.setUseParentHandlers(false);
+   // b.创建handler对象
+   ConsoleHandler consoleHandler = new ConsoleHandler();
+   // c.创建formatter对象
+   SimpleFormatter simpleFormatter = new SimpleFormatter();
+   // d.进行关联
+   consoleHandler.setFormatter(simpleFormatter);
+   logger.addHandler(consoleHandler);
+   // e.设置日志级别
+   logger.setLevel(Level.ALL);
+   consoleHandler.setLevel(Level.ALL);
+   // 二、输出到日志文件
+   FileHandler fileHandler = new FileHandler("d:/logs/jul.log");
+   fileHandler.setFormatter(simpleFormatter);
+   3.3 Logger之间的父子关系
+   JUL中Logger之间存在父子关系，这种父子关系通过树状结构存储，JUL在初始化时会创建一个顶层
+   RootLogger作为所有Logger父Logger，存储上作为树状结构的根节点。并父子关系通过路径来关联。
+   logger.addHandler(fileHandler);
+   // 2.日志记录输出
+   logger.severe("severe");
+   logger.warning("warning");
+   logger.info("info");
+   logger.config("config");
+   logger.fine("fine");
+   logger.finer("finer");
+   logger.finest("finest");
+   }
+   ~~~
+
+   JUL在初始化时会创建一个顶层RootLogger作为所有Logger父Logger，存储上作为树状结构的根节点。并通过路径来关联所有Logger的父子关系。
+
+   默认配置文件路径$JAVAHOME\jre\lib\logging.properties
+
+5. 日志处理流程
+
+   * 初始化LogManager：LogManager加载logging.properties配置，添加Logger到LogManager
+   * 从单例LogManager获取Logger
+   * 设置级别Level，并指定日志记录LogRecord
+   * Filter提供了日志级别之外更细粒度的控制
+   * Handler是用来处理日志输出位置
+   * Formatter是用来格式化LogRecord的
+
+   ![image-20230712230348170](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202307122303191.png)
 
 ## Slf4j
 
 官网：https://www.slf4j.org/
 
-### 日志门面
-
-1. 日志门面：类似于JDBC的思想，将定义与实现进行分离
-2. 常见的日志门面
-   * JCL
-   * Slf4J
-3. 常见的日志实现
-   * JUL
-   * Log4j
-   * logback
-   * log4j2
-
-### Slf4j
-
-#### 概述
+### 概述
 
 1. Slf4j：简单日志门面(Simple Logging Facade For Java) SLF4J主要是为了给Java日志访问提供一套标准、规范的API框架，其主要意义在于提供接口，具体的实现可以交由其他日志框架，例如log4j和logback等。当然slf4j自己也提供了功能较为简单的实现，但是一般很少用到。对于一般的Java项目而言，日志框架会选择slf4j-api作为门面，配上具体的实现框架（log4j、logback等），中间使用桥接器完成桥接。
 2. 主要功能
    * 日志框架的绑定
    * 日志框架的桥接
 
-#### Slf4j简单内置实现
+### Slf4j简单内置实现
 
 1. 导入依赖
 
@@ -10449,11 +10512,62 @@ Nginx是一款高性能的http 服务器/反向代理服务器及电子邮件( I
    }
    ~~~
 
-#### 日志绑定
+### 绑定日志实现
 
 ![image-20230415165537188](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304151655635.png)
 
-##### 
+ 在项目中添加slf4j依赖后就可以在项目中使用slf4j的API在项目中进行统一的日志记录。然后绑定具体的实现就可以了（若具体日志框架没有直接实现slf4j，则需要引入相应的适配器）。slf4j有且仅有一个日志实现框架的绑定（如果出现多个默认使用第一个依赖日志实现）。
+
+### 桥接日志框架
+
+![image-20230712233451286](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202307122334844.png)
+
+## logback
+
+官方：https://logback.qos.ch/index.html
+
+1. 概述
+
+   Logback是由log4j创始人设计的另一个开源日志组件，性能比log4j要好。
+
+2. 主要模块
+
+   * logback-core：其它两个模块的基础模块
+   * logback-classic：它是log4j的一个改良版本，同时它完整实现了slf4j API
+   * logback-access：访问模块与Servlet容器集成提供通过Http来访问日志的功能
+
+3. 快速使用
+
+   导入依赖：
+
+   ~~~xml
+   <dependency>
+   <groupId>org.slf4j</groupId>
+   <artifactId>slf4j-api</artifactId>
+   <version>1.7.25</version>
+   </dependency>
+   <dependency>
+   <groupId>ch.qos.logback</groupId>
+   <artifactId>logback-classic</artifactId>
+   <version>1.2.3</version>
+   </dependency>
+   ~~~
+
+4. 配置
+
+   logback会依次读取以下类型配置文件：
+
+   * logback.groovy
+   * logback-test.xml
+   * logback.xml 
+
+   如果均不存在会采用默认配置。
+
+   logback有如下三类组件：
+
+   * Logger:日志的记录器，把它关联到应用的对应的context上后，主要用于存放日志对象，也可以定义日志类型、级别。
+   * Appender:用于指定日志输出的目的地，目的地可以是控制台、文件、数据库等等。
+   * Layout:负责把事件转换成字符串，格式化的日志信息的输出。在logback中Layout对象被封装在encoder中。
 
 # Swagger
 
