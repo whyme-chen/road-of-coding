@@ -551,6 +551,11 @@ Runtime描述的是运行时的状态，也就是说在整个JVM中，Runtime类
 
 ### 日期与时间相关类
 
+### calendar system
+
+* [ISO-8601](https://www.joda.org/joda-time/cal_iso.html)、[Joda-Time](https://www.joda.org/joda-time/index.html)
+* proleptic Gregorian calendar system
+
 #### Date
 
 参考文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/Date.html
@@ -573,7 +578,21 @@ Runtime描述的是运行时的状态，也就是说在整个JVM中，Runtime类
 
 #### Calendar
 
-#### java8新增日期类
+#### LocalDate
+
+#### LocalDateTime
+
+#### DateTimeFormatter
+
+> **java.util.Date和Java.time.LocalDate比较**
+>
+> 第一，java.util.Date和SimpleDateFormatter都是线程不安全的，而java.time.LocalDate和java.time.LocalTime与最String一样，是不可变的，因此可以说是线程安全的。以下是API文档中的解释：
+>
+> LocalDate is an immutable date-time object that represents a date, often viewed as year-month-day.  Other date fields, such as day-of-year, day-of-week and week-of-year, can also be accessed.  For example, the value "2nd October 2007" can be stored in a LocalDate.
+>
+> 第二，java.util.Date月份是从0开始，一月是0，十二月是11。java.time.LocalDate月份和星期都改成了enum（分别为java.time.DayOfWeek和java.time.Month）。
+>
+> 第三，java.util.Date推算时间（比如往前推几天/往后推几天/推算某年某月第一天等等）要结合Calender编写代码，相当麻烦，而java.time.LocaDate只需要调用对应的方法即可。
 
 # 包的定义及使用
 
@@ -9750,31 +9769,26 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 ### 打包与运维
 
-#### Windows
+1. 使用maven打包项目后，可以使用`java -jar 工程名`运行jar包
 
-1. 使用Maven打包
-2. 使用`java -jar 工程名`运行jar包
-
-![image-20230524230040792](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305242300813.png)
-
-#### Linux
-
-1. 临时属性设置
+   ![image-20230524230040792](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305242300813.png)
+   
+2. 临时属性设置
 
    ~~~shell
    # 带属性数启动SpringBoot，携带多个属性启动SpringBoot，属性间使用空格分隔
    java –jar springboot.jar –-server.port=80
    ~~~
 
-2. 属性加载顺序
+3. 属性加载顺序
 
    参考地址：https://docs.spring.io/spring-boot/docs/current/referencehtml/spring-boot-features.htmlboot-features-external-config
 
-3. 配置文件类别：多层级配置文件间的属性采用叠加并覆盖的形式作用于程序
+4. 配置文件类别：多层级配置文件间的属性采用叠加并覆盖的形式作用于程序
 
    ![image-20230524231842289](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305242318701.png)
 
-4. 自定义配置文件
+5. 自定义配置文件
 
    ![image-20230524232149244](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305242321432.png)
 
@@ -9783,8 +9797,8 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    * 单服务器项目: 使用自定义配置文件需求较低
    * 多服务器项目: 使用自定义配置文件需求较高，将所有配置放置在一个目录中，统一管理
    * 基于springcloud技术，所有的服务器将不再设置配置文件，而是通过配置中心进行设定，动态加载配置信息
-   
-5. 多环境开发
+
+6. 多环境开发
 
    ![image-20230525221702051](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202305252217588.png)
 
@@ -9798,10 +9812,159 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 ### 日志控制
 
+参考：[Spring Boot统一日志框架](http://c.biancheng.net/spring_boot/slf4j-logback.html)
+
+Spring Boot 选用 SLF4J + Logback 的组合来搭建日志系统。
+
 #### 日志配置
 
-1. 日志级别
+1. 日志级别：
+
+   | 序号 | 日志级别 | 说明                                                        |
+   | ---- | -------- | ----------------------------------------------------------- |
+   | 1    | trace    | 追踪，指明程序运行轨迹。                                    |
+   | 2    | debug    | 调试，实际应用中一般将其作为最低级别，而 trace 则很少使用。 |
+   | 3    | info     | 输出重要的信息，使用较多。                                  |
+   | 4    | warn     | 警告，使用较多。                                            |
+   | 5    | error    | 错误信息，使用较多。                                        |
+
+   > 上述日志级别的优先级依次升高。当一条日志信息的级别大于或等于配置文件的级别时，就对这条日志进行记录。
+
 2. 日志输出格式
+
+   | 序号 | 输出格式                     | 说明                                                         |
+   | ---- | ---------------------------- | ------------------------------------------------------------ |
+   | 1    | %d{yyyy-MM-dd HH:mm:ss, SSS} | 日志生产时间,输出到毫秒的时间                                |
+   | 2    | %-5level                     | 输出日志级别，-5 表示左对齐并且固定输出 5 个字符，如果不足在右边补 0 |
+   | 3    | %logger 或 %c                | logger 的名称                                                |
+   | 4    | %thread 或 %t                | 输出当前线程名称                                             |
+   | 5    | %p                           | 日志输出格式                                                 |
+   | 6    | %message 或 %msg 或 %m       | 日志内容，即 logger.info("message")                          |
+   | 7    | %n                           | 换行符                                                       |
+   | 8    | %class 或 %C                 | 输出 Java 类名                                               |
+   | 9    | %file 或 %F                  | 输出文件名                                                   |
+   | 10   | %L                           | 输出错误行号                                                 |
+   | 11   | %method 或 %M                | 输出方法名                                                   |
+   | 12   | %l                           | 输出语句所在的行数, 包括类名、方法名、文件名、行数           |
+   | 13   | hostName                     | 本地机器名                                                   |
+   | 14   | hostAddress                  | 本地 ip 地址                                                 |
+
+3. 常见配置文件选项
+
+   ~~~yml
+   
+   
+   logging:
+     # 配置记录器级别
+     level:
+       org.springframework.web: "debug"
+       org.hibernate: "error"
+   ~~~
+
+4. 自定义日志配置
+
+   在 Spring Boot 的配置文件 application.porperties/yml 中，可以对日志的一些默认配置进行修改，但这种方式只能修改个别的日志配置，想要修改更多的配置或者使用更高级的功能，则需要通过日志实现框架自己的配置文件进行配置。
+
+   Spring 官方提供了各个日志实现框架所需的配置文件，用户只要将指定的配置文件放置到项目的类路径下即可。
+
+   | 日志框架                | 配置文件                                                     |
+   | ----------------------- | ------------------------------------------------------------ |
+   | Logback                 | logback-spring.xml、logback-spring.groovy、logback.xml、logback.groovy |
+   | Log4j2                  | log4j2-spring.xml、log4j2.xml                                |
+   | JUL (Java Util Logging) | logging.properties                                           |
+
+   > 从上可以看出日志框架的配置文件主要分为两类，一类是普通的日志配置文件，即不带spring标识的配置文件，例如logback.xml，一类是带有spring标识的配置文件，例如logback-spring.xml
+
+   logback.xml等项目的类路径不带 spring 标识的普通日志配置文件，会跳过 Spring Boot，直接被日志框架加载。
+
+   ~~~xml
+   <?xml version="1.0" encoding="UTF-8"?>
+   <!--
+   scan：当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true。
+   scanPeriod：设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒当scan为true时，此属性生效。默认的时间间隔为1分钟。
+   debug：当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。
+   -->
+   <configuration scan="false" scanPeriod="60 seconds" debug="false">
+       <!-- 定义日志的根目录 -->
+       <property name="LOG_HOME" value="/app/log"/>
+       <!-- 定义日志文件名称 -->
+       <property name="appName" value="bianchengbang-spring-boot-logging"></property>
+       <!-- ch.qos.logback.core.ConsoleAppender 表示控制台输出 -->
+       <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+           <!--
+           日志输出格式：
+      %d表示日期时间，
+      %thread表示线程名，
+      %-5level：级别从左显示5个字符宽度
+      %logger{50} 表示logger名字最长50个字符，否则按照句点分割。
+      %msg：日志消息，
+      %n是换行符
+           -->
+           <layout class="ch.qos.logback.classic.PatternLayout">
+               <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread]**************** %-5level %logger{50} - %msg%n</pattern>
+           </layout>
+       </appender>
+   
+       <!-- 滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件 -->
+       <appender name="appLogAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+           <!-- 指定日志文件的名称 -->
+           <file>${LOG_HOME}/${appName}.log</file>
+           <!--
+           当发生滚动时，决定 RollingFileAppender 的行为，涉及文件移动和重命名
+           TimeBasedRollingPolicy： 最常用的滚动策略，它根据时间来制定滚动策略，既负责滚动也负责出发滚动。
+           -->
+           <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+               <!--
+               滚动时产生的文件的存放位置及文件名称 %d{yyyy-MM-dd}：按天进行日志滚动
+               %i：当文件大小超过maxFileSize时，按照i进行文件滚动
+               -->
+               <fileNamePattern>${LOG_HOME}/${appName}-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+               <!--
+               可选节点，控制保留的归档文件的最大数量，超出数量就删除旧文件。假设设置每天滚动，
+               且maxHistory是365，则只保存最近365天的文件，删除之前的旧文件。注意，删除旧文件是，
+               那些为了归档而创建的目录也会被删除。
+               -->
+               <MaxHistory>365</MaxHistory>
+               <!--
+               当日志文件超过maxFileSize指定的大小是，根据上面提到的%i进行日志文件滚动 注意此处配置SizeBasedTriggeringPolicy是无法实现按文件大小进行滚动的，必须配置timeBasedFileNamingAndTriggeringPolicy
+               -->
+               <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                   <maxFileSize>100MB</maxFileSize>
+               </timeBasedFileNamingAndTriggeringPolicy>
+           </rollingPolicy>
+           <!-- 日志输出格式： -->
+           <layout class="ch.qos.logback.classic.PatternLayout">
+               <pattern>%d{yyyy-MM-dd HH:mm:ss} [ %thread ] ------------------ [ %-5level ] [ %logger{50} : %line ] -
+                   %msg%n
+               </pattern>
+           </layout>
+       </appender>
+   
+       <!--
+     logger主要用于存放日志对象，也可以定义日志类型、级别
+     name：表示匹配的logger类型前缀，也就是包的前半部分
+     level：要记录的日志级别，包括 TRACE < DEBUG < INFO < WARN < ERROR
+     additivity：作用在于children-logger是否使用 rootLogger配置的appender进行输出，
+     false：表示只用当前logger的appender-ref，true：
+     表示当前logger的appender-ref和rootLogger的appender-ref都有效
+       -->
+       <!-- hibernate logger -->
+       <logger name="net.biancheng.www" level="debug"/>
+       <!-- Spring framework logger -->
+       <logger name="org.springframework" level="debug" additivity="false"></logger>
+   
+       <!--
+       root与logger是父子关系，没有特别定义则默认为root，任何一个类只会和一个logger对应，
+       要么是定义的logger，要么是root，判断的关键在于找到这个logger，然后判断这个logger的appender和level。
+       -->
+       <root level="info">
+           <appender-ref ref="stdout"/>
+           <appender-ref ref="appLogAppender"/>
+       </root>
+   </configuration> 
+   ~~~
+
+   Spring Boot 推荐用户使用 logback-spring.xml等带有 spring 标识的配置文件。该类配置文件不会直接被日志框架加载，而是由 Spring Boot 对它们进行解析。这样就可以使用 Spring Boot 的高级功能 Profile，实现在不同的环境中使用不同的日志配置。
 
 #### 日志文件
 
@@ -10275,10 +10438,11 @@ Nginx是一款高性能的http 服务器/反向代理服务器及电子邮件( I
    * 日志文件：日志文件是用于记录系统操作事件的文件集合，可分为事件日志和消息日志。具有处理历史数据、诊断问题的追踪以及理解系统的活动等重要作用。
      * 调试日志
      * 系统日志
-   * 日志门面
 2. java的日志框架
-   * 日志实现：JUL（java util logging）、logback、log4j、log4j2
-   * 日志门面：JCL（Jakarta Commons Logging）、Slf4j（Simple Logging  Facade fo java）
+   * 日志实现：日志门面的具体的实现。
+     * 常见日志实现：JUL（java util logging）、logback、log4j、log4j2
+   * 日志门面：为 Java 日志访问提供一套标准和规范的 API 框架，其主要意义在于提供接口。类似于JDBC的思想，将定义与实现进行分离。
+     * 常见日志门面：JCL（Jakarta Commons Logging）、Slf4j（Simple Logging  Facade fo java）、jboss-logging
 3. 日志发展历史：log4j ->JUL-->JCL--> sIf4j --> logback -> log4j2
 
 ## JUL
@@ -10508,7 +10672,7 @@ Nginx是一款高性能的http 服务器/反向代理服务器及电子邮件( I
 
 ## logback
 
-官方：https://logback.qos.ch/index.html
+官网：https://logback.qos.ch/index.html
 
 1. 概述
 
