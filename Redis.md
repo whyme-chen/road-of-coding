@@ -243,7 +243,11 @@ redis的java客户端很多，官方推荐有三种：
 
    ![image-20230704215604631](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202307042156639.png)
 
-2. 接口
+2. 集群部署的session共享问题：多台tomcat服务器件无法共享session
+
+3. 使用Redis解决集群部署下共享session问题
+
+   ![image-20230716181322597](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202307161813066.png)
 
 商户查询缓存
 优惠券秒杀

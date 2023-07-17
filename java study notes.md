@@ -10822,6 +10822,19 @@ public class SwaggerConfiguration {
 
 官网：https://jwt.io/introduction
 
+Token是一种用于身份验证和授权的令牌。在计算机系统中，Token通常是一个字符串，用于标识用户或客户端的身份和权限。 
+
+在身份验证方面，Token可以用于替代传统的用户名和密码验证方式。当用户登录系统时，系统会生成一个Token并返回给用户。用户在后续的请求中，可以通过携带这个Token来证明自己的身份。系统可以验证Token的有效性，并根据Token中的信息来识别用户。
+
+在授权方面，Token可以用于控制用户对系统资源的访问权限。系统可以根据Token中的权限信息，判断用户是否有权访问某个资源或执行某个操作。 
+
+常见的Token类型包括： 
+
+* JSON Web Token (JWT)：一种开放标准，定义了一种紧凑且自包含的方式来传输信息，通常用于身份验证和授权。 
+* OAuth Token：用于授权第三方应用程序访问用户资源的令牌，常用于实现单点登录和授权码模式等场景。 
+* Session Token：在Web应用程序中，用于标识用户会话的令牌，通常存储在服务器端的会话管理中。
+* Token的使用可以提高系统的安全性和灵活性，同时也减少了对传统的用户名和密码的依赖。
+
 ## 简介
 
 1. JWT（Json Web Token）：定义了一种紧凑的、自包含的方式，用于作为 JSON 对象在各方之间安全地传输信息。
@@ -11474,8 +11487,6 @@ MapStruct是一款非常实用Java工具，主要用于解决对象之间的拷�
 ------
 
 著作权归@pdai所有 原文链接：https://pdai.tech/md/develop/package/dev-package-x-overview.html
-
-
 
 # 开发经验
 
