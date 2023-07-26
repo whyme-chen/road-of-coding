@@ -720,10 +720,16 @@ java中一共定义由四种访问控制权限分别为：public、default（不
    * 大数量下处理集合效率高
    * 代码可读性高
    * 消灭嵌套地狱
+   
 2. 函数式编程思想
+   
    * 面向对象思想需要关注用什么对象完成什么事情。函数式编程思想主要关注的是对数据进行了什么操作。
-3. 函数式接口
-4. 方法应用
+   
+3. 函数式接口：只用一个抽象方法的接口
+
+   JDK的函数式接口都加上了@FunctionalInterface注解进行标识。但是无论是否加上该注解只要接口中只有一个抽象方法, 都是函数式接口。
+
+4. 方法引用
 
 ## Lamba表达式
 
@@ -1011,16 +1017,15 @@ public class LambdaDemo3 {
 
 1. 概述
 
-   在java编码过程中经常出现空指针异常，为了解决这个问题，通常的做法是在使用该变量前进行非空判断。但当变量为对象且其内部属性也为对象时，非常容易造成大片的非空判断语句，造成代码整体非常臃肿。使用Optional类可以写出更优雅的代码避免空指针异常。Optional就好像是包装类,可以把我们的具体数据封装Optional对象内部。然后我们去使用Optiona中封装好的方法操作封装进去的数
-   据就可以非常优雅的避免空指针异常。
-
+   在java编码过程中经常出现空指针异常，为了解决这个问题，通常的做法是在使用该变量前进行非空判断。但当变量为对象且其内部属性也为对象时，非常容易造成大片的非空判断语句，造成代码整体非常臃肿。使用Optional类可以写出更优雅的代码避免空指针异常。Optional就好像是包装类,可以把我们的具体数据封装Optional对象内部。然后我们去使用Optiona中封装好的方法操作封装进去的数据就可以非常优雅的避免空指针异常。
+   
 2. 常用操作
 
    * 创建
 
      ~~~java
-     Optional.empty();
-     Optional.ofNullable(对象);
+     Optional.ofNullable(对象); // 建议使用
+     Optional.empty(); // 创建一个null对象
     Optional.of(对象); // 若对象为null则会抛出NullpointerException
      ~~~
 
@@ -1028,10 +1033,23 @@ public class LambdaDemo3 {
 
    * 安全消费值
 
+     ~~~java
+  Optional.ifPresent();
+     ~~~
+
    * 安全获取值
-
+   
+     ~~~java
+     Optional.orElseGet();
+     Optional.orelseThrow();
+     ~~~
+   
    * 过滤
-
+   
+     ~~~java
+     Optional.filter();//如果原本是有数据的，但是不符合判断，也会变成一个无数据的Optional对象。
+     ~~~
+   
    * 判断
    
    * 数据转换
