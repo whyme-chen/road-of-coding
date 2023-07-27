@@ -5872,13 +5872,11 @@ HttpServlet --抽象类
 
 # Filter和Listener
 
-### 1. Filter
+## Filter
 
 1. 过滤器：当访问服务器的资源时，过滤器可以将请求拦截，完成一些特殊的功能
 
-2. 过滤器的作用
-   
-   * 一般用于完成通用的操作，例：登录验证，统一编码处理，敏感字符处理。
+2. 过滤器的作用：一般用于完成通用的操作，例：登录验证，统一编码处理，敏感字符处理。
 
 3. 快速入门
    
@@ -5891,8 +5889,9 @@ HttpServlet --抽象类
    > 3. 配置拦截路径
    >    
    >    * xml方式配置
-   >    
    >    * 注解方式配置
+   
+   注解配置：
    
    ```java
    package cn.itcast.filter;
@@ -5900,14 +5899,17 @@ HttpServlet --抽象类
    import javax.servlet.*;
    import javax.servlet.annotation.WebFilter;
    import java.io.IOException;
-   
+   /**
+   * 注解方式
+   */
    @WebFilter("/*")
    public class FilterDemo1 implements Filter {
+       //初始化方法，Web服务器启动，创建Filter时调用， 只调用一次
        @Override
        public void init(FilterConfig filterConfig) throws ServletException {
    
        }
-   
+       //销毁方法，服务器关闭时调用，只调用一-次
        @Override
        public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
            System.out.println("filter was been executed.");
@@ -5918,74 +5920,72 @@ HttpServlet --抽象类
    
        @Override
        public void destroy() {
-   
+
        }
    }
    ```
+   
+   > 注意：如果是在springboot项目中使用锅炉器，需要在引导类上加@ServletComponentScan开启Servlet组件支持。
+   
+   web.xml文件中配置：
+   
+   ~~~xml
+   <?xml version="1.0" encoding="UTF-8"?>
+   <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+            version="4.0">
+   
+       <filter>
+           <filter-name>demo2</filter-name>
+           <filter-class>cn.itcast.filter.FilterDemo2</filter-class>
+       </filter>
+       <filter-mapping>
+           <filter-name>demo2</filter-name>
+           <!--        拦截路径-->
+           <url-pattern>/*</url-pattern>
+       </filter-mapping>
+   </web-app>
+   ~~~
+   
+4. 拦截配置
 
-4. 核心API
-   
+   * 拦截路径配置
+
+     * 具体资源路径，例：/index.jsp
+     * 拦截目录，例：/user/*
+     * 后缀名拦截，例：*.jsp
+     * 拦截所有路径，例：/*
+
+   * 拦截方式配置（资源被访问的方式）
+
+     * 注解配置
+
+       * 设置dispatcherType属性
+         * REQUEST：默认值，浏览器直接请求资源
+         * FORWARD：转发访问资源
+         * INCLUDE：包含访问资源
+         * ERROR：错误跳转资源
+         * ASYNC：异步访问资源
+       * web.xml配置
+         * ​    设置dispatcher标签
+
+5. 核心API
+
    > 核心接口：Filter，FilterChain，FilterConfig
-   
+
    * Filter接口
      
      ![image-20211122194305974](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211122194305974.png)
-   
+
    * FilterChain接口
      
      > FilterChain接口位于javax.servlet包中，由容器实现。该接口中只包含一个方法doFilter(ServletRequest request,ServletResponse response)，主要用于将过滤器处理的请求或响应传递给下一个过滤器对象。
 
-5. 细节
-   
-   * web.xml配置
-     
-     ```xml
-     <?xml version="1.0" encoding="UTF-8"?>
-     <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
-              version="4.0">
-     
-         <filter>
-             <filter-name>demo2</filter-name>
-             <filter-class>cn.itcast.filter.FilterDemo2</filter-class>
-         </filter>
-         <filter-mapping>
-             <filter-name>demo2</filter-name>
-             <!--        拦截路径-->
-             <url-pattern>/*</url-pattern>
-         </filter-mapping>
-     </web-app>
-     ```
-   
    * 过滤器执行流程
-   
+
    * 过滤器生命周期
-   
-   * 过滤器配置详解
-     
-     * 拦截路径配置
-       
-       > * 具体资源路径，例：/index.jsp
-       > * 拦截目录，例：/user/*
-       > * 后缀名拦截，例：*.jsp
-       > * 拦截所有路径，例：/*
-     
-     * 拦截方式配置（资源被访问的方式）
-       
-       > 注解配置
-       > 
-       > * 设置dispatcherType属性
-       >   * REQUEST：默认值，浏览器直接请求资源
-       >   * FORWARD：转发访问资源
-       >   * INCLUDE：包含访问资源
-       >   * ERROR：错误跳转资源
-       >   * ASYNC：异步访问资源
-       > 
-       > web.xml配置
-       > 
-       > ​    设置dispatcher标签
-   
+
    * 过滤器链
      
      * 执行顺序：先1后2
@@ -5996,7 +5996,7 @@ HttpServlet --抽象类
        > * web.xml配置：谁定义在上面谁先执行
 
 6. 案例：**登录验证**
-   
+
    * 需求
      
      > 访问资源，验证其是否登录
@@ -6004,7 +6004,7 @@ HttpServlet --抽象类
      > 若果登录了，则直接放行
      > 
      > 如果没有登录，则跳转到登录页面，提示“您尚未登录，请先登录”
-   
+
    * 分析
 
 7. 案例：**敏感词汇过滤**
