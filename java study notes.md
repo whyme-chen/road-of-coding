@@ -720,10 +720,16 @@ java中一共定义由四种访问控制权限分别为：public、default（不
    * 大数量下处理集合效率高
    * 代码可读性高
    * 消灭嵌套地狱
+   
 2. 函数式编程思想
+   
    * 面向对象思想需要关注用什么对象完成什么事情。函数式编程思想主要关注的是对数据进行了什么操作。
-3. 函数式接口
-4. 方法应用
+   
+3. 函数式接口：只用一个抽象方法的接口
+
+   JDK的函数式接口都加上了@FunctionalInterface注解进行标识。但是无论是否加上该注解只要接口中只有一个抽象方法, 都是函数式接口。
+
+4. 方法引用
 
 ## Lamba表达式
 
@@ -1011,16 +1017,15 @@ public class LambdaDemo3 {
 
 1. 概述
 
-   在java编码过程中经常出现空指针异常，为了解决这个问题，通常的做法是在使用该变量前进行非空判断。但当变量为对象且其内部属性也为对象时，非常容易造成大片的非空判断语句，造成代码整体非常臃肿。使用Optional类可以写出更优雅的代码避免空指针异常。Optional就好像是包装类,可以把我们的具体数据封装Optional对象内部。然后我们去使用Optiona中封装好的方法操作封装进去的数
-   据就可以非常优雅的避免空指针异常。
-
+   在java编码过程中经常出现空指针异常，为了解决这个问题，通常的做法是在使用该变量前进行非空判断。但当变量为对象且其内部属性也为对象时，非常容易造成大片的非空判断语句，造成代码整体非常臃肿。使用Optional类可以写出更优雅的代码避免空指针异常。Optional就好像是包装类,可以把我们的具体数据封装Optional对象内部。然后我们去使用Optiona中封装好的方法操作封装进去的数据就可以非常优雅的避免空指针异常。
+   
 2. 常用操作
 
    * 创建
 
      ~~~java
-     Optional.empty();
-     Optional.ofNullable(对象);
+     Optional.ofNullable(对象); // 建议使用
+     Optional.empty(); // 创建一个null对象
     Optional.of(对象); // 若对象为null则会抛出NullpointerException
      ~~~
 
@@ -1028,10 +1033,23 @@ public class LambdaDemo3 {
 
    * 安全消费值
 
+     ~~~java
+  Optional.ifPresent();
+     ~~~
+
    * 安全获取值
-
+   
+     ~~~java
+     Optional.orElseGet();
+     Optional.orelseThrow();
+     ~~~
+   
    * 过滤
-
+   
+     ~~~java
+     Optional.filter();//如果原本是有数据的，但是不符合判断，也会变成一个无数据的Optional对象。
+     ~~~
+   
    * 判断
    
    * 数据转换
@@ -5854,13 +5872,11 @@ HttpServlet --抽象类
 
 # Filter和Listener
 
-### 1. Filter
+## Filter
 
 1. 过滤器：当访问服务器的资源时，过滤器可以将请求拦截，完成一些特殊的功能
 
-2. 过滤器的作用
-   
-   * 一般用于完成通用的操作，例：登录验证，统一编码处理，敏感字符处理。
+2. 过滤器的作用：一般用于完成通用的操作，例：登录验证，统一编码处理，敏感字符处理。
 
 3. 快速入门
    
@@ -5873,8 +5889,9 @@ HttpServlet --抽象类
    > 3. 配置拦截路径
    >    
    >    * xml方式配置
-   >    
    >    * 注解方式配置
+   
+   注解配置：
    
    ```java
    package cn.itcast.filter;
@@ -5882,14 +5899,17 @@ HttpServlet --抽象类
    import javax.servlet.*;
    import javax.servlet.annotation.WebFilter;
    import java.io.IOException;
-   
+   /**
+   * 注解方式
+   */
    @WebFilter("/*")
    public class FilterDemo1 implements Filter {
+       //初始化方法，Web服务器启动，创建Filter时调用， 只调用一次
        @Override
        public void init(FilterConfig filterConfig) throws ServletException {
    
        }
-   
+       //销毁方法，服务器关闭时调用，只调用一-次
        @Override
        public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
            System.out.println("filter was been executed.");
@@ -5900,74 +5920,72 @@ HttpServlet --抽象类
    
        @Override
        public void destroy() {
-   
+
        }
    }
    ```
+   
+   > 注意：如果是在springboot项目中使用锅炉器，需要在引导类上加@ServletComponentScan开启Servlet组件支持。
+   
+   web.xml文件中配置：
+   
+   ~~~xml
+   <?xml version="1.0" encoding="UTF-8"?>
+   <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+            version="4.0">
+   
+       <filter>
+           <filter-name>demo2</filter-name>
+           <filter-class>cn.itcast.filter.FilterDemo2</filter-class>
+       </filter>
+       <filter-mapping>
+           <filter-name>demo2</filter-name>
+           <!--        拦截路径-->
+           <url-pattern>/*</url-pattern>
+       </filter-mapping>
+   </web-app>
+   ~~~
+   
+4. 拦截配置
 
-4. 核心API
-   
+   * 拦截路径配置
+
+     * 具体资源路径，例：/index.jsp
+     * 拦截目录，例：/user/*
+     * 后缀名拦截，例：*.jsp
+     * 拦截所有路径，例：/*
+
+   * 拦截方式配置（资源被访问的方式）
+
+     * 注解配置
+
+       * 设置dispatcherType属性
+         * REQUEST：默认值，浏览器直接请求资源
+         * FORWARD：转发访问资源
+         * INCLUDE：包含访问资源
+         * ERROR：错误跳转资源
+         * ASYNC：异步访问资源
+       * web.xml配置
+         * ​    设置dispatcher标签
+
+5. 核心API
+
    > 核心接口：Filter，FilterChain，FilterConfig
-   
+
    * Filter接口
      
      ![image-20211122194305974](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211122194305974.png)
-   
+
    * FilterChain接口
      
      > FilterChain接口位于javax.servlet包中，由容器实现。该接口中只包含一个方法doFilter(ServletRequest request,ServletResponse response)，主要用于将过滤器处理的请求或响应传递给下一个过滤器对象。
 
-5. 细节
-   
-   * web.xml配置
-     
-     ```xml
-     <?xml version="1.0" encoding="UTF-8"?>
-     <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
-              version="4.0">
-     
-         <filter>
-             <filter-name>demo2</filter-name>
-             <filter-class>cn.itcast.filter.FilterDemo2</filter-class>
-         </filter>
-         <filter-mapping>
-             <filter-name>demo2</filter-name>
-             <!--        拦截路径-->
-             <url-pattern>/*</url-pattern>
-         </filter-mapping>
-     </web-app>
-     ```
-   
    * 过滤器执行流程
-   
+
    * 过滤器生命周期
-   
-   * 过滤器配置详解
-     
-     * 拦截路径配置
-       
-       > * 具体资源路径，例：/index.jsp
-       > * 拦截目录，例：/user/*
-       > * 后缀名拦截，例：*.jsp
-       > * 拦截所有路径，例：/*
-     
-     * 拦截方式配置（资源被访问的方式）
-       
-       > 注解配置
-       > 
-       > * 设置dispatcherType属性
-       >   * REQUEST：默认值，浏览器直接请求资源
-       >   * FORWARD：转发访问资源
-       >   * INCLUDE：包含访问资源
-       >   * ERROR：错误跳转资源
-       >   * ASYNC：异步访问资源
-       > 
-       > web.xml配置
-       > 
-       > ​    设置dispatcher标签
-   
+
    * 过滤器链
      
      * 执行顺序：先1后2
@@ -5978,7 +5996,7 @@ HttpServlet --抽象类
        > * web.xml配置：谁定义在上面谁先执行
 
 6. 案例：**登录验证**
-   
+
    * 需求
      
      > 访问资源，验证其是否登录
@@ -5986,7 +6004,7 @@ HttpServlet --抽象类
      > 若果登录了，则直接放行
      > 
      > 如果没有登录，则跳转到登录页面，提示“您尚未登录，请先登录”
-   
+
    * 分析
 
 7. 案例：**敏感词汇过滤**
