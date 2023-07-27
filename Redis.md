@@ -229,7 +229,7 @@ redis的java客户端很多，官方推荐有三种：
 
 5. StringRedisTemplate
 
-   为了节省内存空间，我们并不会使用JSON序列化器来处理value，而是统一使 用String序列化器，要求只能存储String类型的key和value。当需要存储Java对象时，手动完成对象的序列化和反序列化。
+   为了节省内存空间，我们并不会使用JSON序列化器来处理value，而是统一使用String序列化器，要求只能存储String类型的key和value。当需要存储Java对象时，手动完成对象的序列化和反序列化。
 
    Spring默认提供了一个StringRedisTemplate类，它的key和value的序列化方式默认就是String方式。省去了我们自定义RedisTemplate的过程：
 
