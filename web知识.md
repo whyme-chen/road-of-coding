@@ -1753,10 +1753,13 @@ bootstrap是基于HTML、CSS、javaScript的前端框架。
 
 # jQuery
 
-## 一、简介
+## 基础
 
-1. jQuery是一个轻量级的JavaScript库。
-2. jQuery库的特性：
+### 1. 简介
+
+1. 简介：一个轻量级的JavaScript库，用于简化JS开发。
+2. JavaScript框架本质：一些js文件，封装了js的原生代码而已。
+3. jQuery库的特性：
    - HTML 元素选取
    - HTML 元素操作
    - CSS 操作
@@ -1765,31 +1768,48 @@ bootstrap是基于HTML、CSS、javaScript的前端框架。
    - HTML DOM 遍历和修改
    - AJAX
    - Utilities
-3. 向页面添加jQuery库
-
-```html
-<head>
-    <script type="text/javascript" src="jquery.js"></script>
-</head>
-<！--注意：<script>标签应该位于<head>部分-->
-```
 
 4. JQuery安装
-   
+
+   > 版本说明：
+   >
+   > 目前jQuery有三个大版本，其中：
+   > 1.x:兼容ie678,使用最为广泛的，官方只做BUG维护，
+   > 功能不再新增。因此一般项目来说，使用1.x版本就可以了，
+   > 最终版本: 1.12.4 (2016年5月20日)
+   > 2.x:不兼容ie678，很少有人使用，官方只做BUG维护，
+   > 功能不再新增。如果不考虑兼容低版本的浏览器可以使用2.x,
+   > 最终版本: 2.2.4 (2016年5月20日)
+   > 3.x:不兼容ie678，只支持最新的浏览器。除非特殊要求，
+   > 一般不 会使用3. x版本的，很多老的jQuery插件不支持这个版本。
+   > 目前该版本是官方主要更新维护的版本。最新版本: 3.2.1 (2017年3月20日 )
+   >
+   > 注意：jquery-xxx.js与jquery-xxx.min.js
+   >
+   > * jquery-xxx.js：开发版本，用于程序开发人员查阅，有良好的缩进和注释
+   > * jquery-xxx.min.js：生产版本，程序中使用，没有缩进，体积较小，便于加载
+
    **下载JQuery**
-   
+
+   ~~~html
+   <head>
+       <script type="text/javascript" src="jquery.js"></script>
+   </head>
+   <！--注意：<script>标签应该位于<head>部分-->
+   ~~~
+
    **使用 Google 的 CDN**
-   
-   ```
+
+   ```html
    <head>
    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs
    /jquery/1.4.0/jquery.min.js"></script>
    </head>
    ```
-   
+
    **使用 Microsoft 的 CDN**
-   
-   ```
+
+   ```html
    <head>
    <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery
    /jquery-1.4.min.js"></script>
@@ -1797,13 +1817,13 @@ bootstrap是基于HTML、CSS、javaScript的前端框架。
    ```
 
 5. 基础语法
-   
+
    $(selector).action( )
-   
+
    * 美元符号$定义jQuery
    * 选择器selector “查询”和“查找”HTML元素
    * jQuery的action（）执行对元素的操作
-   
+
    ```html
    <!DOCTYPE html>
    <html>
@@ -1833,9 +1853,761 @@ bootstrap是基于HTML、CSS、javaScript的前端框架。
    </html>
    ```
 
-## 二、选择器
+### 3. JQuery对象和JS对象区别于转换
 
-### 1. 基础选择器
+1. JQuery对象在操作时，更加方便。
+2. JQuery对象和JS对象方法不通用
+3. 两者互相转换
+   * jq->js：jq对象[索引]  或者  jq对象.get(索引)
+   * js->jq：$(js对象)
+
+### 4. 选择器
+
+1. 选择器：筛选具有相似特征的元素（标签）
+
+2. 基本语法：
+
+   1. 事件绑定
+   2. 入口函数
+   3. 样式控制
+
+3. 分类：
+
+   > 1. 基本选择器
+   >
+   >    * **标签选择器**：获得所有匹配标签名称的元素
+   >      * 语法：$(“标签名”)
+   >    * **id选择器**：获得与指定id匹配的元素
+   >      * 语法：$(“#id的属性值”)
+   >    * **类选择器**：获得与指定class属性匹配的元素
+   >      * 语法：$(“.class的属性值”)
+   >    * 并集选择器：获得多个选择器选中的元素
+   >      * 语法：$(“选择器1，选择器2”)
+   >
+   > 2. 层级选择器
+   >
+   >    * **后代选择器**：选择A元素内部所有B元素
+   >      * 语法：$(“A B”)
+   >    * **子选择器**：选择A元素内部所有B子元素
+   >      * 语法：$("A>B")
+   >
+   > 3. 属性选择器
+   >
+   >    * 属性名称选择器：包含指定属性的选择器
+   >      * 语法：$(”A[属性名]“)
+   >    * 属性选择器：包好指定属性等于指定值的选择器
+   >      * 语法：$(“A[属性名='属性值']“)
+   >    * 复合属性选择器：包含多个属性条件的选择器
+   >      * 语法：$(”A[属性名=‘属性值’] [ ]........“)
+   >
+   > 4. 过滤选择器
+   >
+   >    * 首元素选择器：获得选择的元素中的第一个元素
+   >      * 语法：:first
+   >    * 尾元素选择器：获得选择的元素中的最后一个元素
+   >      * 语法：:last
+   >    * 非元素选择器：不包括指定内容的元素
+   >      * 语法：:not（selector）
+   >    * 偶数选择器：偶数，从0开始计数
+   >      * 语法：:even 
+   >    * 奇数选择器：奇数，从0开始计数
+   >      * 语法：:odd 
+   >    * 等于索引选择器：指定索引元素
+   >      * 语法：:eq（index）
+   >    * 大于索引选择器：大于指定索引的元素
+   >      * 语法：:gt（index）
+   >    * 标题选择器：获得标题元素，固定写法
+   >      * 语法：:header
+   >
+   > 5. 表单过滤选择器
+   >
+   >    * 可用元素选择器：获得可用元素
+   >      * 语法：:enabled
+   >    * 不可用元素选择器：获得不可用元素
+   >      * 语法：:disabled
+   >    * 选中选择器：获得单选/复选框中的元素
+   >      * 语法：:checked
+   >    * 选中选择器：获得下拉框选中的元素
+   >      * 语法：:selected
+
+### 5. DOM操作
+
+1. 内容操作
+   * html()：获取/设置元素的标签体内容
+   * text()：获取/设置元素标签体纯文本内容
+   * val()：获取/设置元素文本内容
+2. 属性操作
+   * 通用属性操作
+     * attr()：获取/设置元素的属性值
+     * removeAttr()：删除属性
+     * prop()：获取/设置元素的属性值
+     * removeProp：删除属性
+     * attr和prop区别：
+       * 若操作固有属性，则建议使用prop
+       * 若操作自定义属性，则建议使用attr
+   * 对class属性的操作
+     * addClass()：添加class属性值
+     * removeClass()：删除class属性值
+     * toggleClass()：切换class属性值
+3. CRUD操作
+   * append()：父元素将子元素追加到末尾（A.append(B)将B添加到A内部并且在末尾）
+   * prepend()：父元素将子元素追加到开头
+   * appendTo()：A.appendTo(B)将A添加到B内部并且在末尾
+   * prependTo()：
+   * after()：添加元素到元素后面（A.after(B)将B添加到A的后面且互为兄弟关系）
+   * before()：添加元素到元素后面
+   * insertAfter()：A.insertTo(B)将A添加到B后面
+   * insertBefore()：
+   * remove()：移除对象
+   * empty()：清空元素的所有子元素
+
+### 6. 案例
+
+1. 案例一：隔行换色
+
+   ```html
+   <!DOCTYPE html>
+   <html>
+      <head>
+         <meta charset="UTF-8">
+         <title></title>
+         <script  src="../js/jquery-3.6.0.min.js"></script>
+   
+         <script>
+            //需求：将数据行的奇数行背景色设置为 pink，偶数行背景色设置为 yellow
+         $(function () {
+            $("tr:gt(1):odd").css("backgroundColor","pink");
+            $("tr:gt(1):even").css("backgroundColor","yellow");
+         });
+   
+         </script>
+      </head>
+      <body>
+         <table id="tab1" border="1" width="800" align="center" >
+            <tr>
+               <td colspan="5"><input type="button" value="删除"></td>
+            </tr>
+            <tr style="background-color: #999999;">
+               <th><input type="checkbox"></th>
+               <th>分类ID</th>
+               <th>分类名称</th>
+               <th>分类描述</th>
+               <th>操作</th>
+            </tr>
+            <tr>
+               <td><input type="checkbox"></td>
+               <td>1</td>
+               <td>手机数码</td>
+               <td>手机数码类商品</td>
+               <td><a href="">修改</a>|<a href="">删除</a></td>
+            </tr>
+            <tr>
+               <td><input type="checkbox"></td>
+               <td>2</td>
+               <td>电脑办公</td>
+               <td>电脑办公类商品</td>
+               <td><a href="">修改</a>|<a href="">删除</a></td>
+            </tr>
+            <tr>
+               <td><input type="checkbox"></td>
+               <td>3</td>
+               <td>鞋靴箱包</td>
+               <td>鞋靴箱包类商品</td>
+               <td><a href="">修改</a>|<a href="">删除</a></td>
+            </tr>
+            <tr>
+               <td><input type="checkbox"></td>
+               <td>4</td>
+               <td>家居饰品</td>
+               <td>家居饰品类商品</td>
+               <td><a href="">修改</a>|<a href="">删除</a></td>
+            </tr>
+         </table>
+      </body>
+   </html>
+   ```
+
+2. 案例二：全选和不全选
+
+   ```html
+   <!DOCTYPE html>
+   <html>
+      <head>
+         <meta charset="UTF-8">
+         <title></title>
+         <script  src="../js/jquery-3.6.0.min.js"></script>
+         <script>
+            function selectAll(object) {
+               $(".itemSelect").prop("checked",object.checked);
+            };
+         </script>
+      </head>
+      <body>
+         <table id="tab1" border="1" width="800" align="center" >
+            <tr>
+               <td colspan="5"><input type="button" value="删除"></td>
+            </tr>
+            <tr>
+               <th><input type="checkbox" onclick="selectAll(this)"></th>
+               <th>分类ID</th>
+               <th>分类名称</th>
+               <th>分类描述</th>
+               <th>操作</th>
+            </tr>
+            <tr>
+               <td><input type="checkbox" class="itemSelect"></td>
+               <td>1</td>
+               <td>手机数码</td>
+               <td>手机数码类商品</td>
+               <td><a href="">修改</a>|<a href="">删除</a></td>
+            </tr>
+            <tr>
+               <td><input type="checkbox" class="itemSelect"></td>
+               <td>2</td>
+               <td>电脑办公</td>
+               <td>电脑办公类商品</td>
+               <td><a href="">修改</a>|<a href="">删除</a></td>
+            </tr>
+            <tr>
+               <td><input type="checkbox" class="itemSelect"></td>
+               <td>3</td>
+               <td>鞋靴箱包</td>
+               <td>鞋靴箱包类商品</td>
+               <td><a href="">修改</a>|<a href="">删除</a></td>
+            </tr>
+            <tr>
+               <td><input type="checkbox" class="itemSelect"></td>
+               <td>4</td>
+               <td>家居饰品</td>
+               <td>家居饰品类商品</td>
+               <td><a href="">修改</a>|<a href="">删除</a></td>
+            </tr>
+         </table>
+      </body>
+   </html>
+   ```
+
+3. 案例三：qq表情
+
+   ```html
+   <!DOCTYPE html>
+   <html>
+   <head>
+       <meta charset="UTF-8" />
+       <title>QQ表情选择</title>
+       <script  src="../js/jquery-3.6.0.min.js"></script>
+       <style type="text/css">
+       *{margin: 0;padding: 0;list-style: none;}
+   
+       .emoji{margin:50px;}
+       ul{overflow: hidden;}
+       li{float: left;width: 48px;height: 48px;cursor: pointer;}
+       .emoji img{ cursor: pointer; }
+       </style>
+      <script>
+           //需求：点击qq表情，将其追加到发言框中
+           $(function () {
+               // $("ul img").click(function () {
+               //     $(".word img").prop("src",this.src);
+               // });
+               $("ul img").click(function () {
+                   $(".word").append($(this).clone());
+               });
+   
+           });
+          </script>
+       </head>
+      <body>
+          <div class="emoji">
+              <ul>
+                  <li><img src="img/01.gif" height="22" width="22" alt="" /></li>
+                  <li><img src="img/02.gif" height="22" width="22" alt="" /></li>
+                  <li><img src="img/03.gif" height="22" width="22" alt="" /></li>
+                  <li><img src="img/04.gif" height="22" width="22" alt="" /></li>
+                  <li><img src="img/05.gif" height="22" width="22" alt="" /></li>
+                  <li><img src="img/06.gif" height="22" width="22" alt="" /></li>
+                  <li><img src="img/07.gif" height="22" width="22" alt="" /></li>
+                  <li><img src="img/08.gif" height="22" width="22" alt="" /></li>
+                  <li><img src="img/09.gif" height="22" width="22" alt="" /></li>
+                  <li><img src="img/10.gif" height="22" width="22" alt="" /></li>
+                  <li><img src="img/11.gif" height="22" width="22" alt="" /></li>
+                  <li><img src="img/12.gif" height="22" width="22" alt="" /></li>
+              </ul>
+              <p class="word">
+                  <strong>请发言：</strong>
+      <!--            <img src="img/12.gif" height="22" width="22" alt="" />-->
+              </p>
+          </div>
+      </body>
+      </html>
+   ```
+
+4. 案例四：下拉列表的左右移动   
+
+```html
+   <!DOCTYPE html>
+   <html>
+      <head>
+         <meta charset="UTF-8">
+         <title></title>
+         <script  src="../js/jquery-3.6.0.min.js"></script>
+    <style>
+        #leftName , #btn,#rightName{
+           float: left;
+           width: 100px;
+           height: 300px;
+        }
+        #toRight,#toLeft{
+           margin-top:100px ;
+           margin-left:30px;
+           width: 50px;
+        }
+
+        .border{
+           height: 500px;
+           padding: 100px;
+        }
+     </style>
+
+     <script>
+
+        //需求：实现下拉列表选择条目左右选择功能
+        $(function () {
+           $("#toRight").click(function () {
+              $("#rightName").append($("#leftName > option:selected"));
+           });
+           $("#toLeft").click(function () {
+              $("#leftName").append($("#rightName>option:selected"));
+           });
+        });
+
+     </script>
+
+​    
+​      </head>
+​      <body>
+​         <div class="border">
+​            <select id="leftName" multiple="multiple">
+​               <option>张三</option>
+​               <option>李四</option>
+​               <option>王五</option>
+​               <option>赵六</option>
+​            </select>
+​            <div id="btn">
+​               <input type="button" id="toRight" value="-->"><br>
+​               <input type="button" id="toLeft" value="<--">
+​    
+​            </div>
+​    
+            <select id="rightName" multiple="multiple">
+               <option>钱七</option>
+            </select>
+    ​         </div>
+​      </body>
+
+</html
+```
+
+## 进阶
+
+### 1. 动画
+
+1. 三种方式显示和隐藏元素
+
+   * 默认显示和隐藏方式
+
+     > show([speed,[easing],[fn]]);
+     >
+     > hide([speed,[easing],[fn]]);
+     >
+     > toggle([speed,[easing],[fn]]);
+
+   * 滑动显示和隐藏方式
+
+     > slideDown([speed,[easing],[fn]]);
+     >
+     > slideUp([speed,[easing],[fn]]);
+     >
+     > slidetoggle([speed,[easing],[fn]]);
+
+   * 淡入淡出显示和隐藏方式
+
+     > fadeIn([speed,[easing],[fn]]);
+     >
+     > fadeOut([speed,[easing],[fn]]);
+     >
+     > fadetoggle([speed,[easing],[fn]]);
+
+   说明：
+
+   * 参数：
+     * speed：动画的速度，三个预定义的值“slow”，“normal”，“fast”或表示动画时长的毫秒数（如：1000）
+     * easing：用来指定切换效果，默认是“swing”，可用参数“linear”
+       * swing：动画执行时效果是，先慢，中间快，最后又慢
+       * linear：动画执行时是匀速的
+     * fn：动画完成时执行的函数，每个元素执行一次
+
+### 2. 遍历
+
+1. js的遍历方式
+   * for（初始化值；循环结束条件；步长）
+2. JQuery的遍历方式
+   * JQuery对象.each（callback）
+   * $.each（Object，[callback]）
+   * for..of（JQuery3.0之后提供的方式），for（元素对象 of 容器对象）
+
+### 3. 事件绑定
+
+1. JQuery标准的绑定方式：JQuery对象.事件方法（回调函数）
+
+2. on绑定事件/off解除绑定
+
+   * JQuery对象.on（“事件名称”，回调函数）
+   * JQuery对象.off（“事件名称”，回调函数）
+
+3. 事件切换：toggle
+
+   * JQuery对象.toggle（事件1，事件2）（JQuery1.9以后被删除了，需要借用插件实现）
+
+   ```html
+   <!DOCTYPE html>
+   <html>
+   <head>
+       <meta charset="UTF-8">
+       <title></title>
+       <script src="../js/jquery-3.6.0.min.js" type="text/javascript" charset="utf-8"></script>
+       <script src="../js/jquery-migrate-1.0.0.js"></script>
+       <script type="text/javascript">
+   
+           $(function () {
+               $("#btn").toggle(function () {
+                   $("#myDiv").css("backgroundColor","green");
+               },function () {
+                   $("#myDiv").css("backgroundColor","pink");
+               });
+           })
+   
+       </script>
+   </head>
+   <body>
+   
+       <input id="btn" type="button" value="事件切换">
+       <div id="myDiv" style="width:300px;height:300px;background:pink">
+           点击按钮变成绿色，再次点击红色
+       </div>
+   </body>
+   </html>
+   ```
+
+### 4. 案例
+
+1. 广告的显示和隐藏
+
+   ```html
+   <!DOCTYPE html>
+   <html>
+   <head>
+       <meta charset="UTF-8">
+       <title>广告的自动显示与隐藏</title>
+       <style>
+           #content{width:100%;height:500px;background:#999}
+       </style>
+   
+       <!--引入jquery-->
+       <script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
+       <script>
+           /*
+           * 需求：
+           * 1. 当页面加载完成3秒后自动显示广告
+           * 2. 广告显示5秒后自动消失
+           * */
+           $(function () {
+               setTimeout(function () {
+                   $("#ad").slideToggle("slow","linear");
+                   setTimeout(function () {
+                       $("#ad").slideToggle("slow","linear");
+                   },5000);
+               },3000);
+           })
+       </script>
+   </head>
+   <body>
+   <!-- 整体的DIV -->
+   <div>
+       <!-- 广告DIV -->
+       <div id="ad" style="display: none;">
+           <img style="width:100%" src="../img/adv.jpg" />
+       </div>
+   
+       <!-- 下方正文部分 -->
+       <div id="content">
+           正文部分
+       </div>
+   </div>
+   </body>
+   </html>
+   ```
+
+2. 抽奖
+
+   ```html
+   <!DOCTYPE html>
+   <html>
+   <head>
+       <meta charset="UTF-8">
+       <title>jquery案例之抽奖</title>
+       <script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
+       <script>
+           var imgs = [
+               "../img/man00.jpg",
+               "../img/man01.jpg",
+               "../img/man02.jpg",
+               "../img/man03.jpg",
+               "../img/man04.jpg",
+               "../img/man05.jpg",
+               "../img/man06.jpg"
+           ];
+   
+           $(function () {
+               var interval
+               var index;
+               $("#startID").click(function () {
+                    interval = setInterval(function () {
+                   index = Math.floor(7 * Math.random());
+                   $("#img1ID").prop("src",imgs[index]);
+                   },30);
+               });
+   
+               $("#stopID").click(function () {
+                   clearInterval(interval);
+                   $("#img2ID").prop("src",imgs[index]);
+               });
+           });
+       </script>
+   </head>
+   <body>
+   
+   <!-- 小像框 -->
+   <div style="border-style:dotted;width:160px;height:100px">
+       <img id="img1ID" src="../img/man00.jpg" style="width:160px;height:100px"/>
+   </div>
+   
+   <!-- 大像框 -->
+   <div
+           style="border-style:double;width:800px;height:500px;position:absolute;left:500px;top:10px">
+       <img id="img2ID" src="../img/man00.jpg" width="800px" height="500px"/>
+   </div>
+   
+   <!-- 开始按钮 -->
+   <input
+           id="startID"
+           type="button"
+           value="点击开始"
+           style="width:150px;height:150px;font-size:22px">
+   
+   <!-- 停止按钮 -->
+   <input
+           id="stopID"
+           type="button"
+           value="点击停止"
+           style="width:150px;height:150px;font-size:22px">
+       <!--<script language='javascript' type='text/javascript'>
+          //准备一个一维数组，装用户的像片路径
+          var imgs = [
+              "../img/man00.jpg",
+              "../img/man01.jpg",
+              "../img/man02.jpg",
+              "../img/man03.jpg",
+              "../img/man04.jpg",
+              "../img/man05.jpg",
+              "../img/man06.jpg"
+          ];
+      var interval;
+      var index;
+      function imgStart() {
+          interval = setInterval(function () {
+              index = Math.floor(7*Math.random());
+              $("#img1ID").prop("src",imgs[index]);
+          },50);
+      }
+      function imgStop() {
+          clearInterval(interval);
+          $("#img2ID").prop("src",imgs[index]);
+      }
+      </script>-->
+      </body>
+   </html>
+   ```
+
+### 5. 插件
+
+1. 作用：增强JQuery功能
+2. 实现方式：
+   * $.fn.extend(object)：增强通过JQuery获取的对象的功能     \$("#id")
+   * $.extend(object)：增强JQuery对象自身的功能，\$/JQuery
+
+# Ajax
+
+1. 概念：Asynchronous JavaScript And XML 异步的JavaScript和XML
+
+   * 异步与同步：客户端与服务器相互通信的基础
+
+     ![image-20220317162519680](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220317162519680.png)
+
+   * Ajax是一种在无需重新加载整个网页的情况下能够更新部分网页的技术。通过在后台与服务器进行少量数据交流，Ajax可以使网页实现异步更新。这意味着可以在不重新加载整个网页的前提下，对网页的某部分进行更新。传统的网页（不使用Ajax）如果需要更新内容，必须重新加载整个网页页面。
+
+2. 作用
+
+   * 与服务器进行数据交换
+     * 使用Ajax和服务器通信，可以使用HTMl+Ajax替换jsp
+   * 异步交互
+
+3. 实现方式：
+
+   * 原生的Js实现方式
+
+     ```html
+     <!DOCTYPE html>
+     <html lang="en">
+     <head>
+         <meta charset="UTF-8">
+         <title>ajax测试</title>
+     </head>
+     <body>
+         <script>
+             //1.创建核心对象
+             var xmlhttp;
+             if (window.XMLHttpRequest)
+             {
+                 //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                 xmlhttp=new XMLHttpRequest();
+             }
+             else
+             {
+                 // IE6, IE5 浏览器执行代码
+                 xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+             }
+             //2.发送请求
+             xmlhttp.open("GET","http://localhost:8080/SpringIoc_war_exploded/ajaxServletDemo",true);
+             xmlhttp.send();
+             //3.获得响应
+             xmlhttp.onreadystatechange=function()
+             {
+                 if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                 {
+                     alert(xmlhttp.responseText);
+                 }
+             }
+     
+         </script>
+     </body>
+     </html>
+     ```
+
+   * JQuery实现方式
+
+     * $.ajax({键值对})
+
+       ```html
+       <!DOCTYPE html>
+       <html lang="en">
+       <head>
+           <meta charset="UTF-8">
+           <title>JQuery实现Ajax</title>
+           <script src="js/jquery-3.6.0.min.js"></script>
+           <script>
+               function fun() {
+                   $.ajax({
+                       url:"ajaxServlet",//请求路径
+                       type:"POST",//请求方式
+                       // date:"userName=jack&Tom";//请求参数
+                       date:{"userName":"jack","gender":"man"},
+                       success:function(){
+                           alert("kjdf kfdj ");
+                       },
+                       error:function () {
+                           alert("error");
+                       }
+       
+                   });
+               }
+           </script>
+       </head>
+       <body>
+           <input type="button" value="sendAsynchronousMessage" onclick="fun()">
+           <input>
+       </body>
+       </html>
+       ```
+
+     * $.get(url,[data],[callback],[type])：发送get请求
+
+     * $.post()
+
+4. Axios框架
+
+   官网：https://www.axios-http.cn/
+
+   * 快速入门
+
+     ![image-20220317171321550](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220317171321550.png)
+
+# JSON
+
+参考资料：https://www.json.org/json-en.html
+
+1. 概念：**JavaScript Object Notation**，JavaScript对象标记法
+
+   * JSON是一种存储和交换数据的语法
+   * JSON是一种轻量级的**数据交换格式**
+
+2. 语法
+
+   json的语法可以表示以下三种类型的值。
+
+   * 简单值
+   * 对象
+     * 对象的属性必须加双引号
+   * 数组
+
+   > 注意：一定要清晰认识到json是一种数据格式，而非一种编程语法。json的表示和JavaScript对象的表示很相似。但是有如下区别：
+   >
+   > * javaScript对象结尾有分号，json没有，应为json不是语句
+   > * JavaScript对象的属性可以使用分号引起，也可以不使用，但是json必须使用双引号引起
+
+3. JSON与XML
+
+4. 解析与序列化
+
+   * JSON对象：在JavaScript中可以使用全局对象JSON的两个方法，分别为stringify（）和parse来达到将JavaScript对象序列化为JSON字符串和把JSON字符串解析为原生JavaScript值的效果。
+
+5. JSON数据和java对象的转换（fastjson）
+
+   * 请求数据：JSON字符串转为java对象
+   * 响应数据：java对象转为JSON字符串
+
+   > ![image-20220317155620854](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20220317155620854.png)
+   >
+   > ```java
+   > import com.alibaba.fastjson.JSON;
+   > 
+   > public class FastJsonDemo {
+   > public static void main(String[] args) {
+   >   User user = new User();
+   >   user.setId(1);
+   >   user.setName("chen");
+   >   user.setAge(20);
+   >   user.setAddr("cduestc");
+   > 
+   >   String s = JSON.toJSONString(user);
+   >   System.out.println(s);
+   > 
+   >   User user1 = JSON.parseObject(s,User.class);
+   >   System.out.println(user1);
+   > 
+   > }
+   > }
+   > ```
 
 # npm
 
@@ -3256,3 +4028,98 @@ uni.setStorage({
 
 官网文档：https://hx.dcloud.net.cn/Tutorial/StartedTutorial
 
+# Layui
+
+官网：https://www.layui.site/index.htm
+
+## 快速上手
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>开始使用 layui</title>
+  <link rel="stylesheet" href="./layui/css/layui.css">
+</head>
+<body>
+
+<!-- 你的 HTML 代码 -->
+
+<script src="./layui/layui.js"></script>
+<script>
+layui.use(['layer', 'form'], function(){
+  var layer = layui.layer
+  ,form = layui.form;
+
+  layer.msg('Hello World');
+});
+</script> 
+</body>
+</html>
+```
+
+## 页面元素
+
+### 1. 布局
+
+#### 布局容器
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>布局容器</title>
+    <link href="../layui/css/layui.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <!--
+        布局容器
+            1. 固定宽度（两侧有留白）
+            2. 完成宽度（占据屏幕的完整宽度）
+     -->
+
+    <!--固定宽度-->
+    <div class="layui-container" style="background: #00F7DE;height: 500px">
+
+    </div>
+    <!--完整宽度-->
+    <div class="layui-fluid" style="background: #00F7DE;height: 500px">
+
+    </div>
+
+</body>
+</html>
+```
+
+#### 栅格系统
+
+1. 列组合
+2. 列边距
+3. 列偏移
+4. 列嵌套
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>布局容器</title>
+    <link href="../layui/css/layui.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md5" style="background: #00F7DE">内容的5/12</div>
+            <div class="layui-col-md7" style="background: #1E9FFF">内容的7/12</div>
+        </div>
+        <div class="layui-row">
+            <div class="layui-col-md3" style="background: #00F7DE">内容的3/12</div>
+            <div class="layui-col-md9" style="background: #1E9FFF">内容的9/12</div>
+        </div>
+    </div>
+</body>
+</html>
+```
