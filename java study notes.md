@@ -743,6 +743,22 @@ java中一共定义由四种访问控制权限分别为：public、default（不
 
 4. 方法引用
 
+   在使用lambda时,如果方法体中只有一个方法的调用(包括构造方法)，我们可以用方法引用进一步简化代码。
+
+   语法格式如下：
+
+   ~~~java
+   类名或对象名::方法名
+   ~~~
+
+   引用类的静态方法：如果我们在重写方法的时候，方法体中只有一-行代码,并且这行代码是调用了某个类的静态方法，并且我们把要重写的抽象方法中所有的参数都按照顺序传入了这个静态方法中，这个时候我们就可以引用类的静态方法。
+
+   引用对象的实例方法：如果我们在重写方法的时候，方法体中只有一行代码， 并且这行代码是调用了某个对象的成员方法，并且我们把要重写的抽象方法中所有的参数都按照顺序传入了这个成员方法中，这个时候我们就可以引用对象的实例方法。
+
+   引用类的实例方法：如果我们在重写方法的时候，方法体中只有一行代码，并粗这行代码是**调用了第一个参数的成员方法**,并组我们把要重写的抽象方法中剩余的所有的参数都按照顺序传入了这个成员方法中，这个时候我们就可以引用类的实例方法。
+
+   构造引用：如果我们在重写方法的时候，方法体中只有一行代码， 并粗这行代码是调用了某个类的构造方法，并且我们把要重写的抽象方法中的所有的参数都按照顺序传入了这个构造方法中，这个时候我们就可以引用构造器。
+
 ## Lamba表达式
 
 参考：https://objcoding.com/2019/03/04/lambda/
@@ -1014,6 +1030,8 @@ public class LambdaDemo3 {
    ```
 
 4. 并行流
+
+   Stream.parallel方法（可以使用peek方法进行调试）
 
 5. 注意事项
 
@@ -5080,8 +5098,9 @@ HttpServlet --抽象类
 3. 方式
    * 客户端会话技术：Cookie
    * 服务器端会话技术：Session
+   * 令牌技术
 
-## 1. Cookie
+## Cookie
 
 1. Cookie：将数据保存到客户端
 
@@ -5185,7 +5204,10 @@ HttpServlet --抽象类
    
    * cookie存储数据在客户端浏览器
    * 浏览器对于单个cookie的大小有限制（4KB）而且对于同一域名下的总cookie数也有限制（20个）
-
+* 移动端APP无法使用Cookie
+   * 不安全，用户可以自己禁用Cookie
+   * Cookie不能跨域
+   
 6. cookie的作用
    
    * cookie一般用于存储少量的不太敏感的信息
@@ -5258,7 +5280,7 @@ HttpServlet --抽象类
    }
    ```
 
-## 2. Session
+## Session
 
 1. Session：服务器端会话技术，在一次会话的多次请求中共享数据，将数据保存在服务器端的对象中。
 
@@ -5338,6 +5360,7 @@ HttpServlet --抽象类
    
    * session用于存储一次会话的多次请求数据，存在服务器端
    * session可以存储任意类型，任意大小的数据
+   * **服务器集群环境下无法直接使用Session**
 
 ## 3. session和Cookie的区别
 
@@ -5562,6 +5585,67 @@ HttpServlet --抽象类
   </body>
   </html>
   ```
+
+## 令牌技术JWT
+
+参考：
+
+* [什么是JWT？](https://blog.csdn.net/weixin_45410366/article/details/125031959)
+* [JWT认证原理、流程整合springboot实战应用](https://www.bilibili.com/video/BV1i54y1m7cP/?spm_id_from=333.337.search-card.all.click&vd_source=fabefd3fabfadb9324761989b55c26ea)
+* https://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html
+
+官网：https://jwt.io/introduction
+
+Token是一种用于身份验证和授权的令牌。在计算机系统中，Token通常是一个字符串，用于标识用户或客户端的身份和权限。 
+
+在身份验证方面，Token可以用于替代传统的用户名和密码验证方式。当用户登录系统时，系统会生成一个Token并返回给用户。用户在后续的请求中，可以通过携带这个Token来证明自己的身份。系统可以验证Token的有效性，并根据Token中的信息来识别用户。
+
+在授权方面，Token可以用于控制用户对系统资源的访问权限。系统可以根据Token中的权限信息，判断用户是否有权访问某个资源或执行某个操作。 
+
+常见的Token类型包括： 
+
+* JSON Web Token (JWT)：一种开放标准，定义了一种紧凑且自包含的方式来传输信息，通常用于身份验证和授权。 
+* OAuth Token：用于授权第三方应用程序访问用户资源的令牌，常用于实现单点登录和授权码模式等场景。 
+* Session Token：在Web应用程序中，用于标识用户会话的令牌，通常存储在服务器端的会话管理中。
+
+Token的使用可以提高系统的安全性和灵活性，同时也减少了对传统的用户名和密码的依赖。
+
+### 简介
+
+1. JWT（Json Web Token）：定义了一种紧凑的、自包含的方式，用于作为 JSON 对象在各方之间安全地传输信息。
+
+2. 作用：用于用户登录鉴权
+
+3. 认证方式对比
+
+   * session认证分析
+   * token认证分析
+
+4. JWT数据结构
+
+   * Header（头）：记录令牌类型、签名算法等
+   * Payload（有效载荷）：携带一些自定义信息，默认信息等
+   * Signature（签名）：防止token被篡改、确保安全性。将header、payload并加入指定密钥通过指定签名算法计算得出
+
+   ![image-20230807233524493](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202308072335260.png)
+
+5. 优点
+
+6. 缺点
+
+7. base64编码：
+
+### 使用
+
+1. maven依赖
+
+   ~~~xml
+   
+   ~~~
+
+## Sa-Token框架
+
+官网：https://sa-token.cc/
 
 # JSP
 
@@ -9945,51 +10029,6 @@ public class SwaggerConfiguration {
 
 官网：https://www.apifox.cn/
 
-# JWT
-
-参考：
-
-* [什么是JWT？](https://blog.csdn.net/weixin_45410366/article/details/125031959)
-* [JWT认证原理、流程整合springboot实战应用](https://www.bilibili.com/video/BV1i54y1m7cP/?spm_id_from=333.337.search-card.all.click&vd_source=fabefd3fabfadb9324761989b55c26ea)
-* https://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html
-
-官网：https://jwt.io/introduction
-
-Token是一种用于身份验证和授权的令牌。在计算机系统中，Token通常是一个字符串，用于标识用户或客户端的身份和权限。 
-
-在身份验证方面，Token可以用于替代传统的用户名和密码验证方式。当用户登录系统时，系统会生成一个Token并返回给用户。用户在后续的请求中，可以通过携带这个Token来证明自己的身份。系统可以验证Token的有效性，并根据Token中的信息来识别用户。
-
-在授权方面，Token可以用于控制用户对系统资源的访问权限。系统可以根据Token中的权限信息，判断用户是否有权访问某个资源或执行某个操作。 
-
-常见的Token类型包括： 
-
-* JSON Web Token (JWT)：一种开放标准，定义了一种紧凑且自包含的方式来传输信息，通常用于身份验证和授权。 
-* OAuth Token：用于授权第三方应用程序访问用户资源的令牌，常用于实现单点登录和授权码模式等场景。 
-* Session Token：在Web应用程序中，用于标识用户会话的令牌，通常存储在服务器端的会话管理中。
-* Token的使用可以提高系统的安全性和灵活性，同时也减少了对传统的用户名和密码的依赖。
-
-## 简介
-
-1. JWT（Json Web Token）：定义了一种紧凑的、自包含的方式，用于作为 JSON 对象在各方之间安全地传输信息。
-2. 作用：用于用户登录鉴权
-3. 认证方式对比
-   * session认证分析
-   * token认证分析
-4. JWT数据结构
-   * Header
-   * Payload
-   * Signature
-5. 优点
-6. 缺点
-
-## 使用
-
-1. maven依赖
-
-# Sa-Token框架
-
-官网：https://sa-token.cc/
-
 # Thymeleaf
 
 1. 简介
@@ -10847,6 +10886,17 @@ Base64 存在以下问题：
    * 业务异常（BusinessException）：数据不规范或规范产生的异常
    * 系统异常（SystemException）：项目运行过程中可预计无法避免的异常
    * 其他异常（Exception）：未预期的异常
+
+## 登录校验
+
+涉及技术：会话技术+令牌技术+过滤器/拦截器
+
+![image-20230807230500031](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202308072305116.png)
+
+基本思路（令牌技术）：
+
+* 登录成功后，生成JWT令牌，并返回给前端
+* 在请求到达服务器端后，对令牌进行统一拦截、校验
 
 # 学习路线/资源
 
