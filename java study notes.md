@@ -1858,6 +1858,8 @@ public class InputStreamReaderDemo {
 
 ### 对象序列化
 
+jdk序列化Api文档：https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/package-summary.html
+
 1. 概念：对象序列化是指将对象保存到磁盘中或者在网络中传输对象。这种机制就是使用一个字节序列表示一个对象，该字节序列包含：对象的类型、对象的数据和对象中存储的属性等信息。字节序列写到文件之后，相当于文件中持久保存了一个对象信息。要实现序列化和反序列化就要使用对象序列化流和对象反序列化流。
 
 2. 对象序列化流（ObjectOutputStream）
@@ -1958,7 +1960,7 @@ public class PropertiesDemo {
 }
 ```
 
-### java NIO
+## java NIO
 
 1. 简介：
 
