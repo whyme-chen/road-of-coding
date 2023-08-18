@@ -1,4 +1,4 @@
-# 基础编程
+基础编程
 
 ## java发展史
 
@@ -1858,6 +1858,8 @@ public class InputStreamReaderDemo {
 
 ### 对象序列化
 
+jdk序列化Api文档：https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/package-summary.html
+
 1. 概念：对象序列化是指将对象保存到磁盘中或者在网络中传输对象。这种机制就是使用一个字节序列表示一个对象，该字节序列包含：对象的类型、对象的数据和对象中存储的属性等信息。字节序列写到文件之后，相当于文件中持久保存了一个对象信息。要实现序列化和反序列化就要使用对象序列化流和对象反序列化流。
 
 2. 对象序列化流（ObjectOutputStream）
@@ -1958,7 +1960,7 @@ public class PropertiesDemo {
 }
 ```
 
-### java NIO
+## java NIO
 
 1. 简介：
 
@@ -6160,15 +6162,19 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
 
 # Maven
 
-## 基础
-
-### 什么是Maven
-
-maven本质是一个项目管理工具，将项目开发和管理过程抽象为一个项目对象模型（POM）
-
 官网：https://maven.apache.org
 
 中央仓库：https://mavnrepository.com
+
+参考资料：
+
+* [Maven项目构建](https://pdai.tech/md/devops/tool/tool-maven.html)
+
+## 基础
+
+### 简介
+
+Maven是一个用于构建和管理Java项目的强大工具。它提供了一种标准化的项目结构、依赖管理、构建过程自动化等功能，极大地简化了Java项目的开发和维护。maven本质是一个项目管理工具，将项目开发和管理过程抽象为一个项目对象模型（POM）
 
 重要概念：
 
@@ -6178,13 +6184,15 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
 ![image-20211003195950696](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211003195950696.png)
 
-### Maven能解决什么问题（作用）
+作用：
 
 * 项目构建
+  * 构建（Build）是指将源代码转换为可执行的软件应用或部署包的过程。
+  * 构建过程通常包括编译源代码、运行测试、打包生成可执行文件或库，以及其他必要的步骤。
 * 统一开发结构
 * 依赖的管理
 
-### Maven的安装
+### 安装
 
 * 下载Maven压缩包，并解压
 * 环境配置
@@ -6214,15 +6222,60 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 * src\test\resources：测试配置文件
 * pom.xml：项目的核心配置文件
 
+~~~
+project
+├── src
+│   ├── main
+│   │   ├── java        # 主程序代码
+│   │   ├── resources   # 资源文件
+│   │   └── webapp      # Web 应用程序
+│   └── test
+│       ├── java        # 测试代码
+│       └── resources   # 测试资源文件
+├── target              # 构建输出目录
+├── pom.xml             # Maven 配置文件
+└── README.md           # 项目说明文档
+
+~~~
+
 ![image-20211001224629124](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211001224629124.png)
+
+### 项目创建
+
+1. 手工制作
+
+2. 使用插件创建工程
+
+   ![image-20211004153002024](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211004153002024.png)
+
+3. idea创建
+
+   * 不使用骨架
+
+     * java项目
+
+     * web项目
+
+       * 添加tomacat插件
+
+   * 使用骨架
+
+     * java项目
+
+     * web项目
+
+       * 添加tomcat插件
 
 ### Maven仓库
 
-* 本地仓库
+* 本地仓库：默认情况下，本地仓库位于用户目录下的`.m2/repository`目录中。
 * 远程仓库（私服）
-* 中央仓库
+* 中央仓库：中央仓库是 Maven 的默认远程仓库，包含了大量常用的开源依赖。Maven 会根据依赖的坐标信息从中央仓库下载相应的依赖。
+* 镜像仓库：指与原始仓库具有相同内容的一种替代仓库。当 Maven 访问远程仓库时，它会首先检查是否配置了镜像仓库，如果有，则会直接从镜像仓库下载依赖，而不是访问原始仓库。镜像仓库的配置位于 Maven 的 `settings.xml` 文件中。
 
 ![image-20211001222603530](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211001222603530.png)
+
+依赖搜索顺序：
 
 ### Maven坐标
 
@@ -6248,7 +6301,7 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
 2. 远程仓库配置
 
-### Maven常用命令
+### 常用命令
 
 > * compile：编译
 > * clean：清理
@@ -6256,82 +6309,52 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 > * test：测试
 > * install：安装到本地仓库
 
-### Maven的生命周期与插件
+### 生命周期与插件
+
+在Maven中，构建是通过执行一系列定义在POM文件中的生命周期和阶段来完成的。每个构建过程都有其对应的生命周期，而每个生命周期又由一系列的阶段组成。
+
+通过定义和配置POM文件中的插件，可以扩展或自定义构建过程。Maven提供了大量的插件，可以用来执行其他任务，如代码静态分析、文档生成、资源文件处理等。
 
 1. Maven对项目构建的生命周期划分为3个阶段
    
-   > clean：清理工作
-   > 
-   > ​    ![image-20230217162630995](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171626834.png)
-   > 
-   > default：核心工作，例如：编译，测试，打包，部署等
-   > 
-   > ![image-20230217162710233](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171627097.png)
-   > 
-   > site：产生报告，发布站点等
-   > 
-   > ![image-20230217162747671](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171627448.png)
+   clean：清理工作
+   
+   ​    ![image-20230217162630995](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171626834.png)
+   
+   default：核心工作，例如：编译，测试，打包，部署等
+   
+   ![image-20230217162710233](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171627097.png)
+   
+   site：产生报告，发布站点等
+   
+   ![image-20230217162747671](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171627448.png)
 
 2. 插件
-   
+
    ![image-20230217163459866](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171635337.png)
-
-### 创建Maven项目
-
-1. 手工制作
-
-2. 使用插件创建工程
-   
-   ![image-20211004153002024](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211004153002024.png)
-
-3. idea创建
-   
-   * 不使用骨架
-     
-     * java项目
-     
-     * web项目
-       
-       * 添加tomacat插件
-         
-         ![image-20211004161944412](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211004161944412.png)
-   
-   * 使用骨架
-     
-     * java项目
-     
-     * web项目
-       
-       * 添加tomcat插件
-         
-         ![image-20211004161939251](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211004161939251.png)
 
 ### 依赖管理
 
 1. 依赖配置
    
-   > 依赖：当前项目运行所需要的的jar，一个项目可以设置多个依赖
-   > 
-   > 格式：
-   > 
-   > <!-- 所有当前项目依赖的所有jar-->
-   > 
-   > <dependencies>
-   > 
-   > ​    <!-- 具体的依赖-->
-   > 
-   > ​    <dependency>
-   > 
-   > ​        <groupId><groupId/>
-   > 
-   > ​        <artifacted></artifacted>
-   > 
-   > ​        <version></version>
-   > 
-   > ​    <dependency/>
-   > 
-   > </dependencies>
-
+   * 依赖：当前项目运行所需要的的jar，一个项目可以设置多个依赖
+   * 依赖原则：
+     * 路径最短优先原则
+     * 声明顺序优先（最先声明的优先）
+     * 覆写优先：子 POM 内声明的依赖优先于父 POM 中声明的依赖
+   
+   ~~~xml
+   <!-- 所有当前项目依赖的所有jar-->
+   <dependencies>
+       <!-- 具体的依赖-->
+       <dependency>
+           <groupId><groupId/>
+           <artifacted></artifacted>
+           <version></version>
+      <dependency/>
+   </dependencies>
+   ~~~
+   
 2. 依赖传递
    
    * 直接依赖：在当前项目中通过依赖配置建立的依赖关系
@@ -6372,7 +6395,7 @@ maven本质是一个项目管理工具，将项目开发和管理过程抽象为
 
 ### 聚合
 
-1. 聚合：将多个模块组织成一- -个整体，同时进行项目构建的过程称为聚合
+1. 聚合：将多个模块组织成一个整体，同时进行项目构建的过程称为聚合
 
 2. 聚合工程：通常是一个不具有业务功能的“空”工程(有且仅有一-个pom文件)
    
@@ -10603,6 +10626,14 @@ $ git branch -dr [remote/branch]
    # 删除标签
    git tag -d <tagname>
    ~~~
+
+### 合并
+
+可以通过 `.gitattributes` 文件来指定哪些文件不参与合并。`.gitattributes` 文件允许您为特定的文件或文件类型定义合并策略。
+
+~~~
+path/to/file merge=ours // path/to/file 是要排除的文件的相对路径
+~~~
 
 ### 代码冲突处理
 
