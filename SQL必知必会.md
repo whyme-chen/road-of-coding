@@ -1394,6 +1394,39 @@ select * from employees limit 11,15;
 
 牛客网：https://www.nowcoder.com/？
 
+## 操作json数据
+
+可以通过 INSERT INTO 语句将 JSON 数据插入到表中。
+
+~~~sql
+INSERT INTO my_table (json_column) VALUES ('{"key": "value"}');
+~~~
+
+可以使用 `->` 或 `->>` 运算符来查询 JSON 字段的值。`->` 返回一个 JSON 对象或数组，`->>` 返回一个字符串。
+
+~~~sql
+SELECT json_column->"$.key" AS value FROM my_table;
+SELECT json_column->>"$.key" AS value FROM my_table;
+~~~
+
+可以使用 `JSON_SET` 函数来更新 JSON 数据的特定字段。例如：
+
+```sql
+UPDATE my_table SET json_column = JSON_SET(json_column, "$.key", "new_value") WHERE id = 1;
+```
+
+可以使用 `JSON_REMOVE` 函数来删除 JSON 数据中的特定字段。例如：
+
+```sql
+UPDATE my_table SET json_column = JSON_REMOVE(json_column, "$.key") WHERE id = 1;
+```
+
+可以使用 `->>` 运算符在 WHERE 子句中查询 JSON 字段的值。例如：
+
+```sql
+SELECT * FROM my_table WHERE json_column->>"$.key" = 'value';
+```
+
 # 《SQL必知必会》
 
 ## 数据库基础
