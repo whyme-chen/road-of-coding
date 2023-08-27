@@ -696,6 +696,7 @@ Python 中的包实现了对模块分组管理的功能。从物理上看，包�
      * 阿里云 PyPI 镜像：https://mirrors.aliyun.com/pypi/simple/
      * 清华大学 PyPI 镜像：https://pypi.tuna.tsinghua.edu.cn/simple/
      * 网易云 PyPI 镜像：https://mirrors.163.com/pypi/simple/
+     * wheel文件：https://www.lfd.uci.edu/~gohlke/pythonlibs/
      
      修改全局下载地址，可以通过一下命令实现：
      
@@ -1259,6 +1260,48 @@ TA-Lib（Technical Analysis Library）是一个用于技术分析的开源库，
    * 图表模式识别：TA-Lib还包含了一些图表模式识别方法，如头肩顶形态（Head and Shoulders Pattern）、双顶/双底形态（Double Top/Bottom Pattern）等。这些模式识别方法可以帮助分析市场的趋势转折点和重要的价格形态。
    * 数据可视化：TA-Lib提供了一些函数和方法，可以方便地生成绘制技术指标和图表模式的图表，以便更直观地观察和分析数据。
 
+## Matplotlib
+
+1. 简介：
+
+   Matplotlib 是一个用于创建可视化图表的 Python 库。专门用于开发2d(3d)图表，提供了一种简单而灵活的方式来绘制各种类型的图表，包括线图、散点图、柱状图、饼图等等。可以用 Matplotlib 来探索数据、展示趋势、进行数据分析等。具有丰富的功能和灵活的设置选项，可以根据需要自定义图表的样式、颜色、标签等。它也可以与 NumPy、Pandas 等其他 Python 库结合使用，方便地处理和可视化数据。
+
+2. 快速开始
+
+   ~~~python
+   import matplotlib.pyplot as plt
+   
+   %matplotlib inline
+   
+   plt.figure()
+   plt.plot([0,1,2,3,4],[60,23,56,29,24])
+   plt.show()
+   ~~~
+
+3. matplot图像结构
+
+   ![image-20230827173423694](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202308271734802.png)
+
+   * 容器层
+
+     容器层主要由Canvas、Figure、 Axes组成。
+     Canvas是位于最底层的系统层，在绘图的过程中充当画板的角色，即放置画布(Figure)的工具。Figure是Canvas上方的第一层，也是需要用户来操作的应用层的第一层，在绘图的过程中充当画布的角色。Axes是应用层的第二层，在绘图的过程中相当于画布上的绘图区的角色。
+
+     * Figure:指整个图形(可以通过plt.figure0设置画布的大小和分辨率等)
+     * Axes(坐 标系):数据的绘图区域
+     * Axis(坐标轴): 坐标系中的一条轴，包含大小限制、刻度和刻度标签
+
+     一个figure(画布)可以包含多个axes(坐标系/绘图区)， 但是一个axes只能属于一个figure。一个axes(坐标系/绘图区)可以包含多个axis(坐标轴)，包含两个即为2d坐标系，3个即为3d坐标系。
+
+   * 辅助显示层
+
+     辅助显示层为Axes(绘图区)内的除了根据数据绘制出的图像以外的内容，主要包括Axes外观(facecolor)、边框线(spines)、坐标轴(axis)、 坐标轴名称(axis label)、 坐标轴刻度(tick)、坐标轴刻度标签(tick label)、网格线(grid)、图例(legend)、 标题(itle)等内容 。
+     该层的设置可使图像显示更加直观更加容易被用户理解，但又不会对图像产生实质的影响。
+
+   * 图像层
+
+     图像层指Axes内通过plot、scatter、 bar、 histogram等函数根据数据绘制出的图像。
+
 # 办公自动化
 
 ## Excel
@@ -1360,8 +1403,68 @@ TA-Lib（Technical Analysis Library）是一个用于技术分析的开源库，
 * https://blog.csdn.net/weixin_43373042/article/details/122757680?spm=1001.2101.3001.6650.18&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-18-122757680-blog-109736618.pc_relevant_paycolumn_v3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-18-122757680-blog-109736618.pc_relevant_paycolumn_v3&utm_relevant_index=23
 * https://blog.csdn.net/qq_41554005/article/details/109736988
 
-是一款程序员和科学工作者的编程/文档/笔记工具
+### 简介及安装
+
+Jupyter Notebook 是一个交互式的开发环境，可用于创建和共享代码、文档、数据可视化，并支持超过40种编程语言。总的来说，jupyter notebook是一款程序员和科学工作者的编程/文档/笔记工具。
+
+#### 安装
+
+pip命令
+
+acanconda安装
+
+#### 启动及配置
+
+### 基本概念
+
+1. 单元格
+2. 编辑模式和命令模式
+
+### 快捷键
+
+命令模式下快捷键：
+
+| 快捷键       | 描述                         |
+| ------------ | ---------------------------- |
+| Enter        | 进入编辑模式                 |
+| Esc          | 退出编辑模式，进入命令模式   |
+| A            | 在当前单元格之前插入新单元格 |
+| B            | 在当前单元格之后插入新单元格 |
+| X            | 剪切选中的单元格             |
+| C            | 复制选中的单元格             |
+| V            | 粘贴剪切/复制的单元格        |
+| D,D          | 删除选中的单元格             |
+| Z            | 撤销删除的单元格             |
+| Shift + Up   | 选择上方的单元格             |
+| Shift + Down | 选择下方的单元格             |
+| Shift + M    | 合并选中的多个单元格         |
+| S            | 保存 Notebook                |
+| H            | 显示快捷键帮助信息           |
+
+编辑模式下快捷键：
+
+| 快捷键           | 描述                                 |
+| ---------------- | ------------------------------------ |
+| Shift + Enter    | 运行当前单元格，并移到下一个单元格   |
+| Ctrl + Enter     | 运行当前单元格                       |
+| Alt + Enter      | 运行当前单元格，并在下方插入新单元格 |
+| Ctrl + S         | 保存 Notebook                        |
+| Tab              | 代码补全                             |
+| Shift + Tab      | 显示函数参数和文档字符串的帮助信息   |
+| Ctrl + ]         | 缩进当前行或选中的代码块             |
+| Ctrl + [         | 取消缩进当前行或选中的代码块         |
+| Ctrl + /         | 注释/取消注释当前行或选中的代码块    |
+| Ctrl + D         | 删除光标所在行                       |
+| Ctrl + Z         | 撤销最后的操作                       |
+| Ctrl + Shift + - | 分割单元格                           |
+| Shift + M        | 合并选中的多个单元格                 |
 
 ### 魔法函数
 
 参考资料：https://blog.csdn.net/qq_41554005/article/details/109736618
+
+1. `%load`：用来加载外部脚本或文件中的代码
+2. `%run`：直接执行脚本
+3. `%pwd`：获取当前所在位置的**绝对路径**
+
+### 
