@@ -657,7 +657,7 @@ html使用<!---->表示注释
 
 权威网站：https://developer.mozilla.org/zh-CN/
 
-## 一、JavaScript概述
+## JavaScript概述
 
 1. JavaScript
    
@@ -699,7 +699,7 @@ html使用<!---->表示注释
 
    注意：<script>标签中使用了src属性，则不能在标签内部写代码
 
-## 二、基本语法
+## 基本语法
 
 ### 区分大小写
 
@@ -1326,7 +1326,7 @@ HTML 事件是发生在 HTML 元素上的“事情”。
 </script>
 ```
 
-## 三、面向对象程序设计
+## 面向对象程序设计
 
 ###  理解对象
 
@@ -1402,7 +1402,7 @@ var person2 = new Person("wang",20,"student");
 
 
 
-## 四、BOM对象
+## BOM对象
 
 ### 1. 概述
 
@@ -1615,7 +1615,7 @@ var person2 = new Person("wang",20,"student");
    </html>,
    ~~~
 
-## 五、DOM对象
+## DOM对象
 
 DOM是将标记型文档中所有内容（标签、文本、属性）都封装成对象，通过操作对象的属性或方法，来达到操作或改变HTML展示效果的目的。
 
@@ -1648,7 +1648,7 @@ DOM是将标记型文档中所有内容（标签、文本、属性）都封装�
 * checked
 * innerHTML
 
-## 六、JS事件
+## JS事件
 
 1. JS事件是什么
    
@@ -1707,7 +1707,7 @@ DOM是将标记型文档中所有内容（标签、文本、属性）都封装�
 4. 元素事件句柄绑定
 5. DOM绑定方式
 
-## 七、ECMAScript（ES6-ES11）
+## ECMAScript（ES6-ES11）
 
 ES全称EcmaScript，是脚本语言的规范，JavaScript是EcmaScript的一种实现。
 
@@ -1723,6 +1723,12 @@ ES全称EcmaScript，是脚本语言的规范，JavaScript是EcmaScript的一种
 ## 知识点总结
 
 参看资料：https://blog.csdn.net/Augenstern_QXL/article/details/119249534
+
+## 第三方库
+
+数据可视化库D3：https://d3js.org/
+
+数据可视化库echarts：
 
 # BootStrap
 

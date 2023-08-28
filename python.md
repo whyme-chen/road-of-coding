@@ -582,16 +582,38 @@ print(name_inter)
      * 子类的语法规则是：`class 新类名(父类名)`，比如 `class Penguin(Bird)` 就表示一个子类，父类为 `Bird`。
      * Python的类之间也支持多继承，即一个类，可以继承多个父类。语法为：`class 新类名(父类名1,父类名2,...)`。多个父类中，如果有同名的成员,那么默认以继承顺序(从左到右)为优先级。
      * 复写：如果想要覆盖父类中的成员变量或者成员方法，只需要在子类中重新定义同名的成员变量或者成员方法即可。在子类中可以使用`父类名.成员变量或方法`，`super().成员变量或方法`的方式去使用被复写的父类成员变量和成员方法。
-   * 多态
+   * 多态：即完成某个行为时，使用不同的对象会得到不同的状态。
 
 4. 类型注解：在代码中涉及数据交互的地方，提供数据类型的注解( 显式的说明)。
 
    Python在3.5版本的时候引入了类型注解，以方便静态类型检查工具，IDE等第三方工具。类型注解的主要功能是帮助第三方IDE工具(如PyCharm)对代码进行类型推断，协助做代码提示。帮助开发者自身对变量进行类型注释。
 
    * 变量的类型注解
-     * 语法：`变量:类型`
+     
+     * 语法：`变量:类型`或在注释中，#type：类型
+     
    * 函数的类型注解
+   
+     ~~~python
+     # 形参注解
+     def func_name(形参1：类型，形参2：类型):
+         pass
+     
+     # 返回值注解
+     def func_name(形参1：类型，形参2：类型)-> 返回值类型:
+         pass
+     ~~~
+   
    * Union类型
+   
+     * 使用`union[类型1，类型2]`定义联合类型注解
+   
+     ~~~python
+     from typing import Union
+     my_list:list[Union[Str,int]] = ["whymechen",50]
+     ~~~
+   
+   > 类型注解只是提示性的，并非决定性的。数据类型和注解类型无法对应也不会导致错误。
 
 ## 模块和包
 
@@ -646,9 +668,9 @@ print(name_inter)
    
    ~~~
 
-   注意：当导入多个模块的时候且模买内有同名功能。在调用这不同名功能的时候，调用到的是后导入的功能
+   注意：当导入多个模块的时候且模块内有同名功能。在调用这不同名功能的时候，调用到的是后导入的功能
 
-   * \__main__变量
+   * \__main__变量：在 Python 中，每个模块都有一个隐藏的全局变量 `__name__`，用于指示当前模块的名称。当一个脚本直接被执行时，它的 `__name__` 值被设置为 `'__main__'`，而当它被其他模块导入时，`__name__` 的值则为模块的名称。
    * \__all__变量
 
 ### 包
@@ -669,18 +691,403 @@ Python 中的包实现了对模块分组管理的功能。从物理上看，包�
      * pyspark、apache-flink：大数据计算常用包
      * matplotlib、pyecharts：图形可视化常用包
      * tensorflow：人工智能常用包
+     
    * pip程序
      * 阿里云 PyPI 镜像：https://mirrors.aliyun.com/pypi/simple/
      * 清华大学 PyPI 镜像：https://pypi.tuna.tsinghua.edu.cn/simple/
      * 网易云 PyPI 镜像：https://mirrors.163.com/pypi/simple/
+     * wheel文件：https://www.lfd.uci.edu/~gohlke/pythonlibs/
+     
+     修改全局下载地址，可以通过一下命令实现：
+     
+     ~~~python
+     # 修改全局镜像地址
+     pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
+     
+     # 恢复默认地址
+     pip config unset global.index-url
+     
+     # 指定临时下载包地址
+     pip install 包名 -i https://mirrors.aliyun.com/pypi/simple/
+     ~~~
 
-#### pyecharts包
+### 闭包
+
+1. 概念：在函数嵌套的前提下，内部函数使用了外部函数的变量,并且外部函数返回了内部函数,我们把这个使用外部函数变量的内部函数称为闭包。
+
+   需要使用nonlocal关键字修饰外部函数的变量才可在内部函数中修改它。
+
+2. 优缺点：
+
+   * 优点：无需定义全局变量即可实现通过函数,持续的访问、修改某个值闭包使用的变量的所用于在函数内,难以被错误的调用修改。
+   * 缺点：由于内部函数持续引用外部函数的值，所以会导致这-部分内存空间不被释放，一直占用内存。
+
+3. 应用：
+
+   * 装饰器
+
+## 异常处理
+
+1. 什么是异常
+
+   在 Python 中，异常是在程序运行过程中发生的错误，当异常发生时，需要对异常进行处理，否则整个程序将崩溃。
+
+2. 异常的处理
+
+   `try` 和 `except` 语句块可以用来捕获和处理异常，`try` 后面跟的是需要捕获异常的代码，`except` 后面跟的是捕获到异常后需要做的处理。每一个 `try` 语句块后面必须跟上一个 `except` 语句块，即使 `except` 语句块什么也不做。`try` 语句块后面可以跟上多个 `except` 语句块。
+
+   ~~~ python
+   try:
+       a = 5 / 0
+   except ZeroDivisionError:
+       print("your program is running with exception")
+   else:
+       print(a)
+   finally:
+       print("all operation have finished")
+   ~~~
+
+   `try-except` 语句块后面可以跟上 `else` 语句块，当没有异常发生时，会执行 `else` 语句块中的代码。
+
+   `try-except-else` 语句块后面还可以跟上 `finally` 语句块，不管有没有发生异常，`finally` 语句块中的代码都会被执行。
+
+   可以使用`expect Exception`来捕获所有异常。
+
+3. 抛出异常
+
+   也可以主动抛出异常。主动抛出异常使用`raise `关键字。
+
+   ~~~python
+   x = 10
+   if x > 5:
+    raise Exception('x should not exceed 5. The value of x was: {}'.format(x))
+   ~~~
+
+## 读写数据
+
+### 原生读写
+
+1. 优点：不占内存
+
+2. 打开文件
+
+   `f=open(file,mode='i',encoding=None)`
+   
+   * file：文件路径
+   * mode：文件打开模式
+     * 常用参数：
+       * r：以只读的方式打开文件，默认值
+       * w：以写的方式打开文件
+       * x：创建一个新文件并进行写入操作，若文件已存在则报错
+       * a：追加
+   * encoding：编码
+   
+3. 读写文件
+
+   * `f.read()`：读取整个文件，字符串显示
+   * `f.readLine()`：每次读取一行，指针在该行末尾
+   * `f.readLines()`：读取整个文件，以列表显示
+   * `strip()`：用于移除字符串头尾指定的字符
+   * `write()`：直接调用write，内容并未真正写入文件，而是会积攒在程序的内存中，称之为缓冲区。当调用flush的时候，内容会真正写入文件。这样做是避免频繁的操作硬盘，导致效率下降。
+
+   ~~~ python
+   f=open("C:\\Users\\hp\\Desktop\\test.java",'r',encoding='utf-8')
+   # f.read()
+   f.readlines()
+   
+   f = open("./file/io-demo.txt", "r", encoding="UTF-8")
+   print(f.name)
+   print(f.read())
+   
+   with open("./file/io-demo.txt", "r", encoding="UTF-8") as f:
+       print(f.readlines())
+   
+   with open("./file/word.txt", "r", encoding="utf-8") as f:
+       fruits = []
+       for index in fruits:
+           fruits.append()
+       print(fruits)
+       print(f"Lemon这个单词在文件中出现了{fruits.count('Lemon')}次")
+   
+   names = ["zhagnsan","lisi","wangwu","zhaoliu"]
+   with open("./file/io-demo.txt",'a',encoding="UTF-8") as f:
+       f.write(str(names))
+       f.flush()
+   ~~~
+
+4. 关闭文件
+
+   * `close()`：关闭文件
+
+   * `with open`语法
+
+     ~~~python
+     with open("./file/io-demo.txt", "r", encoding="UTF-8") as f:
+         print(f.readlines())
+     # 在with open语句块中对文件进行操作，可以在操作完成后自动关闭文件，避免遗忘关闭文件造成资源持续占用
+     ~~~
+
+### pandas文件读写
+
+### 读取mysql数据
+
+1. 安装pymysql库（可以使用pip命令）
+
+2. 获取连接对象、获取cursor对象，执行slq语句
+
+   ~~~python
+   from pymysql import Connection
+   
+   con = Connection(
+       # autocommit=True,
+       host="localhost",
+       port=3306,
+       user="root",
+       password="4112"
+   )
+   
+   # print information of this connection
+   print(con.get_server_info())
+   
+   # select database
+   con.select_db("demo")
+   
+   cursor = con.cursor()
+   
+   # execute not query sql
+   # cursor.execute("create table demo_python(id BIGINT,name VARCHAR(50),age TINYINT COMMENT '0表示女生，1表示男生')")
+   
+   # insert data
+   cursor.execute("insert into demo_python(name,age) values('lisi',30)")
+   # 对于数据更改需要手动提交，或者在获取连接对象时设置autocommit
+   con.commit()
+   
+   # query data
+   cursor.execute("select * from demo_python")
+   
+   result: tuple = cursor.fetchall()
+   for r in result:
+       print(r)
+   
+   # close connection
+   con.close()
+   ~~~
+
+### 操作json数据
+
+~~~python
+import json
+
+data = [
+    {
+        "name": "zhangsan",
+        "gender": "boy",
+        "age": 47
+    },
+    {
+        "name": "lisi",
+        "gender": "boy",
+        "age": 36
+    },
+    {
+        "name": "xiaohong",
+        "gender": "girl",
+        "age": 23
+    }
+]
+
+# 将python数据转换为json数据
+json_data = json.dumps(data)
+print(type(json_data))
+print(json_data)
+
+
+# 将json数据转化为python数据
+python_data = json.loads(json_data)
+print(type(python_data))
+print(python_data)
+
+~~~
+
+## 多线程
+
+### 基本概念
+
+1. 进程
+2. 线程
+3. 并发和并行
+
+### threading模块
+
+```python
+import threading as th
+
+
+def target1():
+    for i in range(0, 5000):
+        print(f"第{i}次执行target1")
+
+
+def target2():
+    for i in range(0, 50000):
+        print(f"第{i}次执行target2")
+
+
+if __name__ == '__main__':
+    threading_target1 = th.Thread(
+        group=None,  # 暂时无用，未来功能的预留参数
+        target=target1(),  # 执行目标的任务名
+        args=None,  # 以元组的形式给执行任务传参
+        kwargs=None,  # 以字典形式给执行任务传参
+        name="target1",  # 线程名，一般不用设置
+    )
+
+    threading_target2 = th.Thread(
+        group=None,  # 暂时无用，未来功能的预留参数
+        target=target2(),  # 执行目标的任务名
+        args=None,  # 以元组的形式给执行任务传参
+        kwargs=None,  # 以字典形式给执行任务传参
+        name="target2",  # 线程名，一般不用设置
+    )
+
+    # 启动线程
+    threading_target1.start()
+    threading_target2.start()
+```
+
+## 网络编程
+
+网络调试助手小工具：https://github.com/nicedayzhu/netAssist
+
+~~~python
+"""
+socket服务端
+"""
+import socket
+
+socket_server = socket.socket()
+
+# 绑定ip和端口号
+socket_server.bind(("localhost",8081))
+
+# 监听端口，listen中的整型参数表示接受的链接数量
+socket_server.listen(1)
+
+# 等待客户端连接,conn为连接对象，address为客户端地址信息，该方法为阻塞方法
+conn,address = socket_server.accept()
+print(f"address:{address}\nconn:{conn}")
+
+while True:
+    # 接受客户端消息
+    # recv:接受的参数是缓冲区大小，一 般给1024即可
+    # recv方法的返回值是一个字节数组也就是bytes对象，不是字符串，可以通过decode 方法通过UTF- 8编码将字节数组转换为字符串
+    data = conn.recv(1024).decode("utf-8")
+    print(f"data:{data}")
+
+    # 响应请求消息
+    message = input("请输入响应消息：").encode("utf-8")
+    if message == 'exit':
+        break
+    conn.send(message)
+
+# 关闭链接
+conn.close()
+# socket_server.close()
+~~~
+
+```python
+"""
+socket客户端
+"""
+import socket
+
+socket_client = socket.socket()
+
+# 连接到服务端
+socket_client.connect(("localhost", 8081))
+
+while True:
+    # 发送消息
+    msg = input("请输入要发送的消息：")
+    if msg == 'exit':
+        break
+    socket_client.send(msg.encode("utf-8"))
+
+    # 接收消息
+    data = socket_client.recv(1024)
+    print(f"接收到消息：{data.decode('utf-8')}")
+
+socket_client.close()
+```
+
+## 正则表达式
+
+正则表达式，又称规则表达式( Regular Expression),是使用单个字符串来描述、匹配某个句法规则的字符串，常被用来检索、替换那些符合某个模式(规则)的文本。
+比如通过正则规则: (^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$)即可验证一个字符串是否是符合条件的电子邮箱地址。只需要配置好正则规则,即可匹配任意邮箱。但如果不使用正则,使用if else来对字符串做判断就非常困难了。
+
+### 基本方法
+
+Python正则表达式,使用re模块,并基于re模块中三个基础方法来做正则匹配。
+
+* re.match(匹配规则，被匹配字符串)：从被匹配字符串开头进行匹配，匹配成功返回匹配对象(包含匹配的信息),匹配不成功返回空。
+* re.search(匹配规则，被匹配字符串)：搜索整个字符串，找出匹配的。从前向后,找到第一个后， 就停止,不会继续向后中
+* re.findall(匹配规则，被匹配字符串)：匹配整个字符串,找出全部匹配项
+
+### 元字符匹配
+
+单字符匹配规则：
+
+| 字符 | 功能                     | 举例                                              |
+| ---- | ------------------------ | ------------------------------------------------- |
+| .    | 匹配任意单个字符         | a.c 可匹配 "abc"                                  |
+| []   | 字符集                   | [aeiou] 可匹配任意一个元音字母                    |
+| [^]  | 排除字符集               | [^aeiou] 可匹配非元音字母                         |
+| \d   | 数字字符                 | \d 可匹配 "1"                                     |
+| \D   | 非数字字符               | \D 可匹配字母                                     |
+| \w   | 字母、数字、下划线字符   | \w 可匹配字母、数字或下划线字符                   |
+| \W   | 非字母、数字、下划线字符 | \W 可匹配空格、标点符号等非字母、数字和下划线字符 |
+| \s   | 空白字符                 | \s 可匹配空格、tab键                              |
+| \S   | 非空白字符               | \S 可匹配除空格外的字符                           |
+
+数量匹配规则：
+
+| 字符  | 功能                     | 举例                             |
+| ----- | ------------------------ | -------------------------------- |
+| *     | 匹配前一个字符零次或多次 | a*b 可匹配 "b"、"ab"、"aab"等    |
+| +     | 匹配前一个字符一次或多次 | a+b 可匹配 "ab"、"aab" 等        |
+| ?     | 匹配前一个字符零次或一次 | colou?r 可匹配 "color"、"colour" |
+| {n}   | 匹配前一个字符恰好 n 次  | a{3} 可匹配 "aaa"                |
+| {n,}  | 匹配前一个字符至少 n 次  | a{2,} 可匹配 "aa"、"aaa" 等      |
+| {n,m} | 匹配前一个字符 n 到 m 次 | a{1,3} 可匹配 "a"、"aa"、"aaa"   |
+
+边界匹配规则：
+
+| 字符 | 功能             | 举例                                           |
+| ---- | ---------------- | ---------------------------------------------- |
+| ^    | 匹配字符串的开始 | ^Hello 可匹配 "Hello, World!"                  |
+| $    | 匹配字符串的结束 | World!$ 可匹配 "Hello, World!"                 |
+| \b   | 匹配单词边界     | \bcat\b 只匹配 "cat"，不匹配 "catch" 或 "scat" |
+| \B   | 匹配非单词边界   | \Bcat\B 只匹配 "catch" 或 "scat"，不匹配 "cat" |
+
+分组匹配规则：
+
+| 字符    | 功能                       | 举例                                           |
+| ------- | -------------------------- | ---------------------------------------------- |
+| (...)   | 创建捕获组                 | (ab)+ 可匹配 "ab"、"abab"、"ababab" 等         |
+| \|      | 分支结构，选择多个模式之一 | cat\|dog 可匹配 "cat" 或 "dog"                 |
+| \N      | 反向引用前面的捕获组       | (\d{2})-\1 可匹配 "11-11"、"22-22" 等          |
+| (?:...) | 创建非捕获组               | (?:ab)+ 只匹配 "abab"、"ababab" 等，不进行捕获 |
+
+# 第三方库
+
+## pyecharts包
 
 Echarts是个由百度开源的数据可视化，凭借着良好的交互性,精巧的图表设计，得到了众多开发者的认可。而Python是门富有表达力的语言，很适合用于数据处理。当数据分析遇上数据可视化时pyecharts诞生了。
 
 官网：https://pyecharts.org/#/
 
 pycharts 中有很多配置项，常用的有两类；
+
 * 全局配置项：全局配置项可以通过set_global_opts方法来进行配置，
 
   ![image-20230813184517144](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202308131845504.png)
@@ -798,148 +1205,102 @@ map.set_global_opts(
 map.render()
 ~~~
 
-## 异常处理
+## pyspark包
 
-1. 什么是异常
+### 简介
 
-   在 Python 中，异常是在程序运行过程中发生的错误，当异常发生时，需要对异常进行处理，否则整个程序将崩溃。
+spark官网：https://spark.apache.org/
 
-2. 异常的处理
+pyspark文档：https://spark.apache.org/docs/3.4.1/api/python/index.html
 
-   `try` 和 `except` 语句块可以用来捕获和处理异常，`try` 后面跟的是需要捕获异常的代码，`except` 后面跟的是捕获到异常后需要做的处理。每一个 `try` 语句块后面必须跟上一个 `except` 语句块，即使 `except` 语句块什么也不做。`try` 语句块后面可以跟上多个 `except` 语句块。
+Apache Spark是用于大规模数据(large-scala data)处理的统- - (unified) 分析引擎。简单来说，Spark是一 款分布式的计算框架， 用于调度成百上千的服务器集群，计算TB、 PB乃至EB级别的海量数据。
 
-   ~~~ python
-   try:
-       a = 5 / 0
-   except ZeroDivisionError:
-       print("your program is running with exception")
-   else:
-       print(a)
-   finally:
-       print("all operation have finished")
+Spark对Python语言的支持,重点体现在由Spark官方开发的Python语言第三方库PySpark之上。可以作为python库进行数据处理，同时也可以提交至spark集群进行分布式集群计算。
+
+### 环境搭建
+
+1. 安装：
+
+   ~~~shell
+   pip install pyspark -i https://mirrors.aliyun.com/pypi/simple
    ~~~
 
-   `try-except` 语句块后面可以跟上 `else` 语句块，当没有异常发生时，会执行 `else` 语句块中的代码。
+2. 构建执行环境入口对象
 
-   `try-except-else` 语句块后面还可以跟上 `finally` 语句块，不管有没有发生异常，`finally` 语句块中的代码都会被执行。
-
-   可以使用`expect Exception`来捕获所有异常。
-
-3. 抛出异常
-
-   也可以主动抛出异常。主动抛出异常使用`raise `关键字。
+   想要使用PySpark库完成数据处理,首先需要构建一个执行环境入口对象：类SparkContex的类对象。
 
    ~~~python
-   x = 10
-   if x > 5:
-    raise Exception('x should not exceed 5. The value of x was: {}'.format(x))
+   """
+   构建pyspark的执行环境入口对象，SparkContext类对象
+   """
+   from pyspark import SparkConf,SparkContext
+   
+   # 创建SparkConf对象
+   spark_conf = SparkConf()
+   spark_conf.setMaster("local[*]")
+   spark_conf.setAppName("demo_spark")
+   
+   # 创建SparkContext对象
+   spark_context = SparkContext(conf=spark_conf)
+   # 打印pyspark版本信息
+   print(spark_context.version)
+   
+   # 停止pyspark程序
+   spark_context.stop()
    ~~~
 
-## 读写数据
+## pandas包
 
-### 原生读写
+## ta-lib
 
-1. 优点：不占内存
+TA-Lib（Technical Analysis Library）是一个用于技术分析的开源库，提供了一系列常用的技术指标和图表模式的计算方法。广泛应用于金融市场的技术分析领域，为金融分析师和交易员提供了各种常用的技术指标计算方法和图表模式识别工具，用于辅助金融市场的技术分析和交易决策。
 
-2. 打开文件
+1. TA-Lib库主要用途：
+   * 技术指标计算：TA-Lib提供了多种常见的技术指标计算方法，如移动平均线（Moving Average）、相对强弱指数（Relative Strength Index）、布林带（Bollinger Bands）等。这些指标可以帮助分析市场趋势、价格波动及超买超卖情况，从而辅助投资决策和交易策略的制定。
+   * 图表模式识别：TA-Lib还包含了一些图表模式识别方法，如头肩顶形态（Head and Shoulders Pattern）、双顶/双底形态（Double Top/Bottom Pattern）等。这些模式识别方法可以帮助分析市场的趋势转折点和重要的价格形态。
+   * 数据可视化：TA-Lib提供了一些函数和方法，可以方便地生成绘制技术指标和图表模式的图表，以便更直观地观察和分析数据。
 
-   `f=open(file,mode='i',encoding=None)`
-   
-   * file：文件路径
-   * mode：文件打开模式
-     * 常用参数：
-       * r：以只读的方式打开文件，默认值
-       * w：以写的方式打开文件
-       * x：创建一个新文件并进行写入操作，若文件已存在则报错
-       * a：追加
-   * encoding：编码
-   
-3. 读写文件
+## Matplotlib
 
-   * `f.read()`：读取整个文件，字符串显示
-   * `f.readLine()`：每次读取一行，指针在该行末尾
-   * `f.readLines()`：读取整个文件，以列表显示
-   * `strip()`：用于移除字符串头尾指定的字符
-   * `write()`：直接调用write，内容并未真正写入文件，而是会积攒在程序的内存中，称之为缓冲区。当调用flush的时候，内容会真正写入文件。这样做是避免频繁的操作硬盘，导致效率下降。
+1. 简介：
 
-   ~~~ python
-   f=open("C:\\Users\\hp\\Desktop\\test.java",'r',encoding='utf-8')
-   # f.read()
-   f.readlines()
+   Matplotlib 是一个用于创建可视化图表的 Python 库。专门用于开发2d(3d)图表，提供了一种简单而灵活的方式来绘制各种类型的图表，包括线图、散点图、柱状图、饼图等等。可以用 Matplotlib 来探索数据、展示趋势、进行数据分析等。具有丰富的功能和灵活的设置选项，可以根据需要自定义图表的样式、颜色、标签等。它也可以与 NumPy、Pandas 等其他 Python 库结合使用，方便地处理和可视化数据。
+
+2. 快速开始
+
+   ~~~python
+   import matplotlib.pyplot as plt
    
-   f = open("./file/io-demo.txt", "r", encoding="UTF-8")
-   print(f.name)
-   print(f.read())
+   %matplotlib inline
    
-   with open("./file/io-demo.txt", "r", encoding="UTF-8") as f:
-       print(f.readlines())
-   
-   with open("./file/word.txt", "r", encoding="utf-8") as f:
-       fruits = []
-       for index in fruits:
-           fruits.append()
-       print(fruits)
-       print(f"Lemon这个单词在文件中出现了{fruits.count('Lemon')}次")
-   
-   names = ["zhagnsan","lisi","wangwu","zhaoliu"]
-   with open("./file/io-demo.txt",'a',encoding="UTF-8") as f:
-       f.write(str(names))
-       f.flush()
+   plt.figure()
+   plt.plot([0,1,2,3,4],[60,23,56,29,24])
+   plt.show()
    ~~~
 
-4. 关闭文件
+3. matplot图像结构
 
-   * `close()`：关闭文件
+   ![image-20230827173423694](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202308271734802.png)
 
-   * `with open`语法
+   * 容器层
 
-     ~~~python
-     with open("./file/io-demo.txt", "r", encoding="UTF-8") as f:
-         print(f.readlines())
-     # 在with open语句块中对文件进行操作，可以在操作完成后自动关闭文件，避免遗忘关闭文件造成资源持续占用
-     ~~~
+     容器层主要由Canvas、Figure、 Axes组成。
+     Canvas是位于最底层的系统层，在绘图的过程中充当画板的角色，即放置画布(Figure)的工具。Figure是Canvas上方的第一层，也是需要用户来操作的应用层的第一层，在绘图的过程中充当画布的角色。Axes是应用层的第二层，在绘图的过程中相当于画布上的绘图区的角色。
 
-### pandas文件读写
+     * Figure:指整个图形(可以通过plt.figure0设置画布的大小和分辨率等)
+     * Axes(坐 标系):数据的绘图区域
+     * Axis(坐标轴): 坐标系中的一条轴，包含大小限制、刻度和刻度标签
 
-### 连接mysql
+     一个figure(画布)可以包含多个axes(坐标系/绘图区)， 但是一个axes只能属于一个figure。一个axes(坐标系/绘图区)可以包含多个axis(坐标轴)，包含两个即为2d坐标系，3个即为3d坐标系。
 
-1. 安装pymysql库（可以使用pip命令）
+   * 辅助显示层
 
-### 操作json数据
+     辅助显示层为Axes(绘图区)内的除了根据数据绘制出的图像以外的内容，主要包括Axes外观(facecolor)、边框线(spines)、坐标轴(axis)、 坐标轴名称(axis label)、 坐标轴刻度(tick)、坐标轴刻度标签(tick label)、网格线(grid)、图例(legend)、 标题(itle)等内容 。
+     该层的设置可使图像显示更加直观更加容易被用户理解，但又不会对图像产生实质的影响。
 
-~~~python
-import json
+   * 图像层
 
-data = [
-    {
-        "name": "zhangsan",
-        "gender": "boy",
-        "age": 47
-    },
-    {
-        "name": "lisi",
-        "gender": "boy",
-        "age": 36
-    },
-    {
-        "name": "xiaohong",
-        "gender": "girl",
-        "age": 23
-    }
-]
-
-# 将python数据转换为json数据
-json_data = json.dumps(data)
-print(type(json_data))
-print(json_data)
-
-
-# 将json数据转化为python数据
-python_data = json.loads(json_data)
-print(type(python_data))
-print(python_data)
-
-~~~
+     图像层指Axes内通过plot、scatter、 bar、 histogram等函数根据数据绘制出的图像。
 
 # 办公自动化
 
@@ -1021,6 +1382,20 @@ print(python_data)
 
 # Jupyter Notebook
 
+
+
+# Anaconda
+
+参考资料：https://zhuanlan.zhihu.com/p/32925500
+
+# Jupyter
+
+官网：http://jupyter.org/
+
+## Jupyter NoteBook
+
+文档地址：https://jupyter-notebook.readthedocs.io/en/latest/
+
 使用参考：https://blog.csdn.net/Bocker_Will/article/details/122828050
 
 插件推荐：
@@ -1028,10 +1403,68 @@ print(python_data)
 * https://blog.csdn.net/weixin_43373042/article/details/122757680?spm=1001.2101.3001.6650.18&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-18-122757680-blog-109736618.pc_relevant_paycolumn_v3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-18-122757680-blog-109736618.pc_relevant_paycolumn_v3&utm_relevant_index=23
 * https://blog.csdn.net/qq_41554005/article/details/109736988
 
-## 魔法函数
+### 简介及安装
+
+Jupyter Notebook 是一个交互式的开发环境，可用于创建和共享代码、文档、数据可视化，并支持超过40种编程语言。总的来说，jupyter notebook是一款程序员和科学工作者的编程/文档/笔记工具。
+
+#### 安装
+
+pip命令
+
+acanconda安装
+
+#### 启动及配置
+
+### 基本概念
+
+1. 单元格
+2. 编辑模式和命令模式
+
+### 快捷键
+
+命令模式下快捷键：
+
+| 快捷键       | 描述                         |
+| ------------ | ---------------------------- |
+| Enter        | 进入编辑模式                 |
+| Esc          | 退出编辑模式，进入命令模式   |
+| A            | 在当前单元格之前插入新单元格 |
+| B            | 在当前单元格之后插入新单元格 |
+| X            | 剪切选中的单元格             |
+| C            | 复制选中的单元格             |
+| V            | 粘贴剪切/复制的单元格        |
+| D,D          | 删除选中的单元格             |
+| Z            | 撤销删除的单元格             |
+| Shift + Up   | 选择上方的单元格             |
+| Shift + Down | 选择下方的单元格             |
+| Shift + M    | 合并选中的多个单元格         |
+| S            | 保存 Notebook                |
+| H            | 显示快捷键帮助信息           |
+
+编辑模式下快捷键：
+
+| 快捷键           | 描述                                 |
+| ---------------- | ------------------------------------ |
+| Shift + Enter    | 运行当前单元格，并移到下一个单元格   |
+| Ctrl + Enter     | 运行当前单元格                       |
+| Alt + Enter      | 运行当前单元格，并在下方插入新单元格 |
+| Ctrl + S         | 保存 Notebook                        |
+| Tab              | 代码补全                             |
+| Shift + Tab      | 显示函数参数和文档字符串的帮助信息   |
+| Ctrl + ]         | 缩进当前行或选中的代码块             |
+| Ctrl + [         | 取消缩进当前行或选中的代码块         |
+| Ctrl + /         | 注释/取消注释当前行或选中的代码块    |
+| Ctrl + D         | 删除光标所在行                       |
+| Ctrl + Z         | 撤销最后的操作                       |
+| Ctrl + Shift + - | 分割单元格                           |
+| Shift + M        | 合并选中的多个单元格                 |
+
+### 魔法函数
 
 参考资料：https://blog.csdn.net/qq_41554005/article/details/109736618
 
-# Anaconda
+1. `%load`：用来加载外部脚本或文件中的代码
+2. `%run`：直接执行脚本
+3. `%pwd`：获取当前所在位置的**绝对路径**
 
-参考资料：https://zhuanlan.zhihu.com/p/32925500
+### 
