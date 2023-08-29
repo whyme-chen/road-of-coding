@@ -6371,17 +6371,24 @@ project
 
 5. 依赖范围
    
-   > 依赖的jar默认在所有范围内均可使用，可以通过scope标签来设置其作用范围
-   > 
-   > 作用范围：
-   > 
-   > * 主程序范围有效（main文件夹范围内）
-   > * 测试程序范围有效（test文件夹范围内）
-   > * 是否参与打包（package指令范围内）
-   > 
-   > ![image-20221120193408645](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211201934150.png)
-   > 
-   > ![image-20221120193756025](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211201937486.png)
+   依赖的jar默认在所有范围内均可使用，可以通过scope标签来设置其作用范围，其值共有6种：
+   
+   * compile
+   * provided
+   * runtime
+   * test
+   * system
+   * import
+   
+   作用范围：
+   
+   * 主程序范围有效（main文件夹范围内）
+   * 测试程序范围有效（test文件夹范围内）
+   * 是否参与打包（package指令范围内）
+   
+   ![image-20221120193408645](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211201934150.png)
+   
+   ![image-20221120193756025](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211201937486.png)
 
 ## 分模块开发与设计
 
@@ -8621,6 +8628,8 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 ### 快速上手
 
+> 注意从SpringBoot3.1.1开始需要java17，spring framework6.0.10及以上版本
+
 3. 创建项目方式
    
    * 借助idea创建（阿里镜像网址：[http://start.aliyun](http://start.aliyun)）
@@ -8772,7 +8781,31 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 参考文章：https://juejin.cn/post/6844904136492711950
 
-1. @import
+1. @SpringBootApplication：
+   
+   ~~~java
+   @Target({ElementType.TYPE})
+   @Retention(RetentionPolicy.RUNTIME)
+   @Documented
+   @Inherited
+   @SpringBootConfiguration
+   @EnableAutoConfiguration
+   @ComponentScan(
+       excludeFilters = {@Filter(
+       type = FilterType.CUSTOM,
+       classes = {TypeExcludeFilter.class}
+   ), @Filter(
+       type = FilterType.CUSTOM,
+       classes = {AutoConfigurationExcludeFilter.class}
+   )}
+   )
+   public @interface SpringBootApplication {
+       //......
+   }
+   ~~~
+   
+2. @import
+
    * springboot中@Enable***开头的注解表示开启某项功能，其底层依赖@import注解。
    * @import注解可以向容器中导入类，这些类对象会被注入到容器中
      * 直接导入
