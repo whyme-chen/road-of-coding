@@ -1078,6 +1078,10 @@ Python正则表达式,使用re模块,并基于re模块中三个基础方法来�
 | \N      | 反向引用前面的捕获组       | (\d{2})-\1 可匹配 "11-11"、"22-22" 等          |
 | (?:...) | 创建非捕获组               | (?:ab)+ 只匹配 "abab"、"ababab" 等，不进行捕获 |
 
+## 常用IDE
+
+参考：https://mp.weixin.qq.com/s/W2y-1bT2dssbDX1TF7ObsA
+
 # 第三方库
 
 ## pyecharts包
