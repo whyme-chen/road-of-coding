@@ -1305,6 +1305,52 @@ TA-Lib（Technical Analysis Library）是一个用于技术分析的开源库，
    * 图像层
 
      图像层指Axes内通过plot、scatter、 bar、 histogram等函数根据数据绘制出的图像。
+   
+
+## requests
+
+1. 简介：一个用于发送 HTTP 请求的流行库。它使得发送 GET、POST、DELETE 等类型的请求变得简单，并可以处理返回的响应内容。
+
+## beautifulsoup4
+
+1. 简介：一个用于解析 HTML 或 XML 文档的库，可以方便地从网页中提取数据。
+
+~~~python
+from bs4 import BeautifulSoup
+
+# 创建 BeautifulSoup 对象
+soup = BeautifulSoup(html_content, 'html.parser')
+
+# 使用选择器提取数据
+links = soup.select('a')  # 提取所有 <a> 元素
+
+for link in links:
+    print(link['href'])  # 获取链接的 href 属性值
+
+~~~
+
+## openpyxl库
+
+1. 简介：一个用于操作 Excel 文件的库，可以读取、修改和创建 Excel 文件。
+
+~~~python
+import openpyxl
+
+# 创建工作簿和工作表
+wb = openpyxl.Workbook()
+sheet = wb.active
+
+# 设置单元格的值
+sheet['A1'] = '序号'
+sheet['B1'] = 'URL地址'
+
+# 获取单元格的值
+print(sheet['A1'].value)
+
+# 保存工作簿
+wb.save('example.xlsx')
+
+~~~
 
 # 办公自动化
 
