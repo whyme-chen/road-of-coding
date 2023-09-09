@@ -7256,13 +7256,13 @@ project
      * 环绕通知：环绕通知可以在方法调用之前和之后执行自定义行为
    * 通知类（Advice）：定义通知的类
 * 切面（Aspect）：描述通知与切入点的对应关系。本质是一个类，只不过是个功能类，作为整合 AOP 的切入点和通知。一般来讲，需要在 Spring 的配置文件中配置，或者通过注解来配置。
-   
+  
 * 目标对象( Target ) ：原始功能去掉共性功能对应的类产生的对象, 这种对象是无法直接完成最终工作的。简单点来说就是AOP 对连接点方法做增强，底层是代理模式生成连接点所在类的代理对象，那么连接点所在的类，就是被代理的类称呼为 Target。
-   
+  
 * 代理( Proxy ) ：目标对象无法直接完成工作,需要对其进行功能回填,通过原始对象的代理对象实现。一个类被 AOP 织入增强后，产生的结果就是代理类
-   
+  
 * 织入（Weaving）：织入是一种动作的描述，在程序运行时将增强的功能代码也就是通知，根据通知的类型（前缀后缀等…）放到对应的位置，生成代理对象。
-   
+  
      ![image-20230212205103543](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302122051537.png)
 
 ### 代理模式
@@ -10040,6 +10040,7 @@ Nginx是一款高性能的http 服务器/反向代理服务器及电子邮件( I
 
 * https://blog.csdn.net/YR_112233/article/details/122630446
 * https://blog.csdn.net/weixin_46645338/article/details/123895447
+* [SpringBoot集成Swagger3.0（详细）](https://www.cnblogs.com/antLaddie/p/17418078.html)
 
 ## 简介
 
@@ -10058,11 +10059,22 @@ Nginx是一款高性能的http 服务器/反向代理服务器及电子邮件( I
    * 以前叫做Swagger规范，是REST API的API描述格式，为REST API定义了一个与语言无关的标准接口
    * OpenAPI规范可以使用YAML或JSON格式进行编写
 
-### SpringBoot集成Swagger
+### SpringBoot集成Swagger（swagger3.0）
 
 参考：https://blog.csdn.net/weixin_46645338/article/details/123895447
 
-### Swagger配置（swagger3.0）
+为了简化swagger的使用，Spring框架对swagger进行了整合，建立了Spring-swagger项目，后面改成了现在的Springfox。通过在项目中引入Springfox，可以扫描相关的代码，生成描述文件，进而生成与代码一致的接口文档和客户端代码。
+
+maven依赖：
+
+```xml
+	<dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-boot-starter</artifactId>
+        <version>3.0.0</version>
+    </dependency>
+```
+配置：
 
 ```java
 package com.example.config;
@@ -10122,6 +10134,15 @@ public class SwaggerConfiguration {
 ### 常用注解
 
 ![img](https://img2020.cnblogs.com/blog/2088791/202112/2088791-20211229104433596-25349310.png)
+
+# knife4j
+
+knife4j是为Java MVC框架集成Swagger生成Api文档的增强解决方案,前身是swagger-bootstrap-ui,取名knife4j是希望它能像一把匕首一样小巧,轻量,并且功能强悍。其底层是对Springfox的封装，使用方式也和Springfox一致，只是对接口文档UI进行了优化。
+
+1. 核心功能
+   - **文档说明**：根据Swagger的规范说明，详细列出接口文档的说明，包括接口地址、类型、请求示例、请求参数、响应示例、响应参数、响应码等信息，对该接口的使用情况一目了然。
+
+   - **在线调试**：提供在线接口联调的强大功能，自动解析当前接口参数,同时包含表单验证，调用参数可返回接口响应内容、headers、响应时间、响应状态码等信息，帮助开发者在线调试。
 
 # Apifox
 
