@@ -10045,13 +10045,18 @@ Nginx是一款高性能的http 服务器/反向代理服务器及电子邮件( I
 
 * https://blog.csdn.net/YR_112233/article/details/122630446
 * https://blog.csdn.net/weixin_46645338/article/details/123895447
+* [SpringBoot集成Swagger3.0（详细）](https://www.cnblogs.com/antLaddie/p/17418078.html)
 
 ## 简介
 
 1. 简介
+
+   Swagger 是一个 RESTful API 的开源框架，它的主要目的是帮助开发者设计、构建、文档化和测试 Web API。Swagger 的核心思想是通过定义和描述 API 的规范、结构和交互方式，以提高 API 的可读性、可靠性和易用性，同时降低 API 开发的难度和开发者之间的沟通成本。
+
 2. 作用
    * 接口文档在线自动生成
    * 功能测试
+
 3. 主要项目
    * Swagger-tools:提供各种与Swagger进行集成和交互的工具。例如模式检验、Swagger 1.2文档转换成Swagger 2.0文档等功能。
    * Swagger-core: 用于Java/Scala的的Swagger实现。与JAX-RS(Jersey、Resteasy、CXF…)、Servlets和Play框架进行集成。
@@ -10059,15 +10064,49 @@ Nginx是一款高性能的http 服务器/反向代理服务器及电子邮件( I
    * Swagger-node-express: Swagger模块，用于node.js的Express web应用框架。
    * Swagger-ui：一个无依赖的HTML、JS和CSS集合，可以为Swagger兼容API动态生成优雅文档。
    * Swagger-codegen：一个模板驱动引擎，通过分析用户Swagger资源声明以各种语言生成客户端代码。
+
 4. OpenAPI（OpenAPI Specification）
-   * 以前叫做Swagger规范，是REST API的API描述格式，为REST API定义了一个与语言无关的标准接口
+   * 最初由开发Swagger的团队在2010年推出，从Swagger 2.0开始，Swagger规范被正式更名为OpenAPI规范，是REST API的API描述格式，为REST API定义了一个与语言无关的标准接口
    * OpenAPI规范可以使用YAML或JSON格式进行编写
 
-### SpringBoot集成Swagger
+5. Swagger发展史
+
+   Swagger它最初由Tony Tam在2011年创建，并在之后被SmartBear Software公司收购。在过去几年中，Swagger经历了许多重大的更新和变化，其发展史大概可以分为以下几个阶段：
+
+   * Swagger 1.x 阶段（2011-2014年）
+
+     Swagger最初是一个简单的API文档生成工具，通过对JAX-RS和Jersey注解的支持自动生成API文档，使得API文档的维护变得更加容易。在这个阶段，Swagger还没有完全成熟，只能支持基本的API描述和文档生成。
+
+   * Swagger 2.x 阶段（2014-2017年）
+     在Swagger 2.x阶段，Swagger发生了重大变化。它不再仅仅是一个文档生成工具，而是一个完整的API开发和管理平台。Swagger 2.x加入了强大的注解支持，可以描述API的细节信息，如请求参数、返回类型等，以及定义RESTful API的元数据，如API描述、标签等。此外，Swagger 2.x还引入了OpenAPI规范，在API定义方面有了更严格的标准和规则。
+
+   * OpenAPI 阶段（2017-至今）（也被称为Swagger 3.x）
+     在2017年，Swagger 2.x的规范成为了Linux基金会旗下的OpenAPI规范。这标志着Swagger从一款工具演变成为了一个开放且标准的API定义框架。OpenAPI规范不仅继承了Swagger 2.x的特性，还提供了更加全面和严格的API定义规范，并且扩展了对非RESTful API的支持
+
+   除了上述几个主要阶段之外，还有一些其他重要的事件和版本，如Swagger UI、Swagger Codegen、SwaggerHub等等。这些工具和服务进一步扩展了Swagger的功能，使其成为了一个更加完整、强大和易于使用的API定义和管理平台。
+
+## SpringBoot集成Swagger（swagger3.0）
+
+### SpringFox
 
 参考：https://blog.csdn.net/weixin_46645338/article/details/123895447
 
-### Swagger配置（swagger3.0）
+为了简化swagger的使用，Spring框架对swagger进行了整合，建立了Spring-swagger项目，后面改成了现在的Springfox。通过在项目中引入Springfox，可以扫描相关的代码，生成描述文件，进而生成与代码一致的接口文档和客户端代码。
+
+Springfox是一套可以帮助Java开发者自动生成API文档的工具，它是基于Swagger 2.x基础上开发的。Swagger已经成为了RESTful API文档生态系统的事实标准，而**Springfox是一个用于集成Swagger2.x到Spring应用程序中的库**。而且Springfox**提供了一些注解**来描述API接口、参数和返回值，并根据这些信息**生成Swagger UI界面**，从而方便其他开发人员查看和使用您的API接口。此外，Springfox还支持自动生成API文档和代码片段，简化了开发人员的工作量。除了集成Swagger 2.x，Springfox还提供了一些额外功能，例如自定义Swagger文档、API版本控制、请求验证等等。这些功能使得Springfox可以胜任各种类型和规模的应用程序，同时还可以提高代码质量和开发效率。
+
+maven依赖：
+
+```xml
+	<dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-boot-starter</artifactId>
+        <version>3.0.0</version>
+    </dependency>
+```
+> 随着时间的推移，Swagger2.x终究成为历史，springfox-boot-starter的坐标从3.0.0版本（2020年7月14日）开始就一直没有更新；也得注意的是springfox-swagger2坐标和springfox-boot-start是一样的，但springfox-boot-start只有3.0.0版本。因此不推荐你使用springfox
+
+配置：
 
 ```java
 package com.example.config;
@@ -10124,9 +10163,72 @@ public class SwaggerConfiguration {
 }
 ```
 
-### 常用注解
+### SpringDoc（推荐）
+
+springdoc-openapi
+
+* 官网：https://springdoc.org/
+* Github仓库：https://github.com/springdoc/springdoc-openapi
+* Maven仓库：https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui
+
+SpringDoc除了可以生成Swagger UI风格的接口文档，还提供了ReDoc的文档渲染方式，可以自动注入OpenAPI规范的JSON描述文件，支持OAuth2、JWT等认证机制，并且**支持全新的OpenAPI 3.0规范**。
+
+> SpringDoc是基于OpenAPI 3.0规范构建的，因此推荐在Spring Boot 2.4及以上版本中使用springdoc-openapi-ui库来集成Swagger3.x。在这些版本中，springdoc-openapi-ui库已被广泛应用，并且得到了社区的大力支持和推广。而在Spring Boot 2.3及其以下版本，可以使用springfox-boot-starter库来集成Swagger2.x。
+
+坐标依赖：
+
+~~~xml
+<dependency>
+    <groupId>org.springdoc</groupId>
+    <artifactId>springdoc-openapi-ui</artifactId>
+    <version>1.7.0</version>
+</dependency>
+~~~
+
+> 说明：上面的坐标内部导入了Swagger3.0的原生依赖（我们只需要在SpringBoot导入springdoc-openapi-ui即可）
+>     ①：io.swagger.core.v3:swagger-core:2.2.9
+>         Swagger Core是Swagger 3.x规范的核心实现，提供了一组Java API，用于生成和处理OpenAPI规范文件。
+>         它包括Swagger的核心功能，例如Model、Schema、Parameter、Response等，是构建Swagger API的必要条件。
+>     ②：io.swagger.core.v3:swagger-annotations:2.2.9
+>         Swagger Annotations是一个用于编写Swagger API文档的Java注解库，提供了一组注解，用于描述API元数据。
+>         例如，@Operation、@Parameter、@ApiResponse等注解基本包含了OpenAPI规范中的所有元素。
+>     ③：io.swagger.core.v3:swagger-models:2.2.9
+>         Swagger Models是Swagger 3.x规范的Java模型库，提供了一组Java模型类，用于表示OpenAPI规范文件。
+>         它包含了OpenAPI规范中的所有数据模型，例如PathItem、Operation、Parameter、Components等。
+
+## 常用注解
+
+swagger2.0常用注解如下：
 
 ![img](https://img2020.cnblogs.com/blog/2088791/202112/2088791-20211229104433596-25349310.png)
+
+OpenAPI3.0（Swagger3.0）常用注解：
+
+| 注解                   | 说明                                              |
+| ---------------------- | ------------------------------------------------- |
+| `@OpenAPIDefinition`   | 定义全局的OpenAPI文档信息，包括标题、描述、版本等 |
+| `@Info`                | 定义API文档的标题、描述、版本等                   |
+| `@Server`              | 定义服务端的URL和描述                             |
+| `@Paths`               | 定义多个API路径以及对应的操作                     |
+| `@Operation`           | 定义一个操作，包括HTTP方法、摘要、描述等          |
+| `@Parameter`           | 定义请求参数，包括名称、位置、类型、描述等        |
+| `@RequestBody`         | 定义请求体的内容和描述                            |
+| `@ApiResponse`         | 定义操作的响应，包括状态码、描述、返回类型等      |
+| `@Schema`              | 定义数据模型，包括属性、类型、格式等              |
+| `@Example`             | 定义示例值                                        |
+| `@Tag`                 | 定义API标签，用于分组和组织API                    |
+| `@SecurityScheme`      | 定义安全方案，如OAuth2、ApiKey等                  |
+| `@SecurityRequirement` | 定义操作所需的安全要求                            |
+| `@Extension`           | 定义扩展属性，可在OpenAPI规范中添加自定义属性     |
+
+# knife4j
+
+knife4j是为Java MVC框架集成Swagger生成Api文档的增强解决方案,前身是swagger-bootstrap-ui,取名knife4j是希望它能像一把匕首一样小巧,轻量,并且功能强悍。其底层是对Springfox的封装，使用方式也和Springfox一致，只是对接口文档UI进行了优化。
+
+1. 核心功能
+   - **文档说明**：根据Swagger的规范说明，详细列出接口文档的说明，包括接口地址、类型、请求示例、请求参数、响应示例、响应参数、响应码等信息，对该接口的使用情况一目了然。
+
+   - **在线调试**：提供在线接口联调的强大功能，自动解析当前接口参数,同时包含表单验证，调用参数可返回接口响应内容、headers、响应时间、响应状态码等信息，帮助开发者在线调试。
 
 # Apifox
 
@@ -10744,6 +10846,22 @@ path/to/file merge=ours // path/to/file 是要排除的文件的相对路径
 5. 查看某个远程仓库：git remote show [remote-name]
 
 > 注意：如果当前本地仓库不是从远程仓库克隆，而是本地创建的仓库，并且仓库中存在文件，此时再从远程仓库拉取文件的时候会报错(fatal: refusing to merge unrelated histories )解决此问题可以在git pull命令后加入参数--allow-unrelated-histories
+
+# 国际化
+
+国际化（Internationalization，通常缩写为"i18n"）是指将产品、服务或软件设计和准备得适应不同地区和国家的语言、文化和习俗的过程。它旨在使产品能够在全球范围内使用，并为用户提供本地化的体验。
+
+国际化的主要目标是使产品具备以下特性：
+
+* 多语言支持：产品能够适应不同的语言环境，以便用户可以使用他们所熟悉的语言进行交互。
+* 文化适应性：产品能够适应不同地区和文化的习俗、偏好和视觉习惯，以便用户感到亲切并易于接受。
+* 日期和时间格式：产品能够根据用户所在地区的习惯显示日期和时间格式，以确保易于理解和使用。
+* 货币和单位转换：产品能够支持不同货币和度量单位的转换，以便用户能够进行正确的交易和测量。
+* 地理位置相关性：产品能够根据用户所在地区提供相关的信息、功能或服务，以适应当地需求。
+
+通过国际化，企业可以开拓全球市场，吸引更多的用户并满足其多样化的需求。对于软件开发者来说，国际化是在设计、开发和测试产品时要考虑的重要因素，以确保产品在全球范围内具有广泛的可用性和用户满意度。
+
+> 注意：国际化仅是准备产品以适应不同地区和语言的过程，而本地化（Localization）则是指实际将产品翻译并适应特定地区的过程。国际化为本地化提供了技术和基础设施支持。
 
 # 实用开发
 
