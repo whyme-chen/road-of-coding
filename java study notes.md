@@ -11090,49 +11090,49 @@ path/to/file merge=ours // path/to/file 是要排除的文件的相对路径
 
 参考链接：https://juejin.cn/post/7053264631262871583
 
-> POJO的定义是无规则简单的对象，在日常的代码分层中pojo会被分为VO、BO、 PO、 DTO
-> 
-> **VO （view object/value object）表示层对象**
-> 
-> 1、前端展示的数据，在接口数据返回给前端的时候需要转成VO
-> 
-> 2、个人理解使用场景，接口层服务中，将DTO转成VO,返回给前台
-> 
-> **B0（bussines object）业务层对象**
-> 
-> 1、主要在服务内部使用的业务对象
-> 
-> 2、可以包含多个对象，可以用于对象的聚合操作
-> 
-> 3、个人理解使用场景，在服务层服务中，由DTO转成BO然后进行业务处理后，转成DTO返回到接口层
-> 
-> **PO（persistent object）持久对象**
-> 
-> 1、出现位置为数据库数据，用来存储数据库提取的数据
-> 
-> 2、只存储数据，不包含数据操作
-> 
-> 3、个人理解使用场景，在数据库层中，获取的数据库数据存储到PO中，然后转为DTO返回到服务层中
-> 
-> **DTO（Data Transfer Object）数据传输对象**
-> 
-> 1、在服务间的调用中，传输的数据对象
-> 
-> 2、个人理解，DTO是可以存在于各层服务中（接口、服务、数据库等等）服务间的交互使用DTO来解耦
-> 
-> **DO（domain object）领域实体对象**
-> 
-> DO 现在主要有两个版本：
-> 
-> ①阿里巴巴的开发手册中的定义，DO（ Data Object）这个等同于上面的PO
-> 
-> ②DDD（Domain-Driven Design）领域驱动设计中，DO（Domain Object）这个等同于上面的BO
-> 
-> 模型间的转换需要使用转换器，DTO、DO的转换器：xxxConverter  ，BO的转换器：xxxAssember
+POJO的定义是无规则简单的对象，在日常的代码分层中pojo会被分为VO、BO、 PO、 DTO
 
-## 跨域问题（CROS）
+**VO （view object/value object）表示层对象**
 
-## 开源第三方工具包
+1、前端展示的数据，在接口数据返回给前端的时候需要转成VO
+
+2、个人理解使用场景，接口层服务中，将DTO转成VO,返回给前台
+
+**B0（bussines object）业务层对象**
+
+1、主要在服务内部使用的业务对象
+
+2、可以包含多个对象，可以用于对象的聚合操作
+
+3、个人理解使用场景，在服务层服务中，由DTO转成BO然后进行业务处理后，转成DTO返回到接口层
+
+**PO（persistent object）持久对象**
+
+1、出现位置为数据库数据，用来存储数据库提取的数据
+
+2、只存储数据，不包含数据操作
+
+3、个人理解使用场景，在数据库层中，获取的数据库数据存储到PO中，然后转为DTO返回到服务层中
+
+**DTO（Data Transfer Object）数据传输对象**
+
+1、在服务间的调用中，传输的数据对象
+
+2、个人理解，DTO是可以存在于各层服务中（接口、服务、数据库等等）服务间的交互使用DTO来解耦
+
+**DO（domain object）领域实体对象**
+
+DO 现在主要有两个版本：
+
+①阿里巴巴的开发手册中的定义，DO（ Data Object）这个等同于上面的PO
+
+②DDD（Domain-Driven Design）领域驱动设计中，DO（Domain Object）这个等同于上面的BO
+
+模型间的转换需要使用转换器，DTO、DO的转换器：xxxConverter  ，BO的转换器：xxxAssember
+
+> VO，DTO，DO等各个对象将的转换除了可以手动使用get，set方法外，还可以使用一些工具和框架，具体可参考下一小节[开源第三方工具包](#tools)
+
+## <a id= 'tools'>开源第三方工具包</a>
 
 参考：https://pdai.tech/md/develop/package/dev-package-x-overview.html
 
@@ -11150,15 +11150,115 @@ path/to/file merge=ours // path/to/file 是要排除的文件的相对路径
 
 文档：https://mapstruct.org/documentation/stable/reference/pdf/mapstruct-reference-guide.pdf
 
+参考：
+
+* https://pdai.tech/md/develop/package/dev-package-x-overview.html
+
 MapStruct是一款非常实用Java工具，主要用于解决对象之间的拷贝问题，比如PO/DTO/VO/QueryParam之间的转换问题。区别于BeanUtils这种通过反射，它通过编译器编译生成常规方法，将可以很大程度上提升效率。
 
-------
+1. 引入依赖
 
-著作权归@pdai所有 原文链接：https://pdai.tech/md/develop/package/dev-package-x-overview.html
+   ~~~xml
+   	<properties>
+   <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
+       </properties>
+   
+       <dependencies>
+           <dependency>
+               <groupId>org.mapstruct</groupId>
+               <artifactId>mapstruct</artifactId>
+               <version>${org.mapstruct.version}</version>
+           </dependency>
+       </dependencies>
+   
+   
+       <build>
+           <plugins>
+               <plugin>
+                   <groupId>org.apache.maven.plugins</groupId>
+                   <artifactId>maven-compiler-plugin</artifactId>
+                   <version>3.8.1</version>
+                   <configuration>
+                       <source>1.8</source>
+                       <target>1.8</target>
+                       <annotationProcessorPaths>
+                           <path>
+                               <groupId>org.mapstruct</groupId>
+                               <artifactId>mapstruct-processor</artifactId>
+                               <version>${org.mapstruct.version}</version>
+                           </path>
+                       </annotationProcessorPaths>
+                   </configuration>
+               </plugin>
+           </plugins>
+       </build>
+   ~~~
+
+2. 编写转换器
+
+3. **@Mapper，@Mappings， @Mapping**
+
+   * 默认映射规则
+     * 同类型且同名的属性，会自动映射
+     * 类型不同时，mapstruct会自动进行类型转换
+       * 8种基本类型和他们对应的包装类型之间
+       * 8种基本类型(包括他们的包装类型)和string之间
+       * 日期类型和string之间
+     
+   * 可以同过@Mapping指定属性的映射关系和格式化
+     * 日期格式化：dateFormat = "yyyy-MM-dd HH:mm:ss"
+     * 数字格式化：numberFormat = "#.00"
+
+   * 属性是引用类型时可以按照如下操做完成映射
+
+     ~~~java
+     @Mapping(source ="driverDTo",target ="drivervo") // 并写上对应的abstract方法
+     ~~~
+
+4. **@AfterMapping，@MappingTarget**
+
+   * `@AfterMapping` 注解用于标记一个方法，在对象映射之后执行特定的逻辑。
+
+5. **@BeanMapping**
+
+   * ignoreByDefault：忽略mapstruct的默认映射行为。避免不需要的赋值、避免属性覆盖
+
+6. **@InheritConfiguration**
+
+7. **@lnheritlnverseConfiguration**
+
+   * 反向映射，例如将DO->DTO，使用该注解后可以不需要写对应的方法而自动实现DTO->DO
+
+### Dozer
+
+Dozer是Java Bean到Java Bean映射器，它以递归方式将数据从一个对象复制到另一个对象。
+
+dozer的maven坐标：
+
+~~~xml
+<dependency>
+    <groupId>com.github.dozermapper</groupId>
+    <artifactId>dozer-core</artifactId>
+    <version>6.5.0</version>
+</dependency>
+~~~
+
+为了简化使用方式，dozer还提供了starter，其maven坐标为：
+
+~~~xml
+<dependency>
+    <groupId>com.github.dozermapper</groupId>
+    <artifactId>dozer-spring-boot-starter</artifactId>
+    <version>6.5.0</version>
+</dependency>
+~~~
 
 ### Lombok
 
-参考：[十分钟搞懂Lombok使用与原理 - 掘金](https://juejin.cn/post/6844903557016076302)
+参考：
+
+* [十分钟搞懂Lombok使用与原理 - 掘金](https://juejin.cn/post/6844903557016076302)
+* [java代码简洁之道 lombok不止lombok](https://www.bilibili.com/video/BV1T64y1Z7Xm/?spm_id_from=333.999.0.0&vd_source=fabefd3fabfadb9324761989b55c26ea)
 
 1. @Builder：使用此注解后可以通过链式构造创建对象
 
@@ -11175,6 +11275,10 @@ MapStruct是一款非常实用Java工具，主要用于解决对象之间的拷�
 ## 常用cmd命令
 
 ### 网络命令
+
+## 跨域问题（CROS）
+
+## SXX
 
 ## 单例模式
 
@@ -11291,6 +11395,7 @@ Base64 存在以下问题：
 
 * https://pdai.tech/md/spring/springboot/springboot-x-interface-param.html
 * [JSR303](https://beanvalidation.org/1.0/spec/#d0e32)
+* https://www.bilibili.com/video/BV17i4y157Ah/?spm_id_from=autoNext&vd_source=fabefd3fabfadb9324761989b55c26ea
 
 1. 简单检验
 
