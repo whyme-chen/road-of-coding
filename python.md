@@ -1287,6 +1287,10 @@ TA-Lib（Technical Analysis Library）是一个用于技术分析的开源库，
 
 ## Matplotlib
 
+资料：
+
+* https://mp.weixin.qq.com/s/oGjkiFEIk0PqbaKYrN6C4g
+
 1. 简介：
 
    Matplotlib 是一个用于创建可视化图表的 Python 库。专门用于开发2d(3d)图表，提供了一种简单而灵活的方式来绘制各种类型的图表，包括线图、散点图、柱状图、饼图等等。可以用 Matplotlib 来探索数据、展示趋势、进行数据分析等。具有丰富的功能和灵活的设置选项，可以根据需要自定义图表的样式、颜色、标签等。它也可以与 NumPy、Pandas 等其他 Python 库结合使用，方便地处理和可视化数据。
