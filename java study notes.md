@@ -6722,6 +6722,11 @@ project
 
 ### Maven Archetype原型
 
+参考：
+
+* https://baijiahao.baidu.com/s?id=1722242604793241553&wfr=spider&for=pc
+* https://blog.csdn.net/weixin_54792520/article/details/121802898
+
 1. 概念
 
    Maven官网对于Archetype的解释如下：
@@ -11086,7 +11091,7 @@ path/to/file merge=ours // path/to/file 是要排除的文件的相对路径
 
 # 实用开发
 
-## POJO、DO、BO、DTO、VO
+## 模型转换POJO、DO、BO、DTO、VO
 
 参考链接：https://juejin.cn/post/7053264631262871583
 
@@ -11276,9 +11281,67 @@ dozer的maven坐标：
 
 ### 网络命令
 
-## 跨域问题（CROS）
+## 常见网站安全问题
 
-## SXX
+### 跨站脚本攻击（SXX）
+
+### SQL注入攻击
+
+### OS命令注入攻击
+
+### HTTP首部注入攻击
+
+### 跨站点请求伪造（CSRF）
+
+## 浏览器安全策略
+
+### 同源策略
+
+1. 作用：用于限制一个源的文档或者它加载的脚本如何能与另一个源的资源进行交互。
+
+2. 定义：如果两个 URL 的协议、主机和端口都相同，我们就称这两个 URL 同源。
+
+3. 主要表现
+
+   - DOM 访问限制：同源策略限制了网页脚本（如 JavaScript）访问其他源的 DOM。这意味着通过脚本无法直接访问跨源页面的 DOM 元素、属性或方法。这是为了防止恶意网站从其他网站窃取敏感信息。
+   - Web 数据限制：同源策略也限制了从其他源加载的 Web 数据（例如 XMLHttpRequest 或 Fetch API,Cookie、LocalStorage和IndexDB的读写）。在同源策略下，XMLHttpRequest 或 Fetch 请求只能发送到与当前网页具有相同源的目标。这有助于防止跨站点请求伪造（CSRF）等攻击。
+   - 网络通信限制：同源策略还限制了跨源的网络通信。浏览器会阻止从一个源发出的请求获取来自其他源的响应。这样做是为了确保只有受信任的源能够与服务器进行通信，以避免恶意行为
+
+4. 举例
+
+   > 假设用户正在浏览一个银行网站，该网站的URL为`http://www.bank.com`。同时，用户在另一个标签页中打开了一个恶意网站，URL为`http://www.malicious.com`。
+   >
+   > 根据同源策略，由于这两个网站的协议、主机名和端口号不同，它们被认为是不同源的。因此，恶意网站无法通过JavaScript等方式直接访问或操纵银行网站的数据。
+
+需要注意的是虽然浏览器限制从脚本内发起的跨源 HTTP 请求，XMLHttpRequest 和 Fetch API，只能从加载应用程序的同一个域请求 HTTP 资源。但同源策略并不完全禁止跨域资源共享。在一些特定的场景下，可以使用CORS（跨域资源共享）来进行控制和配置，允许某些跨域资源的访问。
+
+### 跨域资源共享（CORS）
+
+跨源资源共享（Cross-Origin Resource Sharing，CORS）是一种机制，允许在受控的条件下，不同源的网页能够请求和共享资源。由于浏览器的同源策略限制了跨域请求，CORS 提供了一种方式来解决在 Web 应用中进行跨域数据交换的问题。
+
+CORS 的基本思想是，服务器在响应中提供一个标头（HTTP 头），指示哪些源被允许访问资源。浏览器在发起跨域请求时会先发送一个**预检请求**（OPTIONS 请求）到服务器，服务器通过设置适当的 CORS 标头来指定是否允许跨域请求，并指定允许的请求源、方法、标头等信息。
+
+对于满足以下条件的请求，浏览器将认为是**简单请求**，不会CORS预检请求：
+
+* HTTP 方法限制：只能使用 GET、HEAD、POST 这三种 HTTP 方法之一。如果请求使用了其他 HTTP 方法，就不再被视为简单请求。
+
+* 自定义标头限制：请求的 HTTP 标头只能是以下几种常见的标头：
+
+  * Accept
+  * Accept-Language
+  * Content-Language
+  * Last-Event-ID
+  * Content-Type（仅限于 application/x-www-form-urlencoded、multipart/form-data、text/plain）
+
+  HTML 头部 header field 字段：DPR、Download、Save-Data、Viewport-Width、WIdth。如果请求使用了其他标头，同样不再被视为简单请求。
+
+* 请求中没有使用 ReadableStream 对象。
+
+* 不使用自定义请求标头：请求不能包含用户自定义的标头。
+
+* 请求中的任意 XMLHttpRequestUpload 对象均没有注册任何事件监听器；XMLHttpRequestUpload 对象可以使用 XMLHttpRequest.upload 属性访问
+
+
 
 ## 单例模式
 
