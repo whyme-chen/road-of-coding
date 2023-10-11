@@ -5972,6 +5972,17 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
 3. 缺点：
    
    * 使得项目架构变得复杂
+   
+4. controller层设计
+
+   controller层的主要作用包括以下几项：
+
+   - 接收请求并解析参数
+   - 调用 Service 执行具体的业务代码（可能包含参数校验）
+   - 捕获业务逻辑异常做出反馈
+   - 业务逻辑执行成功做出响应
+
+   
 
 # 软件设计架构
 
@@ -5983,18 +5994,6 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
    
    ![image-20211002163015726](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20211002163015726.png)
 
-2. 案例：**用户信息列表展示**
-   
-   * 需求：用户信息的增删改查
-   
-   * 设计：
-     
-     * 技术选型：Servlet+Jsp+MySQL+JDBCTemplate+Druid+BeanUtils+tomcat
-     * 数据库设计
-   
-   * 实现：
-     
-     > 1. 环境搭建
 
 # Filter和Listener
 
@@ -10538,6 +10537,40 @@ knife4j是为Java MVC框架集成Swagger生成Api文档的增强解决方案,前
    
    ![image-20211227103126984](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211227103126984.png)
 
+## Debug
+
+参考：https://blog.csdn.net/huangjinjin520/article/details/100035427
+
+1. 设置断点（Breakpoint Ctrl + F8）：在代码行上单击鼠标左键，在该行上设置或取消断点。断点是调试的关键，可以使程序在执行到断点时停下来，方便观察程序状态。
+   * View Breakpoints (Ctrl + Shift + F8)：查看所有断点
+   * Mute Breakpoints：选择这个后，所有断点变为灰色，断点失效。再次点击，断点变为红色，有效。如果只想使某一个断点失效，可以在断点上右键取消Enabled
+   * 条件断点
+     * 在断点上右键直接设置当前断点的条件
+     * 在View Breakpoints (Ctrl + Shift + F8)窗口中设置
+   * 异常断点
+2. 启动调试：使用快捷键Shift + F9启动调试，或者通过点击工具栏上的调试按钮来启动调试会话。
+3. 变量查看和表达式
+   - 变量值查看
+     * 编辑区参数所在行后面会显示当前变量的值
+     * 光标悬停到参数上，显示当前变量信息
+     * 在Variables里查看，这里显示当前方法里的所有变量
+     * Watches窗口：用于监视和跟踪特定变量的值。在Watches里，点击New Watch，输入需要查看的变量
+   - Evaluate窗口（Alt + F8）：用于动态评估和执行表达式。
+     - 这个表达式不仅可以是一般变量或参数，也可以是方法，当你的一行代码中调用了几个方法时，就可以通过这种方式查看查看某个方法的返回值。
+     - 设置变量，在计算表达式的框里，可以改变变量的值
+4. 单步执行：
+   - Step Over（F8）：逐行执行当前行，并且不进入方法内部。
+   - Step Into（F7）：进入当前行所调用方法的内部。
+   - Step Out（Shift + F8）：从当前方法返回到调用它的方法。
+   - Smart Step Into (Shift + F7)：动定位到当前断点行，并列出需要进入的方法
+   - reset frame：断点回退，其实就是回退到上一个方法调用的开始处，在[IDEA](http://mp.weixin.qq.com/s?__biz=MzI4Njc5NjM1NQ%3D%3D&chksm=ebd62d2adca1a43cb136b5740621e25854537054b9b3cac7451fd21ea55c0fc247e07a49d8cd&idx=1&mid=2247488006&scene=21&sn=d5c66d84724b1deebac6604749d04bf5#wechat_redirect)里测试无法一行一行地回退或回到到上一个断点处，而是回到上一个方法。需要注意，断点回退只能重新走一下流程，之前的某些参数/数据的状态已经改变了的是无法回退到之前的状态的，如对象、集合、更新了数据库数据等等。
+5. 调试控制：
+   - Resume（F9）：继续执行程序，直到遇到下一个断点或程序结束。
+   - Pause（Ctrl + F2）：暂停当前正在执行的程序。
+   - Stop（Ctrl + F2）：停止调试会话。
+6. 监视表达式（Conditional Expression）：你可以设置条件表达式来监视变量，并在满足条件时暂停程序的执行。
+7. 异常断点：除了普通断点，你还可以设置特定异常断点，在抛出或捕获该异常时暂停程序的执行。
+
 ## 常用快捷键
 
 ### Mac 键盘符号说明
@@ -11459,6 +11492,8 @@ Base64 存在以下问题：
 * https://pdai.tech/md/spring/springboot/springboot-x-interface-param.html
 * [JSR303](https://beanvalidation.org/1.0/spec/#d0e32)
 * https://www.bilibili.com/video/BV17i4y157Ah/?spm_id_from=autoNext&vd_source=fabefd3fabfadb9324761989b55c26ea
+
+Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中一个比较出名的实现是 `hibernate validation` ，`spring validation` 是对其的二次封装，常用于 SpringMVC 的参数自动校验，参数校验的代码就不需要再与业务逻辑代码进行耦合了。
 
 1. 简单检验
 
