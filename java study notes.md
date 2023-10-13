@@ -1196,15 +1196,24 @@ public class MyException extends Exception{
 
 # 泛型
 
+参考：
+
+* [JavaSE强化教程泛型，由点到面的讲解了整个泛型体系](https://www.bilibili.com/video/BV1xJ411n77R/?spm_id_from=333.337.search-card.all.click&vd_source=fabefd3fabfadb9324761989b55c26ea)
+* [Java 基础 - 泛型机制详解](https://pdai.tech/md/java/basic/java-basic-x-generic.html)
+
 1. 泛型的引出
    
-   泛型是JDK1.5之后开始使用的，其主要目的是为了解决ClassCastException的问题。java中向下转型始终都有可能存在安全隐患，因此希望通过泛型来慢慢解决此类问题。
+   泛型是JDK1.5之后开始使用的，其主要目的是**为了解决ClassCastException的问题**。java中向下转型始终都有可能存在安全隐患，因此希望通过泛型来慢慢解决此类问题。泛型提供了编译时类型安全监测机制，该机制允许我们在编译时检测到非法的类型数据结构。**泛型的本质是类型参数化**，也就是所操作的数据类型被指定为一个参数。
 
-2. 泛型的定义
+   泛型的优点：
    
-   > * 泛型中只允许使用引用类型，若要使用基本类型则必须进行包装
-   > * 从JDK1.7开始，泛型对象实例化可以简化。
-   > * 泛型可以定义在类、接口和方法上
+   * 类型安全：编译时就可以发现类型的不一致性
+   * 消除了强制类型转换
+   
+2. 泛型的定义
+
+   * 泛型中只允许使用引用类型，若要使用基本类型则必须进行包装
+   * 泛型可以定义在类、接口和方法上
 
 3. 泛型通配符
 
@@ -1256,6 +1265,12 @@ public class MyException extends Exception{
 
 4. 泛型类
 
+   * 常用的泛型标识：T、E、K、V（这些字母没有什么具体含义，只是通常会用这些字母进行标识）
+   * 从JDK1.7开始，泛型对象实例化可以简化。例如由`ArrayList<String> list = new ArrayList<String>()`简化为`ArrayList<String> list = new ArrayList<>()`，编译器可以通过变量类型来推断泛型实例对象的类型。
+   * 泛型类在实例化时若没有指定类型则按照Object类型实例化。
+   * 同一泛型类，根据不同的数据类型创建的对象，本质上是同一类型。
+   * 从泛型类派生子类时，若子类也是泛型类，子类和父类的泛型要保持一致；若子类不是泛型类，则父类要明确泛型的数据类型。
+
    ```java
    package generics;
    
@@ -1264,6 +1279,9 @@ public class MyException extends Exception{
     在类的名字后加上泛型标识
     */
    public class MyArrayList<E> {
+       
+       private E list;
+       
        public void add(E e){
    
        }
@@ -1273,10 +1291,19 @@ public class MyException extends Exception{
        }
    
    }
+   // 子类是泛型类，则子类的泛型（标识）需要与父类泛型（标识）保持一致
+   public MyChildrenList<T> extends MyArrayList<T>{
+       
+   }
+   
+   // 子类不是泛型类，父类要明确泛型数据类型
+   public MyChildrenList extends MyArrayList<String{
+       
+   }
    ```
 
 5. 泛型接口
-   
+
    ```java
    package generics;
    
@@ -1287,7 +1314,7 @@ public class MyException extends Exception{
    ```
 
 6. 泛型方法
-   
+
    ```java
        /**
         * 泛型方法
@@ -1311,6 +1338,12 @@ public class MyException extends Exception{
            }
        }
    ```
+
+7. 类型擦除
+
+8. 泛型和数组
+
+9. 泛型和反射
 
 # 集合
 
@@ -1557,6 +1590,10 @@ public class LinkedListDemo {
 ### HashTable
 
 # I/O操作
+
+参考：
+
+* https://www.bilibili.com/video/BV1gz4y1C7RK/?spm_id_from=333.788.recommend_more_video.2&vd_source=fabefd3fabfadb9324761989b55c26ea
 
 ## File类
 
