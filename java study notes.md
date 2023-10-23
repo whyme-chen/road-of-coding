@@ -53,7 +53,85 @@ java 1.9后提供。
 
 3. 文档注释
 
-   https://blog.csdn.net/manongajie/article/details/121494903
+4. JavaDoc
+
+   JavaDoc 是一种用于生成 API 文档的注释规范。以下是 JavaDoc 注释的一些常见规范：
+
+   * 类、接口和枚举的注释：
+     * 使用 `/** ... */` 多行注释格式。
+     * 在注释的开头，使用一个概要描述该类、接口或枚举的功能。
+     * 如果有必要，在概要之后提供更详细的描述。
+     * 使用 `@author` 标签指定作者的姓名。
+     * 使用 `@version` 标签指定版本信息。
+
+   ```java
+   /**
+    * 描述类、接口或枚举的功能。
+    * 
+    * 更多详细描述...
+    *
+    * @author Your Name
+    * @version 1.0
+    */
+   public class MyClass {
+       // 类的代码...
+   }
+   ```
+
+   * 方法的注释：
+     * 使用 `/** ... */` 多行注释格式。
+     * 在注释的开头，使用一个概要描述该方法的功能。
+     * 如果有必要，在概要之后提供更详细的描述。
+     * 对于每个参数，使用 `@param` 标签指定参数名称和描述。
+     * 使用 `@return` 标签指定方法的返回值描述。
+     * 使用 `@throws` 标签指定可能抛出的异常及其描述。
+
+   ```java
+   /**
+    * 描述方法的功能。
+    * 
+    * @param a 参数a的描述
+    * @param b 参数b的描述
+    * @return 返回值的描述
+    * @throws Exception 可能抛出的异常及其描述
+    */
+   public int calculate(int a, int b) throws Exception {
+       // 方法的代码...
+   }
+   ```
+
+   * 字段和常量的注释：
+     * 使用单行注释 `//` 或多行注释 `/* ... */` 格式。
+     * 在注释中描述该字段或常量的作用。
+
+   ```java
+   public class MyClass {
+       /**
+        * 描述字段的作用。
+        */
+       private int myField;
+   
+       /**
+        * 描述常量的作用。
+        */
+       public static final int MY_CONSTANT = 10;
+   }
+   ```
+
+   * 引用其他类或方法：
+     * 使用 `{@link}` 标签来引用其他类、方法、变量等。
+
+   ```java
+   /**
+    * 引用其他类：{@link OtherClass}
+    * 引用其他方法：{@link OtherClass#otherMethod()}
+    * 引用其他变量：{@link OtherClass#OTHER_CONSTANT}
+    */
+   public class MyClass {
+       // ...
+   }
+   ```
+
 
 ### 关键字
 

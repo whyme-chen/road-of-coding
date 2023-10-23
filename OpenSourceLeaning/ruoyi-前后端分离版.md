@@ -1,3 +1,9 @@
+RuoYi官网：[RuoYi](https://www.ruoyi.vip/)
+
+官方文档：[RuoYi-Vue](https://doc.ruoyi.vip/ruoyi-vue/)
+
+Gitee地址：https://gitee.com/y_project/RuoYi-Vue.git
+
 # 项目运行
 
 ## 后端
