@@ -2840,6 +2840,16 @@ public class Test04 {
 8. 原理
 
    参考：https://blog.csdn.net/qq_20009015/article/details/106038023
+   
+   当我们在Java代码中使用注解时，Annotation Processor（注解处理器）可以在编译时扫描源代码中的注解，并根据注解的定义生成额外的代码。注解处理器是Java编译器的一部分，它们负责在编译期间对注解进行处理。
+   
+   注解处理器通过继承 `javax.annotation.processing.AbstractProcessor` 类，并重写其中的方法来实现自定义的注解处理逻辑。通常，我们需要重写 `process()` 方法来处理特定的注解，并生成相应的代码。
+   
+   在编译过程中，Java编译器会检测源代码中是否存在使用了特定注解的元素（类、方法、字段等），如果有，就会调用相应的注解处理器来处理这些注解。注解处理器可以读取和分析注解及其相关元素的信息，然后根据处理逻辑生成新的代码文件。
+   
+   使用Annotation Processor可以帮助我们减少重复的、机械性的编码工作，提高开发效率，同时保证生成的代码的正确性和一致性。Lombok和MapStruct就是利用Annotation Processor的能力，通过注解来生成简化代码，如自动生成getter/setter方法、构造函数等。
+   
+   需要注意的是，Annotation Processor是在编译期间执行的，它不会改变源代码的内容，而是在编译过程中生成额外的代码文件。生成的代码文件将会被编译成字节码，并与原始代码一起打包到最终的可执行文件中。
 
 # 网络编程
 
@@ -11286,7 +11296,7 @@ MapStruct是一款非常实用Java工具，主要用于解决对象之间的拷�
        </build>
    ~~~
 
-2. 编写转换器
+2. 编写转换器（抽象类或接口均可）
 
 3. **@Mapper，@Mappings， @Mapping**
 
@@ -11352,9 +11362,13 @@ dozer的maven坐标：
 * [十分钟搞懂Lombok使用与原理 - 掘金](https://juejin.cn/post/6844903557016076302)
 * [java代码简洁之道 lombok不止lombok](https://www.bilibili.com/video/BV1T64y1Z7Xm/?spm_id_from=333.999.0.0&vd_source=fabefd3fabfadb9324761989b55c26ea)
 
-1. @Builder：使用此注解后可以通过链式构造创建对象
+1. `@Builder`&`@SuperBuilder`：使用此注解后可以通过链式构造创建对象
 
    > 参考：https://blog.csdn.net/qq_61267719/article/details/131182663
+
+   * `@Builder`： `@Builder` 注解可以用在类、构造方法或者方法上，它会自动生成一个内部静态类作为构器，并在该构建器中提供链式调用的方式来设置属性值。通过使用 `@Builder` 注解，我们可以方便地创建一个具有多个属性的对象。`@Builder` 会为被注解的类生成 builder 模式的相关方法，如 `builder()`、`build()` 和链式的属性设置方法。
+
+   * `@SuperBuilder`： `@SuperBuilder` 注解是 `@Builder` 的增强版本，它可以用于继承关系中。当一个子类使用 `@SuperBuilder` 注解时，Lombok 会为该子类生成一个包含父类属性的构建器，并保证构建器能够正确地设置父类和子类的属性值。使用 `@SuperBuilder` 后，我们可以在构建过程中同时设置父类和子类的属性。
 
 ## 字符编码问题
 
