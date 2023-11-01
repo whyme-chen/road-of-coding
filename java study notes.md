@@ -1167,17 +1167,22 @@ public class LambdaDemo3 {
 
      > 在实际开发中我们的数据很多是从数据库获取的。Mybatis从3.5版本可以也已经支持Optiona了。我们可以直接把dao方法的返口值类型定义成Optional类型，MyBastis 会自己把数据封装成Optional对象返回。封装的过程也不需要我们自己操作。
 
-   * 安全消费值
+   * 判断是否包含值
 
      ~~~java
-    Optional.ifPresent();
-     ~~~
-
+      Optional.ifPresent();
+      Optional.iSPresent();
+  ~~~
+   
    * 安全获取值
    
      ~~~java
-     Optional.orElseGet();
+     Optional.Get(); // 如果Optional为空，调用get()方法会抛出NoSuchElementException异常
+     Optional.orElse(); // 
+     Optional.orElseGet(); // 如果Optional为空，则执行一个函数并返回结果
      Optional.orelseThrow();
+     Optional.map(); // 如果Optional不为空，则执行一个函数并返回结果
+     Optional.flatMap(); // 如果Optional不为空，则执行一个函数并返回一个Optional对象
      ~~~
    
    * 过滤
@@ -1186,7 +1191,7 @@ public class LambdaDemo3 {
      Optional.filter();//如果原本是有数据的，但是不符合判断，也会变成一个无数据的Optional对象。
      ~~~
    
-   * 判断
+   * 
    
    * 数据转换
 
