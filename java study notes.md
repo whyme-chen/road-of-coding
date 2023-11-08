@@ -669,10 +669,34 @@ Runtime描述的是运行时的状态，也就是说在整个JVM中，Runtime类
 
 ### 日期与时间相关类
 
-### calendar system
+[【黑马磊哥】一听就懂 JDK8新增的日期时间、Java日期时间API、LocalDateT](https://www.bilibili.com/video/BV1wG4y1h7j4?spm_id_from=333.1245.0.0)
+
+#### calendar system
 
 * [ISO-8601](https://www.joda.org/joda-time/cal_iso.html)、[Joda-Time](https://www.joda.org/joda-time/index.html)
 * proleptic Gregorian calendar system
+
+java中jdk8之前传统的与时间相关类主要有：
+
+* Date
+* SimpleDateFormat
+* Calendar
+
+在jdk8中新增的时间相关类有：
+
+* LocalDate:年、月、日
+* LocalTime:时、分、秒
+* LocalDateTime: 年、月、日时、分、秒
+* ZoneId :时区
+* ZonedDateTime:带时区的时间
+* Instant:时间戳/时间线
+* DateTimeFormatter:用于时间的格式化和解析
+* Duration:时间间隔 (时、分、秒，纳秒)
+* Period:时间间隔 (年，月，日)
+
+在实际开发中，推荐使用 `java.time` 包中的新日期和时间 API（Java 8+）。例如 `LocalDateTime`、`LocalDate` 等类，它们提供了更简洁、易用且线程安全的日期和时间处理方式。其中可以使用`LocatDate`、`LocatDateTime`、`LocalDateTime`、`ZoneId`、`ZoneDateTime`来代替原`Calendar`，使用`Instant`代替`Date`，使用`DateTimeFormatter`代替`SimpleDateFormat`。
+
+> jdk8以前的时间api，设计不合理，使用不方便很多都被淘汰了；都是可变对象，修改后会丢失最开始的时间信息并且是线程不安全；在精度上只能精确到毫秒。jak8+的相关时间api能精确到毫秒、纳秒，在不可变的同时也是线程安全的。
 
 #### Date
 
@@ -687,30 +711,157 @@ Runtime描述的是运行时的状态，也就是说在整个JVM中，Runtime类
 1. 作用：将Date对象或时间毫秒值格式化为想要的格式。同时也可以把字符串的时间形式解析成日期对象
 
 2. 使用
-   
+
    ![image-20211228204316451](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211228204316451.png)
-   
+
    3. 格式化的时间形式
-      
+
       ![image-20211228204547690](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211228204547690.png)
 
 #### Calendar
 
+`java.util.Calendar` 类是 Java 中处理日期和时间的核心类之一。它提供了一组方法，用于操作日期、时间和日历字段。
+
+该类中常用的字段和方法如下：
+
+- `YEAR`：年份字段
+- `MONTH`：月份字段（注意从0开始，即0表示一月）
+- `DATE`：日期字段
+- `HOUR_OF_DAY`：24小时制的小时字段
+- `MINUTE`：分钟字段
+- `SECOND`：秒字段
+- `MILLISECOND`：毫秒字段
+- `DAY_OF_WEEK`：星期几字段（1表示星期日，2表示星期一，以此类推）
+- `AM_PM`：上午/下午字段（0表示上午，1表示下午）
+- `getInstance()`：返回一个默认时区和语言环境的 Calendar 实例
+- `set(int field, int value)`：设置给定字段的值
+- `get(int field)`：获取给定字段的值
+- `add(int field, int amount)`：根据日历的规则，将指定字段的值增加或减少指定的时间量
+- `getTime()`：返回一个表示 Calendar 所代表的日期的 Date 对象
+- `setTime(Date date)`：使用给定的 Date 设置此 Calendar 的时间
+
+> 注意: **calendar是可变对象，一旦修改后其对象本身表示的时间将产生变化。**
+
+---
+
 #### LocalDate
+
+`LocalDate` 表示不带时区的日期，包括年、月、日等信息。它是一个不可变的类，每个实例都代表一个特定的日期。
+
+1. 常用方法：
+
+   * `now()`：获取当前系统日期
+   * `of(int year, int month, int dayOfMonth)`：根据指定的年份、月份和日期创建 LocalDate 对象
+   * `parse(CharSequence text)`：将字符串解析为 LocalDate 对象，例如 `LocalDate.parse("2021-08-06")`
+   * `plusYears(long years)`：增加指定的年数
+   * `minusYears(long years)`：减少指定的年数
+   * `plusMonths(long months)`：增加指定的月份数
+   * `minusMonths(long months)`：减少指定的月份数
+   * `plusDays(long days)`：增加指定的天数
+   * `minusDays(long days)`：减少指定的天数
+
+2. `java.time.LocalDate`vs`java.util.Date`
+
+   * java.util.Date和SimpleDateFormatter都是线程不安全的，而java.time.LocalDate和java.time.LocalTime与最String一样，是不可变的，因此可以说是线程安全的。以下是API文档中的解释：
+
+     > LocalDate is an immutable date-time object that represents a date, often viewed as year-month-day.  Other date fields, such as day-of-year, day-of-week and week-of-year, can also be accessed.  For example, the value "2nd October 2007" can be stored in a LocalDate.
+
+   * java.util.Date月份是从0开始，一月是0，十二月是11。java.time.LocalDate月份和星期都改成了enum（分别为java.time.DayOfWeek和java.time.Month）。
+
+   * java.util.Date推算时间（比如往前推几天/往后推几天/推算某年某月第一天等等）要结合Calender编写代码，相当麻烦，而java.time.LocaDate只需要调用对应的方法即可。
+
+#### LocalTime
+
+`LocalTime` 表示不带时区的时间，包括小时、分钟、秒、毫秒等信息。与 `LocalDate` 类似，它也是一个不可变的类。
+
+1. 常用方法：
+   * `now()`：获取当前系统时间
+   * `of(int hour, int minute)`：根据指定的小时和分钟数创建 `LocalTime` 对象
+   * `parse(CharSequence text)`：将字符串解析为 `LocalTime` 对象，例如 `LocalTime.parse("12:00:00")`
+   * `plusHours(long hours)`：增加指定的小时数
+   * `minusHours(long hours)`：减少指定的小时数
+   * `plusMinutes(long minutes)`：增加指定的分钟数
+   * `minusMinutes(long minutes)`：减少指定的分钟数
+   * `plusSeconds(long seconds)`：增加指定的秒数
+   * `minusSeconds(long seconds)`：减少指定的秒数
 
 #### LocalDateTime
 
+`LocalDateTime` 表示不带时区的日期和时间，包括年、月、日、小时、分钟、秒、毫秒等信息。它是 `LocalDate` 和 `LocalTime` 的合集，也是一个不可变的类。
+
+1. 常用方法：
+   * `now()`：获取当前系统日期和时间
+   * `of(int year, int month, int dayOfMonth, int hour, int minute, int second)`：根据指定的年、月、日、小时、分钟和秒数创建 `LocalDateTime` 对象
+   * `parse(CharSequence text)`：将字符串解析为 `LocalDateTime` 对象，例如 `LocalDateTime.parse("2021-08-06T12:00:00")`
+   * `plusYears(long years)`：增加指定的年数
+   * `minusYears(long years)`：减少指定的年数
+   * `plusMonths(long months)`：增加指定的月份数
+   * `minusMonths(long months)`：减少指定的月份数
+   * `plusDays(long days)`：增加指定的天数
+   * `minusDays(long days)`：减少指定的天数
+   * `plusHours(long hours)`：增加指定的小时数
+   * `minusHours(long hours)`：减少指定的小时数
+   * `plusMinutes(long minutes)`：增加指定的分钟数
+   * `minusMinutes(long minutes)`：减少指定的分钟数
+   * `plusSeconds(long seconds)`：增加指定的秒数
+   * `minusSeconds(long seconds)`：减少指定的秒数
+
+#### ZoneId
+
+由于世界各个国家与地区的经度不同，各地区的时间也有所不同，因此会划分为不同的时区。
+
+#### ZoneDateTime
+
+`ZonedDateTime` 表示带时区的日期和时间，包括年、月、日、小时、分钟、秒、毫秒等信息，并且还包括时区信息。它也是一个不可变的类。
+
+1. 常用方法：
+   * `now()`：获取当前系统日期和时间，以系统默认时区为准
+   * `of(LocalDateTime localDateTime, ZoneId zone)`：根据指定的日期时间和时区创建 `ZonedDateTime` 对象
+   * `parse(CharSequence text)`：将字符串解析为 `ZonedDateTime` 对象，例如 `ZonedDateTime.parse("2021-08-06T12:00:00+08:00")`
+   * `withZoneSameInstant(ZoneId zone)`：返回一个新的 `ZonedDateTime` 对象，其时区与指定时区相同，但日期时间不变
+   * `withZoneSameLocal(ZoneId zone)`：返回一个新的 `ZonedDateTime` 对象，其时区与指定时区相同，但本地日期时间不变
+   * `plusYears(long years)`：增加指定的年数
+   * `minusYears(long years)`：减少指定的年数
+   * `plusMonths(long months)`：增加指定的月份数
+   * `minusMonths(long months)`：减少指定的月份数
+   * `plusDays(long days)`：增加指定的天数
+   * `minusDays(long days)`：减少指定的天数
+   * `plusHours(long hours)`
+
 #### DateTimeFormatter
 
-> **java.util.Date和Java.time.LocalDate比较**
->
-> 第一，java.util.Date和SimpleDateFormatter都是线程不安全的，而java.time.LocalDate和java.time.LocalTime与最String一样，是不可变的，因此可以说是线程安全的。以下是API文档中的解释：
->
-> LocalDate is an immutable date-time object that represents a date, often viewed as year-month-day.  Other date fields, such as day-of-year, day-of-week and week-of-year, can also be accessed.  For example, the value "2nd October 2007" can be stored in a LocalDate.
->
-> 第二，java.util.Date月份是从0开始，一月是0，十二月是11。java.time.LocalDate月份和星期都改成了enum（分别为java.time.DayOfWeek和java.time.Month）。
->
-> 第三，java.util.Date推算时间（比如往前推几天/往后推几天/推算某年某月第一天等等）要结合Calender编写代码，相当麻烦，而java.time.LocaDate只需要调用对应的方法即可。
+#### Duration
+
+`Duration` 类用于表示时间上的持续时间，以秒和纳秒为单位。
+
+1. 常用方法：
+   * `ofDays(long days)`、`ofHours(long hours)`、`ofMinutes(long minutes)`、`ofSeconds(long seconds)` 等：创建一个指定持续时间的 `Duration` 对象。
+   * `between(Temporal startInclusive, Temporal endExclusive)`：计算两个 `Temporal` 对象之间的持续时间。
+   * `plus(Duration duration)` 和 `minus(Duration duration)`：添加或减去指定的持续时间。
+   * `getSeconds()` 和 `getNano()`：获取持续时间的秒数和纳秒数。
+   * `toMinutes()`、`toHours()` 和 `toDays()`：将持续时间转换为分钟、小时或天数。
+
+#### Period
+
+`Period` 类用于表示日期上的持续时间，以年、月和日为单位。
+
+1. 常用方法：
+   * `ofYears(int years)`、`ofMonths(int months)`、`ofDays(int days)` 等：创建一个指定持续时间的 `Period` 对象。
+   * `between(LocalDate startDateInclusive, LocalDate endDateExclusive)`：计算两个 `LocalDate` 对象之间的持续时间。
+   * `plus(Period period)` 和 `minus(Period period)`：添加或减去指定的持续时间。
+   * `getYears()`、`getMonths()` 和 `getDays()`：获取持续时间的年数、月数和天数。
+
+#### Instant
+
+`Instant` 类是 Java 8 引入的用于表示时间戳的类，以便在机器和人类可读的格式之间进行转换。该时间由两部分组成:从1970-01-01 00:00:00 开始走到此刻的总秒数 + 不够1秒的纳秒数
+
+1. 常用方法：
+   * `now()`：获取当前的时间戳。
+   * `ofEpochSecond(long epochSecond)` 和 `ofEpochMilli(long epochMilli)`：创建一个 `Instant` 对象，表示从 1970 年 1 月 1 日开始的秒数或毫秒数。
+   * `getEpochSecond()` 和 `toEpochMilli()`：获取秒数或毫秒数表示的时间戳。
+   * `plus(Duration amountToAdd)` 和 `minus(Duration amountToSubtract)`：添加或减去指定的持续时间。
+   * `isBefore(Instant other)` 和 `isAfter(Instant other)`：判断一个 `Instant` 是否在另一个之前或之后。
+   * `atZone(ZoneId zone)`：在指定时区转换为 `ZonedDateTime` 对象。
 
 ## 包的定义及使用
 
@@ -1173,7 +1324,12 @@ public class LambdaDemo3 {
       Optional.ifPresent();
       Optional.iSPresent();
      ~~~
+<<<<<<< HEAD
      
+=======
+  ~~~
+   
+>>>>>>> e1548b195f9c5f09bd269381183b2bc95cd270d4
    * 安全获取值
    
      ~~~java
@@ -1183,8 +1339,8 @@ public class LambdaDemo3 {
      Optional.orelseThrow();
      Optional.map(); // 如果Optional不为空，则执行一个函数并返回结果
      Optional.flatMap(); // 如果Optional不为空，则执行一个函数并返回一个Optional对象
-     ~~~
-   
+  ~~~
+
    * 过滤
    
      ~~~java
@@ -2137,7 +2293,19 @@ window的时代开启了多进程设计，在一个时间段可以同时运行�
 
 线程是在进程基础上创建并且使用的，所以线程依赖于进程的支持，但是线程的启动速度要比进程快得多。
 
-### 1. 多线程的定义
+> Java中与线程有关的包：
+>
+> - `java.lang` 包：该包中包含与线程直接相关的类，如 `Thread`、`Runnable`、`ThreadGroup` 等。其中，`Thread` 类用于创建和操作线程；`Runnable` 接口定义了线程执行的任务；`ThreadGroup` 类用于管理线程组。
+>   - `java.lang.Thread`：表示一个线程，可以通过继承 `Thread` 类或实现 `Runnable` 接口来创建线程。
+>   - `java.lang.Runnable`：定义了线程要执行的任务，通常作为参数传递给 `Thread` 类的构造方法。
+>   - `java.lang.ThreadGroup`：表示一组线程的集合，可以对这组线程进行统一地管理。
+> - `java.util.concurrent` 包：该包中提供了更高级别的线程管理工具和并发编程的支持类。其中，常用的类包括 `Executor`、`ExecutorService`、`ThreadPoolExecutor`、`Future` 等，它们提供了线程池、异步执行任务、并发控制等功能，简化了多线程编程的复杂性。
+>   - `java.util.concurrent.Executor`：定义了执行任务的接口，可以将任务提交给执行器来异步执行。
+>   - `java.util.concurrent.ExecutorService`：继承自 `Executor` 接口，提供了更多的任务执行控制方法，如提交任务、关闭执行器等。
+>   - `java.util.concurrent.ThreadPoolExecutor`：实现了 `ExecutorService` 接口，是线程池的具体实现。
+>   - `java.util.concurrent.Future`：表示一个可能还未完成的异步任务的结果。
+
+### 多线程的定义
 
 在java中实现多线程的定义，需要有一个专门的线程主体类进行线程的定义，必须实现特定的接口或继承特定的父类。
 
@@ -2277,7 +2445,7 @@ public class ThreadDemo{
 }
 ```
 
-### 2. 线程运行状态
+### 线程运行状态
 
 ![image-20210721212820134](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20210721212820134.png)
 
@@ -2287,7 +2455,7 @@ public class ThreadDemo{
 
 ![image-20220913203242411](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209132032460.png)
 
-### 3. 线程常用方法
+### 线程常用方法
 
 1. 线程的命名与取得
    
@@ -2321,7 +2489,7 @@ public class ThreadDemo{
    
    ![image-20220910173947436](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209101739700.png)
 
-### 4. 线程安全
+### 线程安全
 
 1. 线程安全问题： 多个线程同时操作同一个共享资源的时候可能出现的业务安全问题。
 
@@ -2432,7 +2600,7 @@ public class ThreadDemo{
    
    ![image-20230220224942536](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302202249194.png)
 
-### 5. 线程同步
+### 线程同步
 
 1. 同步思想
    
@@ -2466,7 +2634,7 @@ public class ThreadDemo{
        
        > ![image-20220910231502796](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209102315950.png)
 
-### 6. 线程通信
+### 线程通信
 
 1. 线程通信：线程相互发送数据
 
@@ -2478,32 +2646,65 @@ public class ThreadDemo{
      
      ![image-20220912130658196](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209121307430.png)
 
-### 7. 线程池
+### 线程池
 
-1. 线程池：可以复用线程的技术
+参考：[JavaSE基础强化，深入学习线程池](https://www.bilibili.com/video/BV18J41157DX?spm_id_from=333.1245.0.0)
+
+#### 基础
+
+1. 线程池：**可以复用线程的技术**
+
+   * 线程池其实就是一种多线程处理形式，处理过程中可以将任务添加到队列中，然后在创建线程后自动启动这些任务。
+   * 使用线程池的原因：
+     * 可以根据系统的需求和硬件环境灵活的控制线程的数量,且可以对所有线程进行统一的管理和控制，从而提高系统的运行效率,降低系统运行运行压力。
+     * 线程和任务分离，提升线程重用性
+     * 制线程并发数量，降低服务器压力，统一管理所有线程
+     * 提升系统响应速度，假如创建线程用的时间为T1，执行任务用的时间为T2，销毁线程用的时间为T3，那么使用线程池就免去了T1和T3的时间
+   * 常见应用场景：
+     * 网购商品秒杀
+     * 云盘文件上传和下载
+     * 12306网上购票系统等
 
 2. 基本原理
-   
+
    ![image-20220912131231401](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209121312471.png)
 
-3. API和参数
-   
-   ![image-20220912131322867](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209121313452.png)
-   
-   ![image-20220912131429879](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209121314545.png)
-   
-   ![image-20220913191802427](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209131918792.png)
-   
-   ![image-20220913191826706](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209131918660.png)
-   
-   ![image-20220913194838758](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209131948194.png)
-   
-   注意：
-   
-   * 新任务提交时发现核心线程都在忙，任务队列也满了，并且还可以创建临时线程，此时才会创建临时线程。
-   * 核心线程和临时线程都在忙，任务队列也满了，新的任务过来的时候才会开始任务拒绝。
+#### 内置线程池
 
-### 8. 定时器
+* `ExecutorService`
+* `ThreadPoolExcutor`
+* `Excetors`
+
+![image-20220912131322867](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209121313452.png)
+
+1. `ThreadPoolExecutor` 
+
+   * api文档：https://docs.oracle.com/javase/8/docs/api/
+   * 构造器：
+
+   ![image-20220912131429879](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209121314545.png)
+
+   ![image-20220913191802427](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209131918792.png)
+
+   ![image-20220913191826706](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209131918660.png)
+
+![image-20220913194838758](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209131948194.png)
+
+注意：
+
+* 新任务提交时发现核心线程都在忙，任务队列也满了，并且还可以创建临时线程，此时才会创建临时线程。
+* 核心线程和临时线程都在忙，任务队列也满了，新的任务过来的时候才会开始任务拒绝。
+
+#### 自定义线程池
+
+1. 重要参数
+   * 核心线程数量
+   * 任务队列大小
+     * 一般可以设置为，核心线程数/单个任务执行时间*2;
+   * 最大线程数（maximumPoolThread）
+   * 最大空闲时间（keepAliveTime）
+
+### 定时器
 
 1. 定时器：一种控制任务延时调用，或者周期调用的技术。可用于闹钟、定时邮件的发送。
 
@@ -2920,6 +3121,16 @@ public class Test04 {
 8. 原理
 
    参考：https://blog.csdn.net/qq_20009015/article/details/106038023
+   
+   当我们在Java代码中使用注解时，Annotation Processor（注解处理器）可以在编译时扫描源代码中的注解，并根据注解的定义生成额外的代码。注解处理器是Java编译器的一部分，它们负责在编译期间对注解进行处理。
+   
+   注解处理器通过继承 `javax.annotation.processing.AbstractProcessor` 类，并重写其中的方法来实现自定义的注解处理逻辑。通常，我们需要重写 `process()` 方法来处理特定的注解，并生成相应的代码。
+   
+   在编译过程中，Java编译器会检测源代码中是否存在使用了特定注解的元素（类、方法、字段等），如果有，就会调用相应的注解处理器来处理这些注解。注解处理器可以读取和分析注解及其相关元素的信息，然后根据处理逻辑生成新的代码文件。
+   
+   使用Annotation Processor可以帮助我们减少重复的、机械性的编码工作，提高开发效率，同时保证生成的代码的正确性和一致性。Lombok和MapStruct就是利用Annotation Processor的能力，通过注解来生成简化代码，如自动生成getter/setter方法、构造函数等。
+   
+   需要注意的是，Annotation Processor是在编译期间执行的，它不会改变源代码的内容，而是在编译过程中生成额外的代码文件。生成的代码文件将会被编译成字节码，并与原始代码一起打包到最终的可执行文件中。
 
 # 网络编程
 
@@ -5763,14 +5974,16 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
 
 1. JWT（Json Web Token）：定义了一种紧凑的、自包含的方式，用于作为 JSON 对象在各方之间安全地传输信息。
 
-2. 作用：用于用户登录鉴权
+2. 设计目的：不需要服务端存储状态，安全的传递非敏感信息。
 
-3. 认证方式对比
+3. 作用：用于用户登录鉴权
+
+4. 认证方式对比
 
    * session认证分析
    * token认证分析
 
-4. JWT数据结构
+5. JWT数据结构
 
    * Header（头）：记录令牌类型、签名算法等
    * Payload（有效载荷）：携带一些自定义信息，默认信息等
@@ -5778,13 +5991,11 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
 
    ![image-20230807233524493](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202308072335260.png)
 
-5. 优点
+6. 优点
 
-6. 缺点
+7. 缺点
 
-7. base64编码：
-
-### 使用
+8. base64编码：[Base64&Base64URL](#base64)
 
 1. maven依赖
 
@@ -11377,7 +11588,7 @@ MapStruct是一款非常实用Java工具，主要用于解决对象之间的拷�
        </build>
    ~~~
 
-2. 编写转换器
+2. 编写转换器（抽象类或接口均可）
 
 3. **@Mapper，@Mappings， @Mapping**
 
@@ -11443,9 +11654,13 @@ dozer的maven坐标：
 * [十分钟搞懂Lombok使用与原理 - 掘金](https://juejin.cn/post/6844903557016076302)
 * [java代码简洁之道 lombok不止lombok](https://www.bilibili.com/video/BV1T64y1Z7Xm/?spm_id_from=333.999.0.0&vd_source=fabefd3fabfadb9324761989b55c26ea)
 
-1. @Builder：使用此注解后可以通过链式构造创建对象
+1. `@Builder`&`@SuperBuilder`：使用此注解后可以通过链式构造创建对象
 
    > 参考：https://blog.csdn.net/qq_61267719/article/details/131182663
+
+   * `@Builder`： `@Builder` 注解可以用在类、构造方法或者方法上，它会自动生成一个内部静态类作为构器，并在该构建器中提供链式调用的方式来设置属性值。通过使用 `@Builder` 注解，我们可以方便地创建一个具有多个属性的对象。`@Builder` 会为被注解的类生成 builder 模式的相关方法，如 `builder()`、`build()` 和链式的属性设置方法。
+
+   * `@SuperBuilder`： `@SuperBuilder` 注解是 `@Builder` 的增强版本，它可以用于继承关系中。当一个子类使用 `@SuperBuilder` 注解时，Lombok 会为该子类生成一个包含父类属性的构建器，并保证构建器能够正确地设置父类和子类的属性值。使用 `@SuperBuilder` 后，我们可以在构建过程中同时设置父类和子类的属性。
 
 ## 字符编码问题
 
@@ -11597,7 +11812,7 @@ RunTime、System中的Console对象、Collections
 
 ## 阿里巴巴Java开发手册
 
-## Base64和Base64URL
+## <a id= "base64"> Base64&Base64URL</a>
 
 ### Base64
 
