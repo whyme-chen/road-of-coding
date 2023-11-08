@@ -1,5 +1,9 @@
 # Redis
 
+学习参考：
+
+* https://www.bilibili.com/video/BV1cr4y1671t/?p=1&vd_source=fabefd3fabfadb9324761989b55c26ea
+
 ## 基础
 
 ### Redis简介
@@ -239,15 +243,19 @@ redis的java客户端很多，官方推荐有三种：
 
 #### 基于Session实现登录
 
-1. 流程
+1. 短信验证码登录流程
 
    ![image-20230704215604631](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202307042156639.png)
 
-2. 集群部署的session共享问题：多台tomcat服务器件无法共享session
+#### 基于Redis实现
 
-3. 使用Redis解决集群部署下共享session问题
+1. 集群部署的session共享问题：多台tomcat服务器件无法共享session
+
+2. 使用Redis解决集群部署下共享session问题
 
    ![image-20230716181322597](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202307161813066.png)
+
+3. 使用拦截器实现token刷新
 
 商户查询缓存
 优惠券秒杀
