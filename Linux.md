@@ -1,4 +1,4 @@
-# Linux学习
+# Linux
 
 ## Linux简介
 
@@ -97,7 +97,7 @@
    | /var/log/boot.log | 启动日志                                                     |
    | /var/log/kern     | 内核日志，也可以通过 dmesg 查看                              |
 
-## Linux常用命令
+## <a id='instruct'>Linux常用命令</a>
 
 1. 常用命令
 
@@ -222,9 +222,9 @@
 
 10. rm命令
 
-   ![image-20221119132945812](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353834.png)
+    ![image-20221119132945812](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353834.png)
 
-   注意：`rm -ri 目录或文件`用于在删除前询问是否删除。一般不建议使用 `rm -rf` 进行文件删除。rm 命令中不跟 r 参数，无法删除目录，只能删除文件
+    注意：`rm -ri 目录或文件`用于在删除前询问是否删除。一般不建议使用 `rm -rf` 进行文件删除。rm 命令中不跟 r 参数，无法删除目录，只能删除文件
 
 11. touch
 
@@ -296,42 +296,49 @@
 
 ### 软件安装命令
 
-1. 软件安装方式
+#### 安装命令
+
+1. 软件安装方式（centOS为例）
 
    ![image-20221118231233904](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211182312501.png)
-   
+
    * rpm
-   
-     > - 语法：`rpm [选项] [软件包]`
-     > - 查询是否已经安装了某软件包：`rpm -qa|grep [软件包关键词]`
-     > - 卸载已经安装的软件包：`rpm -e 软件包全名`
-     > - 安装软件包并查看进度：`rpm -ivh 软件包路径`
-     >
-     > ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRAb1icG3HB87Ox6bAq3uKNn2icc6G4gRE70L861YzphEyT8rSfmIph2jHg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-     
+
+     - 语法：`rpm [选项] [软件包]`
+     - 查询是否已经安装了某软件包：`rpm -qa|grep [软件包关键词]`
+     - 卸载已经安装的软件包：`rpm -e 软件包全名`
+     - 安装软件包并查看进度：`rpm -ivh 软件包路径`
+
+     ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRAb1icG3HB87Ox6bAq3uKNn2icc6G4gRE70L861YzphEyT8rSfmIph2jHg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+     > RPM包默认安装路径
+     > /etc/配置文件安装目录
+     > /usr/bin/可执行的命令安装目录
+     > /usr/lib/程序所使用的函数库保存位置
+     > /usr/share/doc/基本的软件使用手册保存位置
+     > /usr/share/man/帮助文件保存位置
+
    * yum
-   
-     > 常用指令：
-     >
-     > yum list
-     >
-     > yum install
-     >
-     > yum remove
-     >
-     > yum源配置
-   
-2. jdk安装（解压方式）
+
+     * 常用指令：
+       * yum list
+       * yum install
+       * yum remove
+       * yum源配置
+
+#### 常用软件安装示例
+
+1. jdk安装（解压方式）
 
    ![image-20221119115218075](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353986.png)
 
-3. 安装tomcat（解压方式）
+2. 安装tomcat（解压方式）
 
    ![image-20221119122116054](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353978.png)
 
    ![image-20221119122225352](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353642.png)
 
-4. 安装MySQL（rpm方式）
+3. 安装MySQL（rpm方式）
 
    * 安装
 
@@ -341,34 +348,38 @@
 
      ![image-20221119123756530](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353764.png)
 
-5. 安装lrzsz（yum方式）
+4. 安装lrzsz（yum方式）
 
    ![image-20221119124107682](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353324.png)
+
+5. 安装docker
+
+   * 参考：[【精选】Docker安装(Alibaba Cloud Linux 3)_alibaba cloud linux docker-CSDN博客](https://blog.csdn.net/weixin_40750633/article/details/122412224)
 
 ### 防火墙相关命令
 
 ![image-20221119122455628](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353373.png)
 
-### 用户操作命令{#userOperation}
+### <a id='userOperation'>用户操作命令</a>
 
-1. su
+1. `su`
 
    * 作用：切换用户
    * 常用操作：`su[用户名]`和 `su -[用户名]`都可以切换用户，前者类似于临时切换用户，当使用该命令进行切换新用户时，用户配置仍然沿用原来的用户配置，如环境变量、系统变量等。而后者进行切换用户时，环境变量、系统设置全部切换成新用户的用户配置。
 
-2. whoami
+2. `whoami`
 
-   * 作用：常看当前登录用户
+   * 作用：查看当前登录用户
 
-3. groups
+3. `groups`
 
    * 作用：查看当前登录yoghurt所属分组
 
-4. id
+4. `id`
 
    * 作用：查看当前用户UID和GID
 
-5. useradd
+5. `useradd`
 
    * 作用：添加新用户
 
@@ -376,7 +387,7 @@
 
      ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRAAljfmvoqz0GlTTgRV6qopysxnicFibVrnxFr2pN2gproxnYiadaRicuSjQ/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 
-6. password
+6. `password`
 
    * 作用：修改用户密码
 
@@ -384,7 +395,7 @@
 
      ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRATetM0PqJcdSFUnf5ibhgKt4jxGcnnibQkl3qBfqYL4EIHHWfqgItibIUg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 
-7. userdel
+7. `userdel`
 
    * 作用：删除用户
 
@@ -392,7 +403,7 @@
 
      ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRAm4Ik1Wic2XtARX9MpxZJtJX8nACCyEfGSNo2clgCT9qFRxMMkj21VoA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 
-8. usermod
+8. `usermod`
 
    * 作用：修改用户信息
 
@@ -405,7 +416,7 @@
      - 修改用户登录名：`usermod -l 新用户名 旧用户名`
      - 修改用户所属分组：`usermod -g 新组名称 用户名`
 
-9. groupadd
+9. `groupadd`
 
    * 作用：添加用户组
 
@@ -431,7 +442,122 @@
 ### 其他
 
 1. clear：清屏命令
+
 2. man：查询命令详细参数
+
+3. `echo`：在终端上显示文本或变量的内容
+
+   * 语法：
+
+     ~~~shell
+     echo [选项] [字符串]
+     ~~~
+
+   * 常见选项：
+     * `-n`：不输出结尾的换行符。
+     * `-e`：启用转义字符解析。
+
+   * 示例用法：
+
+     1. 显示文本：
+
+        ```shell
+        echo "Hello, World!"
+        ```
+
+        输出：`Hello, World!`
+
+     2. 显示变量的值：
+
+        ```shell
+        name="Alice"
+        echo "My name is $name"
+        ```
+
+        输出：`My name is Alice`
+
+     3. 不输出换行符：
+
+        ```shell
+        echo -n "Hello, "
+        echo "World!"
+        ```
+
+        输出：`Hello, World!`（不换行）
+
+     4. 使用转义字符：
+
+        ```shell
+        echo -e "Hello\tWorld\nGoodbye"
+        ```
+
+        输出：
+
+        ```
+        Hello    World
+        Goodbye
+        ```
+
+4. `read`：用于从终端读取用户输入的内置命令。它可以读取用户输入的文本，并将其存储到一个或多个变量中。
+
+   * 语法：
+
+     ~~~shell
+     read [选项] [变量]
+     ~~~
+
+   - 常见选项：
+
+     - `-p prompt`：显示提示信息并等待用户输入。
+     - `-t timeout`：设置超时时间，如果在指定时间内未输入，则终止读取。
+     - `-s`：静默模式，用户输入不会显示在终端上。
+     - `-n count`：读取固定数量的字符后立即返回。
+
+   - 示例用法：
+
+     1. 读取用户输入的文本：
+
+        ```
+        read name
+        echo "Hello, $name!"
+        ```
+
+        用户输入：`Alice`
+        输出：`Hello, Alice!`
+
+     2. 显示自定义提示信息并读取用户输入：
+
+        ```
+        read -p "请输入您的年龄：" age
+        echo "您的年龄是 $age 岁"
+        ```
+
+        用户输入：`25`
+        输出：`您的年龄是 25 岁`
+
+     3. 设置超时时间：
+
+        ```
+        if read -t 5 -p "请输入用户名：" username; then
+            echo "欢迎，$username!"
+        else
+            echo "超时，未输入用户名"
+        fi
+        ```
+
+        如果在 5 秒内未输入用户名，将输出：`超时，未输入用户名`
+
+     4. 静默模式读取密码：
+
+        ```
+        read -s -p "请输入密码：" password
+        echo
+        echo "您输入的密码是：$password"
+        ```
+
+        用户输入：`abc123`
+        输出：`您输入的密码是：abc123`
+
 
 ## 常用发行版
 
@@ -566,7 +692,7 @@ Alibaba Cloud Linux 2(原Aliyun Linux 2)是阿里云官方操作系统，为云�
 
 ## 进程管理
 
-## Linux文件系统
+## 文件系统
 
 1. 基本目录结构
 
@@ -577,6 +703,15 @@ Alibaba Cloud Linux 2(原Aliyun Linux 2)是阿里云官方操作系统，为云�
    > - `/etc`：为操作系统的配置文件目录（防火墙、启动项）
    > - `/root`：为系统管理员（也叫超级用户或根用户）的 Home 目录。
    > - `/dev`：为设备目录，Linux 下设备被当成文件，这样一来硬件被抽象化、便于读写、网络共享以及需要临时装载到文件系统中，正常情况下，设备会有一个独立的子目录，这些设备的内容会出现在独立的子目录下。
+
+### FHS
+
+参考：
+
+* [Filesystem Hierarchy Standard（FHS）官方网站](https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html)
+* [Linux Filesystem Hierarchy指南](https://www.pathname.com/fhs/)
+* 《鸟哥的Linux私房菜》第四版：陈嵩（鸟哥）著，详细介绍了Linux文件系统结构和基本命令等内容。
+* 《Understanding the Linux Kernel, 3rd Edition》：Daniel P. Bovet, Marco Cesati 著，这本书对Linux内核和文件系统有非常深入的讲解。
 
 ## 权限管理
 
@@ -601,6 +736,50 @@ Alibaba Cloud Linux 2(原Aliyun Linux 2)是阿里云官方操作系统，为云�
 4. 常用操作命令：
 
    [常用用户操作](#userOperation)
+   
+5. 创建用户
+
+   > 1. **使用 root 或具有 sudo 权限的用户登录**：
+   >
+   >    - 以 root 用户身份登录，或者使用具有 sudo 权限的用户账号登录到系统。
+   >
+   > 2. **打开终端**：
+   >
+   >    - 打开终端应用程序，以便能够输入命令。
+   >
+   > 3. **使用 useradd 命令创建用户**：
+   >
+   >    - 在终端中输入以下命令来创建新用户：
+   >
+   >      ```
+   >      Copy Codesudo useradd -m newusername
+   >      ```
+   >
+   >    - 这里的 `newusername` 是你希望创建的新用户的用户名。`-m` 选项会自动为新用户创建一个与用户名相同的家目录。
+   >
+   > 4. **设置新用户的密码**：
+   >
+   >    - 输入以下命令来为新用户设置密码：
+   >
+   >      ```
+   >      Copy Codesudo passwd newusername
+   >      ```
+   >
+   >    - 系统会提示你输入新用户的密码两次以完成设置。
+   >
+   > 5. **（可选）分配附加组**：
+   >
+   >    - 如果需要将新用户加入其他附加组，可以使用以下命令：
+   >
+   >      ```
+   >      Copy Codesudo usermod -aG groupname newusername
+   >      ```
+   >
+   >    - 这里的 `groupname` 是你希望将新用户加入的附加组的名称。
+   >
+   > 6. **（可选）为新用户设置个性化配置**：
+   >
+   >    - 如果需要为新用户设置特定的环境配置或个性化设置，可以编辑新用户的 bash 配置文件 `~/.bashrc` 或其他相关配置文件。
 
 ### 权限操作
 
@@ -635,7 +814,43 @@ drwxr-xr-x 4 root root  4096 5月  18 23:44 project_management
        # 将文件 f01 的读、写、执行的权限赋给当前用户，将读和执行权限赋给用户组、将写和执行权限赋给其他用户。
        ~~~
 
+## 软件安装
+
+在Linux系统上安装软件时，通常有以下几种方式：
+
+* 使用软件包管理器（如yum、apt、dnf）：不同的发行版可能会使用不同的软件包管理器，例如，基于Debian的发行版（如Ubuntu）通常使用apt作为软件包管理器，而基于Red Hat的发行版（如CentOS、Fedora）则使用yum或dnf。
+* 手动编译源代码安装程序
+* 使用容器技术（如Docker）
+
+1. 软件包管理器
+
+   * yum：主要用于Red Hat、CentOS 等发行版，它允许你从预配置的软件仓库中安装、更新和删除软件包。
+   * apt：在Debian、Ubuntu 等基于Debian 的发行版中使用，它也从预配置的软件仓库中管理软件包。
+   * dnf：是yum的下一代版本，在最新的Fedora以及Red Hat Enterprise Linux 8中出现
+
+2. 软件安装位置
+
+   通常来说，Linux系统中的软件安装位置遵循FHS（Filesystem Hierarchy Standard）标准。常见的安装位置包括：
+
+   - `/bin`：存放系统启动时需要的最基本的命令。
+   - `/sbin`：存放系统管理员使用的系统管理命令。
+   - `/usr/bin`：存放用户使用的标准命令。
+   - `/usr/local`：存放本地安装的软件，默认安装位置为 `/usr/local/bin`、`/usr/local/sbin` 等。
+
+3. 本地软件管理
+
+   使用软件包管理器的查询功能可以列出已安装的软件包。对于yum、dnf 可以使用 `yum list installed` 或 `dnf list installed`；对于apt，可以使用 `dpkg --list`。
+
+### yum&dnf
+
+### apt
+
 # Shell
+
+* [花费90分钟一口气学完！带你掌握shell脚本所有核心知识点](https://www.bilibili.com/video/BV14L4y157Bv/?spm_id_from=333.337.search-card.all.click&vd_source=fabefd3fabfadb9324761989b55c26ea)
+* [java高级程序员拓展课，玩转Shell编程](https://www.bilibili.com/video/BV1z54y1C7Cw/?spm_id_from=333.337.search-card.all.click&vd_source=fabefd3fabfadb9324761989b55c26ea)
+
+## 简介
 
 1. 脚本
 
@@ -652,3 +867,419 @@ drwxr-xr-x 4 root root  4096 5月  18 23:44 project_management
    5. 快速开发和调试：脚本语言提供了快速开发和调试程序的能力。开发者可以通过交互式解释器或集成开发环境（IDE）逐行执行脚本代码，并立即查看结果。这种实时反馈可以加快开发迭代周期和问题排查过程。
 
    总而言之，从开发者的角度来看，脚本是一种用于自动化任务的高级编程工具，它简化了任务处理的复杂度，提高了开发效率，并在各种计算机环境中具有广泛的适应性。
+   
+   > 从脚本的定义出发，通常在Windows中是`.bat`文件，在Linux中是`.sh`文件。
+   
+2. Shell：Shell 是一种**命令行解释器**，它是用户与操作系统内核进行交互的界面。在计算机领域，Shell 通常是指用于执行操作系统命令和脚本的用户界面。
+
+3. Shell的特点和功能：
+
+   * **命令解释**：用户可以通过 Shell 输入命令，Shell 会将这些命令解释并传递给操作系统内核执行。
+
+   * **脚本编写**：Shell 提供了一种编写脚本的方式，用户可以将一系列命令以脚本的形式存储起来，并通过 Shell 执行这些脚本，实现自动化操作。
+   * **环境控制**：Shell 允许用户对操作系统环境进行控制和定制，比如设置环境变量、修改文件权限等。
+   * **通配符扩展**：Shell 支持通配符，比如 `*` 和 `?` 等，用于快速匹配文件名或其他字符串。
+   * **管道和重定向**：Shell 支持管道操作和重定向，允许用户将多个命令连接起来，以及将命令的输入输出重定向到文件或其他命令。
+
+   总之，Shell 在计算机系统中扮演着至关重要的角色，它**为用户提供了一个灵活而强大的接口，使得用户能够通过命令行完成各种操作**，从简单的文件操作到复杂的系统管理任务。
+
+4. Shell运行过程
+
+   当用户下达指令给该操作系统的时候，实际上是把指令告诉shell，经过shell解释，处理后让内核做出相应的动作。系统的回应和输出的信息也由shell处理，然后显示在用户的屏幕上。
+
+   ![image-20231111215724838](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202311112157597.png)
+
+5. Shell解释器
+
+   在 Linux 和 Unix 系统中，有多种不同的 Shell解释器，其中最常见的包括 ：
+
+   | Shell 解析器 | 描述                                                         |
+   | ------------ | ------------------------------------------------------------ |
+   | **Bash**     | Bourne Again Shell，是最常用的 Shell，也是许多 Linux 系统默认的 Shell。它继承自 Bourne Shell，并添加了许多新特性。 |
+   | **Sh**       | Bourne Shell，是 Unix 系统的早期 Shell，为后来的 Shell 提供了基础。 |
+   | **Csh**      | C Shell，具有 C 语言风格的语法，支持命令历史和作业控制等特性。 |
+   | **Ksh**      | Korn Shell，结合了 Csh 和 Bourne Shell 的优点，是 Unix 系统中的另一种流行的 Shell。 |
+   | **Zsh**      | Z Shell，拥有强大的自动补全功能和丰富的插件支持，被认为是 Bash 的升级版。 |
+   | **Fish**     | Friendly Interactive Shell，注重易用性和交互性，提供了更加人性化的命令行体验。 |
+   | **Dash**     | dash (Debian Almquist Shell) ，也是一种 Unix shell。它比 Bash 小，只需要较少的磁盘空间，但是它的对话性功能也较少，交互性较差。 |
+
+   这些 Shell 提供了一种方式，让用户可以通过输入文本命令来与操作系统进行交互，并且能够执行诸如文件操作、进程管理、系统配置等任务。
+
+   通过以下命令可以查看，当前Linux系统支持的Shell解释器和默认使用的Shell解释器，以及切换默认Shell：
+
+   ~~~shell
+   # 查看所有Shell解释器
+   cat /etc/shells
+   # 查看当前系统环境默认使用解释器
+   echo $SHELL
+   # 切换默认Shell
+   chsh -s $(which zsh)
+   ~~~
+
+## Shell脚本
+
+### 脚本编写
+
+1. 后缀名：使用`.sh`
+
+2. 首行格式（Shebang）
+
+   首行需要设置Shell解析器的类型，语法如下：
+
+   ~~~shell
+   #!/bin/bash 
+   ~~~
+
+   > 含义：
+   >
+   > * #!/bin/bash设置当前shell脚本文件采用bash解析器运行脚本代码
+   > * #!/usr/bin/python 开头的文件，代表指定python解释器去执行
+   > * #!/usr/bin/env 解释器名称 ，是一种在不同平台上都能正确找到解释器的办法
+   >
+   > 注意事项：
+   >
+   > * 如果脚本未指定 shebang ，脚本执行的时候，默认用当前shell去解释脚本，即 $SHELL
+   > * 如果 shebang 指定了可执行的解释器，如 /bin/bash /usr/bin/python ，脚本在执行时，文件名会作为参数传递给解释器
+   > * 如果#!指定的解释程序没有可执行权限，则会报错“bad interpreter: Permission denied”。
+   > * 如果#!指定的解释程序不是一个可执行文件，那么指定的解释程序会被忽略，转而交给当前的SHELL去执行这个脚本。
+   > * 如果#!指定的解释程席不存在，那么会报错“badinterpreter: No such file or directory”
+   > * #!之后的解释程序，需要写其绝对路径 (如: #!/bin/bash)，它是不会自动到SPATH中寻找解释器的
+   > * 如果你使用"bash test.sh“这样的命令来执行脚本，那么#!这一行将会被忽略掉，解释器当然是用命令行中显式指定的bash。
+
+3. 注释
+
+   ~~~shell
+   # 这是单行注释
+   
+   :<<!
+   # 这是多行注释
+   # 这是多行注释
+   !
+   ~~~
+
+### 脚本执行
+
+1. 常用执行方式
+
+   * sh解释器执行方式：使用sh命令执行脚本文件，本质就是使用Shell解析器运行脚本文件
+
+     语法：
+
+     ~~~shell
+     sh 脚本文件
+     ~~~
+
+   * bash解释器执行方式：使用bash命令执行脚本文件，本质就是使用Shell解析器运行脚本文件
+
+     语法：
+
+     ~~~shell
+     bash 脚本文件
+     ~~~
+
+   * 仅路径执行方式：执行当前目录下的脚本文件，脚本文件自己执行需要具有可执行权限，否则无法执行
+
+     语法：
+
+     ~~~shell
+     ./脚本文件
+     ~~~
+
+### Shell变量
+
+1. 变量作用：用于存储管理临时的数据这些数据都是在运行内存中的。
+2. 变量类型
+   * 系统环境变量：系统提供的共享变量.是linux系统加载Shell的配置文件中定义的变量共享给所有的Shell程序使用。
+   * 自定义变量
+   * 特殊符号变量
+
+#### 系统环境变量
+
+1. Shell的配置文件分类
+
+   * 全局配置文件
+
+     > /etc/profile
+     >
+     > /etc/profile.d/*.sh
+     >
+     > /etc/bashrc
+
+   * 个人用户配置文件
+
+     > 当前用户/.bash_profile
+     >
+     > 当前用户/.bashrc
+
+   一般情况下，通常直接针对全局配置文件进行操作。
+
+2. 系统环境变量
+
+   在Linux系统中，环境变量按照其作用范围不同大致可以分为系统级环境变量和用户级环境变量。
+
+   * 系统级环境变量: Shell环境加载全局配置文件中的变量共享给所有用户所有Shell程序使用，全局共享
+   * 用户级环境变量: Shell环境加载个人配置文件中的变量共享给当前用户的Shell程序使用,登录用户使用
+
+   ~~~shell
+   # 查看系统环境变量
+   env
+   # 查看Shell变量(系统环境变量+自定义变量+函数)
+   set
+   ~~~
+
+   以下是一些常用的系统环境变量：
+
+   | 变量      | 作用                                                    | 值                                                           |
+   | --------- | ------------------------------------------------------- | ------------------------------------------------------------ |
+   | PATH      | 指定可执行程序的搜索路径，以冒号分隔                    | /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin |
+   | HOME      | 当前用户的主目录路径                                    | /home/username                                               |
+   | SHELL     | 用户默认的 Shell 程序路径                               | /bin/bash                                                    |
+   | USER      | 当前用户的用户名                                        | username                                                     |
+   | LOGNAME   | 用户的登录名                                            | username                                                     |
+   | PS1       | 主提示符（Primary Prompt）的格式字符串                  | \u@\h:\w$                                                    |
+   | PS2       | 次级提示符（Secondary Prompt）的格式字符串              | >                                                            |
+   | HISTIFILE | 显示当前用户执行命令的历史列表文件: /root/.bash_history |                                                              |
+
+3. 环境变量初始化流程
+
+   * 交互式Shell和非交互式Shell
+   * 登录Shell环境和非登录Shell环境
+
+   ![image-20231112134159744](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202311121342689.png)
+
+#### 自定义变量
+
+1. 自定义变量
+
+   * 类型：
+
+     * 自定义局部变量：定义在一个脚本文件中的变量,只能在这个脚本文件中使用的变量,就是局部变量
+     * 自定义全局变量
+     * 自定义常量：变量设置值以后不可以修改的变量，也叫只读变量
+
+   * 定义与使用
+
+     ~~~shell
+     # 定义局部标量
+     var_name=value
+     #!<< 
+     # 注意事项:
+     # 变量名称可以有字母,数字和下划线组成，但是不能以数字开头
+     # 等号两侧不能有空格
+     # 在bash环境中,变量的默认类型都是字符串类型,无法直接进行数值运算
+     # 变量的值如果有空格,必须使用双引号括起来
+     # 不能使用Shell的关键字作为变量名称
+     !
+     
+     # 查询变量值
+     # 语法一：直接使用变量名
+     $var_name
+     # 语法二：使用花括号
+     ${var_name}
+     #区别： 花括号适用拼接字符串
+     
+     # 变量删除
+     unset var_name
+     
+     # 定义常量
+     readonly var_name
+     
+     # 定义全局变量
+     export var_name1 var_name2
+     ~~~
+
+2. 自定义系统级环境变量
+
+   当前用户进入Shel环境初始化的时候会加载全局配置文件/etc/profile里面的环境变量,供给所有Shell程序使用以后只要是所有Shell程序或命令使用的变量,就可以定义在这个文件中。步骤如下：
+
+   1. 打开 `/etc/profile` 文件进行编辑：
+
+      ```shell
+      sudo nano /etc/profile
+      ```
+
+   2. 在文件末尾添加你需要设置的环境变量，例如：
+
+      ```shell
+      export CUSTOM_VAR="custom value"
+      ```
+
+      > 对于vim编辑器，可以使用`G`快速定位到文件末尾，使用`gg`快速定位到文件首行
+
+#### 特殊变量
+
+1. 特殊变量
+
+   常用的特殊变量如下：
+
+   | 变量  | 作用                                                         |
+   | ----- | ------------------------------------------------------------ |
+   | $0    | 当前脚本的文件名                                             |
+   | $1-$9 | 用于接收脚本或函数的参数，$1 是第一个参数，依次类推，第十个起使用花括号包裹 |
+   | $*    | 所有的位置参数，作为单个字符串显示                           |
+   | $@    | 所有的位置参数，作为独立的字符串显示                         |
+   | $#    | 传递给脚本或函数的参数个数                                   |
+   | $?    | 用于获取上一个shell命令的退出状态码,或者是函数的返回值每个shell命令的执行都有一个返回值,这个返回值用于说明命令执行是否成功般来说,返回0代表命令执行成功,非0代表执行失败 |
+   | $$    | 当前 Shell 进程的进程 ID                                     |
+   | $!    | 后台运行的最后一个进程的进程 ID                              |
+
+#### 字符串变量
+
+1. 3种格式：
+
+   * 单引号：任何字符都会原样输出，在拼接字符串中使用变量是无效的。
+   * 双引号：其中包含了变量，那么该变量会被解析得到值，而不是原样输出。字符串中还可以出现双引号的子字符串，但是需要转义
+   * 无引号：不被引号包围的字符串中出现变量时也会被解析，这一点和双引号包围的字符串一样。字符串中不能出现空格，否则空格后边的字符串会作为其他命令解析
+
+2. 获取字符串长度
+
+   ~~~shell
+   ${#var_name}
+   ~~~
+
+3. 字符串拼接
+
+   * 无符号拼接
+   * 双引号拼接
+   * 混合拼接
+
+4. 字符串截取
+
+   | 语法                        | 描述                              |
+   | --------------------------- | --------------------------------- |
+   | `${variable}`               | 变量本身的值                      |
+   | `${variable-}`              | 如果变量未被设置，则为空          |
+   | `${variable:-default}`      | 如果变量未被设置，则使用默认值    |
+   | `${variable#pattern}`       | 从开头删除最短匹配 pattern 的子串 |
+   | `${variable##pattern}`      | 从开头删除最长匹配 pattern 的子串 |
+   | `${variable%pattern}`       | 从末尾删除最短匹配 pattern 的子串 |
+   | `${variable%%pattern}`      | 从末尾删除最长匹配 pattern 的子串 |
+   | `${variable:offset}`        | 从指定偏移量开始的子串            |
+   | `${variable:offset:length}` | 从指定偏移量开始指定长度的子串    |
+
+#### 索引数组
+
+Shell 支持数组 (Array)，组是若干数据的集合，其中的每一份数据都称为数组的元素。
+
+> 注意Bash shell 只支持一维数组，不支持多维数组。 
+
+1. 定义
+
+   在 Shell 中，用括号(来表示数组，数组元素之间用空格来分隔。语法为：
+
+   ~~~shell
+   # 方式一
+   arr=(value1 value2 ...)
+   # 方式二
+   arr=([index1]=value1 [index2]=value2,...)
+   ~~~
+
+   > 注意等号两边不能有空格
+
+2. 数组元素获取和使用
+
+   ~~~shell
+   # 通过下标获取元素，索引从0开始
+   ${arr[index]}
+   # 使用@或*获取数组中所有元素
+   ${arr[@]}
+   ${arr[*]}
+   # 获取数组长度
+   ${#arr[@]}
+   ${#arr[*]}
+   # 获取数组指定元素的字符长度
+   ${#arr[索引]}
+   # 拼接数组
+   arr3 = (${arr1[*]} ${arr2[*]})
+   ~~~
+
+3. 删除数组
+
+   ~~~shell
+   # 删除整个数组
+   unset arr
+   # 删除指定元素
+   unset arr[index]
+   ~~~
+
+### Shell内置命令
+
+1. 概念：shell 内置命令，就是由 Bash Shell 自身提供的命令，而不是文件系统中的可执行脚本文件
+
+2. 判断：可以通过使用type命令查看一个命令是否是内置命令
+
+   ~~~shell
+   type 命令
+   ~~~
+
+   通常来说，内置命令会比外部命令执行得更快，执行外部命令时不但会触发磁盘 /0，还需要 fork 出一个单独的井程来执行，执行完成后再退出。而执行内置命令相当于调用当前 Shell 进程的一个函数,还是在当前Shell环境进程内,减少了上下文切换。
+
+3. 常用内置命令
+
+   可参考[Linux常用命令](#instruct)
+
+   | 命令      | 描述                                                   |
+   | --------- | ------------------------------------------------------ |
+   | `echo`    | 显示文本或变量的内容                                   |
+   | `cd`      | 切换当前工作目录                                       |
+   | `pwd`     | 显示当前工作目录的路径                                 |
+   | `ls`      | 列出目录内容                                           |
+   | `mkdir`   | 创建新目录                                             |
+   | `rm`      | 删除文件或目录                                         |
+   | `cp`      | 复制文件或目录                                         |
+   | `mv`      | 移动文件或目录，或重命名文件                           |
+   | `cat`     | 显示文件内容                                           |
+   | `grep`    | 在文件中搜索指定模式                                   |
+   | `chmod`   | 修改文件或目录的权限                                   |
+   | `chown`   | 修改文件或目录的所有者                                 |
+   | `ps`      | 显示当前运行的进程                                     |
+   | `kill`    | 终止正在运行的进程                                     |
+   | `bg`      | 将作业放到后台运行                                     |
+   | `fg`      | 将作业调至前台运行                                     |
+   | `jobs`    | 列出当前作业列表                                       |
+   | `source`  | 执行指定脚本文件                                       |
+   | `alias`   | 创建命令别名或显示当前别名列表                         |
+   | `unalias` | 删除指定别名（临时删除，长久删除需要去配置文件中删除） |
+   | `export`  | 设置环境变量                                           |
+   | `history` | 显示最近执行的命令列表                                 |
+   | `exit`    | 退出当前 shell                                         |
+   | `help`    | 显示内置命令的帮助信息                                 |
+
+### Shell运算符
+
+### Shell流程控制
+
+### Shell重定向
+
+### Shell函数
+
+### 学习案例
+
+* [shell脚本一天一练](https://www.bilibili.com/video/BV1ih4y1Y7nh/?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=fabefd3fabfadb9324761989b55c26ea)
+
+1. 已知目录/root/demo-shell目录，编写shell脚本，实现在/root/demo-shell/目录下创建一个one.txt，在one.txt文件中增加内容“Hello shell”。
+2. 循环打印脚本文件的所有输入参数
+
+# 工具
+
+## 远程连接工具
+
+参考：
+
+* [14个优秀的SSH连接客户端软件工具推荐 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/609376551#:~:text=14个优秀的SSH连接客户端软件工具推荐 1 PUTTY 2 Hyper 3 Terminus 4,OpenSSH 6 MobaXterm 7 MremoteNG 8 WinSCP 更多项目)
+
+1. XShell
+
+2. MobaXterm
+
+   官网：https://mobaxterm.mobatek.net/
+
+3. FinalShell
+
+## 宝塔面板
+
+官网：[宝塔面板 - 简单好用的Linux/Windows服务器运维管理面板 (bt.cn)](https://www.bt.cn/new/index.html)
+
+## 1Panel
+
+GitHub地址：https://link.zhihu.com/?target=https%3A//github.com/1Panel-dev/1Panel

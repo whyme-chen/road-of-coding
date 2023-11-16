@@ -2284,6 +2284,16 @@ public class PropertiesDemo {
 
 # 多线程
 
+多线程技术通常用于异步编程、并发编程。详情见：[并发编程](./并发编程.md)
+
+多线程技术可以用于实现并发执行任务，提高程序的运行效率。它可以用于实现以下几种场景：  
+
+* 响应式编程：多线程可以用于实现快速响应用户请求，提高用户体验。 
+* 并发计算：多线程可以用于实现多个任务同时执行，提高计算效率。
+* 并发I/O操作：多线程可以用于实现多个I/O操作同时进行，提高I/O效率。 
+* 延迟操作：多线程可以用于实现需要等待一定时间才能执行的操作，例如定时任务。 
+* 并发访问共享资源：多线程可以用于实现多个线程并发访问共享资源，提高资源利用率。
+
 ## 进程
 
 window的时代开启了多进程设计，在一个时间段可以同时运行多个程序并进行资源的轮流抢占。但是在一个时间点只会有一个进程在执行。
@@ -2676,7 +2686,12 @@ public class ThreadDemo{
 
 ![image-20220912131322867](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202209121313452.png)
 
-1. `ThreadPoolExecutor` 
+1. `ExecutorService`
+
+   * api文档：https://docs.oracle.com/javase/8/docs/api/
+   * java内置的线程池接口
+
+2. `ThreadPoolExecutor` 
 
    * api文档：https://docs.oracle.com/javase/8/docs/api/
    * 构造器：
@@ -2697,11 +2712,147 @@ public class ThreadDemo{
 #### 自定义线程池
 
 1. 重要参数
+
    * 核心线程数量
    * 任务队列大小
      * 一般可以设置为，核心线程数/单个任务执行时间*2;
    * 最大线程数（maximumPoolThread）
    * 最大空闲时间（keepAliveTime）
+
+2. 简单示例
+
+   ```java
+   package thread_pool;
+   
+   import java.util.Collections;
+   import java.util.LinkedList;
+   import java.util.List;
+   
+   /**
+    * 一个自定义的线程池类;
+    * 成员变量:
+    * 1:任务队列集合，需要控制线程安全问题
+    * 2:当前线程数量
+    * 3:核心线程数量
+    * 4:最大线程数量
+    * 5:任务队列的长度
+    * 成员方法
+    * 1:提交任务;
+    * 将任务添加到集合中，需要判断是否超出了任务总长度2:执行任务;
+    * 判断当前线程的数量，决定创建核心线程还是非核心线程
+    *
+    * @author whymechen
+    * @version 1.0
+    * @date 2023/11/9 22:04
+    **/
+   public class ThreadPoolDemo {
+   
+       /**
+        * 任务队列集合
+        */
+       private List<Runnable> taskQueue = Collections.synchronizedList(new LinkedList<>());
+   
+       /**
+        * 任务队列的长度
+        */
+       private Long taskQueueSize = 20L;
+   
+       /**
+        * 核心线程数量
+        */
+       private Long corePoolSize = 10L;
+   
+       /**
+        * 最大线程数量
+        */
+       private Long maximumPoolSize = 20L;
+   
+       /**
+        * 当前线程数量
+        */
+       private Long currentPoolSize = 0L;
+   
+       /**
+        * 任务提交
+        *
+        * @param runnable 任务
+        */
+       public void submit(Runnable runnable) {
+           //判断任务队列是否满了
+           if (taskQueue.size() >= taskQueueSize) {
+               System.out.println("任务队列已满，无法添加任务");
+               return;
+           }
+           //添加任务
+           taskQueue.add(runnable);
+           executeTask(runnable);
+       }
+   
+       /**
+        * 执行任务
+        *
+        * @param runnable 任务
+        */
+       private void executeTask(Runnable runnable) {
+           //判断当前线程数量是否小于核心线程数量
+           if (currentPoolSize < corePoolSize) {
+               //创建核心线程
+               new ThreadWorkerDemo("core thread" + currentPoolSize,taskQueue).start();
+               currentPoolSize++;
+           } else {
+               //创建非核心线程
+               if (currentPoolSize < maximumPoolSize) {
+                   new ThreadWorkerDemo("non-core thread" + currentPoolSize,taskQueue).start();
+                   currentPoolSize++;
+               }else {
+                   //如果当前线程数量大于最大线程数量，则将任务添加到任务队列中
+                   System.out.println("当前线程数量已达到最大值，将任务添加到任务队列中");
+               }
+           }
+       }
+   }
+   ```
+
+   ```java
+   package thread_pool;
+   
+   import java.util.List;
+   
+   /**
+    * @author whymechen
+    * @version 1.0
+    * @date 2023/11/9 21:56
+    **/
+   public class ThreadWorkerDemo extends Thread{
+   
+       private String threadName;
+   
+       private List<Runnable> tasks;
+   
+       public ThreadWorkerDemo(String threadName, List<Runnable> tasks) {
+           this.threadName = threadName;
+           this.tasks = tasks;
+       }
+   
+       @Override
+       public void run() {
+           while (true){
+               synchronized (tasks){
+                   if (tasks.size() == 0){
+                       System.out.println(threadName + "任务队列为空，退出");
+                       break;
+                   }
+                   Runnable task = tasks.remove(0);
+                   System.out.println(threadName + "开始执行任务：" + task);
+                   try {
+                       Thread.sleep(1000);
+                   } catch (InterruptedException e) {
+                   }
+               }
+           }
+       }
+   }
+   ```
 
 ### 定时器
 
