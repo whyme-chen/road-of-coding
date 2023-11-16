@@ -849,6 +849,7 @@ drwxr-xr-x 4 root root  4096 5月  18 23:44 project_management
 
 * [花费90分钟一口气学完！带你掌握shell脚本所有核心知识点](https://www.bilibili.com/video/BV14L4y157Bv/?spm_id_from=333.337.search-card.all.click&vd_source=fabefd3fabfadb9324761989b55c26ea)
 * [java高级程序员拓展课，玩转Shell编程](https://www.bilibili.com/video/BV1z54y1C7Cw/?spm_id_from=333.337.search-card.all.click&vd_source=fabefd3fabfadb9324761989b55c26ea)
+* [Linux Shell脚本攻略（第2版） (aliyuncs.com)](https://axzo-static.oss-cn-chengdu.aliyuncs.com/fe-doc/febooks/Linux Shell脚本攻略（第2版）.pdf?e=1585903766&token=sCDBnLNlkabH959_G0_P38gBc7LZN2XHXcdIwPv4:BTJwJzSwiJkITCuKV4TCPEshlMQ=)
 
 ## 简介
 

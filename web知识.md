@@ -4129,3 +4129,7 @@ layui.use(['layer', 'form'], function(){
 </body>
 </html>
 ```
+
+# 资源&路线
+
+* [Fe-Docs (axzo.cn)](http://fe-doc.axzo.cn/)
