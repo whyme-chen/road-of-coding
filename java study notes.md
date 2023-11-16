@@ -1313,7 +1313,7 @@ public class LambdaDemo3 {
      ~~~java
      Optional.ofNullable(对象); // 建议使用
      Optional.empty(); // 创建一个null对象
-    Optional.of(对象); // 若对象为null则会抛出NullpointerException
+   Optional.of(对象); // 若对象为null则会抛出NullpointerException
      ~~~
 
      > 在实际开发中我们的数据很多是从数据库获取的。Mybatis从3.5版本可以也已经支持Optiona了。我们可以直接把dao方法的返口值类型定义成Optional类型，MyBastis 会自己把数据封装成Optional对象返回。封装的过程也不需要我们自己操作。
@@ -1324,8 +1324,12 @@ public class LambdaDemo3 {
       Optional.ifPresent();
       Optional.iSPresent();
      ~~~
+<<<<<<< HEAD
+     
+=======
   ~~~
    
+>>>>>>> e1548b195f9c5f09bd269381183b2bc95cd270d4
    * 安全获取值
    
      ~~~java
@@ -1343,10 +1347,7 @@ public class LambdaDemo3 {
      Optional.filter();//如果原本是有数据的，但是不符合判断，也会变成一个无数据的Optional对象。
      ~~~
    
-   * 
-   
-   * 数据转换
-
+      * 数据转换
 ### java.util.function包
 
 参考文档：
@@ -7708,11 +7709,22 @@ project
 ## Spring注解开发
 
 1. Spring原始注解（主要代替<bean>标签的配置）
-   
+
    > Spring是轻代码中配置的框架，配置比较繁重，影响开发效率，所以注解开发是一种趋势。
-   
+
    ![image-20220317200213868](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220317200213868.png)
-   
+
+   * `@Resource`注解： `@Resource`是Java EE提供的注解，也可以在Java SE中使用。它可以通过名称或类型进行依赖注入。
+     * 当使用`@Resource`注解时，可以通过`name`属性指定要注入的依赖项的名称，或者通过`type`属性指定要注入的依赖项的类型。
+     * 如果指定了`name`属性，则会按照名称进行注入，如果没有找到与该名称匹配的依赖项，则会抛出异常。
+     * 如果指定了`type`属性，则会按照类型进行注入，如果找到多个与该类型匹配的依赖项，则会选择其中一个进行注入。
+     * 如果既没有指定`name`属性，也没有指定`type`属性，则会按照名称进行注入，即默认使用被注解字段或方法的名称作为依赖项的名称。
+
+   * `@Autowired`注解： `@Autowired`是Spring框架提供的注解，用于实现自动装配。
+     * 当使用`@Autowired`注解时，Spring会尝试根据被注解字段或方法的类型来寻找匹配的依赖项进行注入。
+     * 如果找到多个与该类型匹配的依赖项，则会根据一定的规则（如优先级、限定符等）选择其中一个进行注入。
+     * 如果没有找到与该类型匹配的依赖项，则会抛出异常。
+
    > 注意：
    > 
    > 使用注解时需要进行组件扫描配置
