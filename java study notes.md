@@ -119,7 +119,7 @@ java 1.9后提供。
    ```
 
    * 引用其他类或方法：
-     * 使用 `{@link}` 标签来引用其他类、方法、变量等。
+     * 使用 `{@link}` 或`{@linkplain}`标签来引用其他类、方法、变量等。@link用于创建超链接并显示链接的文本，而@linkplain用于创建链接并显示自定义的文本。@link还可以与@since和@version一起使用来指定链接的版本信息。
 
    ```java
    /**
@@ -1326,6 +1326,7 @@ public class LambdaDemo3 {
      ~~~
 <<<<<<< HEAD
      
+
 =======
   ~~~
    
@@ -3212,26 +3213,26 @@ public class Test04 {
      > public interface MyAnnoation extends java.lang.annoation.Annoation{}
      
    * 格式：
-     
+
      > * @target：描述注解能够作用的位置
-     > 
+     >
      >   * ElementType取值：
      >       * TYPE：可以作用于类上
      >     * METHOD：可以作用于方法上
      >     * FILED：可以作用于域上
-     > 
+     >
      > * @Retention：描述注解被保留的阶段
-     > 
-     >   * ```
-     >       @Retention(RetentionPolicy.RUNTIME)：当前被描述的注解，会保留到字节码文件中，并被JVM读取
-     >     ```
-     > 
+     >
+     >   * RetentionPolicy.SOURCE（源码级别保留）：被标注的注解仅在编译阶段存在，编译后不会包含在生成的字节码中，对运行时没有影响。这种注解**通常用于提供给编译器或其他工具使用**，而不会影响实际的程序运行。
+     >   * RetentionPolicy.CLASS（类级别保留）：被标注的注解会被保留到编译后的字节码文件中，并被JVM读取，但在运行时不可访问。这是**默认的保留策略**，如果没有显式指定@Retention，默认使用该策略。
+     >   * RetentionPolicy.RUNTIME（运行时级别保留）：被标注的注解会被保留到编译后的字节码文件中，并在运行时可以通过反射机制访问到。这种注解**通常用于运行时的动态操作，例如自定义注解处理器、框架的扩展、依赖注入等**
+     >
      > * @Documented：描述注解是否被抽取到api文档中
-     > 
+     >
      > * @Inherited：描述注解是否被子类继承
-     > 
+     >
      > public @interface 注解名称{}
-     
+
    * 属性：接口中的抽象方法
      
      * 属性的返回值类型
