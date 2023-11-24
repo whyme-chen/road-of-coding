@@ -296,35 +296,11 @@
 
 ### 软件安装命令
 
-#### 安装命令
+具体参考：[软件安装](#install)
 
-1. 软件安装方式（centOS为例）
+软件安装方式（centOS为例）
 
-   ![image-20221118231233904](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211182312501.png)
-
-   * rpm
-
-     - 语法：`rpm [选项] [软件包]`
-     - 查询是否已经安装了某软件包：`rpm -qa|grep [软件包关键词]`
-     - 卸载已经安装的软件包：`rpm -e 软件包全名`
-     - 安装软件包并查看进度：`rpm -ivh 软件包路径`
-
-     ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRAb1icG3HB87Ox6bAq3uKNn2icc6G4gRE70L861YzphEyT8rSfmIph2jHg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
-     > RPM包默认安装路径
-     > /etc/配置文件安装目录
-     > /usr/bin/可执行的命令安装目录
-     > /usr/lib/程序所使用的函数库保存位置
-     > /usr/share/doc/基本的软件使用手册保存位置
-     > /usr/share/man/帮助文件保存位置
-
-   * yum
-
-     * 常用指令：
-       * yum list
-       * yum install
-       * yum remove
-       * yum源配置
+![image-20221118231233904](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211182312501.png)
 
 #### 常用软件安装示例
 
@@ -438,6 +414,80 @@
 2. shell脚本部署
 
    ![image-20221120204540453](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211202045621.png)
+
+### <a id="caculater">计算命令</a>
+
+1. `expr`：expr是 evaluate expressions 的缩写，译为“求值表达式”。Shell expr 是一个功能强大，并且比较复杂的命令它除了可以实现整数计算，还可以结合一些选项对字符串进行处理，例如计算字符串长度、字符串比较、字符串匹配、字符串提取等。
+
+   * 语法
+
+     ~~~shell
+     # 计算
+     expr 算术运算符表达式
+     # 将计算结果赋值给变量,注意: 运算符表达式中每个数字与符号之间要有空格
+     res = `expr 算术运算符表达式`
+     
+     # 字符串长度：使用length参数获取字符串的长度。
+     expr length "hello"  # 输出：5
+     
+     # 子字符串提取：使用substr参数提取字符串的子串。
+     expr substr "hello world" 7 5  # 输出："world"
+     
+     # 字符串连接：使用冒号（:）将两个字符串连接起来。
+     expr "hello" : "he" : "llo"  # 输出："hello"
+     
+     # 字符串匹配：使用match参数检查字符串是否与指定模式匹配。
+     expr "hello world" : 'h.*d'  # 输出：1 (表示匹配成功)
+     
+     # 字符串替换：使用sub参数替换字符串中的模式。
+     expr "hello world" : 'h' : 'H'  # 输出："Hello world"
+     
+     # 字符串索引位置：使用index参数确定字符串中某个子串的位置。
+     expr index "hello" "e"  # 输出：2 (表示字母'e'在字符串中的位置)
+     ~~~
+   
+   > 在较新的Shell版本中，推荐使用更强大的字符串处理工具，如`bash`内置的字符串操作功能或`awk`命令来代替`expr`命令。
+   
+2. `let`：let 命令和双小括号(())在数字计算方面功能一样，但是没有(0)功能强大，let只能用于赋值计算，不能直接输出，不可以条件判断
+
+3. `bc`：Bash shel内置了对整数运算的支持，但是并不支持浮点运算，而 linux bc(basic calculator)命令可以很方便的进行浮点运算.bc命令是Linux简单的计算器,能进行进制转换与计算。能转换的进制包括十六进制、十进制、八进制、二进制等。可以使用的运算符号包括(+)加法、()减法、()乘法、(/除法、()指数、(%)余数等
+
+   以下是`bc`命令的一些常见用法：
+
+   1. 基本运算：`bc`可以执行基本的数学运算，包括加法、减法、乘法和除法。
+      ```shell
+      echo "2 + 3" | bc  # 输出：5
+      echo "5 - 2" | bc  # 输出：3
+      echo "2 * 3" | bc  # 输出：6
+      echo "10 / 3" | bc  # 输出：3 (整数除法)
+      echo "scale=2; 10 / 3" | bc  # 输出：3.33 (浮点数除法，设置小数位数为2)
+      ```
+
+   2. 变量赋值：`bc`允许使用变量进行计算，并可以在计算中使用这些变量。
+      ```shell
+      echo "a = 2; b = 3; a + b" | bc  # 输出：5
+      ```
+
+   3. 数学函数：`bc`提供了一些常见的数学函数，如平方根、指数函数、三角函数等。
+      ```shell
+      echo "sqrt(16)" | bc  # 输出：4 (平方根)
+      echo "e(1)" | bc  # 输出：2.718281828459045 (自然对数的底数)
+      echo "s(0)" | bc  # 输出：0 (正弦函数)
+      ```
+
+   4. 控制输出格式：`bc`可以通过设置输出格式来控制结果的显示方式。
+      ```shell
+      echo "scale=2; 10 / 3" | bc  # 输出：3.33 (设置小数位数为2)
+      ```
+
+   5. 文件操作：`bc`还可以从文件中读取计算表达式，并将结果输出到文件中。
+      ```shell
+      echo "2 + 3" > input.txt
+      bc < input.txt > output.txt
+      cat output.txt  # 输出：5
+      ```
+
+
 
 ### 其他
 
@@ -814,7 +864,7 @@ drwxr-xr-x 4 root root  4096 5月  18 23:44 project_management
        # 将文件 f01 的读、写、执行的权限赋给当前用户，将读和执行权限赋给用户组、将写和执行权限赋给其他用户。
        ~~~
 
-## 软件安装
+## <a id="install">软件安装</a>
 
 在Linux系统上安装软件时，通常有以下几种方式：
 
@@ -824,6 +874,7 @@ drwxr-xr-x 4 root root  4096 5月  18 23:44 project_management
 
 1. 软件包管理器
 
+   * rpm
    * yum：主要用于Red Hat、CentOS 等发行版，它允许你从预配置的软件仓库中安装、更新和删除软件包。
    * apt：在Debian、Ubuntu 等基于Debian 的发行版中使用，它也从预配置的软件仓库中管理软件包。
    * dnf：是yum的下一代版本，在最新的Fedora以及Red Hat Enterprise Linux 8中出现
@@ -839,11 +890,101 @@ drwxr-xr-x 4 root root  4096 5月  18 23:44 project_management
 
 3. 本地软件管理
 
-   使用软件包管理器的查询功能可以列出已安装的软件包。对于yum、dnf 可以使用 `yum list installed` 或 `dnf list installed`；对于apt，可以使用 `dpkg --list`。
+   使用软件包管理器的查询功能可以列出已安装的软件包。
+   
+   * 对于yum、dnf 可以使用 `yum list installed` 或 `dnf list installed`；
+   * 对于apt，可以使用 `dpkg --list`。
+
+### RPM
+
+参考：
+
+* [**Linux系统-RPM包详解**](https://www.cnblogs.com/luodenglin/p/11888751.html)
+
+> RPM主要用于基于RPM的Linux发行版（如Red Hat Enterprise Linux、Fedora、CentOS等），而Debian系列的发行版（如Ubuntu）使用的是不同的包管理系统（APT）。
+
+1. rpm（Red Hat Package Manager）：一种常见的包管理系统，用于在基于RPM的Linux发行版中安装、升级、管理和删除软件包。
+
+   * **RPM包**是一种预编译的软件包，它包含了要在Linux系统上安装的软件及其相关文件。RPM包的文件扩展名通常为`.rpm`。RPM包由软件的开发者或发行版的维护者创建。
+   * **RPM命令**执行安装rpm包和源码包，rpm包以`.rpm`结尾，而源码包以`.src.rpm`结尾
+   * **RPM数据库**是一个记录已安装的软件包及其信息的系统数据库。它包含了软件包的名称、版本、文件列表等信息。RPM使用数据库来追踪系统上已安装的软件包，并进行依赖性管理和软件包冲突解决。
+
+2. 依赖性管理（RPM优点）：RPM可以管理软件包之间的依赖关系。当安装或升级软件包时，RPM会自动检查并解决依赖关系，以确保所需的库和组件也被正确安装
+
+3. RPM包
+
+   * 命令规则：
+
+     ~~~
+     name-version-arch.rpm
+     name-version-arch.src.rpm
+     ~~~
+
+   * 示例：`bind-9.8.2-0.47.rc1.el6.x86_64.rpm`
+
+     * name，如：bind，是软件的名称
+     * version，如：9.8.2-0，是软件的版本号，版本号格式通常为“主版本号.次版本号.修正号”。47，是发布版本号，表示这个rpm软件包是第几次编译生成的
+     * arch，如i386，是表示包适用的硬件平台，目前rpm支持的平台有：i386，i586，i686，sparc和alpha
+     * .rpm和.src.rpm，是rpm包类型后缀，rpm是编译好的二进制包，.src.rpm是源码包
+     * 特殊名称：
+       * el*：表示发行商的版本，el6表示这个软件包是在rhel6.x/centos6.x下使用；
+       * devel：表示这个rpm包是软件的开发包
+       * noarch：说明这样的软件包可以在任何平台安装和运行，不需要特定的硬件平台
+
+4. RPM命令行工具：RPM提供了一组命令行工具，用于管理软件包。
+
+   * 语法：`rpm [选项] [软件包]`
+
+   * 常用命令
+
+     * `rpm -i package.rpm`：安装一个RPM包，也可以使用`rpm -ivh 软件包路径`安装软件包并查看进度。
+     * `rpm -e package`：卸载一个已安装的软件包。
+     * `rpm -q package`：查询已安装的软件包信息，也可使用`rpm -qa|grep [软件包关键词]`查询具体包。
+     * `rpm -U package.rpm`：升级一个已安装的软件包。
+     * `rpm -F package.rpm`：仅在软件包已安装的情况下升级。
+     * `rpm -Va`：验证已安装的软件包的完整性。
+
+   * 常用选项组合
+
+     * --force 忽略软件包及文件的冲突，即强制安装（长格式命令）
+     * --nodeps 忽略软件包的依赖关系（长格式命令）
+     * --test 安装测试，并不实际安装（长格式命令）
+
+     ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRAb1icG3HB87Ox6bAq3uKNn2icc6G4gRE70L861YzphEyT8rSfmIph2jHg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+5. RPM包默认安装路径
+
+   * `/etc/`配置文件安装目录 
+   * `/usr/bin/`可执行的命令安装目录
+   * ` /usr/lib/`程序所使用的函数库保存位置 
+   * `/usr/share/doc/`基本的软件使用手册保存位置
+   * `/usr/share/man/`帮助文件保存位置
+
+6. RPM构建
+
+   RPM提供了一种打包和构建软件包的机制，使开发者能够将自己的软件打包为RPM包，并与其他人共享或发布。构建RPM包需要创建一个`.spec`文件，其中包含软件包的描述和构建逻辑。
 
 ### yum&dnf
 
+#### yum
+
+1. yum
+2. 常用指令：
+   * yum list
+   * yum install
+   * yum remove
+   * yum源配置
+
+#### dnf
+
+1. dnf：新一代的rpm软件包管理器。
+   * DNF包管理器克服了YUM包管理器的一些瓶颈，提升了包括用户体验，内存占用，依赖分析，运行速度等多方面的内容。
+   * DNF使用 RPM, libsolv 和 hawkey 库进行包管理操作。
+2. dnf常用命令
+
 ### apt
+
+### wegt
 
 # Shell
 
@@ -1217,38 +1358,350 @@ Shell 支持数组 (Array)，组是若干数据的集合，其中的每一份数
 
 3. 常用内置命令
 
-   可参考[Linux常用命令](#instruct)
+   具体使用可参考[Linux常用命令](#instruct)
 
-   | 命令      | 描述                                                   |
-   | --------- | ------------------------------------------------------ |
-   | `echo`    | 显示文本或变量的内容                                   |
-   | `cd`      | 切换当前工作目录                                       |
-   | `pwd`     | 显示当前工作目录的路径                                 |
-   | `ls`      | 列出目录内容                                           |
-   | `mkdir`   | 创建新目录                                             |
-   | `rm`      | 删除文件或目录                                         |
-   | `cp`      | 复制文件或目录                                         |
-   | `mv`      | 移动文件或目录，或重命名文件                           |
-   | `cat`     | 显示文件内容                                           |
-   | `grep`    | 在文件中搜索指定模式                                   |
-   | `chmod`   | 修改文件或目录的权限                                   |
-   | `chown`   | 修改文件或目录的所有者                                 |
-   | `ps`      | 显示当前运行的进程                                     |
-   | `kill`    | 终止正在运行的进程                                     |
-   | `bg`      | 将作业放到后台运行                                     |
-   | `fg`      | 将作业调至前台运行                                     |
-   | `jobs`    | 列出当前作业列表                                       |
-   | `source`  | 执行指定脚本文件                                       |
-   | `alias`   | 创建命令别名或显示当前别名列表                         |
-   | `unalias` | 删除指定别名（临时删除，长久删除需要去配置文件中删除） |
-   | `export`  | 设置环境变量                                           |
-   | `history` | 显示最近执行的命令列表                                 |
-   | `exit`    | 退出当前 shell                                         |
-   | `help`    | 显示内置命令的帮助信息                                 |
+   | 命令      | 描述                                                         |
+   | --------- | ------------------------------------------------------------ |
+   | `echo`    | 显示文本或变量的内容                                         |
+   | `cd`      | 切换当前工作目录                                             |
+   | `pwd`     | 显示当前工作目录的路径                                       |
+   | `ls`      | 列出目录内容                                                 |
+   | `mkdir`   | 创建新目录                                                   |
+   | `rm`      | 删除文件或目录                                               |
+   | `cp`      | 复制文件或目录                                               |
+   | `mv`      | 移动文件或目录，或重命名文件                                 |
+   | `cat`     | 显示文件内容                                                 |
+   | `grep`    | 在文件中搜索指定模式                                         |
+   | `chmod`   | 修改文件或目录的权限                                         |
+   | `chown`   | 修改文件或目录的所有者                                       |
+   | `ps`      | 显示当前运行的进程                                           |
+   | `kill`    | 终止正在运行的进程                                           |
+   | `bg`      | 将作业放到后台运行                                           |
+   | `fg`      | 将作业调至前台运行                                           |
+   | `jobs`    | 列出当前作业列表                                             |
+   | `source`  | 执行指定脚本文件                                             |
+   | `alias`   | 创建命令别名或显示当前别名列表                               |
+   | `unalias` | 删除指定别名（临时删除，长久删除需要去配置文件中删除）       |
+   | `export`  | 设置环境变量                                                 |
+   | `history` | 显示最近执行的命令列表                                       |
+   | `exit`    | 退出当前 shell                                               |
+   | `help`    | 显示内置命令的帮助信息                                       |
+   | `test`    | 用于检查某个条件是否成立，可以进行数值、字符和文件三个方面的测试 |
 
 ### Shell运算符
 
+#### 计算命令
+
+具体使用，参考[计算命令](#caculater)
+
+#### 算术运算符
+
+1. 常用算术运算符
+
+   | 运算符 | 描述               | 示例                             |
+   | ------ | ------------------ | -------------------------------- |
+   | +      | 加法               | `result=$((num1 + num2))`        |
+   | -      | 减法               | `result=$((num1 - num2))`        |
+   | *      | 乘法               | `result=$((num1 * num2))`        |
+   | /      | 除法               | `result=$((num1 / num2))`        |
+   | %      | 求模（取余）       | `result=$((num1 % num2))`        |
+   | **     | 幂运算             | `result=$((num1 ** num2))`       |
+   | ++     | 自增运算           | `num++` 或 `((num++))`           |
+   | --     | 自减运算           | `num--` 或 `((num--))`           |
+   | +=     | 加法赋值           | `num1+=num2` 或 `((num1+=num2))` |
+   | -=     | 减法赋值           | `num1-=num2` 或 `((num1-=num2))` |
+   | *=     | 乘法赋值           | `num1*=num2` 或 `((num1*=num2))` |
+   | /=     | 除法赋值           | `num1/=num2` 或 `((num1/=num2))` |
+   | %=     | 模赋值（取余赋值） | `num1%=num2` 或 `((num1%=num2))` |
+   | ==     | 相等比较           | `if [ $num1 == $num2 ]`          |
+   | !=     | 不相等比较         | `if [ $num1 != $num2 ]`          |
+   | >      | 大于比较           | `if [ $num1 > $num2 ]`           |
+   | <      | 小于比较           | `if [ $num1 < $num2 ]`           |
+   | >=     | 大于等于比较       | `if [ $num1 >= $num2 ]`          |
+   | <=     | 小于等于比较       | `if [ $num1 <= $num2 ]`          |
+
+   > 注意事项：
+   >
+   > - Shell 算术运算符一般用于在脚本中进行数值计算。
+   > - 在双括号 `(( ))` 中使用算术运算符时，可以省略 `$` 符号。
+   > - 在条件判断语句中使用比较运算符时，需要在运算符前后添加空格。
+
+#### 比较运算符
+
+1. 整数比较运算符
+
+   | 运算符 | 描述                 | 示例                     |
+   | ------ | -------------------- | ------------------------ |
+   | -eq    | 等于                 | `if [ $num1 -eq $num2 ]` |
+   | -ne    | 不等于               | `if [ $num1 -ne $num2 ]` |
+   | -gt    | 大于                 | `if [ $num1 -gt $num2 ]` |
+   | -lt    | 小于                 | `if [ $num1 -lt $num2 ]` |
+   | -ge    | 大于等于             | `if [ $num1 -ge $num2 ]` |
+   | -le    | 小于等于             | `if [ $num1 -le $num2 ]` |
+   | ==     | 等于（双括号内）     | `if (( num1 == num2 ))`  |
+   | !=     | 不等于（双括号内）   | `if (( num1 != num2 ))`  |
+   | >      | 大于（双括号内）     | `if (( num1 > num2 ))`   |
+   | <      | 小于（双括号内）     | `if (( num1 < num2 ))`   |
+   | >=     | 大于等于（双括号内） | `if (( num1 >= num2 ))`  |
+   | <=     | 小于等于（双括号内） | `if (( num1 <= num2 ))`  |
+
+   >注意事项：
+   >
+   >- 这些整数比较运算符用于在条件判断语句中比较整数值。
+   >- 在方括号 `[ ]` 中使用整数比较运算符时，需要添加空格。
+
+2. 字符串比较运算符：变量的类型可以为数字'(整数，小数)与字符串，字符串比较可以使用`[[]]`和`[]`两种方式。 
+
+   | 运算符 | 描述             | 示例                         |
+   | ------ | ---------------- | ---------------------------- |
+   | =      | 相等             | `if [ "$str1" = "$str2" ]`   |
+   | ==     | 相等（同 `=`）   | `if [ "$str1" == "$str2" ]`  |
+   | !=     | 不相等           | `if [ "$str1" != "$str2" ]`  |
+   | -z     | 空字符串         | `if [ -z "$str" ]`           |
+   | -n     | 非空字符串       | `if [ -n "$str" ]`           |
+   | $      | 是否不为空       | `if [ ? "$str"]`             |
+   | <      | 小于（按字典序） | `if [[ "$str1" < "$str2" ]]` |
+   | >      | 大于（按字典序） | `if [[ "$str1" > "$str2" ]]` |
+
+   > 注意事项：
+   >
+   > - 这些字符串比较运算符用于在条件判断语句中比较字符串。
+   > - 在方括号 `[ ]` 或双方括号 `[[ ]]` 中使用字符串比较运算符时，需要添加空格。
+   > - 使用双方括号 `[[ ]]` 进行字符串比较时，可以使用 `<` 和 `>` 进行按字典序的大小比较。
+
+#### 逻辑运算符
+
+#### 布尔运算符
+
+1. 布尔运算符
+
+   | 运算符 | 描述              | 示例                                                         |
+   | ------ | ----------------- | ------------------------------------------------------------ |
+   | !      | 逻辑非（取反）    | `if [ ! condition ]`                                         |
+   | -a     | 逻辑与（and）     | `if [ condition1 -a condition2 ]` 或 `if [ condition1 && condition2 ]` |
+   | -o     | 逻辑或（or）      | `if [ condition1 -o condition2 ]` 或 `if [ condition1 || condition2 ]` |
+   | &&     | 短路逻辑与（and） | `if [ condition1 && condition2 ]`                            |
+   | \|\|   | 短路逻辑或（or）  | `if [ condition1 || condition2 ]`                            |
+
+   > 注意事项：
+   >
+   > - 在方括号 `[ ]` 中使用布尔运算符时，需要添加空格。
+   > - 布尔运算符放在[或与test命令配合使用才有效
+   > - `&&` 和 `||` 是短路逻辑运算符，如果第一个条件能够确定整个表达式的值，就不会再计算第二个条件。
+   > - `&&` 和 `||` 必须放在`[[]]`或`(())`中执行，否则报错
+
+#### 文件测试运算符
+
+1. Linux系统文件类型
+
+   * `-`：普通文件
+   * `d`：目录文件
+   * `l`：链接文件
+   * `b`： 块设备文件
+   * `c`：字符设备文件
+   * `p`：管道文件
+
+2. 文件测试运算符：用于检测文件的各种属性
+
+   属性检测描述：
+
+   | 运算符 | 描述                                             | 示例                           |
+   | ------ | ------------------------------------------------ | ------------------------------ |
+   | -e     | 检测文件是否存在，包括普通文件、目录、符号链接等 | `-e file.txt`                  |
+   | -f     | 检测文件是否为普通文件                           | `-f script.sh`                 |
+   | -d     | 检测文件是否为目录                               | `-d /path/to/directory`        |
+   | -s     | 检测文件是否非空（大小不为0）                    | `-s data.txt`                  |
+   | -r     | 检测文件是否可读                                 | `-r file.txt`                  |
+   | -w     | 检测文件是否可写                                 | `-w file.txt`                  |
+   | -x     | 检测文件是否可执行                               | `-x script.sh`                 |
+   | -L/-h  | 检测文件是否为符号链接                           | `-L link.txt` 或 `-h link.txt` |
+   | -O     | 检测文件是否属于当前用户                         | `-O file.txt`                  |
+   | -G     | 检测文件是否属于当前用户组                       | `-G file.txt`                  |
+   | -nt    | 检测文件1是否比文件2新（修改时间较晚）           | `file1.txt -nt file2.txt`      |
+   | -ot    | 检测文件1是否比文件2旧（修改时间较早）           | `file1.txt -ot file2.txt`      |
+   | -ef    | 检测文件1和文件2是否为同一个文件（硬链接）       | `file1.txt -ef file2.txt`      |
+
+#### `[[]]`&`[]`
+
+1. word splitting：会将含有空格字符串进行分拆分割后比较
+2. 区别：
+   * `[[]]`不会有word splitting发生，`[]`会有word splitting发生
+   * `[[]]`对`<`不需要转义，`[]`需要对`<`，`>`转义
+
 ### Shell流程控制
+
+主要包括以下几种类型的流程控制语句：
+
+* 条件判断语句（if-then-else）
+* 循环语句（for、while、until）
+* case语句（switch语句）
+
+1. 条件判断语句（if-then-else）：
+
+   - `if-then-else`语句根据条件的真假执行不同的代码块。
+
+   ```shell
+   if [ condition ]; then
+       # 如果条件为真，则执行这里的代码
+   else
+       # 如果条件为假，则执行这里的代码
+   fi
+   ```
+
+   示例：
+
+   ```shell
+   num=10
+   if [ $num -gt 0 ]; then
+       echo "Number is positive"
+   else
+       echo "Number is non-positive"
+   fi
+   ```
+
+2. 循环语句：
+
+   - `for`循环：用于遍历列表中的元素执行特定的代码块。
+
+   ```sh
+   for var in list; do
+       # 执行针对每个元素的操作
+   done
+   ```
+
+   示例：
+
+   ```shell
+   for fruit in apple banana orange; do
+       echo "I like $fruit"
+   done
+   ```
+
+   - `while`循环：当指定条件为真时，重复执行代码块。
+
+   ```shell
+   while [ condition ]; do
+       # 只要条件为真，就会一直执行这里的代码
+   done
+   ```
+
+   示例：
+
+   ```shell
+   count=0
+   while [ $count -lt 5 ]; do
+       echo "Count: $count"
+       ((count++))
+   done
+   ```
+
+   - `until`循环：当指定条件为假时，重复执行代码块。
+
+   ```shell
+   until [ condition ]; do
+       # 只要条件为假，就会一直执行这里的代码
+   done
+   ```
+
+   示例：
+
+   ```shell
+   input=""
+   until [ "$input" = "yes" ]; do
+       read -p "Enter 'yes' to continue: " input
+   done
+   ```
+
+3. case语句（switch语句）：
+
+   - `case`语句根据变量的不同取值执行不同的代码块。
+
+   ```shell
+   case value in
+       pattern1)
+           # 匹配模式1时执行的代码
+           ;;
+       pattern2)
+           # 匹配模式2时执行的代码
+           ;;
+       *)
+           # 默认情况下执行的代码
+           ;;
+   esac
+   ```
+
+   示例：
+
+   ```shell
+   fruit="apple"
+   case $fruit in
+       "apple")
+           echo "It's an apple"
+           ;;
+       "banana")
+           echo "It's a banana"
+           ;;
+       *)
+           echo "It's neither an apple nor a banana"
+           ;;
+   esac
+   ```
+
+4. select语句
+
+   * `select`语句用于创建一个简单的菜单，允许用户从一组选项中进行选择。用户可以根据显示的菜单编号来选择相应的选项，然后脚本将根据用户的选择执行相应的代码块。`select`语句通常与`case`语句结合使用，以处理用户的选择。
+
+   `select`语句的基本语法如下：
+
+   ```
+   select var in list
+   do
+       # 执行针对每个选项的操作
+   done
+   ```
+
+   - `var` 是一个变量，用于存储用户选择的选项。
+   - `list` 是一个由空格分隔的选项列表，供用户选择。
+
+   接下来我们通过一个示例来说明`select`语句的使用：
+
+   ```shell
+   #!/bin/bash
+   
+   PS3="Enter the number of your choice: "  # 设置提示符
+   
+   echo "Which is your favorite programming language?"
+   select language in "Python" "Java" "JavaScript" "C++" "Go" "Exit"
+   do
+       case $language in
+           "Python")
+               echo "Python is a great choice!"
+               ;;
+           "Java")
+               echo "Java is a powerful language."
+               ;;
+           "JavaScript")
+               echo "JavaScript is widely used for web development."
+               ;;
+           "C++")
+               echo "C++ is a high-performance language."
+               ;;
+           "Go")
+               echo "Go is a modern language developed by Google."
+               ;;
+           "Exit")
+               echo "Exiting the menu..."
+               break
+               ;;
+           *)
+               echo "Invalid option, please try again."
+               ;;
+       esac
+   done
+   ```
+
+   > 注意: select 是无限循环(死循环)，输入空值，或者输入的值无效，都不会结束循环，只有遇到 break 语句，或者按下Itrl+D 组合键才能结束循环。
+   > 执行命令过程中: 终端会输出 ? 代表可以输入选择的菜单编号
 
 ### Shell重定向
 
@@ -1261,7 +1714,7 @@ Shell 支持数组 (Array)，组是若干数据的集合，其中的每一份数
 1. 已知目录/root/demo-shell目录，编写shell脚本，实现在/root/demo-shell/目录下创建一个one.txt，在one.txt文件中增加内容“Hello shell”。
 2. 循环打印脚本文件的所有输入参数
 
-# 工具
+# 资源&路线&工具
 
 ## 远程连接工具
 
@@ -1275,7 +1728,19 @@ Shell 支持数组 (Array)，组是若干数据的集合，其中的每一份数
 
    官网：https://mobaxterm.mobatek.net/
 
+   使用参考：
+
+   * https://www.bilibili.com/video/BV1ze41157SP/?spm_id_from=333.337.search-card.all.click&vd_source=fabefd3fabfadb9324761989b55c26ea
+
 3. FinalShell
+
+   使用参考：
+
+   * http://www.tuohang.net/article/273804.html
+
+4. WindTerm
+
+5. Putty
 
 ## 宝塔面板
 
@@ -1284,3 +1749,9 @@ Shell 支持数组 (Array)，组是若干数据的集合，其中的每一份数
 ## 1Panel
 
 GitHub地址：https://link.zhihu.com/?target=https%3A//github.com/1Panel-dev/1Panel
+
+## Linux资源网站
+
+* [Linux 用户必备的 8 大网站 | Linux 中国 (qq.com)](https://mp.weixin.qq.com/s/5HyldkHH7snATWzIkpgYuQ)
+* [Arch Linux](https://archlinux.org/)
+* [DistroWatch.com: Put the fun back into computing. Use Linux, BSD.](https://distrowatch.com/)
