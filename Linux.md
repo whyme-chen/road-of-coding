@@ -728,6 +728,8 @@
 
 ### Alibaba Cloud Linux
 
+官方文档：[Alibaba Cloud Linux_免费操作系统_云服务器_弹性计算-阿里云 (aliyun.com)](https://www.aliyun.com/product/ecs/alinux?spm=5176.28508143.J_XmGx2FZCDAeIy2ZCWL7sW.21.214b154aWWMFtB&scm=20140722.S_product@@云产品@@634016._.ID_product@@云产品@@634016-RL_Aliyun Linux-LOC_topbar~UND~product-OR_ser-V_3-P0_0)
+
 Alibaba Cloud Linux 2(原Aliyun Linux 2)是阿里云官方操作系统，为云上应用程序提供安全、稳定、高性能的定制化运行环境，并针对云基础设施进行了深度优化，为您打造更好的运行时体验。您可以免费使用Alibaba Cloud Linux 2公共镜像，并免费获得阿里云针对该操作系统的长期支持。
 
 | 特点       | 为阿里云基础设施进行深度优化，在阿里云上部署性能优异 |
