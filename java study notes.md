@@ -3210,16 +3210,25 @@ public class Test04 {
 
    * 本质：注解本质上就是一个接口，该接口默认继承Annoation接口
      
-     > public interface MyAnnoation extends java.lang.annoation.Annoation{}
+     ~~~java
+     public interface MyAnnoation extends java.lang.annoation.Annoation{}
+     ~~~
      
    * 格式：
 
      > * @target：描述注解能够作用的位置
      >
      >   * ElementType取值：
-     >       * TYPE：可以作用于类上
+     >       * TYPE：可以作用于类、接口、枚举上
      >     * METHOD：可以作用于方法上
-     >     * FILED：可以作用于域上
+     >     * FILED：可以作用于成员变量上（包括枚举变量）
+     >     * PARAMETER：方法参数
+     >     * CONSTRUCTOR：构造方法
+     >     * LOCAL_VARIABLE：局部变量
+     >     * ANNOTATION_TYPE：注解类
+     >     * PACKAGE：可用于修饰包
+     >     * TYPE_PARAMETER：类型参数，JDK 1.8 新增
+     >     * TYPE_USE：使用类型的任何地方，JDK 1.8 新增
      >
      > * @Retention：描述注解被保留的阶段
      >
