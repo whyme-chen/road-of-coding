@@ -4130,6 +4130,18 @@ layui.use(['layer', 'form'], function(){
 </html>
 ```
 
+# 低代码or组件复用
+
+## 开源项目&组件
+
+### Element-UI
+
+### wti-form
+
+Vue.js 低代码表单组件，基于 Element UI 二次开发而成。
+
+文档地址：http://lovelovewall.com/wti_form_demo/home.html#/Install
+
 # 资源&路线
 
 * [Fe-Docs (axzo.cn)](http://fe-doc.axzo.cn/)
