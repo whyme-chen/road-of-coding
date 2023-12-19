@@ -833,6 +833,8 @@ Alibaba Cloud Linux 2(原Aliyun Linux 2)是阿里云官方操作系统，为云�
 
 ## 权限管理
 
+Linux一般将文件可存取访问的身份分为三种：ower、group、others，而对于每一种身份又各自有read、write、execute等权限。
+
 ### 用户和用户组
 
 1. 用户：
@@ -1969,6 +1971,10 @@ Shell 支持数组 (Array)，组是若干数据的集合，其中的每一份数
 
 4. `sort`
 
+5. `curl`
+
+   `curl` 命令用于在终端中进行网络请求。最简单的使用方式是通过指定 URL 来获取该地址的内容。
+
 ### 学习案例
 
 * [shell脚本一天一练](https://www.bilibili.com/video/BV1ih4y1Y7nh/?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=fabefd3fabfadb9324761989b55c26ea)
@@ -2028,3 +2034,37 @@ GitHub地址：https://link.zhihu.com/?target=https%3A//github.com/1Panel-dev/1P
 * [Linux 用户必备的 8 大网站 | Linux 中国 (qq.com)](https://mp.weixin.qq.com/s/5HyldkHH7snATWzIkpgYuQ)
 * [Arch Linux](https://archlinux.org/)
 * [DistroWatch.com: Put the fun back into computing. Use Linux, BSD.](https://distrowatch.com/)
+
+## 学习路线
+
+1. 基础知识：
+   - 计算机概论和硬件相关知识
+   - 学习Linux基础命令行操作，包括文件和目录管理、权限管理、文本处理等。
+   - 理解Linux文件系统的基本结构和特点。
+   - 掌握Linux进程管理和服务管理的基本概念。
+   - vi/vim编辑器
+   - 软件安装及管理
+2. Shell脚本编程：
+   - 学习Shell脚本编程，可以通过编写脚本来自动化常见任务和操作。
+   - 掌握Shell脚本的语法、流程控制、函数等基本概念。
+3. 网络和安全：
+   - 理解网络协议和基本的网络配置，包括IP地址、子网掩码、网关等。
+   - 学习Linux防火墙配置和网络连接追踪。
+   - 了解常见的网络服务和安全机制，例如SSH、SSL/TLS等。
+4. 系统管理和性能调优：
+   - 学习Linux系统的基本管理工具，例如用户管理、进程管理、日志管理等。
+   - 理解Linux系统的性能指标和调优方法，例如监控、性能优化等。
+5. 容器和虚拟化：
+   - 了解容器技术，例如Docker，学习容器的基本概念和使用方法。
+   - 掌握虚拟化技术，例如KVM，了解虚拟机的创建和管理。
+6. 自动化工具：
+   - 学习常用的自动化工具，例如Ansible、Puppet或Chef，用于配置管理和部署自动化。
+
+优质学习资源推荐：
+
+- Linux 基础教程和文档：Linux Documentation Project ([www.tldp.org](http://www.tldp.org/)) 提供了丰富的Linux教程和文档资源。
+- Linux 命令行教程：Linux Journey ([linuxjourney.com](http://linuxjourney.com/)) 是一个交互式的命令行学习平台，提供从入门到进阶的教程。
+- Shell 脚本编程：《Shell脚本学习指南》(Bash Guide for Beginners) 是一本免费的Shell脚本编程指南，适合入门学习。
+- Linux 系统管理和性能调优：《Linux性能优化实战》(Linux Performance Optimization) 是一本介绍Linux性能调优的实战指南。
+- 容器和虚拟化：Docker官方文档 ([docs.docker.com](http://docs.docker.com/)) 提供了全面的Docker学习资源，包括入门指南、教程和最佳实践等。
+- 自动化工具：Ansible官方文档 ([docs.ansible.com](http://docs.ansible.com/)) 提供了详细的Ansible学习资源，包括教程、模块文档和示例等。

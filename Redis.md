@@ -49,7 +49,12 @@ redis官网：https://redis.io/
 4. 安装和配置
 
    * Linux
+
    * Windows
+
+   * Docker
+
+     > 参考：https://zhuanlan.zhihu.com/p/625765918
 
 5. Reids客户端
 
@@ -72,7 +77,7 @@ Redis是一个key-value的数据库， key- 般是String类型，不过value的�
 
 1. 常见数据结构
 
-   ![image-20230221112343749](D:\学习\road-of-coding\java study notes.assets\image-20230221112343749.png)
+   ![image-20230221112343749](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202312052129167.png)
 
 #### 通用命令
 
@@ -256,6 +261,47 @@ redis的java客户端很多，官方推荐有三种：
    ![image-20230716181322597](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202307161813066.png)
 
 3. 使用拦截器实现token刷新
+
+### 查询缓存
+
+1. 缓存：数据交换的缓冲区(称作Cache)，是存贮数据的临时地方，一般读写性能较高。计算机软硬件各级缓存：
+
+   ![image-20231206082216266](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202312060822856.png)
+
+2. 缓存作用：
+
+   * 降低后端负载
+   * 提高读写效率，降低响应时间
+
+3. 缓存成本
+
+   * 数据一致性成本
+   * 代码维护成本
+   * 运维成本
+
+4. 添加缓存
+
+   ![image-20231206083220688](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202312060832148.png)
+   
+5. 缓存更新策略
+
+   * 内存淘汰
+   * 超时剔除
+   * 主动更新
+     * **Cache Aside Pattern**（常用）：由缓存的调用者，在更新数据库的同时更新缓存。主动操作数据库和缓存时存在以下三个常见问题：
+       * 删除缓存还是更新缓存？
+         * 更新缓存：每次更新数据库都更新缓存，无效写操作较多
+         * 删除缓存：更新数据库时让缓存失效，查询时再更新缓存（推荐）
+       * 如何保证缓存与数据库的操作同时成功或失败？
+         * 单体系统，将缓存与数据库操作放在一个事务
+         * 分布式系统，利用TCC等分布式事务方案
+       * 先操作缓存还是先操作数据库？
+         * 先删除缓存，再操作数据库
+         * 先操作数据库，再删除缓存（推荐）
+     * Read/Write Through Pattern：缓存与数据库整合为一个服务由服务来维护一致性。调用者调用该服务，无需关心缓存一致性问题。
+     * Write Behind Caching Pattern：调用者只操作缓存，由其它线程异步的将缓存数据持久化到数据库，保证最终一致。
+
+   ![image-20231209173826751](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202312091738758.png)
 
 商户查询缓存
 优惠券秒杀
