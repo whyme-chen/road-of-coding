@@ -1,0 +1,25 @@
+<mxfile host="app.diagrams.net" modified="2023-12-19T12:47:19.616Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="UXTschXJ2znqfc-ut0yj" version="22.1.11" type="device">
+  <diagram name="jvm&amp;jre&amp;jdk" id="_GMFSYkJMBO3KfQpKZtc">
+    <mxGraphModel dx="780" dy="448" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ItogpshEqLcYT4WasVkE-6" value="JavaEE程序（JDK+IDE工具+应用服务器）" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=5;" vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="300" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="ItogpshEqLcYT4WasVkE-5" value="JavaSE程序（JDK+IDE工具）" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=5;" vertex="1" parent="1">
+          <mxGeometry x="60" y="110" width="260" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="ItogpshEqLcYT4WasVkE-3" value="JDK（JVM+基础类库+编译工具）" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=5;" vertex="1" parent="1">
+          <mxGeometry x="60" y="140" width="220" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="ItogpshEqLcYT4WasVkE-2" value="JRE（JVM+基础类库）" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=5;" vertex="1" parent="1">
+          <mxGeometry x="60" y="170" width="180" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="ItogpshEqLcYT4WasVkE-1" value="JVM" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;spacing=5;" vertex="1" parent="1">
+          <mxGeometry x="60" y="200" width="140" height="70" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
