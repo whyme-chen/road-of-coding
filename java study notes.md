@@ -10471,9 +10471,11 @@ Nginx是一款高性能的http 服务器/反向代理服务器及电子邮件( I
 
 ### 反向代理
 
-# 日志
+# 日志系统
 
-参考：[java日志框架](https://www.bilibili.com/video/BV1iJ411H74S?p=1&vd_source=fabefd3fabfadb9324761989b55c26ea)
+参考：
+
+* [java日志框架](https://www.bilibili.com/video/BV1iJ411H74S?p=1&vd_source=fabefd3fabfadb9324761989b55c26ea)&[搭配资料](https://pan.baidu.com/s/14D3xOqtRkRbA0_MQ1TWPwg?pwd=1902#list/path=%2Fsharelink3232509500-1047205714822206%2FJava%E6%97%A5%E5%BF%97%E7%83%AD%E9%97%A8%E6%A1%86%E6%9E%B6%2F%E8%B5%84%E6%96%99-Java%E6%97%A5%E5%BF%97&parentPath=%2Fsharelink3232509500-1047205714822206)
 
 ## 日志概述
 
@@ -10760,7 +10762,15 @@ Nginx是一款高性能的http 服务器/反向代理服务器及电子邮件( I
    * Appender:用于指定日志输出的目的地，目的地可以是控制台、文件、数据库等等。
    * Layout:负责把事件转换成字符串，格式化的日志信息的输出。在logback中Layout对象被封装在encoder中。
 
-# Swagger
+## lombok日志简化
+
+参考：
+
+* [【lombok】Lombok详解(日志记录和简化代码)](https://blog.csdn.net/twotwo22222/article/details/128609038)
+
+# Api文档
+
+## Swagger
 
 官网：https://swagger.io/
 
@@ -10770,7 +10780,7 @@ Nginx是一款高性能的http 服务器/反向代理服务器及电子邮件( I
 * https://blog.csdn.net/weixin_46645338/article/details/123895447
 * [SpringBoot集成Swagger3.0（详细）](https://www.cnblogs.com/antLaddie/p/17418078.html)
 
-## 简介
+### 简介
 
 1. 简介
 
@@ -10808,7 +10818,7 @@ Nginx是一款高性能的http 服务器/反向代理服务器及电子邮件( I
 
    除了上述几个主要阶段之外，还有一些其他重要的事件和版本，如Swagger UI、Swagger Codegen、SwaggerHub等等。这些工具和服务进一步扩展了Swagger的功能，使其成为了一个更加完整、强大和易于使用的API定义和管理平台。
 
-## SpringBoot集成Swagger（swagger3.0）
+### SpringBoot集成Swagger（swagger3.0）
 
 ### SpringFox
 
@@ -10953,7 +10963,7 @@ knife4j是为Java MVC框架集成Swagger生成Api文档的增强解决方案,前
 
    - **在线调试**：提供在线接口联调的强大功能，自动解析当前接口参数,同时包含表单验证，调用参数可返回接口响应内容、headers、响应时间、响应状态码等信息，帮助开发者在线调试。
 
-# Apifox
+## Apifox
 
 官网：https://www.apifox.cn/
 
@@ -11021,7 +11031,7 @@ knife4j是为Java MVC框架集成Swagger生成Api文档的增强解决方案,前
 
 3. 常用语法标签
 
-# Idea
+# IDEA
 
 参考视频：
 
@@ -11231,7 +11241,7 @@ knife4j是为Java MVC框架集成Swagger生成Api文档的增强解决方案,前
 
 参考链接：https://juejin.cn/post/7053264631262871583
 
-# git和GitHub
+# Git&GitHub
 
 参考链接：
 
