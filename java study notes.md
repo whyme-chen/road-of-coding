@@ -2907,27 +2907,6 @@ private static类型的,用于关联线程和线程上下文。
 
 ## 锁
 
-# Junit单元测试
-
-1. 测试分类
-   
-   * 黑盒测试
-   * 白盒测试
-
-2. Junit使用（白盒测试）
-   
-   步骤：
-   
-   * 定义一个测试类
-   * 定义测试方法
-   * 给方法添加@Test
-   * 导入Junit依赖环境
-
-3. 补充：
-   
-   * @Before：修饰的方法会在测试方法之前被自动执行
-   * @After：修饰的方法会在测试方法执行之后自动执行
-
 # 反射
 
 **反射是框架设计的灵魂。**
@@ -3257,10 +3236,17 @@ public class Test04 {
        * 可有使用default关键字给属性默认初始化值
        * 若只有一个属性要赋值且属性名称是value，则可以省略
 
-7. 在程序中解析（使用）注解：获取注解中定义的属性值
+7. 解析注解：获取注解中定义的属性值，通过接口`java.lang.reflect.AnnotatedElement`提供的方法读取
 
+   *  `AnnotatedElement` 接口是所有可以包含注解的程序元素（如类、方法、字段等）的通用超接口，它定义了一些常见的方法来获取和操作注解信息。常用方法：
+     * `T getAnnotation(Class<T> annotationClass)`：返回指定类型的注解对象，如果该注解不存在，则返回 null。
+     * `Annotation[] getAnnotations()`：返回该元素上存在的所有注解的数组，包括从父类继承而来的注解。
+     * `Annotation[] getDeclaredAnnotations()`：返回该元素上直接存在的所有注解的数组，不包括从父类继承而来的注解。
+     * `boolean isAnnotationPresent(Class<? extends Annotation> annotationClass)`：判断该元素上是否存在指定类型的注解。
+     *  `getAnnotationByType`
+     * `getDeclaredAnnotationByType` 
    * 获取注解定义位置的对象
-   * 获取指定的注解（getAnnoation（CLass））
+   * 获取指定的注解（getAnnoation（Class））
    * 调用注解中的抽象方法获取属性值
 
    ![image-20211227202726241](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20211227202726241.png)
@@ -3281,7 +3267,9 @@ public class Test04 {
 
 8. 原理
 
-   参考：https://blog.csdn.net/qq_20009015/article/details/106038023
+   参考：
+   
+   * [java注解的本质以及注解的底层实现原理](https://blog.csdn.net/qq_20009015/article/details/106038023)
    
    当我们在Java代码中使用注解时，Annotation Processor（注解处理器）可以在编译时扫描源代码中的注解，并根据注解的定义生成额外的代码。注解处理器是Java编译器的一部分，它们负责在编译期间对注解进行处理。
    
@@ -5883,13 +5871,13 @@ HttpServlet --抽象类
    * session可以存储任意类型，任意大小的数据
    * **服务器集群环境下无法直接使用Session**
 
-## 3. session和Cookie的区别
+## Session vs Cookie
 
 1. session存储在服务器端，Cookie存储在客户端
 2. session没有数据大小限制，Cookie有
 3. session数据安全，Cookie相对不安全
 
-## 案例：验证码
+### 案例：验证码
 
 1. 需求
    
@@ -6107,13 +6095,14 @@ HttpServlet --抽象类
   </html>
   ```
 
-## 令牌技术JWT
+## 令牌技术token
 
 参考：
 
 * [什么是JWT？](https://blog.csdn.net/weixin_45410366/article/details/125031959)
 * [JWT认证原理、流程整合springboot实战应用](https://www.bilibili.com/video/BV1i54y1m7cP/?spm_id_from=333.337.search-card.all.click&vd_source=fabefd3fabfadb9324761989b55c26ea)
 * https://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html
+* [面试官：什么是JWT？为什么要用JWT？](https://mp.weixin.qq.com/s/d2yzPfy0D5lqXKZyCTAWSQ)
 
 官网：https://jwt.io/introduction
 
@@ -6147,16 +6136,31 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
 5. JWT数据结构
 
    * Header（头）：记录令牌类型、签名算法等
-   * Payload（有效载荷）：携带一些自定义信息，默认信息等
+   * Payload（有效载荷）：携带一些自定义信息，默认信息等，JWT官方提供了7个字段使用：
+     * iss (Issuer)：签发者。
+     * sub (Subject)：主题。
+     * aud (Audience)：接收者。
+     * exp (Expiration time)：过期时间。
+     * nbf (Not Before)：生效时间。
+     * iat (Issued At)：签发时间。
+     * jti (JWT ID)：编号。
    * Signature（签名）：防止token被篡改、确保安全性。将header、payload并加入指定密钥通过指定签名算法计算得出
 
    ![image-20230807233524493](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202308072335260.png)
 
 6. 优点
 
+   * **无需服务器存储状态**：传统的基于会话的认证机制需要服务器在会话中存储用户的状态信息，包括用户的登录状态、权限等。而使用 JWT，服务器无需存储任何会话状态信息，所有的认证和授权信息都包含在 JWT 中，使得系统可以更容易地进行水平扩展。
+   * **跨域支持**：由于 JWT 包含了完整的认证和授权信息，因此可以轻松地在多个域之间进行传递和使用，实现跨域授权。
+   * **适应微服务架构**：在微服务架构中，很多服务是独立部署并且可以横向扩展的，这就需要保证认证和授权的无状态性。使用 JWT 可以满足这种需求，每次请求携带 JWT 即可实现认证和授权。
+   * **自包含**：JWT 包含了认证和授权信息，以及其他自定义的声明，这些信息都被编码在 JWT 中，在服务端解码后使用。JWT 的自包含性减少了对服务端资源的依赖，并提供了统一的安全机制。
+   * **扩展性**：JWT 可以被扩展和定制，可以按照需求添加自定义的声明和数据，灵活性更高。
+
 7. 缺点
 
 8. base64编码：[Base64&Base64URL](#base64)
+
+### 使用
 
 1. maven依赖
 
@@ -6677,7 +6681,7 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
 
 官网：https://maven.apache.org
 
-中央仓库：https://mavnrepository.com
+中央仓库：[Maven Repository: Search/Browse/Explore (mvnrepository.com)](https://mvnrepository.com/)
 
 参考资料：
 
@@ -7999,7 +8003,36 @@ project
 开发中，代理模式的实现有两种：
 
 * **静态代理**：若代理类在程序运行前就已经存在，那么这种代理方式被称为静态代理 ，这种情况下的代理类通常都是我们在 Java 代码中定义的， 静态代理中的代理类和委托类会实现同一接口；
+
+  ~~~java
+  /**
+   * UserService的静态代理类
+   *
+   * @author chenwenjian
+   * @version 1.0
+   * @date 2023/10/26 15:48
+   * @see UserService
+   */
+  @Slf4j
+  @Component
+  @RequiredArgsConstructor
+  public class UserServiceProxy implements UserService {
+  
+      private final UserService userServiceImpl;
+  
+      @Override
+      public void saveUser(User user) {
+          log.info("开始保存用户信息：" + user.getName());
+          userServiceImpl.saveUser(user);
+          log.info("结束保存用户信息：" + user.getName());
+      }
+  }
+  ~~~
+
 * **动态代理**：代理类在程序运行时创建的代理方式被称为动态代理。 也就是说，这种情况下，代理类并不是在 Java 代码中定义的，而是在运行时根据我们在 Java 代码中的 “指示” 动态生成的。
+
+  * JDK动态代理
+  * CGLIB动态代理
 
 ### 入门案例
 
@@ -11820,9 +11853,12 @@ dozer的maven坐标：
 
    > 参考：https://blog.csdn.net/qq_61267719/article/details/131182663
 
-   * `@Builder`： `@Builder` 注解可以用在类、构造方法或者方法上，它会自动生成一个内部静态类作为构器，并在该构建器中提供链式调用的方式来设置属性值。通过使用 `@Builder` 注解，我们可以方便地创建一个具有多个属性的对象。`@Builder` 会为被注解的类生成 builder 模式的相关方法，如 `builder()`、`build()` 和链式的属性设置方法。
+   * `@Builder`： `@Builder` 注解可以用在类、构造方法或者方法上，它会自动生成一个内部静态类作为构造器，并在该构建器中提供链式调用的方式来设置属性值。通过使用 `@Builder` 注解，我们可以方便地创建一个具有多个属性的对象。`@Builder` 会为被注解的类生成 builder 模式的相关方法，如 `builder()`、`build()` 和链式的属性设置方法。
+* `@SuperBuilder`： `@SuperBuilder` 注解是 `@Builder` 的增强版本，它可以用于继承关系中。当一个子类使用 `@SuperBuilder` 注解时，Lombok 会为该子类生成一个包含父类属性的构建器，并保证构建器能够正确地设置父类和子类的属性值。使用 `@SuperBuilder` 后，我们可以在构建过程中同时设置父类和子类的属性。
+  
+2. `@Accessors`：用于生成属性的访问器（getter 和 setter 方法）
 
-   * `@SuperBuilder`： `@SuperBuilder` 注解是 `@Builder` 的增强版本，它可以用于继承关系中。当一个子类使用 `@SuperBuilder` 注解时，Lombok 会为该子类生成一个包含父类属性的构建器，并保证构建器能够正确地设置父类和子类的属性值。使用 `@SuperBuilder` 后，我们可以在构建过程中同时设置父类和子类的属性。
+3. 
 
 ## 字符编码问题
 
@@ -11831,6 +11867,12 @@ dozer的maven坐标：
 3. Unicode
    * UTF-32
    * UTF-8
+
+## 链式调用
+
+参考：
+
+* [被问住了：如何实现链式调用？](https://mp.weixin.qq.com/s/7WeECOXuefBdB2HCeV_lCw)
 
 ## 常用cmd命令
 
@@ -11998,10 +12040,22 @@ Base64 存在以下问题：
 
 ## 源码阅读
 
+整体规划：
+
+java基础（集合+泛型+注解+反射）+设计模式-->框架源码（mybatis+spring+springmvc-->springboo-->springcloud）
+
+![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/6D5fS3V8mLyrtXtThcpib9nGxHJ1JxW9rtcmicPs1ibWVtZaMfjjoxJv47e16xrMuiaGMmF9cdG3M6MbPOg2ymxfxA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+计算机网络+操作系统 --> BIO + 多线程 --> NIO + 线程池 + 多路复用 -->  Netty --> Tomcat Redis Zk Dubbo —> 自定义协议RPC框架
+
+![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/6D5fS3V8mLyrtXtThcpib9nGxHJ1JxW9rzrMtMbgDMuJZjUlwM5UiaRfiagUKtsNv3G17h24h6EtiaDAr0arYaI1Bw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
 参考：
 
 * https://blog.csdn.net/ma_nong33/article/details/128923602
 * https://mp.weixin.qq.com/s/HZt0eT2e1T4hwNGdZMfxow
+
+
 
 ## 开源协议
 
@@ -12075,7 +12129,62 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
 * 登录成功后，生成JWT令牌，并返回给前端
 * 在请求到达服务器端后，对令牌进行统一拦截、校验
 
+# 基本测试
+
+## 基本概念
+
+1. 测试分类
+   * 黑盒测试
+   * 白盒测试
+2. 测试驱动开发（TDD）
+3. 行为驱动开发（BDD）
+4. 常用的java测试框架
+   * JUnit：Java 最流行的单元测试框架，支持编写和执行单元测试用例。
+   * TestNG：另一个常用的测试框架，提供更多的功能，如测试分组、参数化测试等。
+   * Mockito：用于创建和管理模拟对象，以进行依赖的模拟和注入。
+
+## Junit
+
+Junit官方文档：[JUnit 5 User Guide](https://junit.org/junit5/docs/current/user-guide/)
+
+主要内容：
+
+- 如何编写 JUnit 测试用例，包括使用注解和断言。
+- 了解 JUnit 的生命周期和运行机制。
+- 掌握 JUnit 的高级功能，如参数化测试、异常测试、测试套件等。
+
+### 基本使用
+
+### 生命周期与运行机制
+
+### 参数化测试
+
+### 异常测试
+
+### 测试套件
+
+1. Junit使用（白盒测试）
+
+   步骤：
+
+   * 定义一个测试类
+   * 定义测试方法
+   * 给方法添加@Test
+   * 导入Junit依赖环境
+
+2. 补充：
+
+   * @Before：修饰的方法会在测试方法之前被自动执行
+   * @After：修饰的方法会在测试方法执行之后自动执行
+
+## TestNG
+
+TestNG官方文档：https://testng.org/doc/
+
+## Mockito
+
 # 学习路线/资源
 
 1. [2022黑马程序员Java学习路线图 - 哔哩哔哩](https://www.bilibili.com/read/cv9965357?from=articleDetail)
 2. [Java全栈知识体系](https://pdai.tech/)
+3. https://mp.weixin.qq.com/s/aIv0sdi7Eh1JuGl1sfn3Xw
