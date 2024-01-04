@@ -12144,6 +12144,10 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
 参考：
 
 * [程序员必备基础：加签验签-CSDN博客](https://blog.csdn.net/woniu211111/article/details/108114402)
+* [加解密、加签验签 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/383170400)
+* [最详细的SpringBoot实现接口校验签名调用_springboot接口加签验签-CSDN博客](https://blog.csdn.net/qq_43290318/article/details/131516099?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-131516099-blog-108114402.235^v40^pc_relevant_rights_sort&spm=1001.2101.3001.4242.1&utm_relevant_index=3)
+
+> 公钥加密，私钥解密；私钥加签，公钥验签
 
 ### 基本概念
 
@@ -12161,8 +12165,21 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
 1. 分类
    * 是否使用对称密钥
      * 对称加密算法
-       * 常见的有DES、3DES、TDEA、Blowfish，RC5，IDEA
+       * 常见的对称加密算法
+         * AES
+         * DES
+         * 3DES
+         * TDEA
+         * Blowfish
+         * RC5
+         * RC6
      * 非对称加密算法
+       * 常见的非对称加密算法
+         * RSA
+         * ELgamal
+         * DSA
+         * D-H
+         * ECC
 
 # 基本测试
 
