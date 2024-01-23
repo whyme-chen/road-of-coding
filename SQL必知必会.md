@@ -1,4 +1,4 @@
-# MySQL 学习
+# MySQL 
 
 学习视频：https://www.bilibili.com/video/BV1Kr4y1i7ru/?spm_id_from=333.999.0.0&vd_source=fabefd3fabfadb9324761989b55c26ea
 
@@ -1396,18 +1396,77 @@ select * from employees limit 11,15;
 
 ## 操作json数据
 
+参考：
+
+* [mybatis plus使用mysql中的json类型数据]([mybatis plus使用mysql中的json类型数据 (1024s.top)](http://1024s.top/blog/detail?blogId=49772))
+
+示例表结构：
+
+~~~sql
+CREATE TABLE `json_test`(
+id BIGINT NOT NULL AUTO_INCREMENT COMMENT 'id',
+roles JSON DEFAULT NULL COMMENT '角色',
+project JSON DEFAULT NULL COMMENT '项目',
+PRIMARY KEY(id)
+);
+~~~
+
+### 数据插入
+
 可以通过 INSERT INTO 语句将 JSON 数据插入到表中。
 
 ~~~sql
 INSERT INTO my_table (json_column) VALUES ('{"key": "value"}');
+
+INSERT json_test(roles,project) VALUES('[{"id":10001,"name":"管理员"},{"id":10002,"name":"开发"},{"id":10003,"name":"测试"}]','{"id": 11111, "name": "项目1"}');
 ~~~
 
-可以使用 `->` 或 `->>` 运算符来查询 JSON 字段的值。`->` 返回一个 JSON 对象或数组，`->>` 返回一个字符串。
+也可以使用函数json_object，进行数据新增。
+
+~~~sql
+insert into user_test(user_name, details) values
+('lily', JSON_OBJECT("phone","18500001111", "sex",1,"age",46,"email","1233@qq.com", "address",JSON_OBJECT("country","CN","province","上海市","city","上海市")));
+~~~
+
+还可以使用函数`JSON_INSERT(json_doc,path,val[,path,val]...)`仅当指定位置或指定key的值不存在时，才执行插入操作。
+
+~~~sql
+select json_insert('1','$[0]',"10");
+~~~
+
+### 数据查询
+
+可以使用 `->` 或 `->>` 运算符来查询 JSON 字段的值。
+
+* `->` 返回一个 JSON 对象或数组
+* `->>` 返回一个字符串。
 
 ~~~sql
 SELECT json_column->"$.key" AS value FROM my_table;
 SELECT json_column->>"$.key" AS value FROM my_table;
 ~~~
+
+可以使用 `->>` 运算符在 WHERE 子句中查询 JSON 字段的值。例如：
+
+```sql
+SELECT * FROM my_table WHERE json_column->>"$.key" = 'value';
+```
+
+还可以使用函数`json_extract(json_doc,path[,path]...)`其中，json_doc 是 JSON 文档，path 是路径。该函数会从 JSON 文档提取指定路径（path）的元素。如果指定 path 不存在，会返回 NULL。可指定多个 path，匹配到的多个值会以数组形式返回。
+
+> `->`和`->>`都是语法糖，在实际使用的时候都会转化为JSON_EXTRACT
+
+~~~sql
+select json_extract('[10, 20, [30, 40]]', '$[2]');
+
+select json_extract('[10, 20, [30, 40]]', '$[0 to 1]');
+
+select json_extract('[10, 20, [30, 40]]', '$[*]');
+~~~
+
+
+
+### 数据更新
 
 可以使用 `JSON_SET` 函数来更新 JSON 数据的特定字段。例如：
 
@@ -1415,16 +1474,14 @@ SELECT json_column->>"$.key" AS value FROM my_table;
 UPDATE my_table SET json_column = JSON_SET(json_column, "$.key", "new_value") WHERE id = 1;
 ```
 
+`json_replace(json_doc,path,val[,path,val]...)`替换已经存在的值。
+
+### 数据删除
+
 可以使用 `JSON_REMOVE` 函数来删除 JSON 数据中的特定字段。例如：
 
 ```sql
 UPDATE my_table SET json_column = JSON_REMOVE(json_column, "$.key") WHERE id = 1;
-```
-
-可以使用 `->>` 运算符在 WHERE 子句中查询 JSON 字段的值。例如：
-
-```sql
-SELECT * FROM my_table WHERE json_column->>"$.key" = 'value';
 ```
 
 # 《SQL必知必会》
