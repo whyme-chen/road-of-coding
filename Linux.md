@@ -1056,6 +1056,56 @@ drwxr-xr-x 4 root root  4096 5月  18 23:44 project_management
 
 ### wegt
 
+## 连接Linux
+
+### SSH
+
+参考：
+
+* [如何优雅地访问远程主机？SSH与frp内网穿透配置教程](https://www.bilibili.com/video/BV13L411w7XU/?spm_id_from=333.337.search-card.all.click&vd_source=fabefd3fabfadb9324761989b55c26ea)
+
+资料：
+
+* [如何优雅地访问远程主机？SSH与frp内网穿透配置教程](https://pan.baidu.com/s/1xfM1LJPO0gOHlisJluPnrQ?pwd=ya65)
+
+1. 原理
+
+#### 基本连接（windows->xxx）
+
+1. 下载和安装SSH客户端：打开【设置】，搜索【可选功能】，安装OpenSSH客户端（需要的话可以安装服务端）。对于Windows用户，可以选择使用PuTTY、Git Bash或Windows PowerShell等SSH客户端工具（本处直接使用命令行）。然后打开命令行输入如下命令查看是否安装成功
+
+   ~~~
+   ssh -V
+   ~~~
+
+2. 服务启动：打开【计算机管理】，然后找到【服务】，然后启动对应的ssh服务，然后可以使用如下命令查看是否已经在监听对应端口（22）
+
+   ~~~
+   netstat -an | findstr :22
+   ~~~
+
+3. 连接远程主机：使用如下命令连接对应主机
+
+   ~~~
+   ssh 用户名@主机名
+   ~~~
+
+#### 免密登录
+
+#### 内网穿透
+
+工具：
+
+* [frp](https://github.com/fatedier/frp)
+
+### [终端工具](#terminal)
+
+### IDEA连接Linux
+
+参考：https://blog.csdn.net/weixin_46005650/article/details/124054028
+
+### Vscode连接Linux
+
 # Shell
 
 * [花费90分钟一口气学完！带你掌握shell脚本所有核心知识点](https://www.bilibili.com/video/BV14L4y157Bv/?spm_id_from=333.337.search-card.all.click&vd_source=fabefd3fabfadb9324761989b55c26ea)
@@ -1991,7 +2041,7 @@ Shell 支持数组 (Array)，组是若干数据的集合，其中的每一份数
 
 # 资源&路线&工具
 
-## 远程连接工具
+## <a id="terminal">远程连接工具</a>
 
 参考：
 

@@ -9590,11 +9590,11 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 ### 导入导出Excel
 
-#### 导出
+#### Apache POI
 
-1. 基于POI导出
+#### hutool
 
-2. 基于EasyExcel导出
+#### EasyPOI
 
 3. 基于EasyPoi导出
    
@@ -9677,13 +9677,10 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    }
    ```
    
-
-#### 导入
-
-1. 基于EasyPoi导入
+2. 基于EasyPoi导入
 
    ~~~java
-    @RequestMapping(value = "/importByEasyPoi", method = RequestMethod.POST)
+   @RequestMapping(value = "/importByEasyPoi", method = RequestMethod.POST)
        public String importByEasyPoi(@RequestPart("file") MultipartFile file) {
            ImportParams params = new ImportParams();
            params.setTitleRows(1);
@@ -9699,6 +9696,16 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
            }
        }
    ~~~
+
+#### EasyExcel
+
+参考：
+
+* [黑马阿里EasyExcel实战教程](https://www.bilibili.com/video/BV1bF411D7M8/?spm_id_from=333.337.search-card.all.click&vd_source=fabefd3fabfadb9324761989b55c26ea)
+* [官网](https://easyexcel.opensource.alibaba.com/)
+
+1. EasyExcel
+2. 快速入门
 
 ### 发送邮件
 
