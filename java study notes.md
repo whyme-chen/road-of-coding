@@ -12246,4 +12246,5 @@ TestNG官方文档：https://testng.org/doc/
 
 1. [2022黑马程序员Java学习路线图 - 哔哩哔哩](https://www.bilibili.com/read/cv9965357?from=articleDetail)
 2. [Java全栈知识体系](https://pdai.tech/)
-3. https://mp.weixin.qq.com/s/aIv0sdi7Eh1JuGl1sfn3Xw
+3. https://mp.weixin.qq.com/s/aIv0sdi7Eh1JuGl1sfn3X
+4. [effective-resourses](https://github.com/wususu/effective-resourses)
