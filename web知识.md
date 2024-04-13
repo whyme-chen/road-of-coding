@@ -1,3 +1,16 @@
+前端&后端相关技术栈概述：
+
+|                      | 前端                      | 后端          |
+| -------------------- | ------------------------- | ------------- |
+| 环境                 | ES6+...                   | JDK8,11,17... |
+| 依赖管理             | npm                       | Maven         |
+| 项目构建             | Vite，Webpack             | Maven         |
+| 快速开发框架         | Spirng，Springboot        | Vue3          |
+| 页面跳转（路由管理） | SpringMVC                 | Vue-Router    |
+| 数据共享             | Pinia                     | Redis         |
+| 页面布局框架         | Ant-Design-Vue，ElementUI |               |
+| 前后端交互           | ajax（axios）             | ajax（axios） |
+
 # HTML
 
 参考资料：https://www.w3school.com.cn/html/html5_intro.asp
@@ -1711,14 +1724,49 @@ DOM是将标记型文档中所有内容（标签、文本、属性）都封装�
 
 ES全称EcmaScript，是脚本语言的规范，JavaScript是EcmaScript的一种实现。
 
-### ES6新特性
+核心知识点：
 
-- JavaScript let
-- JavaScript const
-- 幂 (**)
-- 默认参数值
-- Array.find()
-- Array.findIndex()
+* let，const关键字
+* 解构
+* 链判断
+* 参数默认值
+* 箭头函数
+* Promise
+* async关键字
+* 模块化
+
+1. ES6新特性
+
+   * JavaScript let
+   * JavaScript const
+   * 幂 (**)
+   * 默认参数值
+   * Array.find()
+   * Array.findIndex()
+
+2. 推荐使用`let`关键字替代 `var`关键字声明变量，因为`var`关键字存在诸多问题：
+
+   * 越域问题
+   * 重复声明
+
+3. 解构
+
+   * 数组解构
+   * 对象解构
+
+4. 链判断
+
+   ~~~javascript
+   body?.data?.user?.name || 'default'
+   ~~~
+
+5. 参数默认值
+
+6. 箭头函数
+
+7. `Promise`&`async`
+
+8. 模块化
 
 ## 知识点总结
 
@@ -2688,6 +2736,8 @@ bootstrap是基于HTML、CSS、javaScript的前端框架。
   ![image-20220521123744928](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20220521123744928.png)
   
    * 空间
+
+# Vite
 
 # Vue
 
@@ -3883,7 +3933,6 @@ data与el的2种写法：
 
 ![image-20220304095916358](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220304095916358.png)
 
-> ```
 > ┌─uniCloud              云空间目录，阿里云为uniCloud-aliyun,腾讯云为uniCloud-tcb（详见uniCloud）
 > │─components            符合vue组件规范的uni-app组件目录
 > │  └─comp-a.vue         可复用的a组件
@@ -3902,7 +3951,6 @@ data与el的2种写法：
 > ├─manifest.json         配置应用名称、appid、logo、版本等打包信息，详见
 > ├─pages.json            配置页面路由、导航条、选项卡等页面类信息，详见
 > └─uni.scss              这里是uni-app内置的常用样式变量 
-> ```
 
 ## 基础配置
 
@@ -4034,11 +4082,17 @@ uni.setStorage({
 
 官网文档：https://hx.dcloud.net.cn/Tutorial/StartedTutorial
 
-# Layui
+# 低代码or组件复用
+
+## 开源项目&组件
+
+### Element-UI
+
+## Layui
 
 官网：https://www.layui.site/index.htm
 
-## 快速上手
+### 快速上手
 
 ```html
 <!DOCTYPE html>
@@ -4066,9 +4120,9 @@ layui.use(['layer', 'form'], function(){
 </html>
 ```
 
-## 页面元素
+### 页面元素
 
-### 1. 布局
+#### 布局
 
 #### 布局容器
 
@@ -4130,13 +4184,7 @@ layui.use(['layer', 'form'], function(){
 </html>
 ```
 
-# 低代码or组件复用
-
-## 开源项目&组件
-
-### Element-UI
-
-### wti-form
+## wti-form
 
 Vue.js 低代码表单组件，基于 Element UI 二次开发而成。
 

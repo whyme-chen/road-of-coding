@@ -1,6 +1,12 @@
 # 基础编程
 
-javaSE 8：https://docs.oracle.com/javase/8/index.html
+Java：https://docs.oracle.com/en/java/index.html
+
+JDK：[JDK Builds from Oracle (java.net)](https://jdk.java.net/)
+
+JavaSE 8：https://docs.oracle.com/javase/8/index.html
+
+JavaEE7：https://docs.oracle.com/javaee/7/index.html
 
 ## java技术体系
 
@@ -4077,15 +4083,18 @@ public class TcpServer {
      * c3p0：
      * druid：阿里巴巴提供
 
-3. C3P0实现
-   
+
+### C3P0
+
+1. C3P0实现
+
    > 1. 导入jar包（c3p0-0.9.5.2.jar和mchange-commons-java-0.2.12.jar）
    > 2. 定义配置文件
    >    * 名称：c3p0-config.xml or c3p0.properities
    >    * 路径：src目录下即可
    > 3. 创建核心对象：数据库连接池对象（ComboPooledDataSource）
    > 4. 获取连接：getConnection（）
-   
+
    ```java
    package cn.itcast.c3p0;
    
@@ -4126,8 +4135,13 @@ public class TcpServer {
    }
    ```
 
-4. druid实现
-   
+
+### Druid
+
+GitHub：https://github.com/alibaba/druid
+
+1. druid实现
+
    > Druid基本使用
    > 
    > 1. 导入jar包 druid-1.0.9.jar
@@ -4137,7 +4151,7 @@ public class TcpServer {
    > 3. 加载配置文件
    > 4. 获取连接池对象：通过工厂来获取（DruidDataSourceFactory）
    > 5. 获取连接：getConnection（）
-   
+
    ```java
    package cn.itcast.druid;
    
@@ -4177,7 +4191,7 @@ public class TcpServer {
        }
    }
    ```
-   
+
    > Druid工具类
    > 
    > 1. 定义一个JDBCUtils类
@@ -4186,7 +4200,7 @@ public class TcpServer {
    >    * 获取连接方法：通过数据库连接池获取连接
    >    * 释放资源
    >    * 获取连接池的方法
-   
+
    ```java
    package cn.itcast.druid;
    
@@ -6679,557 +6693,11 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
 
 # Maven
 
-官网：https://maven.apache.org
-
-中央仓库：[Maven Repository: Search/Browse/Explore (mvnrepository.com)](https://mvnrepository.com/)
-
-参考资料：
-
-* [Maven项目构建](https://pdai.tech/md/devops/tool/tool-maven.html)
-* [Maven快速入门-慕课](http://www.imooc.com/wiki/mavenlesson/mavenintroduction.html)
-
-## 基础
-
-### 简介
-
-Maven是一个用于构建和管理Java项目的强大工具。它提供了一种标准化的项目结构、依赖管理、构建过程自动化等功能，极大地简化了Java项目的开发和维护。maven本质是一个项目管理工具，将项目开发和管理过程抽象为一个项目对象模型（POM）。
-
-重要概念：
-
-* 项目对象模型（POM）：在项目中通常表现为pom.xml文件
-* 坐标
-* 仓库
-* 依赖管理（Dependency）
-* 生命周期与插件
-
-![image-20211003195950696](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211003195950696.png)
-
-作用：
-
-* 项目构建
-  * 构建（Build）是指将源代码转换为可执行的软件应用或部署包的过程。
-  * 构建过程通常包括编译源代码、运行测试、打包生成可执行文件或库，以及其他必要的步骤。
-* 统一开发结构
-* 依赖的管理
-
-同类型工具对比：Ant，Maven，Gradle
-
-### 安装与项目创建
-
-#### 安装流程
-
-* 安装JDK（Maven是使用java开发的工具）
-* 下载Maven压缩包，并解压到目标目录
-* 环境配置
-  * 系统变量，变量名：MAVEN_HOME
-  * 系统变量，路径：maven所在目录
-  * path变量中，添加%MAVEN_HOME%\bin
-* 安装确认：命令行中输入mvn -v
-
-#### 安装包目录结构
-
-* bin：mvn.cmd主要用来构建项目
-* boot：Maven自身运行所需的配置文件
-* conf
-* lib：Maven自身运行所需的jar包
-* LICENSE
-* NOTICE
-* README.txt
-
-#### 项目标准目录结构
-
-* src\main\java目录：核心代码
-* src\main\resources：配置文件部分
-* src\main\webapp：页面资源（js,css,图片等资源）
-* src\test\java：测试代码部分
-* src\test\resources：测试配置文件
-* pom.xml：项目的核心配置文件
-
-~~~
-project
-├── src
-│   ├── main
-│   │   ├── java        # 主程序代码
-│   │   ├── resources   # 资源文件
-│   │   └── webapp      # Web 应用程序
-│   └── test
-│       ├── java        # 测试代码
-│       └── resources   # 测试资源文件
-├── target              # 构建输出目录
-├── pom.xml             # Maven 配置文件
-└── README.md           # 项目说明文档
-
-~~~
-
-![image-20211001224629124](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211001224629124.png)
-
-#### 项目创建
-
-1. 手工制作
-
-2. 使用插件创建工程
-
-   ![image-20211004153002024](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211004153002024.png)
-
-3. idea创建
-
-   * 不使用骨架
-
-     * java项目
-
-     * web项目
-
-       * 添加tomacat插件
-
-   * 使用骨架
-
-     * java项目
-
-     * web项目
-
-       * 添加tomcat插件
-
-### POM与坐标
-
-1. 项目对象模型（POM）：在项目中通常表现为pom.xml文件，描述了该项目的方方面面。
-   
-2. 坐标：被Maven管理的资源的唯一标识
-
-   > groupid：组织名称，通常为组织的逆向域名
-   >
-   > atifactid：模块名称，该组织下项目的唯一标识
-   >
-   > version：版本号，SNAPSHOT 则是用来标记项目过程中的快照版本，该版本类型表明本项目不是稳定版本，常见的还有 RELEASE，则表示该版本为本项目的稳定版本。
-   >
-   > 通常情况下，Maven 的版本号约定中包括如下几个部分：
-   >
-   > **<主版本号>.<次版本号>.<增量版本号>.<里程碑版本号>**
-   >
-   > - **主版本号**：主版本号表示该项目的重大升级。例如：Maven1 到 Maven2；
-   > - **次版本号**：表示在该主版本下，较大范围的升级或变化。例如：Maven-3.0 到 Maven-3.1；
-   > - **增量版本号**：增量版本通常是用来修复bug的版本。例如：Maven-3.1.1；
-   > - **里程碑版本号**：用来标记里程碑版本。例如：Maven-3.0-alpha-3。
-   >
-   > package：定义该项目的打包方式（不是maven坐标的组成），常见的有jar和war两种方式，一般Web项目的打包方式为war
-
-   ~~~xml
-     <groupId>org.example</groupId>
-     <artifactId>demo-maven</artifactId>
-     <version>1.0.0-SNAPSHOT</version>
-     <packaging>jar</packaging>
-   ~~~
-
-3. 超级POM
-
-   所有使用Maven创建的项目其pox.xml都会继承一个超级POM，该POM所在路径`%Maven安装目录\lib\maven-model-builder-3.9.2.jar\org\apache\maven\model\pom-4.0.0.xml`中（可使用解压工具打开该jar包），Maven-3.9.2的superpom内容如下：
-
-   ~~~xml
-   This XML file does not appear to have any style information associated with it. The document tree is shown below.
-   <!-- 
-   Licensed to the Apache Software Foundation (ASF) under one
-   or more contributor license agreements.  See the NOTICE file
-   distributed with this work for additional information
-   regarding copyright ownership.  The ASF licenses this file
-   to you under the Apache License, Version 2.0 (the
-   "License"); you may not use this file except in compliance
-   with the License.  You may obtain a copy of the License at
-   
-       http://www.apache.org/licenses/LICENSE-2.0
-   
-   Unless required by applicable law or agreed to in writing,
-   software distributed under the License is distributed on an
-   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-   KIND, either express or implied.  See the License for the
-   specific language governing permissions and limitations
-   under the License.
-    -->
-   <!--  START SNIPPET: superpom  -->
-   <project>
-   <modelVersion>4.0.0</modelVersion>
-   <repositories>
-   <repository>
-   <id>central</id>
-   <name>Central Repository</name>
-   <url>https://repo.maven.apache.org/maven2</url>
-   <layout>default</layout>
-   <snapshots>
-   <enabled>false</enabled>
-   </snapshots>
-   </repository>
-   </repositories>
-   <pluginRepositories>
-   <pluginRepository>
-   <id>central</id>
-   <name>Central Repository</name>
-   <url>https://repo.maven.apache.org/maven2</url>
-   <layout>default</layout>
-   <snapshots>
-   <enabled>false</enabled>
-   </snapshots>
-   <releases>
-   <updatePolicy>never</updatePolicy>
-   </releases>
-   </pluginRepository>
-   </pluginRepositories>
-   <build>
-   <directory>${project.basedir}/target</directory>
-   <outputDirectory>${project.build.directory}/classes</outputDirectory>
-   <finalName>${project.artifactId}-${project.version}</finalName>
-   <testOutputDirectory>${project.build.directory}/test-classes</testOutputDirectory>
-   <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
-   <scriptSourceDirectory>${project.basedir}/src/main/scripts</scriptSourceDirectory>
-   <testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
-   <resources>
-   <resource>
-   <directory>${project.basedir}/src/main/resources</directory>
-   </resource>
-   </resources>
-   <testResources>
-   <testResource>
-   <directory>${project.basedir}/src/test/resources</directory>
-   </testResource>
-   </testResources>
-   <pluginManagement>
-   <!--  NOTE: These plugins will be removed from future versions of the super POM  -->
-   <!--  They are kept for the moment as they are very unlikely to conflict with lifecycle mappings (MNG-4453)  -->
-   <plugins>
-   <plugin>
-   <artifactId>maven-antrun-plugin</artifactId>
-   <version>1.3</version>
-   </plugin>
-   <plugin>
-   <artifactId>maven-assembly-plugin</artifactId>
-   <version>2.2-beta-5</version>
-   </plugin>
-   <plugin>
-   <artifactId>maven-dependency-plugin</artifactId>
-   <version>2.8</version>
-   </plugin>
-   <plugin>
-   <artifactId>maven-release-plugin</artifactId>
-   <version>2.5.3</version>
-   </plugin>
-   </plugins>
-   </pluginManagement>
-   </build>
-   <reporting>
-   <outputDirectory>${project.build.directory}/site</outputDirectory>
-   </reporting>
-   <profiles>
-   <!--  NOTE: The release profile will be removed from future versions of the super POM  -->
-   <profile>
-   <id>release-profile</id>
-   <activation>
-   <property>
-   <name>performRelease</name>
-   <value>true</value>
-   </property>
-   </activation>
-   <build>
-   <plugins>
-   <plugin>
-   <inherited>true</inherited>
-   <artifactId>maven-source-plugin</artifactId>
-   <executions>
-   <execution>
-   <id>attach-sources</id>
-   <goals>
-   <goal>jar-no-fork</goal>
-   </goals>
-   </execution>
-   </executions>
-   </plugin>
-   <plugin>
-   <inherited>true</inherited>
-   <artifactId>maven-javadoc-plugin</artifactId>
-   <executions>
-   <execution>
-   <id>attach-javadocs</id>
-   <goals>
-   <goal>jar</goal>
-   </goals>
-   </execution>
-   </executions>
-   </plugin>
-   <plugin>
-   <inherited>true</inherited>
-   <artifactId>maven-deploy-plugin</artifactId>
-   <configuration>
-   <updateReleaseInfo>true</updateReleaseInfo>
-   </configuration>
-   </plugin>
-   </plugins>
-   </build>
-   </profile>
-   </profiles>
-   </project>
-   <!--  END SNIPPET: superpom  -->
-   ~~~
-
-   通常情况下子POM（我们的项目）会覆盖父POM（superpom）中的元素，但是对于一下元素，并不会直接覆盖而是追加。
-
-   - dependencies
-   - developers 和 contributors
-   - plugins
-   - resources
-
-### 依赖管理
-
-官网参考：https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html
-
-1. 依赖配置
-
-   * 依赖：当前项目运行所需要的的jar，一个项目可以设置多个依赖
-   * 依赖原则：
-     * 路径最短优先原则
-     * 声明顺序优先（最先声明的优先）
-     * 覆写优先：子 POM 内声明的依赖优先于父 POM 中声明的依赖
-
-   ~~~xml
-   <!-- 所有当前项目依赖的所有jar-->
-   <dependencies>
-       <!-- 具体的依赖-->
-       <dependency>
-           <groupId><groupId/>
-           <artifacted></artifacted>
-           <version></version>
-      <dependency/>
-   </dependencies>
-   ~~~
-
-2. 依赖传递
-
-   * 直接依赖：在当前项目中通过依赖配置建立的依赖关系
-   * 间接依赖：被资源的资源如果依赖其他资源，当前项目间接依赖其他资源
-
-   ![image-20221120192641610](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211201928160.png)
-
-3. 可选依赖：隐藏当前工程所依赖的资源，隐藏后将不存在传递依赖关系
-
-   > 在依赖中添加选项
-   >
-   > <optional>true</optional>
-
-4. 排除依赖：排除依赖指**主动断开依赖的资源**，被排除的资源无需指定版本
-
-   ![image-20221120193000182](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211201930581.png)
-
-5. 依赖范围
-
-   依赖的jar默认在所有范围内均可使用，可以通过`scope`标签来设置其作用范围，其值共有6种：
-
-   * compile：Maven 默认的依赖范围，该范围的依赖对编译，运行，测试时均生效
-   * provided：对于编译和测试的 classpath 有效，但是在运行时无效
-   * runtime
-   * test
-   * system
-   * import
-
-   作用范围：
-
-   * 主程序范围有效（main文件夹范围内）
-   * 测试程序范围有效（test文件夹范围内）
-   * 是否参与打包（package指令范围内）
-
-   ![image-20221120193408645](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211201934150.png)
-
-   ![image-20221120193756025](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211201937486.png)
-
-### Maven仓库
-
-![image-20211001222603530](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211001222603530.png)
-
-* 本地仓库：默认情况下，本地仓库位于用户目录下的`.m2/repository`目录中。可以在maven安装目录中找到conf\settings.xml更改如下标签中的路径位置来修改本地仓库地址。
-
-  ~~~xml
-  <localRepository>xxxx</localRepository>
-  ~~~
-
-* 远程仓库
-
-  * 中央仓库：中央仓库是 Maven 的默认远程仓库，包含了大量常用的开源依赖。默认情况下Maven 会根据依赖的坐标信息从中央仓库下载相应的依赖。
-
-  * 镜像仓库：指与原始仓库具有相同内容的一种替代仓库。当 Maven 访问远程仓库时，它会首先检查是否配置了镜像仓库，如果有，则会直接从镜像仓库下载依赖，而不是访问原始仓库。镜像仓库的配置位于 Maven 的 `settings.xml` 文件中。国内几个常用的仓库镜像：
-
-    ~~~xml
-    <!--阿里云镜像-->
-    <mirror>
-        <id>alimaven</id>
-        <name>aliyun maven</name>
-        <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-        <mirrorOf>central</mirrorOf>
-    </mirror>
-    <!--阿里巴巴镜像-->
-    <mirror>
-        <id>ibiblio</id>
-        <mirrorOf>central</mirrorOf>
-        <name>Human Readable Name for this Mirror.</name>
-        <url>http://mirrors.ibiblio.org/pub/mirrors/maven2/</url>
-    </mirror>
-    <!--repo2镜像-->
-    <mirror>  
-        <id>repo2</id>  
-        <mirrorOf>central</mirrorOf>  
-        <name>Human Readable Name for this Mirror.</name>
-        <url>http://repo2.maven.org/maven2/</url>  
-    </mirror>
-    ~~~
-
-  * 私服：私服是一台独立的服务器，用于解决团队内部的资源共享与资源同步问题
-
-    学习参考视频：https://www.bilibili.com/video/BV1Fi4y1S7ix/?p=89&spm_id_from=pageDriver&vd_source=fabefd3fabfadb9324761989b55c26ea
-
-    Nexus：
-
-    * Sonatype公司的一款maven私服产 品
-
-    * 地址: https://help.sonatype.com/repomanager3/download
-
-    * 安装与启动
-
-      ![image-20230311161230165](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202303111612698.png)
-
-    私服仓库分类
-
-    ![image-20230311161652945](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202303111616037.png)
-
-#### 依赖搜索顺序
-
-本地仓库-》私服-》中央仓库
-
-### 生命周期与插件
-
-在Maven中，构建是通过执行一系列定义在POM文件中的生命周期和阶段来完成的。每个构建过程都有其对应的生命周期，而每个生命周期又由一系列的阶段组成。
-
-通过定义和配置POM文件中的插件，可以扩展或自定义构建过程。Maven提供了大量的插件，可以用来执行其他任务，如代码静态分析、文档生成、资源文件处理等。
-
-1. 生命周期：
-   
-   Maven对项目构建的生命周期划分为以下3个阶段：
-   
-   clean：清理工作
-   
-   ​    ![image-20230217162630995](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171626834.png)
-   
-   default：核心工作，例如：编译，测试，打包，部署等
-   
-   ![image-20230217162710233](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171627097.png)
-   
-   site：产生报告，发布站点等
-
-   ![image-20230217162747671](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171627448.png)
-   
-2. 插件
-
-   生命周期只是一个抽象的模型，其本身并不会直接去做事情，真正帮我们完成事情的是 Maven 的插件。Maven 的插件也属于构件的一种，也是可以放到 Maven 仓库当中的。通常情况下，一个插件可以做 A、B、C 等等不止一件事情，但是我们又没有必要为每一个功能都做一个单独的插件。这种时候，我们一般会给这个插件绑定不同的目标，而这些目标则是对应其不同的功能。
-
-   当我们使用一个插件的目标的时候，我们可以执行命令：`mvn pluginName:goalName`。例如当我们执行`dependency`插件的 list 目标的时候，我们可以执行命令：`mvn dependency:list`。
-
-   ![image-20230217163459866](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171635337.png)
-
-3. 自定义插件
-
-   > 一般情况下不需要自定义插件，自定义插件可参考：[Maven编写插件](http://www.imooc.com/wiki/mavenlesson/mavenPlugin.html)
-
-### 常用命令
-
-* compile：编译
-* clean：清理
-* pakage：打包
-* test：测试
-* install：安装到本地仓库
-
-## 多模块开发与设计
-
-1. 步骤
-   * 创建Maven模块
-   * 编写模块代码
-   * 将模块安装到本地（install）或发布到私服（deploy）
-
-### 聚合
-
-通常情况下，我们在实际开发过程中，会对项目进行模块（module）划分，来提供项目的清晰度并且能够更加方便的重用代码。但是，在这种时候，我们在构建项目的时候就需要分别构建不同的模块，Maven 的聚合特性能够将各个不同的模块聚合到一起来进行构建。
-
-1. 聚合：将多个模块组织成一个整体，同时进行项目构建的过程称为聚合
-
-2. 聚合工程：通常是一个不具有业务功能的“空”工程(有且仅有一-个pom文件)
-   
-   ```xml
-   设置打包类型为pom
-   <packaging>pom</packaging>
-   ```
-
-3. 作用：使用聚合工程可以将多个工程编组，通过对聚合工程进行构建，实现对所包含的模块进行同步构建。当工程中某个模块发生更新(变更)时，必须保障工程中与已更新模块关联的模块同步更新，此时可以使用聚合工程来解决批量模块同步构建的问题
-
-### 继承
-
-1. 继承：描述的是两个工程间的关系，与java中的继承相似，子工程可以继承父工程中的配置信息，常见于依赖关系的继承
-
-2. 作用：继承的特性，则能够帮助我们抽取各个模块公用的依赖、插件等，实现配置统一。
-   
-   * 简化配置
-   * 减少版本冲突
-
-3. 配置
-   
-   ![image-20230311153610754](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202303111536873.png)
-   
-   ![image-20230311153631641](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202303111536025.png)
-   
-   > 子工程中使用父工程中的可选依赖时，仅需要提供群组id和项目id,无需提供版本，版本由父工程统一提供, 避免版本冲突;子工程中还可以定义父工程中没有定义的依赖关系
-
-4. 聚合与继承的区别
-   
-   ![image-20230311153848002](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202303111538349.png)
-
-### 属性
-
-1. 定义
-   
-   ![image-20230311154148318](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202303111542602.png)
-
-2. 使用
-   
-   ![image-20230311154254533](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202303111542002.png)
-
-3. 属性类型
-   
-   - **内置属性：** Maven 的内置属性主要有两个，一个是`${basedir}`用来表示项目的根目录，另一个是`${version}`用来表示项目的版本号；
-   - **POM属性：** 用来引用 pom.xml 文件中对应元素的值。一般来说，可以用`${project.*}`来表示，例如：`${project.groupId}`就是用来表示项目的 groupId 信息；
-   - **自定义属性：** 这个比较容易理解，就像我们上面例子中的`${spring.version}`就属于自定义属性的范围；
-   - **Settings属性：** 与 POM 属性类似。通常使用`${settings.*}`来表示，Settings 属性用来指向 settings.xml 文件中的属性，例如：`${settings.localrepository}`可以用来表示本地仓库的地址；
-   - **Java系统属性：** 所有 Java 的系统属性都可以通过 Maven 属性来引用。我们在使用之前可以通过`mvn help:system`命令来查看对应的属性；
-   - **环境变量属性：** 所有的环境变量属性都可以通过 Maven 属性来引用。通常用 `${env.*}`来表示。
-   
-   ![image-20230311155756286](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202303111557875.png)
-
-
-### 多环境开发
-
-1. 设置多环境
-   
-   ![image-20230311160336493](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202303111603573.png)
-
-2. 使用
-   
-   ![image-20230311160406503](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202303111604145.png)
-
-### Maven Archetype原型
-
-参考：
-
-* https://baijiahao.baidu.com/s?id=1722242604793241553&wfr=spider&for=pc
-* https://blog.csdn.net/weixin_54792520/article/details/121802898
-
-1. 概念
-
-   Maven官网对于Archetype的解释如下：
-
-   > In short, Archetype is a Maven project templating toolkit. An archetype is defined as *an original pattern or model from which all other things of the same kind are made*. The name fits as we are trying to provide a system that provides a consistent means of generating Maven projects. Archetype will help authors create Maven project templates for users, and provides users with the means to generate parameterized versions of those project templates.
+> Maven相关内容具体参考：[BuildTools](./BuildTools.md)
 
 # Spring
 
-学习参考视频：
+参考：
 
 * https://www.bilibili.com/video/BV1WZ4y1P7Bp?p=1
 * https://www.bilibili.com/video/BV1Fi4y1S7ix/?p=2&spm_id_from=pageDriver&vd_source=fabefd3fabfadb9324761989b55c26ea
@@ -7285,7 +6753,32 @@ project
    * 编写Dao接口和实现类
    * 创建Spring核心配置文件
    * 在Spring配置文件中配置UserDapImpl
-   * 使用Spring的API获得Bean实例
+   * 使用Spring的容器相关API获得Bean实例
+
+## Spring相关API
+
+### 容器
+
+1. ApplicationContext继承体系
+
+   ![image-20220120200453261](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220120200453261.png)
+
+2. ApplicationContext实现类
+
+   * ClassPathXmlApplicationContext：从类的根路径下加载配置文件（推荐使用）
+   * FileSystemXmlApplicationContext：从磁盘路径上加载配置文件，配置文件可以在磁盘的任意位置
+   * AnnoationConfigApplicationContext：使用注解配置容器对象时使用
+
+3. getBean()方法
+
+   * 传递id
+   * 传递class
+
+4. BeanFactory和FactoryBean
+
+   > **BeanFactory**定义了IOC容器的最基本形式，并提供了IOC容器应遵守的的最基本的接口，也就是Spring IOC所遵守的最底层和最基本的编程规范。在Spring代码中，BeanFactory只是个接口，并不是IOC容器的具体实现，但是Spring容器给出了很多种实现，如 DefaultListableBeanFactory、XmlBeanFactory、ApplicationContext等，都是附加了某种功能的实现。
+   >
+   > **FactoryBean** 一般情况下，Spring通过反射机制利用<bean>的class属性指定实现类实例化Bean，在某些情况下，实例化Bean过程比较复杂，如果按照传统的方式，则需要在<bean>中提供大量的配置信息。配置方式的灵活性是受限的，这时采用编码的方式可能会得到一个简单的方案。Spring为此提供了一个org.springframework.bean.factory.FactoryBean的工厂类接口，用户可以通过实现该接口定制实例化Bean的逻辑。 FactoryBean接口对于Spring框架来说占用重要的地位，Spring自身就提供了70多个FactoryBean的实现。它们隐藏了实例化一些复杂Bean的细节，给上层应用带来了便利。从Spring3.0开始，FactoryBean开始支持泛型，即接口声明改为FactoryBean<T>的形式
 
 ## Spring配置文件
 
@@ -7695,57 +7188,19 @@ project
 > 
 > <import>标签：导入其他的spring的分文件
 
-## Spring相关API
-
-### 容器
-
-1. ApplicationContext继承体系
-   
-   ![image-20220120200453261](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220120200453261.png)
-
-2. ApplicationContext实现类
-   
-   * ClassPathXmlApplicationContext：从类的根路径下加载配置文件（推荐使用）
-   * FileSystemXmlApplicationContext：从磁盘路径上加载配置文件，配置文件可以在磁盘的任意位置
-   * AnnoationConfigApplicationContext：使用注解配置容器对象时使用
-
-3. getBean()方法
-   
-   * 传递id
-   * 传递class
-
-5. BeanFactory和FactoryBean
-   
-   > **BeanFactory**定义了IOC容器的最基本形式，并提供了IOC容器应遵守的的最基本的接口，也就是Spring IOC所遵守的最底层和最基本的编程规范。在Spring代码中，BeanFactory只是个接口，并不是IOC容器的具体实现，但是Spring容器给出了很多种实现，如 DefaultListableBeanFactory、XmlBeanFactory、ApplicationContext等，都是附加了某种功能的实现。
-   > 
-   > **FactoryBean** 一般情况下，Spring通过反射机制利用<bean>的class属性指定实现类实例化Bean，在某些情况下，实例化Bean过程比较复杂，如果按照传统的方式，则需要在<bean>中提供大量的配置信息。配置方式的灵活性是受限的，这时采用编码的方式可能会得到一个简单的方案。Spring为此提供了一个org.springframework.bean.factory.FactoryBean的工厂类接口，用户可以通过实现该接口定制实例化Bean的逻辑。 FactoryBean接口对于Spring框架来说占用重要的地位，Spring自身就提供了70多个FactoryBean的实现。它们隐藏了实例化一些复杂Bean的细节，给上层应用带来了便利。从Spring3.0开始，FactoryBean开始支持泛型，即接口声明改为FactoryBean<T>的形式
-
 ## Spring注解开发
 
-1. Spring原始注解（主要代替<bean>标签的配置）
-
-   > Spring是轻代码中配置的框架，配置比较繁重，影响开发效率，所以注解开发是一种趋势。
-
-   ![image-20220317200213868](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220317200213868.png)
-
-   * `@Resource`注解： `@Resource`是Java EE提供的注解，也可以在Java SE中使用。它可以通过名称或类型进行依赖注入。
-     * 当使用`@Resource`注解时，可以通过`name`属性指定要注入的依赖项的名称，或者通过`type`属性指定要注入的依赖项的类型。
-     * 如果指定了`name`属性，则会按照名称进行注入，如果没有找到与该名称匹配的依赖项，则会抛出异常。
-     * 如果指定了`type`属性，则会按照类型进行注入，如果找到多个与该类型匹配的依赖项，则会选择其中一个进行注入。
-     * 如果既没有指定`name`属性，也没有指定`type`属性，则会按照名称进行注入，即默认使用被注解字段或方法的名称作为依赖项的名称。
-
-   * `@Autowired`注解： `@Autowired`是Spring框架提供的注解，用于实现自动装配。
-     * 当使用`@Autowired`注解时，Spring会尝试根据被注解字段或方法的类型来寻找匹配的依赖项进行注入。
-     * 如果找到多个与该类型匹配的依赖项，则会根据一定的规则（如优先级、限定符等）选择其中一个进行注入。
-     * 如果没有找到与该类型匹配的依赖项，则会抛出异常。
-
-   > 注意：
-   > 
-   > 使用注解时需要进行组件扫描配置
-   > 
-   > ![image-20220317225758957](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220317225758957.png)
+> Spring是轻代码重配置的框架，配置比较繁重，影响开发效率，所以注解开发是一种趋势
+>
+> 注意：使用注解时需要进行组件扫描配置（使用全注解开发时可以使用@ComponentScan注解代替该操作）
+>
+> ![image-20220317225758957](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220317225758957.png)
 
 2. 常用注解
+   
+   ![image-20220317200213868](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220317200213868.png)
+   
+   ![image-20220318093850296](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318093850296.png)
    
    * @Component：定义Bean
      
@@ -7756,7 +7211,7 @@ project
    
    * @Scope+@PostConstruct+@PreDestory：设置Bean的作用范围与生命周期
      
-     ```
+     ```java
      @Repository("userDao")
      @Scope("singleton")
      public class UserDaoImpl implements UserDao {
@@ -7781,8 +7236,19 @@ project
      
      ![image-20230212161055301](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121610894.png)
    
-   * @Autowired：按照类型从Spring容器中进行匹配。该注解可以使用在成员变量、set方法和构造器上
+   * @Resource： `@Resource`是Java EE提供的注解，也可以在Java SE中使用。它可以通过名称或类型进行依赖注入。
      
+     * 当使用`@Resource`注解时，可以通过`name`属性指定要注入的依赖项的名称，或者通过`type`属性指定要注入的依赖项的类型。
+   * 如果指定了`name`属性，则会按照名称进行注入，如果没有找到与该名称匹配的依赖项，则会抛出异常。
+     * 如果指定了`type`属性，则会按照类型进行注入，如果找到多个与该类型匹配的依赖项，则会选择其中一个进行注入。
+     * 如果既没有指定`name`属性，也没有指定`type`属性，则会按照名称进行注入，即默认使用被注解字段或方法的名称作为依赖项的名称。
+     
+   * @Autowired： `@Autowired`是Spring框架提供的注解，用于实现自动装配。该注解可以使用在成员变量、set方法和构造器上。
+   
+  * 当使用`@Autowired`注解时，Spring会尝试根据被注解字段或方法的类型来寻找匹配的依赖项进行注入。
+     * 如果找到多个与该类型匹配的依赖项，则会根据一定的规则（如优先级、限定符等）选择其中一个进行注入。
+     * 如果没有找到与该类型匹配的依赖项，则会抛出异常。
+   
      ![image-20230212161016594](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121610133.png)
    
    * @PropertySource：加载properties文件
@@ -7794,19 +7260,6 @@ project
      ![image-20230212163828252](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121638962.png)
    
    * @Import
-
-3. Spring新注解
-   
-   * 使用场景：
-     
-     * 非自定义的Bean（即当使用第三方包时无法使用原始注解）
-     * 加载properties配置文件时
-     * 组件扫描配置
-     * 引入其他文件
-   
-   * 新注解
-     
-     ![image-20220318093850296](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318093850296.png)
    
    ```java
    //核心配置类
@@ -7858,10 +7311,21 @@ project
            connection.close();
        }
    ```
-
-4. xml配置与注解配置的比较
    
+2. xml配置与注解配置的比较
+
+   * 灵活度上：xml方式是具有一定局限性的，比如：在创建bean的时候，需要加入一些定制化的逻辑，当满足什么条件时在bean中加入什么样的属性，使用xml的方式就会比较麻烦，但是使用JavaConfig，即Annotation的方式更加灵活，可以很轻松地加入这些创建逻辑，而且代码更加清晰。
+   * 安全性上：使用JavaConfig方式，属于类型安全的一种方式，通常在集成开发工具中，如果某一个类名写错，直接会编译提示错误，提早发现错误，而使用xml的方式，在某些编译器中是检测不出来的，类名写错之后，只有在启动或者运行的时候才会提示错误，存在一定的安全隐患。
+   * 方便程度上：使用JavaConfig的方式如果在线上需要修改某一个配置，只能重新编译，然后替换配置类对应的class。而使用xml的方式，不需要重新编译，直接修改xml，重启即可生效。
+   * 可读性：xml的可阅读性是比JavaConfig差很多的。
+
    ![image-20230212164250939](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121642225.png)
+
+   > xml配置和注解使用建议：
+   >
+   > * 如果对代码没什么要求，两种都可以，熟悉哪个用哪个；
+   >
+   > * 如果希望后期去学习一些Spring生态圈中的其他框架，建议尽早使用JavaConfig这种方式。
 
 ## Spring集成
 
@@ -8689,23 +8153,11 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    * 归属不同：Filter属于Servlet技术，Interceptor属于SpringMVC技术
    * 拦截内容不同：Filter对所有访问进行增强，Interceptor仅针对SpringMVC的访问进行增强
 
-![image-20220427191029801](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220427191029801.png)
-
 ### 快速上手
 
-> 自定义拦截器步骤：
-> 
-> 1. 创建拦截器
->    
->    ![image-20230219103050487](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302191030255.png)
-> 
-> 2. 配置拦截器
->    
->    ![image-20230219103131384](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302191031403.png)
->    
->    ![image-20230219103308637](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302191033662.png)
-
 1. 创建拦截器（实现HandlerInterceptor）
+   
+   ![image-20230219103050487](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302191030255.png)
    
    ```java
    package com.chen.controller.interceptor;
@@ -8739,11 +8191,15 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
            System.out.println("afterHandle........");
    
        }
-   }
+}
    ```
-
-2. 配置拦截器
    
+2. 配置拦截器
+
+   ![image-20230219103131384](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302191031403.png)
+
+   ![image-20230219103308637](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302191033662.png)
+
    ```xml
    <!--在SpringMVC配置文件中进行配置-->
    <mvc:interceptors>
@@ -8753,7 +8209,7 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
        </mvc:interceptor>
    </mvc:interceptors>
    ```
-   
+
    ```java
    //使用注解配置
    package com.chen.interceptor;
@@ -8831,7 +8287,11 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 
 # Mybatis
 
-官网参考文档：https://mybatis.org/mybatis-3/zh/getting-started.html
+官网参考文档：
+
+* https://mybatis.org/mybatis-3/zh/getting-started.html
+* mybatis-generator：https://mybatis.org/generator/
+* mybatis通用Mapper：https://github.com/abel533/Mapper
 
 ## Mybatis简介
 
@@ -11281,6 +10741,10 @@ knife4j是为Java MVC框架集成Swagger生成Api文档的增强解决方案,前
 
 参考链接：https://juejin.cn/post/7053264631262871583
 
+### Cool Request
+
+使用参考：[IDEA中这么强大的接口调试插件，相见恨晚啊！ (qq.com)](https://mp.weixin.qq.com/s/v7KXV6jamHfXm8c-rlcm2Q)
+
 # Git&GitHub
 
 参考链接：
@@ -12078,7 +11542,219 @@ java基础（集合+泛型+注解+反射）+设计模式-->框架源码（mybati
 
 1. [木兰开源许可证](http://license.coscl.org.cn/)
 
-## 参数校验
+## Api接口设计
+
+### 统一响应对象
+
+为了前后端协作效率的提高，后端通常会统一一个接口返回格式给前端。该返回对象格式通常如下：
+
+常见的 HTTP 请求返回状态码：
+
+| 状态码 | 含义                                   |
+| ------ | -------------------------------------- |
+| 200    | OK - 请求成功                          |
+| 201    | Created - 已创建                       |
+| 204    | No Content - 无内容返回                |
+| 301    | Moved Permanently - 永久重定向         |
+| 400    | Bad Request - 无效请求                 |
+| 401    | Unauthorized - 未授权                  |
+| 403    | Forbidden - 禁止访问                   |
+| 404    | Not Found - 未找到资源                 |
+| 405    | Method Not Allowed - 不允许的方法      |
+| 500    | Internal Server Error - 服务器内部错误 |
+
+~~~java
+package com.whymechen.cloud.common.enums;
+
+import java.util.Arrays;
+
+/**
+ * @author whymechen
+ * @version 1.0
+ * @date 2024/3/8 22:31
+ **/
+public enum ReturnCodeEnum {
+    SUCCESS("200", "SUCCESS"),
+    BAD_REQUEST("400", "Bad Request"),
+    UNAUTHORIZED("401", "Unauthorized"),
+    FORBIDDEN("403", "Forbidden"),
+    NOT_FOUND("404", "URI Not Found"),
+    METHOD_NOT_ALLOWED("405", "Method Not Allowed"),
+    NOT_ACCEPTABLE("406", "Not Acceptable"),
+    CONFLICT("409", "Resource Conflict"),
+    PAYLOAD_TOO_LARGE("413", "Payload Too Large"),
+    UNSUPPORTED_MEDIA_TYPE("415", "Unsupported Media Type"),
+    UNAVAILABLE_FOR_LEGAL_REASONS("451", "Unavailable For Legal Reasons"),
+    SERVER_ERROR("500", "Internal Server Error"),
+    SERVICE_UNAVAILABLE("503", "Service Unavailable"),
+
+    UNKNOWN_ERROR("9999", "Unknown Error");
+
+    private final String code;
+
+    private final String message;
+
+    ReturnCodeEnum(String code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public static ReturnCodeEnum getReturnCodeEnum(String code) {
+        if (code == null || code.isEmpty()) {
+            return null;
+        }
+        return Arrays.stream(ReturnCodeEnum.values())
+                     .filter(e -> e.getCode()
+                                   .equalsIgnoreCase(code))
+                     .findFirst()
+                     .orElse(null);
+    }
+
+    // public static ReturnCodeEnum getReturnCodeEnum(String code) {
+    //     if (code == null || code.isEmpty()) {
+    //         return null;
+    //     }
+    //     for (ReturnCodeEnum returnCodeEnum : ReturnCodeEnum.values()) {
+    //         if (returnCodeEnum.getCode()
+    //                           .equals(code)) {
+    //             return returnCodeEnum;
+    //         }
+    //     }
+    //     return null;
+    // }
+}
+~~~
+
+~~~java
+package com.whymechen.cloud.common;
+
+import com.whymechen.cloud.common.enums.ReturnCodeEnum;
+import lombok.Data;
+import lombok.experimental.Accessors;
+
+import java.time.LocalDateTime;
+
+/**
+ * @author whymechen
+ * @version 1.0
+ * @date 2024/3/8 22:33
+ **/
+@Data
+@Accessors(chain = true)
+public class ApiResult<T> {
+
+    /**
+     * 返回码
+     */
+    private String code;
+
+    /**
+     * 返回说明
+     */
+    private String msg;
+
+    /**
+     * 返回数据
+     */
+    private T data;
+
+    private Long timestamp;
+
+    public ApiResult(String code, String msg, T data) {
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
+        this.timestamp = System.currentTimeMillis();
+    }
+
+    public ApiResult(ReturnCodeEnum returnCodeEnum, T data) {
+        this(returnCodeEnum.getCode(), returnCodeEnum.getMessage(), data);
+    }
+
+    public ApiResult(ReturnCodeEnum returnCodeEnum) {
+        this(returnCodeEnum, null);
+    }
+
+    public static <T> ApiResult<T> success() {
+        return new ApiResult<T>(ReturnCodeEnum.SUCCESS.getCode(), ReturnCodeEnum.SUCCESS.getMessage(), null);
+    }
+
+    public static <T> ApiResult<T> success(String msg) {
+        return new ApiResult<T>(ReturnCodeEnum.SUCCESS.getCode(), msg, null);
+    }
+
+    public static <T> ApiResult<T> success(T data) {
+        return new ApiResult<T>(ReturnCodeEnum.SUCCESS.getCode(), ReturnCodeEnum.SUCCESS.getMessage(), data);
+    }
+
+    public static <T> ApiResult<T> success(String msg, T data) {
+        return new ApiResult<T>(ReturnCodeEnum.SUCCESS.getCode(), msg, data);
+    }
+
+    public static <T> ApiResult<T> error() {
+        return new ApiResult<T>(ReturnCodeEnum.UNKNOWN_ERROR.getCode(), ReturnCodeEnum.UNKNOWN_ERROR.getMessage(), null);
+    }
+
+    public static <T> ApiResult<T> error(String msg) {
+        return new ApiResult<T>(ReturnCodeEnum.UNKNOWN_ERROR.getCode(), msg, null);
+    }
+
+    public static <T> ApiResult<T> error(ReturnCodeEnum returnCodeEnum) {
+        return new ApiResult<T>(returnCodeEnum.getCode(), returnCodeEnum.getMessage(), null);
+    }
+
+    public static <T> ApiResult<T> error(ReturnCodeEnum returnCodeEnum, T data) {
+        return new ApiResult<T>(returnCodeEnum.getCode(), returnCodeEnum.getMessage(), data);
+    }
+}
+~~~
+
+
+
+### 时间格式统一
+
+对于后端返回的数据，如果涉及到时间应该尽量保持格式的统一返回给前端，例如：yyyy-MM-dd HH:mm:ss。
+
+实现方案通常有如下几种：
+
+1. 可以在相应的实体类的属性上使用 @JsonFormat 注解：
+
+   ~~~xml
+       /**
+        * 创建时间
+        */
+       @Column(name = "create_time")
+       @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+       @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+       private Date createTime;
+   
+       /**
+        * 更新时间
+        */
+       @Column(name = "update_time")
+       @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+       @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+       private Date updateTime;
+   ~~~
+
+2. 如果是 Spring Boot 项目，也可以在 application.yml 文件中指定：
+
+   ~~~xml
+   spring:
+     jackson:
+       date-format: yyyy-MM-dd HH:mm:ss
+       time-zone: GMT+8
+   ~~~
+
+## 参数校
 
 参考：
 
@@ -12187,6 +11863,15 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
          * DSA
          * D-H
          * ECC
+
+## 信息脱敏
+
+## IP直连问题处理
+
+1. 问题描述：对于数据库或者是服务使用IP直连会造成强耦合
+2. 解决方案：
+   * 部署内部DNS
+   * 使用注册中心
 
 # 基本测试
 
