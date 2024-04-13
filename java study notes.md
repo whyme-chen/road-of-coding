@@ -6736,12 +6736,14 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
 
 ## 核心概念
 
-1. 控制反转：（IOC是一种思想）
+1. Bean及其生命周期
+   * Bean：简单来说，就是由Spring IOC容器实例化、组装和管理的对象。
+2. 控制反转：（IOC是一种思想）
    * 使用对象时，由主动new产生对象转换为由外部提供对象,此过程中对象创建控制权由程序转移到外部，此思想称为控制反转。
    * Spring技术对IoC思想进行了实现。Spring提供了一个容器，称为IoC容器，用来充当IoC思想中的外部。IoC容器负责对象的创建、初始化等-系列工作， 被创建或被管理的对象在IoC容器中统称为Bean。
    * 控制：指谁来控制对象的创建。传统应用程序对象是由程序本身通过new关键字来控制。而使用Spring后，由Spring通过反射机制来创建对象。
    * 反转：程序本身不去创建对象而变为被动的接收对象。
-2. 依赖注入（DI）
+3. 依赖注入（DI）
    * 在容器中建立bean与bean之间的依赖关系的整个过程, 称为依赖注入。
 
 ![image-20230211175056032](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302111751185.png)
@@ -6780,7 +6782,14 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
    >
    > **FactoryBean** 一般情况下，Spring通过反射机制利用<bean>的class属性指定实现类实例化Bean，在某些情况下，实例化Bean过程比较复杂，如果按照传统的方式，则需要在<bean>中提供大量的配置信息。配置方式的灵活性是受限的，这时采用编码的方式可能会得到一个简单的方案。Spring为此提供了一个org.springframework.bean.factory.FactoryBean的工厂类接口，用户可以通过实现该接口定制实例化Bean的逻辑。 FactoryBean接口对于Spring框架来说占用重要的地位，Spring自身就提供了70多个FactoryBean的实现。它们隐藏了实例化一些复杂Bean的细节，给上层应用带来了便利。从Spring3.0开始，FactoryBean开始支持泛型，即接口声明改为FactoryBean<T>的形式
 
-## Spring配置文件
+## IOC容器
+
+1. 相关包：
+   * `org.springframework.beans`
+   * `org.springframework.context`
+2. 相关常用重要类和接口
+   * `BeanFactory`
+   * `ApplicationContext`
 
 ### bean的配置
 
@@ -6798,13 +6807,13 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
    
    scope：指定对象的作用范围，取值如下：
    
-   | 取值范围      | 说明                                              |
-   | --------- | ----------------------------------------------- |
-   | singleton | 默认值，单例的                                         |
-   | prototype | 多例的                                             |
-   | request   | web项目中，spring创建一个Bean对象，将对象存入到request域中         |
-   | session   | web项目中，spring创建一个Bean的对象，将对象存入到session域中        |
-   | global    | web项目中，应用在protlet环境中，如果没有protlet环境，那么相当于session |
+   | 取值范围   | 说明                                                         |
+   | ---------- | ------------------------------------------------------------ |
+   | singleton  | 默认值，单例的                                               |
+   | prototype  | 多例的                                                       |
+   | request    | web项目中，spring创建一个Bean对象，将对象存入到request域中   |
+   | session    | web项目中，spring创建一个Bean的对象，将对象存入到session域中 |
+   | ~~global~~ | ~~web项目中，应用在protlet环境中，如果没有protlet环境，那么相当于session~~ |
    
    总结：
    
@@ -7188,6 +7197,32 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
 > 
 > <import>标签：导入其他的spring的分文件
 
+<<<<<<< HEAD
+=======
+### 容器
+
+1. ApplicationContext继承体系
+   
+   ![image-20220120200453261](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220120200453261.png)
+
+2. ApplicationContext实现类
+   
+   * ClassPathXmlApplicationContext：从类的根路径下加载配置文件（推荐使用）
+   * FileSystemXmlApplicationContext：从磁盘路径上加载配置文件，配置文件可以在磁盘的任意位置
+   * AnnoationConfigApplicationContext：使用注解配置容器对象时使用
+
+3. getBean()方法
+   
+   * 传递id
+   * 传递class
+
+5. BeanFactory和FactoryBean
+   
+   * **BeanFactory**定义了IOC容器的最基本形式，并提供了IOC容器应遵守的的最基本的接口，也就是Spring IOC所遵守的最底层和最基本的编程规范。在Spring代码中，BeanFactory只是个接口，并不是IOC容器的具体实现，但是Spring容器给出了很多种实现，如 DefaultListableBeanFactory、XmlBeanFactory、ApplicationContext等，都是附加了某种功能的实现。
+   * **FactoryBean** 一般情况下，Spring通过反射机制利用<bean>的class属性指定实现类实例化Bean，在某些情况下，实例化Bean过程比较复杂，如果按照传统的方式，则需要在<bean>中提供大量的配置信息。配置方式的灵活性是受限的，这时采用编码的方式可能会得到一个简单的方案。Spring为此提供了一个org.springframework.bean.factory.FactoryBean的工厂类接口，用户可以通过实现该接口定制实例化Bean的逻辑。 FactoryBean接口对于Spring框架来说占用重要的地位，Spring自身就提供了70多个FactoryBean的实现。它们隐藏了实例化一些复杂Bean的细节，给上层应用带来了便利。从Spring3.0开始，FactoryBean开始支持泛型，即接口声明改为FactoryBean<T>的形式
+   * `BeanDefinition`
+
+>>>>>>> 073e882c7847530b6c745dc09b82208a752e8793
 ## Spring注解开发
 
 > Spring是轻代码重配置的框架，配置比较繁重，影响开发效率，所以注解开发是一种趋势
