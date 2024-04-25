@@ -38,16 +38,16 @@ java技术体系：JVM、java类库、java框架（Spring、Mybatis ...）
 
 ## java特性
 
+1. 封装
+2. 继承
+3. 多态
+
 ## 开发环境
 
 1. JDK
 2. JRE
 3. JVM
 4. 三者的关系
-
-## JShell
-
-java 1.9后提供。
 
 ## 注释与关键字
 
@@ -69,20 +69,20 @@ java 1.9后提供。
      * 如果有必要，在概要之后提供更详细的描述。
      * 使用 `@author` 标签指定作者的姓名。
      * 使用 `@version` 标签指定版本信息。
-
-   ```java
-   /**
-    * 描述类、接口或枚举的功能。
-    * 
-    * 更多详细描述...
-    *
-    * @author Your Name
-    * @version 1.0
-    */
-   public class MyClass {
-       // 类的代码...
-   }
-   ```
+  
+     ~~~java
+     /**
+      * 描述类、接口或枚举的功能。
+      * 
+      * 更多详细描述...
+      *
+      * @author Your Name
+      * @version 1.0
+      */
+     public class MyClass {
+         // 类的代码...
+     }
+     ~~~
 
    * 方法的注释：
      * 使用 `/** ... */` 多行注释格式。
@@ -91,52 +91,54 @@ java 1.9后提供。
      * 对于每个参数，使用 `@param` 标签指定参数名称和描述。
      * 使用 `@return` 标签指定方法的返回值描述。
      * 使用 `@throws` 标签指定可能抛出的异常及其描述。
-
-   ```java
-   /**
-    * 描述方法的功能。
-    * 
-    * @param a 参数a的描述
-    * @param b 参数b的描述
-    * @return 返回值的描述
-    * @throws Exception 可能抛出的异常及其描述
-    */
-   public int calculate(int a, int b) throws Exception {
-       // 方法的代码...
-   }
-   ```
+  
+     ~~~java
+     /**
+      * 描述方法的功能。
+      * 
+      * @param a 参数a的描述
+      * @param b 参数b的描述
+      * @return 返回值的描述
+      * @throws Exception 可能抛出的异常及其描述
+      */
+     public int calculate(int a, int b) throws Exception {
+         // 方法的代码...
+     }
+     ~~~
 
    * 字段和常量的注释：
      * 使用单行注释 `//` 或多行注释 `/* ... */` 格式。
      * 在注释中描述该字段或常量的作用。
-
-   ```java
-   public class MyClass {
-       /**
-        * 描述字段的作用。
-        */
-       private int myField;
-   
-       /**
-        * 描述常量的作用。
-        */
-       public static final int MY_CONSTANT = 10;
-   }
-   ```
+  
+     ~~~java
+     public class MyClass {
+         /**
+          * 描述字段的作用。
+          */
+         private int myField;
+     
+         /**
+          * 描述常量的作用。
+          */
+         public static final int MY_CONSTANT = 10;
+     }
+     ~~~
 
    * 引用其他类或方法：
-     * 使用 `{@link}` 或`{@linkplain}`标签来引用其他类、方法、变量等。@link用于创建超链接并显示链接的文本，而@linkplain用于创建链接并显示自定义的文本。@link还可以与@since和@version一起使用来指定链接的版本信息。
-
-   ```java
-   /**
-    * 引用其他类：{@link OtherClass}
-    * 引用其他方法：{@link OtherClass#otherMethod()}
-    * 引用其他变量：{@link OtherClass#OTHER_CONSTANT}
-    */
-   public class MyClass {
-       // ...
-   }
-   ```
+     
+  * 使用 `{@link}` 或`{@linkplain}`标签来引用其他类、方法、变量等。@link用于创建超链接并显示链接的文本，而@linkplain用于创建链接并显示自定义的文本。@link还可以与@since和@version一起使用来指定链接的版本信息。
+     
+     ~~~java
+     /**
+      * 引用其他类：{@link OtherClass}
+      * 引用其他方法：{@link OtherClass#otherMethod()}
+      * 引用其他变量：{@link OtherClass#OTHER_CONSTANT}
+      */
+     public class MyClass {
+         // ...
+     }
+     ~~~
+   
 
 
 ### 关键字
@@ -7197,8 +7199,6 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
 > 
 > <import>标签：导入其他的spring的分文件
 
-<<<<<<< HEAD
-=======
 ### 容器
 
 1. ApplicationContext继承体系
@@ -7222,7 +7222,6 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
    * **FactoryBean** 一般情况下，Spring通过反射机制利用<bean>的class属性指定实现类实例化Bean，在某些情况下，实例化Bean过程比较复杂，如果按照传统的方式，则需要在<bean>中提供大量的配置信息。配置方式的灵活性是受限的，这时采用编码的方式可能会得到一个简单的方案。Spring为此提供了一个org.springframework.bean.factory.FactoryBean的工厂类接口，用户可以通过实现该接口定制实例化Bean的逻辑。 FactoryBean接口对于Spring框架来说占用重要的地位，Spring自身就提供了70多个FactoryBean的实现。它们隐藏了实例化一些复杂Bean的细节，给上层应用带来了便利。从Spring3.0开始，FactoryBean开始支持泛型，即接口声明改为FactoryBean<T>的形式
    * `BeanDefinition`
 
->>>>>>> 073e882c7847530b6c745dc09b82208a752e8793
 ## Spring注解开发
 
 > Spring是轻代码重配置的框架，配置比较繁重，影响开发效率，所以注解开发是一种趋势
@@ -7283,8 +7282,9 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
   * 当使用`@Autowired`注解时，Spring会尝试根据被注解字段或方法的类型来寻找匹配的依赖项进行注入。
      * 如果找到多个与该类型匹配的依赖项，则会根据一定的规则（如优先级、限定符等）选择其中一个进行注入。
      * 如果没有找到与该类型匹配的依赖项，则会抛出异常。
-   
-     ![image-20230212161016594](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121610133.png)
+     
+     
+   ![image-20230212161016594](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121610133.png)
    
    * @PropertySource：加载properties文件
      
@@ -7295,7 +7295,7 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
      ![image-20230212163828252](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121638962.png)
    
    * @Import
-   
+
    ```java
    //核心配置类
    import com.alibaba.druid.pool.DruidDataSource;
@@ -7346,7 +7346,7 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
            connection.close();
        }
    ```
-   
+
 2. xml配置与注解配置的比较
 
    * 灵活度上：xml方式是具有一定局限性的，比如：在创建bean的时候，需要加入一些定制化的逻辑，当满足什么条件时在bean中加入什么样的属性，使用xml的方式就会比较麻烦，但是使用JavaConfig，即Annotation的方式更加灵活，可以很轻松地加入这些创建逻辑，而且代码更加清晰。
