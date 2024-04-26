@@ -7197,8 +7197,6 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
 > 
 > <import>标签：导入其他的spring的分文件
 
-<<<<<<< HEAD
-=======
 ### 容器
 
 1. ApplicationContext继承体系
@@ -7222,7 +7220,6 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
    * **FactoryBean** 一般情况下，Spring通过反射机制利用<bean>的class属性指定实现类实例化Bean，在某些情况下，实例化Bean过程比较复杂，如果按照传统的方式，则需要在<bean>中提供大量的配置信息。配置方式的灵活性是受限的，这时采用编码的方式可能会得到一个简单的方案。Spring为此提供了一个org.springframework.bean.factory.FactoryBean的工厂类接口，用户可以通过实现该接口定制实例化Bean的逻辑。 FactoryBean接口对于Spring框架来说占用重要的地位，Spring自身就提供了70多个FactoryBean的实现。它们隐藏了实例化一些复杂Bean的细节，给上层应用带来了便利。从Spring3.0开始，FactoryBean开始支持泛型，即接口声明改为FactoryBean<T>的形式
    * `BeanDefinition`
 
->>>>>>> 073e882c7847530b6c745dc09b82208a752e8793
 ## Spring注解开发
 
 > Spring是轻代码重配置的框架，配置比较繁重，影响开发效率，所以注解开发是一种趋势
@@ -7283,8 +7280,9 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
   * 当使用`@Autowired`注解时，Spring会尝试根据被注解字段或方法的类型来寻找匹配的依赖项进行注入。
      * 如果找到多个与该类型匹配的依赖项，则会根据一定的规则（如优先级、限定符等）选择其中一个进行注入。
      * 如果没有找到与该类型匹配的依赖项，则会抛出异常。
-   
-     ![image-20230212161016594](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121610133.png)
+     
+     
+   ![image-20230212161016594](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121610133.png)
    
    * @PropertySource：加载properties文件
      
@@ -7295,7 +7293,7 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
      ![image-20230212163828252](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121638962.png)
    
    * @Import
-   
+
    ```java
    //核心配置类
    import com.alibaba.druid.pool.DruidDataSource;
@@ -7346,7 +7344,7 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
            connection.close();
        }
    ```
-   
+
 2. xml配置与注解配置的比较
 
    * 灵活度上：xml方式是具有一定局限性的，比如：在创建bean的时候，需要加入一些定制化的逻辑，当满足什么条件时在bean中加入什么样的属性，使用xml的方式就会比较麻烦，但是使用JavaConfig，即Annotation的方式更加灵活，可以很轻松地加入这些创建逻辑，而且代码更加清晰。
@@ -10568,9 +10566,10 @@ knife4j是为Java MVC框架集成Swagger生成Api文档的增强解决方案,前
 
 # IDEA
 
-参考视频：
+参考：
 
 * https://www.bilibili.com/video/BV1PW411X75p?from=search&seid=1533766256313085594&spm_id_from=333.337.0.0
+* [主页 | IDEA 高效使用指南 (javaguide.cn)](https://idea.javaguide.cn/)
 
 官方文档：https://www.jetbrains.com/help/idea/getting-started.html
 
@@ -10779,6 +10778,13 @@ knife4j是为Java MVC框架集成Swagger生成Api文档的增强解决方案,前
 ### Cool Request
 
 使用参考：[IDEA中这么强大的接口调试插件，相见恨晚啊！ (qq.com)](https://mp.weixin.qq.com/s/v7KXV6jamHfXm8c-rlcm2Q)
+
+## 插件开发
+
+参考：
+
+* [Intelij开发idea插件从开发到发布的完整详细教程附带源码demo_idea插件开发-CSDN博客](https://blog.csdn.net/hj960511/article/details/135735940)
+* [IDEA 插件开发入门 | IDEA 高效使用指南 (javaguide.cn)](https://idea.javaguide.cn/tips/plug-in-development-intro.html)
 
 # Git&GitHub
 

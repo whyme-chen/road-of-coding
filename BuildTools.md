@@ -704,7 +704,22 @@ Gretty官网：http://akhikhl.github.io/gretty-doc/index.html
    }
    ~~~
 
-## Groovy
+## DSL
+
+Gradle DSL（Domain Specific Language）是 Gradle 构建工具使用的一种领域特定语言，**用于描述构建脚本和项目配置**。
+
+Gradle 构建脚本通常使用 Groovy 或 Kotlin 语言编写，并且遵循特定的语法规则和约定。通过 Gradle DSL，开发者可以定义项目的依赖关系、任务和插件等信息，以及指定构建过程中的各种行为和配置。例如：
+
+1. 定义依赖关系：使用 `dependencies { }` 块来指定项目所依赖的外部库或模块。
+2. 配置任务：使用任务名称加上配置块的方式，如 `task myTask { }`，来配置任务的行为和属性。
+3. 应用插件：使用 `apply plugin: 'pluginName'` 来应用 Gradle 插件，以扩展项目的构建功能。
+4. 自定义函数和扩展：开发者可以编写自定义函数和扩展，以便在构建脚本中重用代码逻辑。
+
+Gradle DSL 提供了灵活、强大的方式来管理项目的构建过程，并且允许开发者根据项目的需要进行定制和扩展。
+
+### Kotlin
+
+### Groovy
 
 > 具体参考：[Groovy](./Groovy.md)
 
