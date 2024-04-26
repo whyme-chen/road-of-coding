@@ -38,16 +38,16 @@ java技术体系：JVM、java类库、java框架（Spring、Mybatis ...）
 
 ## java特性
 
+1. 封装
+2. 继承
+3. 多态
+
 ## 开发环境
 
 1. JDK
 2. JRE
 3. JVM
 4. 三者的关系
-
-## JShell
-
-java 1.9后提供。
 
 ## 注释与关键字
 
@@ -69,20 +69,20 @@ java 1.9后提供。
      * 如果有必要，在概要之后提供更详细的描述。
      * 使用 `@author` 标签指定作者的姓名。
      * 使用 `@version` 标签指定版本信息。
-
-   ```java
-   /**
-    * 描述类、接口或枚举的功能。
-    * 
-    * 更多详细描述...
-    *
-    * @author Your Name
-    * @version 1.0
-    */
-   public class MyClass {
-       // 类的代码...
-   }
-   ```
+  
+     ~~~java
+     /**
+      * 描述类、接口或枚举的功能。
+      * 
+      * 更多详细描述...
+      *
+      * @author Your Name
+      * @version 1.0
+      */
+     public class MyClass {
+         // 类的代码...
+     }
+     ~~~
 
    * 方法的注释：
      * 使用 `/** ... */` 多行注释格式。
@@ -91,52 +91,54 @@ java 1.9后提供。
      * 对于每个参数，使用 `@param` 标签指定参数名称和描述。
      * 使用 `@return` 标签指定方法的返回值描述。
      * 使用 `@throws` 标签指定可能抛出的异常及其描述。
-
-   ```java
-   /**
-    * 描述方法的功能。
-    * 
-    * @param a 参数a的描述
-    * @param b 参数b的描述
-    * @return 返回值的描述
-    * @throws Exception 可能抛出的异常及其描述
-    */
-   public int calculate(int a, int b) throws Exception {
-       // 方法的代码...
-   }
-   ```
+  
+     ~~~java
+     /**
+      * 描述方法的功能。
+      * 
+      * @param a 参数a的描述
+      * @param b 参数b的描述
+      * @return 返回值的描述
+      * @throws Exception 可能抛出的异常及其描述
+      */
+     public int calculate(int a, int b) throws Exception {
+         // 方法的代码...
+     }
+     ~~~
 
    * 字段和常量的注释：
      * 使用单行注释 `//` 或多行注释 `/* ... */` 格式。
      * 在注释中描述该字段或常量的作用。
-
-   ```java
-   public class MyClass {
-       /**
-        * 描述字段的作用。
-        */
-       private int myField;
-   
-       /**
-        * 描述常量的作用。
-        */
-       public static final int MY_CONSTANT = 10;
-   }
-   ```
+  
+     ~~~java
+     public class MyClass {
+         /**
+          * 描述字段的作用。
+          */
+         private int myField;
+     
+         /**
+          * 描述常量的作用。
+          */
+         public static final int MY_CONSTANT = 10;
+     }
+     ~~~
 
    * 引用其他类或方法：
-     * 使用 `{@link}` 或`{@linkplain}`标签来引用其他类、方法、变量等。@link用于创建超链接并显示链接的文本，而@linkplain用于创建链接并显示自定义的文本。@link还可以与@since和@version一起使用来指定链接的版本信息。
-
-   ```java
-   /**
-    * 引用其他类：{@link OtherClass}
-    * 引用其他方法：{@link OtherClass#otherMethod()}
-    * 引用其他变量：{@link OtherClass#OTHER_CONSTANT}
-    */
-   public class MyClass {
-       // ...
-   }
-   ```
+     
+  * 使用 `{@link}` 或`{@linkplain}`标签来引用其他类、方法、变量等。@link用于创建超链接并显示链接的文本，而@linkplain用于创建链接并显示自定义的文本。@link还可以与@since和@version一起使用来指定链接的版本信息。
+     
+     ~~~java
+     /**
+      * 引用其他类：{@link OtherClass}
+      * 引用其他方法：{@link OtherClass#otherMethod()}
+      * 引用其他变量：{@link OtherClass#OTHER_CONSTANT}
+      */
+     public class MyClass {
+         // ...
+     }
+     ~~~
+   
 
 
 ### 关键字

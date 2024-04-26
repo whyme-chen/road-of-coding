@@ -25,6 +25,7 @@
    Linux 则是由 Linus Torvalds 在1991年于赫尔辛基大学上学时，出于对操作系统的好奇，而开发的。起初他在他新购买的计算机上安装 Minix,但是后来他逐渐为自己的计算机写了很多驱动程序，也认识到 Minix 作为一个教学用的操作系统有许多不足，然后逐步形成了 Linux 操作系统。
 
 3. Linux版本
+
    * 内核版
      * 由Linus Torvalds及其团队开发、维护
      * 免费、 开源
@@ -41,21 +42,33 @@
        * Fedora: 功能完备、快速更新、免费
        * 红旗Linux: 北京中科红旗软件技术有限公司开发
 
-4. Linux安装
+4. Linux&GNU&GPL
+
+   * **GNU**：GNU是一个递归缩写，代表“GNU's Not Unix”。它是一个由Richard Stallman发起的自由软件运动的项目，旨在创建一个完全自由的操作系统，其设计类似于Unix操作系统，但不是Unix的衍生物。GNU项目开始于1983年，并且开发了许多基本的系统工具和应用程序，如GCC编译器、Emacs编辑器等。尽管GNU项目开发了许多组件，但在完成操作系统内核方面遇到了挑战。
+   * **GPL**：GPL是GNU通用公共许可证（GNU General Public License）的简称。它是由Richard Stallman为GNU项目创建的自由软件许可证，目的是确保软件的自由和开放性。GPL是一种“copyleft”许可证，意味着任何使用、修改或分发GPL许可的软件的衍生作品也必须使用相同的许可证并开源其源代码。GPL确保了自由软件的继续传播和共享。
+   * **Linux**：Linux是一个开源的类Unix操作系统内核。它由Linus Torvalds在1991年开始开发，并在GNU项目的支持下逐渐发展成为一个完整的操作系统。Linux内核是GNU计划中缺失的最后一个部分，因此，将GNU工具和Linux内核结合在一起，产生了GNU/Linux操作系统，通常简称为Linux。Linux内核在服务器、个人电脑和嵌入式系统等领域广泛应用。
+
+   这三者之间的关系是，GNU项目提供了大量的自由软件组件，GPL许可证确保了这些软件的自由和开放性，而Linux内核是GNU项目中缺失的最后一个部分，使得GNU项目的愿景得以实现。因此，通常我们所说的“Linux操作系统”是指GNU工具与Linux内核的结合体。
+
+5. Linux安装
 
    * 虚拟机方式：（https://blog.csdn.net/huaijiu123/article/details/82083452）
 
      ![image-20221118224115904](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211182241660.png)
 
+   * 云服务器
+
+   * WSL
+
    * SSH连接工具
 
      ![image-20221118224300935](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211182252792.png)
 
-5. Linux目录结构简介
+6. Linux目录结构简介
 
    ![image-20221118225310965](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211182253030.png)
 
-6. 服务
+7. 服务
 
    * 概念：服务的英文为 service ，服务顾名思义是就是能为系统或者用户提供某种特殊的服务的程序，只不过**一般这种程序是常驻后台，不是直接运行的**，这种程序一般叫做守护进程daemon。
 
@@ -77,7 +90,7 @@
      | systemctl disable crond | 移除某个服务开机启动 |
      | systemctl restart crond | 重启某个服务         |
 
-7. 日志
+8. 日志
 
    日志由程序在运行过程中打印出来的一些执行流程或者记录信息的文本。Systemd 同样也提供了对日志访问的方式。
 
@@ -96,582 +109,6 @@
    | /var/log/cron     | 定时任务日志                                                 |
    | /var/log/boot.log | 启动日志                                                     |
    | /var/log/kern     | 内核日志，也可以通过 dmesg 查看                              |
-
-## <a id='instruct'>Linux常用命令</a>
-
-1. 常用命令
-
-   | 命令  | 作用                     |
-   | ----- | ------------------------ |
-   | ls    | list列出目录内容         |
-   | cat   | 输出文件内容到标准输出   |
-   | less  | 查看文件内容             |
-   | more  | 查看文件内容             |
-   | head  | 查看文件头部             |
-   | tail  | 查看文件尾部             |
-   | nano  | 编辑文件的工具           |
-   | grep  | 查找文本中指定关键词的行 |
-   | rm    | 删除命令                 |
-   | touch | 创建一个文件             |
-   | pwd   | 查看当前所在目录         |
-
-   ![image-20221119125002051](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191352847.png)
-
-2. 命令格式
-
-   > command [-options] [parameter]
-
-   ![image-20221119130139264](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191352141.png)
-
-### 磁盘管理相关命令
-
-1. df命令
-
-   * 作用：该命令检查文件系统的磁盘空间占用情况。可以利用该命令来获取硬盘被占用了多少空间，目前还剩下多少空间等信息。
-
-   * 命令语法:
-
-     >df [参数] [目录或文件名]
-
-   * 参数说明：
-
-     | 参数 | 说明                                                 |
-     | ---- | ---------------------------------------------------- |
-     | -a   | 列出所有的文件系统，包括系统特有的/proc等文件系统。  |
-     | -k   | 以KBytes为单位，返回各文件系统容量。                 |
-     | -m   | 以MBytes为单位，返回各文件系统容量。                 |
-     | -h   | 以GBytes、MBytes、KBytes为单位，返回各文件系统容量。 |
-     | -H   | 以M=1000K取代M=1024K的进位方式显示各文件系统容量。   |
-     | -T   | 显示文件系统类型。                                   |
-     | -i   | 显示inode信息。                                      |
-
-2. du命令
-
-   * 作用：查看磁盘使用空间。du与df命令不同点在于，du命令用于查看文件和目录磁盘的使用空间。
-
-   * 语法格式：
-
-     > du [参数] [文件或目录名称]
-
-   * 参数说明：
-
-     | -a   | 列出所有的文件与目录容量。  |
-     | ---- | --------------------------- |
-     | -h   | 以G、M、K为单位，返回容量。 |
-     | -s   | 列出总量。                  |
-     | -S   | 列出不包括子目录下的总量。  |
-     | -k   | 以KBytes为单位，返回容量。  |
-     | -m   | 以MBytes为单位，返回容量。  |
-
-3. fdisk命令
-
-   * 作用：用于磁盘分区
-
-   * 语法格式：
-
-     > fdisk [-l] 装置名称
-
-   * 参数说明：
-
-     | 参数 | 说明                                                         |
-     | ---- | ------------------------------------------------------------ |
-     | -l   | 输出后面装置名称的所有的分区内容。若仅有 fdisk -l时， 则系统将会把整个系统内能够搜寻到的装置的分区均列出来。 |
-
-   * 
-
-### 文件目录操作命令
-
-1. pwd
-
-   * 作用：查看当前所在目录
-
-2. ls命令
-
-   ![image-20221119130854252](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191352461.png)
-
-3. cd命令
-
-   ![image-20221119131441984](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191352647.png)
-
-4. cat命令
-
-   ![image-20221119131517425](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191352523.png)
-
-   > 创建并打开一个新的文件：`cat > 文件名称`
-
-5. more命令
-
-   ![image-20221119131749688](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353211.png)
-
-6. head
-
-   * 作用：查看文件开头的内容
-   * 常用操作：`head -n 文件名称`显示某个文件的开始的n行数据，默认显示10行。
-
-7. tail
-
-   ![image-20221119132442044](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353220.png)
-
-8. mkdir命令
-
-   ![image-20221119132652551](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353925.png)
-
-9. rmdir命令
-
-   ![image-20221119132818838](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353381.png)
-
-10. rm命令
-
-    ![image-20221119132945812](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353834.png)
-
-    注意：`rm -ri 目录或文件`用于在删除前询问是否删除。一般不建议使用 `rm -rf` 进行文件删除。rm 命令中不跟 r 参数，无法删除目录，只能删除文件
-
-11. touch
-
-    * 作用：创建文件
-
-### 拷贝移动命令
-
-1. cp命令
-
-   ![image-20221119133232770](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353725.png)
-
-2. mv命令
-
-   ![image-20221119134054269](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353290.png)
-
-### 打包压缩命令
-
-1. tar命令 
-
-   ![image-20221119134305526](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353171.png)
-   
-   ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRA2Eibiak8oCrCXafbcjDzWhbUINefxh8Duib8b9ib71TDhmFN9mrpoJRdrA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-   
-   > cvf打包，xvf解包，zcvf打压缩包，zxvf解压包
-
-### 文本编辑命令
-
-1. vi/vim
-
-   ![image-20221120202048921](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211202020494.png)
-
-   vi 的三种模式如下：
-
-   * 命令模式
-
-   当用户使用 vi 命令打开文件后，则进入命令模式，用户可以输入命令来执行各种功能。
-
-   ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRAhuicP6icN2Z3pOgn9vOQ9FhiaSYG6SfJTEpvjjS7cFyTpHr6pQzshPOwg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
-   * 输入模式
-
-   如果用户要对文件做修改，则可以使用下面几种命令，进入输入模式，用户进入输入模式之后，可以任意修改文件，除了 Esc 键外，用户输入的任何字符都会被作为内容写入文件中，用户输入 Esc 可以对文件进行相关操作。
-
-   ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRA3IcL5vreJibBhZMJJk3dR43SKaiaC8LnCmIhCnCNeNgMXDDSNU2DfYmA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
-   >  `i` 进入插入模式，在光标前插入文本。
-   >
-   >  `a` 进入插入模式，在光标后插入文本。
-   >
-   >  `o` 在当前行下方插入新行并进入插入模式。
-   >
-   >  `O` 在当前行上方插入新行并进入插入模式。
-
-   * 末行模式
-
-   如果用户完成编辑命令，则可以按照 esc + “:” 进入末行模式，用户可以对文件内容继续进行搜索，也可以输入 “:wq!” 进行文件保存并退出，或者输入 “:q!” 强制退出文件编辑。
-
-   ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRA1pv5MGYicSUfMnZkaTdTqvHAsuMZlSE25RkwqBGD9wH2KaPjm4h46Lg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
-### 查找命令
-
-1. find命令
-
-   ![image-20221120203432544](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211202034929.png)
-
-2. grep命令
-
-   ![image-20221120203545011](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211202035320.png)
-
-### 进程操作命令
-
-1. ps
-   * 作用：查看 Linux 操作系统中正在运行的过程，并可以获得进程的 PID（进程的唯一标识），通过 PID 可以对进程进行相应的管理。
-   * 常用操作：
-     * `ps -ef | grep [进程关键字]`
-2. kill：当系统中有进程进入死循环，或者需要被关闭时，我们可以使用 kill 命令对其关闭
-
-### 软件安装命令
-
-具体参考：[软件安装](#install)
-
-软件安装方式（centOS为例）
-
-![image-20221118231233904](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211182312501.png)
-
-#### 常用软件安装示例
-
-1. jdk安装（解压方式）
-
-   ![image-20221119115218075](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353986.png)
-
-2. 安装tomcat（解压方式）
-
-   ![image-20221119122116054](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353978.png)
-
-   ![image-20221119122225352](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353642.png)
-
-3. 安装MySQL（rpm方式）
-
-   * 安装
-
-     ![image-20221119123637520](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353081.png)
-
-   * 卸载
-
-     ![image-20221119123756530](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353764.png)
-
-4. 安装lrzsz（yum方式）
-
-   ![image-20221119124107682](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353324.png)
-
-5. 安装docker
-
-   * 参考：[【精选】Docker安装(Alibaba Cloud Linux 3)_alibaba cloud linux docker-CSDN博客](https://blog.csdn.net/weixin_40750633/article/details/122412224)
-
-### 防火墙相关命令
-
-![image-20221119122455628](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353373.png)
-
-### <a id='userOperation'>用户操作命令</a>
-
-1. `su`
-
-   * 作用：切换用户
-   * 常用操作：`su[用户名]`和 `su -[用户名]`都可以切换用户，前者类似于临时切换用户，当使用该命令进行切换新用户时，用户配置仍然沿用原来的用户配置，如环境变量、系统变量等。而后者进行切换用户时，环境变量、系统设置全部切换成新用户的用户配置。
-
-2. `whoami`
-
-   * 作用：查看当前登录用户
-
-3. `groups`
-
-   * 作用：查看当前登录yoghurt所属分组
-
-4. `id`
-
-   * 作用：查看当前用户UID和GID
-
-5. `useradd`
-
-   * 作用：添加新用户
-
-   * 语法：
-
-     ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRAAljfmvoqz0GlTTgRV6qopysxnicFibVrnxFr2pN2gproxnYiadaRicuSjQ/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
-6. `password`
-
-   * 作用：修改用户密码
-
-   * 语法：
-
-     ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRATetM0PqJcdSFUnf5ibhgKt4jxGcnnibQkl3qBfqYL4EIHHWfqgItibIUg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
-7. `userdel`
-
-   * 作用：删除用户
-
-   * 语法：
-
-     ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRAm4Ik1Wic2XtARX9MpxZJtJX8nACCyEfGSNo2clgCT9qFRxMMkj21VoA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
-8. `usermod`
-
-   * 作用：修改用户信息
-
-   * 语法：
-
-     ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRAenicHeVwwKqSPO88vHnAhfZT7x9V7GINN5L8RgE6pf23RaOZ4Z76uLg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
-   * 常用操作：
-
-     - 修改用户登录名：`usermod -l 新用户名 旧用户名`
-     - 修改用户所属分组：`usermod -g 新组名称 用户名`
-
-9. `groupadd`
-
-   * 作用：添加用户组
-
-   * 语法：
-
-     ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRAzRQWzicFTXjiayCTxsic2r3s9gjZr8BnibvwSODBicySnGCODwZJZ2pXV5w/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
-   * 常用命令：
-
-     * 修改用户登陆名：`groupadd 组名`
-     * 修改用户所属分组：`groupadd -g 组 GID 组名`
-
-### 项目部署
-
-1. 手动部署
-
-   * 在后台运行java项目：`nohup java -jar jar-0.0.1-SNAPSHOT.jar &`
-
-2. shell脚本部署
-
-   ![image-20221120204540453](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211202045621.png)
-   
-3. hexo博客搭建
-
-   参考资料：
-
-   * hexo：https://hexo.io/zh-cn/
-   * [Hexo搭建个人博客](https://www.bilibili.com/video/BV1q741167PJ/?spm_id_from=333.1245.top_right_bar_window_history.content.click&vd_source=fabefd3fabfadb9324761989b55c26ea)
-   * https://blog.csdn.net/weixin_45561352/article/details/122109731
-
-   1. hexo搭建的博客基本目录
-
-      ~~~
-      .
-      ├── _config.yml # 网站配置
-      ├── package.json # 应用程序信息
-      ├── scaffolds # 模板文件夹
-      ├── source # 资源文件夹
-      |   ├── _drafts
-      |   └── _posts
-      └── themes # 主题文件夹
-      ~~~
-
-      > source文件夹中，除 _posts 文件夹之外，开头命名为 _ (下划线)的文件 / 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件夹，而其他文件会被拷贝过去。
-
-### <a id="caculater">计算命令</a>
-
-1. `expr`：expr是 evaluate expressions 的缩写，译为“求值表达式”。Shell expr 是一个功能强大，并且比较复杂的命令它除了可以实现整数计算，还可以结合一些选项对字符串进行处理，例如计算字符串长度、字符串比较、字符串匹配、字符串提取等。
-
-   * 语法
-
-     ~~~shell
-     # 计算
-     expr 算术运算符表达式
-     # 将计算结果赋值给变量,注意: 运算符表达式中每个数字与符号之间要有空格
-     res = `expr 算术运算符表达式`
-     
-     # 字符串长度：使用length参数获取字符串的长度。
-     expr length "hello"  # 输出：5
-     
-     # 子字符串提取：使用substr参数提取字符串的子串。
-     expr substr "hello world" 7 5  # 输出："world"
-     
-     # 字符串连接：使用冒号（:）将两个字符串连接起来。
-     expr "hello" : "he" : "llo"  # 输出："hello"
-     
-     # 字符串匹配：使用match参数检查字符串是否与指定模式匹配。
-     expr "hello world" : 'h.*d'  # 输出：1 (表示匹配成功)
-     
-     # 字符串替换：使用sub参数替换字符串中的模式。
-     expr "hello world" : 'h' : 'H'  # 输出："Hello world"
-     
-     # 字符串索引位置：使用index参数确定字符串中某个子串的位置。
-     expr index "hello" "e"  # 输出：2 (表示字母'e'在字符串中的位置)
-     ~~~
-   
-   > 在较新的Shell版本中，推荐使用更强大的字符串处理工具，如`bash`内置的字符串操作功能或`awk`命令来代替`expr`命令。
-   
-2. `let`：let 命令和双小括号(())在数字计算方面功能一样，但是没有(0)功能强大，let只能用于赋值计算，不能直接输出，不可以条件判断
-
-3. `bc`：Bash shel内置了对整数运算的支持，但是并不支持浮点运算，而 linux bc(basic calculator)命令可以很方便的进行浮点运算.bc命令是Linux简单的计算器,能进行进制转换与计算。能转换的进制包括十六进制、十进制、八进制、二进制等。可以使用的运算符号包括(+)加法、()减法、()乘法、(/除法、()指数、(%)余数等
-
-   以下是`bc`命令的一些常见用法：
-
-   1. 基本运算：`bc`可以执行基本的数学运算，包括加法、减法、乘法和除法。
-      ```shell
-      echo "2 + 3" | bc  # 输出：5
-      echo "5 - 2" | bc  # 输出：3
-      echo "2 * 3" | bc  # 输出：6
-      echo "10 / 3" | bc  # 输出：3 (整数除法)
-      echo "scale=2; 10 / 3" | bc  # 输出：3.33 (浮点数除法，设置小数位数为2)
-      ```
-
-   2. 变量赋值：`bc`允许使用变量进行计算，并可以在计算中使用这些变量。
-      ```shell
-      echo "a = 2; b = 3; a + b" | bc  # 输出：5
-      ```
-
-   3. 数学函数：`bc`提供了一些常见的数学函数，如平方根、指数函数、三角函数等。
-      ```shell
-      echo "sqrt(16)" | bc  # 输出：4 (平方根)
-      echo "e(1)" | bc  # 输出：2.718281828459045 (自然对数的底数)
-      echo "s(0)" | bc  # 输出：0 (正弦函数)
-      ```
-
-   4. 控制输出格式：`bc`可以通过设置输出格式来控制结果的显示方式。
-      ```shell
-      echo "scale=2; 10 / 3" | bc  # 输出：3.33 (设置小数位数为2)
-      ```
-
-   5. 文件操作：`bc`还可以从文件中读取计算表达式，并将结果输出到文件中。
-      ```shell
-      echo "2 + 3" > input.txt
-      bc < input.txt > output.txt
-      cat output.txt  # 输出：5
-      ```
-
-### 其他
-
-1. `clear`：清屏命令
-
-2. `man`：查询命令详细参数
-
-3. `echo`：在终端上显示文本或变量的内容
-
-   * 语法：
-
-     ~~~shell
-     echo [选项] [字符串]
-     ~~~
-
-     > 另一个可用于终端打印的命令是printf。例如： printf "Hello world"
-
-   * 常见选项：
-     * `-n`：不输出结尾的换行符。
-     * `-e`：启用转义字符解析。
-
-   * 彩色输出
-
-     可以使用转义序列来实现在终端中生成彩色输出。 每种颜色都有对应的颜色码。比如：重置=0，黑色=30，红色=31，绿色=32，黄色=33，蓝 色=34，洋红=35，青色=36，白色=37。 要打印彩色文本，可输入如下命令： 
-
-     ~~~shell
-     echo -e "\e[1;31m This is red text \e[0m"  
-     ~~~
-
-     \e[1;31将颜色设为红色，\e[0m将颜色重新置回。只需要将31替换成想要的颜色码就可以了。 
-
-     要设置彩色背景，经常使用的颜色码是：重置=0，黑色=40，红色=41，绿色=42，黄色=43， 蓝色=44，洋红=45，青色=46，白色=47。 要打印彩色文本，可输入如下命令： 
-
-     ~~~shell
-     echo -e "\e[1;42m Green Background \e[0m"
-     ~~~
-
-   * 示例用法：
-
-     1. 显示文本：
-
-        ```shell
-        echo "Hello, World!"
-        ```
-
-        输出：`Hello, World!`
-
-     2. 显示变量的值：
-
-        ```shell
-        name="Alice"
-        echo "My name is $name"
-        ```
-
-        输出：`My name is Alice`
-
-     3. 不输出换行符：
-
-        ```shell
-        echo -n "Hello, "
-        echo "World!"
-        ```
-
-        输出：`Hello, World!`（不换行）
-
-     4. 使用转义字符：
-
-        ```shell
-        echo -e "Hello\tWorld\nGoodbye"
-        ```
-
-        输出：
-
-        ```
-        Hello    World
-        Goodbye
-        ```
-
-4. `read`：用于从终端读取用户输入的内置命令。它可以读取用户输入的文本，并将其存储到一个或多个变量中。
-
-   * 语法：
-
-     ~~~shell
-     read [选项] [变量]
-     ~~~
-
-   - 常见选项：
-
-     - `-p prompt`：显示提示信息并等待用户输入。
-     - `-t timeout`：设置超时时间，如果在指定时间内未输入，则终止读取。
-     - `-s`：静默模式，用户输入不会显示在终端上。
-     - `-n count`：读取固定数量的字符后立即返回。
-
-   - 示例用法：
-
-     1. 读取用户输入的文本：
-
-        ```
-        read name
-        echo "Hello, $name!"
-        ```
-
-        用户输入：`Alice`
-        输出：`Hello, Alice!`
-
-     2. 显示自定义提示信息并读取用户输入：
-
-        ```
-        read -p "请输入您的年龄：" age
-        echo "您的年龄是 $age 岁"
-        ```
-
-        用户输入：`25`
-        输出：`您的年龄是 25 岁`
-
-     3. 设置超时时间：
-
-        ```
-        if read -t 5 -p "请输入用户名：" username; then
-            echo "欢迎，$username!"
-        else
-            echo "超时，未输入用户名"
-        fi
-        ```
-
-        如果在 5 秒内未输入用户名，将输出：`超时，未输入用户名`
-
-     4. 静默模式读取密码：
-
-        ```
-        read -s -p "请输入密码：" password
-        echo
-        echo "您输入的密码是：$password"
-        ```
-
-        用户输入：`abc123`
-        输出：`您输入的密码是：abc123`
-   
-5. `test`
-
-6. `wc`：用来对文本进行统计，包括单词个数、行数、字节数
-
-   * 语法：
-
-     ~~~shell
-     wc [option] 文件名
-     ~~~
-
-   * option选项：
-
-     | 选项 | 含义                  |
-     | ---- | --------------------- |
-     | `-c` | character，统计字节数 |
-     | `-w` | word，统计单词数      |
-     | `-l` | line，统计行数        |
 
 ## 常用发行版
 
@@ -794,7 +231,9 @@
 
 ### Alibaba Cloud Linux
 
-官方文档：[Alibaba Cloud Linux_免费操作系统_云服务器_弹性计算-阿里云 (aliyun.com)](https://www.aliyun.com/product/ecs/alinux?spm=5176.28508143.J_XmGx2FZCDAeIy2ZCWL7sW.21.214b154aWWMFtB&scm=20140722.S_product@@云产品@@634016._.ID_product@@云产品@@634016-RL_Aliyun Linux-LOC_topbar~UND~product-OR_ser-V_3-P0_0)
+官方文档：
+
+* [Alibaba Cloud Linux(Alinux)-阿里云帮助中心 (aliyun.com)](https://help.aliyun.com/zh/alinux/?spm=a2c4g.11186623.0.i1)
 
 Alibaba Cloud Linux 2(原Aliyun Linux 2)是阿里云官方操作系统，为云上应用程序提供安全、稳定、高性能的定制化运行环境，并针对云基础设施进行了深度优化，为您打造更好的运行时体验。您可以免费使用Alibaba Cloud Linux 2公共镜像，并免费获得阿里云针对该操作系统的长期支持。
 
@@ -808,19 +247,715 @@ Alibaba Cloud Linux 2(原Aliyun Linux 2)是阿里云官方操作系统，为云�
 | 平台       | x86-64                                               |
 | 生命周期   | 阿里云通过支持                                       |
 
-## 进程管理
+## <a id='instruct'>Linux常用命令</a>
+
+1. 常用命令
+
+   | 命令  | 作用                     |
+   | ----- | ------------------------ |
+   | ls    | list列出目录内容         |
+   | cat   | 输出文件内容到标准输出   |
+   | less  | 查看文件内容             |
+   | more  | 查看文件内容             |
+   | head  | 查看文件头部             |
+   | tail  | 查看文件尾部             |
+   | nano  | 编辑文件的工具           |
+   | grep  | 查找文本中指定关键词的行 |
+   | rm    | 删除命令                 |
+   | touch | 创建一个文件             |
+   | pwd   | 查看当前所在目录         |
+
+   ![image-20221119125002051](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191352847.png)
+
+2. 命令格式
+
+   > command [-options] [parameter]
+>
+   > * 单个参数：ls -a（a 是英文 all 的缩写，表示“全部”）  
+   > * 多个参数：ls -al（全部文件 + 列表形式展示）  
+   > * 单个长参数：ls --all  
+   > * 多个长参数：ls --reverse --all  
+   > * 长短混合参数：ls --all -l  
+
+   ![image-20221119130139264](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191352141.png)
+
+3. 命令快捷方式
+
+   * 通过上下方向键 ↑ ↓ 来调取过往执行过的Linux命令；
+   * 命令或参数仅需输入前几位就可以用 Tab 键补全；
+   * `Ctrl + R` ：用于查找使用过的命令（history命令用于列出之前使用过的所有命令，然后输入!命令加上编号 (!2) 就可以直接执行该历史命令）；
+   * `Ctrl + L`：清除屏幕并将当前行移到页面顶部；
+   * `Ctrl + C`：中止当前正在执行的命令；
+   * `Ctrl + U`：从光标位置剪切到行首；
+   * `Ctrl + K`：从光标位置剪切到行尾；
+   * `Ctrl + W`：剪切光标左侧的一个单词；
+   * `Ctrl + Y`：粘贴Ctrl + U | K | Y剪切的命令；
+   * `Ctrl + A`：光标跳到命令行的开头；
+   * `Ctrl + E`：光标跳到命令行的结尾；
+   * `Ctrl + D`：关闭Shell会话；
+
+### 磁盘管理相关命令
+
+1. df命令
+
+   * 作用：该命令检查文件系统的磁盘空间占用情况。可以利用该命令来获取硬盘被占用了多少空间，目前还剩下多少空间等信息。
+
+   * 命令语法:
+
+     >df [参数] [目录或文件名]
+
+   * 参数说明：
+
+     | 参数 | 说明                                                 |
+     | ---- | ---------------------------------------------------- |
+     | -a   | 列出所有的文件系统，包括系统特有的/proc等文件系统。  |
+     | -k   | 以KBytes为单位，返回各文件系统容量。                 |
+     | -m   | 以MBytes为单位，返回各文件系统容量。                 |
+     | -h   | 以GBytes、MBytes、KBytes为单位，返回各文件系统容量。 |
+     | -H   | 以M=1000K取代M=1024K的进位方式显示各文件系统容量。   |
+     | -T   | 显示文件系统类型。                                   |
+     | -i   | 显示inode信息。                                      |
+
+2. du命令
+
+   * 作用：查看磁盘使用空间。du与df命令不同点在于，du命令用于查看文件和目录磁盘的使用空间。
+
+   * 语法格式：
+
+     > du [参数] [文件或目录名称]
+
+   * 参数说明：
+
+     | -a   | 列出所有的文件与目录容量。  |
+     | ---- | --------------------------- |
+     | -h   | 以G、M、K为单位，返回容量。 |
+     | -s   | 列出总量。                  |
+     | -S   | 列出不包括子目录下的总量。  |
+     | -k   | 以KBytes为单位，返回容量。  |
+     | -m   | 以MBytes为单位，返回容量。  |
+
+3. fdisk命令
+
+   * 作用：用于磁盘分区
+
+   * 语法格式：
+
+     > fdisk [-l] 装置名称
+
+   * 参数说明：
+
+     | 参数 | 说明                                                         |
+     | ---- | ------------------------------------------------------------ |
+     | -l   | 输出后面装置名称的所有的分区内容。若仅有 fdisk -l时， 则系统将会把整个系统内能够搜寻到的装置的分区均列出来。 |
+
+   * 
+
+### 文件目录操作命令
+
+1. pwd
+
+   * 作用：查看当前所在目录
+
+2. ls命令
+
+   ![image-20221119130854252](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191352461.png)
+
+3. cd命令
+
+   ![image-20221119131441984](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191352647.png)
+
+4. cat命令
+
+   ![image-20221119131517425](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191352523.png)
+
+   > 创建并打开一个新的文件：`cat > 文件名称`
+
+5. more命令
+
+   ![image-20221119131749688](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353211.png)
+
+6. head
+
+   * 作用：查看文件开头的内容
+   * 常用操作：`head -n 文件名称`显示某个文件的开始的n行数据，默认显示10行。
+
+7. tail
+
+   ![image-20221119132442044](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353220.png)
+
+8. mkdir命令
+
+   ![image-20221119132652551](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353925.png)
+
+9. rmdir命令
+
+   ![image-20221119132818838](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353381.png)
+
+10. rm命令
+
+    ![image-20221119132945812](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353834.png)
+
+    注意：`rm -ri 目录或文件`用于在删除前询问是否删除。一般不建议使用 `rm -rf` 进行文件删除。rm 命令中不跟 r 参数，无法删除目录，只能删除文件
+
+11. touch
+
+    * 作用：创建文件
+    
+12. `ln`
+
+### 拷贝移动命令
+
+1. cp命令
+
+   ![image-20221119133232770](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353725.png)
+
+2. mv命令
+
+   ![image-20221119134054269](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353290.png)
+
+### 打包压缩命令
+
+1. tar命令 
+
+   ![image-20221119134305526](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353171.png)
+   
+   ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRA2Eibiak8oCrCXafbcjDzWhbUINefxh8Duib8b9ib71TDhmFN9mrpoJRdrA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+   
+   > cvf打包，xvf解包，zcvf打压缩包，zxvf解压包
+
+### 文本编辑命令
+
+1. vi/vim
+
+   ![image-20221120202048921](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211202020494.png)
+
+   vi 的三种模式如下：
+
+   * 命令模式
+
+   当用户使用 vi 命令打开文件后，则进入命令模式，用户可以输入命令来执行各种功能。
+
+   ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRAhuicP6icN2Z3pOgn9vOQ9FhiaSYG6SfJTEpvjjS7cFyTpHr6pQzshPOwg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+   * 输入模式
+
+   如果用户要对文件做修改，则可以使用下面几种命令，进入输入模式，用户进入输入模式之后，可以任意修改文件，除了 Esc 键外，用户输入的任何字符都会被作为内容写入文件中，用户输入 Esc 可以对文件进行相关操作。
+
+   ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRA3IcL5vreJibBhZMJJk3dR43SKaiaC8LnCmIhCnCNeNgMXDDSNU2DfYmA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+   >  `i` 进入插入模式，在光标前插入文本。
+   >
+   >  `a` 进入插入模式，在光标后插入文本。
+   >
+   >  `o` 在当前行下方插入新行并进入插入模式。
+   >
+   >  `O` 在当前行上方插入新行并进入插入模式。
+
+   * 末行模式
+
+   如果用户完成编辑命令，则可以按照 esc + “:” 进入末行模式，用户可以对文件内容继续进行搜索，也可以输入 “:wq!” 进行文件保存并退出，或者输入 “:q!” 强制退出文件编辑。
+
+   ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRA1pv5MGYicSUfMnZkaTdTqvHAsuMZlSE25RkwqBGD9wH2KaPjm4h46Lg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+### 查找命令
+
+1. `find`命令
+
+   ![image-20221120203432544](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211202034929.png)
+
+2. `grep`命令
+
+   ![image-20221120203545011](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211202035320.png)
+   
+   常用参数：
+   
+   * `-i`忽略大小写，grep -i path /etc/profile
+   * `-n`显示行号，grep -i path /etc/profile
+   * `-v`只显示搜索文本不在的那些行，grep -v path /etc/profile
+   * `-r`递归查找，grep -r hello /etc，Linux 中还有一个 rgrep 命令，作用相当于grep -r
+
+### 进程操作命令
+
+1. ps
+   * 作用：查看 Linux 操作系统中正在运行的过程，并可以获得进程的 PID（进程的唯一标识），通过 PID 可以对进程进行相应的管理。
+   * 常用操作：
+     * `ps -ef | grep [进程关键字]`
+2. kill：当系统中有进程进入死循环，或者需要被关闭时，我们可以使用 kill 命令对其关闭
+
+### 软件安装命令
+
+具体参考：[软件安装](#install)
+
+软件安装方式（centOS为例）
+
+![image-20221118231233904](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211182312501.png)
+
+#### 常用软件安装示例
+
+1. jdk安装（解压方式）
+
+   ![image-20221119115218075](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353986.png)
+
+2. 安装tomcat（解压方式）
+
+   ![image-20221119122116054](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353978.png)
+
+   ![image-20221119122225352](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353642.png)
+
+3. 安装MySQL（rpm方式）
+
+   * 安装
+
+     ![image-20221119123637520](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353081.png)
+
+   * 卸载
+
+     ![image-20221119123756530](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353764.png)
+
+4. 安装lrzsz（yum方式）
+
+   ![image-20221119124107682](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353324.png)
+
+5. 安装docker
+
+   * 参考：[【精选】Docker安装(Alibaba Cloud Linux 3)_alibaba cloud linux docker-CSDN博客](https://blog.csdn.net/weixin_40750633/article/details/122412224)
+
+### 防火墙相关命令
+
+![image-20221119122455628](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211191353373.png)
+
+### <a id='userOperation'>用户操作命令</a>
+
+1. `su`
+
+   * 作用：切换用户
+   * 常用操作：`su[用户名]`和 `su -[用户名]`都可以切换用户，前者类似于临时切换用户，当使用该命令进行切换新用户时，用户配置仍然沿用原来的用户配置，如环境变量、系统变量等。而后者进行切换用户时，环境变量、系统设置全部切换成新用户的用户配置。
+
+2. `whoami`
+
+   * 作用：查看当前登录用户
+
+3. `hostname`：
+
+   * 作用：查看当前主机名
+
+4. `groups`
+
+   * 作用：查看当前登录yoghurt所属分组
+
+5. `id`
+
+   * 作用：查看当前用户UID和GID
+
+6. `useradd`
+
+   * 作用：添加新用户
+
+   * 语法：
+
+     ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRAAljfmvoqz0GlTTgRV6qopysxnicFibVrnxFr2pN2gproxnYiadaRicuSjQ/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+7. `password`
+
+   * 作用：修改用户密码
+
+   * 语法：
+
+     ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRATetM0PqJcdSFUnf5ibhgKt4jxGcnnibQkl3qBfqYL4EIHHWfqgItibIUg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+8. `userdel`
+
+   * 作用：删除用户
+
+   * 语法：
+
+     ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRAm4Ik1Wic2XtARX9MpxZJtJX8nACCyEfGSNo2clgCT9qFRxMMkj21VoA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+9. `usermod`
+
+   * 作用：修改用户信息
+
+   * 语法：
+
+     ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRAenicHeVwwKqSPO88vHnAhfZT7x9V7GINN5L8RgE6pf23RaOZ4Z76uLg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+   * 常用操作：
+
+     - 修改用户登录名：`usermod -l 新用户名 旧用户名`
+     - 修改用户所属分组：`usermod -g 新组名称 用户名`
+
+10. `groupadd`
+
+   * 作用：添加用户组
+
+   * 语法：
+
+     ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRAzRQWzicFTXjiayCTxsic2r3s9gjZr8BnibvwSODBicySnGCODwZJZ2pXV5w/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+   * 常用命令：
+
+     * 修改用户登陆名：`groupadd 组名`
+     * 修改用户所属分组：`groupadd -g 组 GID 组名`
+
+### 项目部署
+
+1. 手动部署
+
+   * 在后台运行java项目：`nohup java -jar jar-0.0.1-SNAPSHOT.jar &`
+
+2. shell脚本部署
+
+   ![image-20221120204540453](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211202045621.png)
+   
+3. hexo博客搭建
+
+   参考资料：
+
+   * hexo：https://hexo.io/zh-cn/
+   * [Hexo搭建个人博客](https://www.bilibili.com/video/BV1q741167PJ/?spm_id_from=333.1245.top_right_bar_window_history.content.click&vd_source=fabefd3fabfadb9324761989b55c26ea)
+   * https://blog.csdn.net/weixin_45561352/article/details/122109731
+
+   1. hexo搭建的博客基本目录
+
+      ~~~
+      .
+      ├── _config.yml # 网站配置
+      ├── package.json # 应用程序信息
+      ├── scaffolds # 模板文件夹
+      ├── source # 资源文件夹
+      |   ├── _drafts
+      |   └── _posts
+      └── themes # 主题文件夹
+      ~~~
+
+      > source文件夹中，除 _posts 文件夹之外，开头命名为 _ (下划线)的文件 / 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件夹，而其他文件会被拷贝过去。
+
+### <a id="caculater">计算命令</a>
+
+1. `expr`：expr是 evaluate expressions 的缩写，译为“求值表达式”。Shell expr 是一个功能强大，并且比较复杂的命令它除了可以实现整数计算，还可以结合一些选项对字符串进行处理，例如计算字符串长度、字符串比较、字符串匹配、字符串提取等。
+
+   * 语法
+
+     ~~~shell
+     # 计算
+     expr 算术运算符表达式
+     # 将计算结果赋值给变量,注意: 运算符表达式中每个数字与符号之间要有空格
+     res = `expr 算术运算符表达式`
+     
+     # 字符串长度：使用length参数获取字符串的长度。
+     expr length "hello"  # 输出：5
+     
+     # 子字符串提取：使用substr参数提取字符串的子串。
+     expr substr "hello world" 7 5  # 输出："world"
+     
+     # 字符串连接：使用冒号（:）将两个字符串连接起来。
+     expr "hello" : "he" : "llo"  # 输出："hello"
+     
+     # 字符串匹配：使用match参数检查字符串是否与指定模式匹配。
+     expr "hello world" : 'h.*d'  # 输出：1 (表示匹配成功)
+     
+     # 字符串替换：使用sub参数替换字符串中的模式。
+     expr "hello world" : 'h' : 'H'  # 输出："Hello world"
+     
+     # 字符串索引位置：使用index参数确定字符串中某个子串的位置。
+     expr index "hello" "e"  # 输出：2 (表示字母'e'在字符串中的位置)
+     ~~~
+   
+   > 在较新的Shell版本中，推荐使用更强大的字符串处理工具，如`bash`内置的字符串操作功能或`awk`命令来代替`expr`命令。
+   
+2. `let`：let 命令和双小括号(())在数字计算方面功能一样，但是没有(0)功能强大，let只能用于赋值计算，不能直接输出，不可以条件判断
+
+3. `bc`：Bash shel内置了对整数运算的支持，但是并不支持浮点运算，而 linux bc(basic calculator)命令可以很方便的进行浮点运算.bc命令是Linux简单的计算器,能进行进制转换与计算。能转换的进制包括十六进制、十进制、八进制、二进制等。可以使用的运算符号包括(+)加法、()减法、()乘法、(/除法、()指数、(%)余数等
+
+   以下是`bc`命令的一些常见用法：
+
+   1. 基本运算：`bc`可以执行基本的数学运算，包括加法、减法、乘法和除法。
+      ```shell
+      echo "2 + 3" | bc  # 输出：5
+      echo "5 - 2" | bc  # 输出：3
+      echo "2 * 3" | bc  # 输出：6
+      echo "10 / 3" | bc  # 输出：3 (整数除法)
+      echo "scale=2; 10 / 3" | bc  # 输出：3.33 (浮点数除法，设置小数位数为2)
+      ```
+
+   2. 变量赋值：`bc`允许使用变量进行计算，并可以在计算中使用这些变量。
+      ```shell
+      echo "a = 2; b = 3; a + b" | bc  # 输出：5
+      ```
+
+   3. 数学函数：`bc`提供了一些常见的数学函数，如平方根、指数函数、三角函数等。
+      ```shell
+      echo "sqrt(16)" | bc  # 输出：4 (平方根)
+      echo "e(1)" | bc  # 输出：2.718281828459045 (自然对数的底数)
+      echo "s(0)" | bc  # 输出：0 (正弦函数)
+      ```
+
+   4. 控制输出格式：`bc`可以通过设置输出格式来控制结果的显示方式。
+      ```shell
+      echo "scale=2; 10 / 3" | bc  # 输出：3.33 (设置小数位数为2)
+      ```
+
+   5. 文件操作：`bc`还可以从文件中读取计算表达式，并将结果输出到文件中。
+      ```shell
+      echo "2 + 3" > input.txt
+      bc < input.txt > output.txt
+      cat output.txt  # 输出：5
+      ```
+
+### 其他
+
+1. `clear`：清屏命令
+
+2. `which`：
+
+   * 作用：查看命令的可执行文件所在路径
+   * 说明：`Linux`下，每一条命令其实都对应一个可执行程序，在终端中输入命令，按回车的时候，就是执行了对应的那个程序，`which`命令本身对应的程序也存在于`Linux`中。总的来说一个命令就是一个可执行程序。
+
+3. `man`：查询命令详细参数
+
+4. `echo`：在终端上显示文本或变量的内容
+
+   * 语法：
+
+     ~~~shell
+     echo [选项] [字符串]
+     ~~~
+
+     > 另一个可用于终端打印的命令是printf。例如： printf "Hello world"
+
+   * 常见选项：
+     * `-n`：不输出结尾的换行符。
+     * `-e`：启用转义字符解析。
+
+   * 彩色输出
+
+     可以使用转义序列来实现在终端中生成彩色输出。 每种颜色都有对应的颜色码。比如：重置=0，黑色=30，红色=31，绿色=32，黄色=33，蓝 色=34，洋红=35，青色=36，白色=37。 要打印彩色文本，可输入如下命令： 
+
+     ~~~shell
+     echo -e "\e[1;31m This is red text \e[0m"  
+     ~~~
+
+     \e[1;31将颜色设为红色，\e[0m将颜色重新置回。只需要将31替换成想要的颜色码就可以了。 
+
+     要设置彩色背景，经常使用的颜色码是：重置=0，黑色=40，红色=41，绿色=42，黄色=43， 蓝色=44，洋红=45，青色=46，白色=47。 要打印彩色文本，可输入如下命令： 
+
+     ~~~shell
+     echo -e "\e[1;42m Green Background \e[0m"
+     ~~~
+
+   * 示例用法：
+
+     1. 显示文本：
+
+        ```shell
+        echo "Hello, World!"
+        ```
+
+        输出：`Hello, World!`
+
+     2. 显示变量的值：
+
+        ```shell
+        name="Alice"
+        echo "My name is $name"
+        ```
+
+        输出：`My name is Alice`
+
+     3. 不输出换行符：
+
+        ```shell
+        echo -n "Hello, "
+        echo "World!"
+        ```
+
+        输出：`Hello, World!`（不换行）
+
+     4. 使用转义字符：
+
+        ```shell
+        echo -e "Hello\tWorld\nGoodbye"
+        ```
+
+        输出：
+
+        ```
+        Hello    World
+        Goodbye
+        ```
+
+5. `read`：用于从终端读取用户输入的内置命令。它可以读取用户输入的文本，并将其存储到一个或多个变量中。
+
+   * 语法：
+
+     ~~~shell
+     read [选项] [变量]
+     ~~~
+
+   - 常见选项：
+
+     - `-p prompt`：显示提示信息并等待用户输入。
+     - `-t timeout`：设置超时时间，如果在指定时间内未输入，则终止读取。
+     - `-s`：静默模式，用户输入不会显示在终端上。
+     - `-n count`：读取固定数量的字符后立即返回。
+
+   - 示例用法：
+
+     1. 读取用户输入的文本：
+
+        ```
+        read name
+        echo "Hello, $name!"
+        ```
+
+        用户输入：`Alice`
+        输出：`Hello, Alice!`
+
+     2. 显示自定义提示信息并读取用户输入：
+
+        ```
+        read -p "请输入您的年龄：" age
+        echo "您的年龄是 $age 岁"
+        ```
+
+        用户输入：`25`
+        输出：`您的年龄是 25 岁`
+
+     3. 设置超时时间：
+
+        ```
+        if read -t 5 -p "请输入用户名：" username; then
+            echo "欢迎，$username!"
+        else
+            echo "超时，未输入用户名"
+        fi
+        ```
+
+        如果在 5 秒内未输入用户名，将输出：`超时，未输入用户名`
+
+     4. 静默模式读取密码：
+
+        ```
+        read -s -p "请输入密码：" password
+        echo
+        echo "您输入的密码是：$password"
+        ```
+
+        用户输入：`abc123`
+        输出：`您输入的密码是：abc123`
+
+6. `test`
+
+7. `wc`：用来对文本进行统计，包括单词个数、行数、字节数
+
+   * 语法：
+
+     ~~~shell
+     wc [option] 文件名
+     ~~~
+
+   * option选项：
+
+     | 选项 | 含义                  |
+     | ---- | --------------------- |
+     | `-c` | character，统计字节数 |
+     | `-w` | word，统计单词数      |
+     | `-l` | line，统计行数        |
+
+### man&help
+
+Linux 命令种类繁杂，我们凭借记忆不可能全部记住，因此学会查用手册是非常重要的。
+
+1. man手册种类
+
+   * 可执行程序或Shell命令；
+   * 系统调用（ Linux 内核提供的函数）；
+   * 库调用（程序库中的函数）；
+   * 文件（例如/etc/passwd）；
+   * 特殊文件（通常在/dev下）；
+   * 游戏；
+   * 杂项（man(7)，groff(7)）；
+   * 系统管理命令（通常只能被root用户使用）；
+   * 内核子程序。
+
+   > 输入 man + 数字 + 命令 / 函数，可以查到相关的命令和函数，若不加数字， man 默认从数字较小的手册中寻找相关命令和函数
+
+2. help
 
 ## 文件系统
 
+Linux中一切皆文件。
+
 1. 基本目录结构
 
-   > - `/var`：包含在正常操作中被改变的文件、假脱机文件、记录文件、加锁文件、临时文件和页格式化文件等。
-   > - `/home`：包含用户的文件：参数设置文件、个性化文件、文档、数据、EMALL、缓存数据等，每增加一个用户，系统就会根据其用户名在 home 目录下新建和其他用户同名的文件夹，用于保存其用户配置。
-   > - `/proc`：包含虚幻的文件，他们实际上并不存在于磁盘上，也不占用任何空间（用 ls-l 可以显示它们的大小）当查看这些文件时，实际上是在访问存在内存中的信息，这些信息用于访问系统。
-   > - `/bin`：包含系统启动时需要的执行文件（二进制），这些文件可以被普通用户使用。
-   > - `/etc`：为操作系统的配置文件目录（防火墙、启动项）
-   > - `/root`：为系统管理员（也叫超级用户或根用户）的 Home 目录。
-   > - `/dev`：为设备目录，Linux 下设备被当成文件，这样一来硬件被抽象化、便于读写、网络共享以及需要临时装载到文件系统中，正常情况下，设备会有一个独立的子目录，这些设备的内容会出现在独立的子目录下。
+   > Linux系统中的基本目录结构通常遵循Filesystem Hierarchy Standard（FHS）标准，这是一种用于定义Linux操作系统中文件和目录布局的约定。不同的Linux发行版可能会有一些细微的差异，但大多数情况下都会遵循类似的结构。
+
+   ~~~
+   /
+   ├── bin                 # 存放系统命令（二进制可执行文件）
+   ├── boot                # 存放系统启动时需要的文件，包括内核文件和引导加载程序
+   ├── dev                 # 存放设备文件，包括硬件设备和外部设备
+   ├── etc                 # 存放系统配置文件
+   ├── home                # 存放用户主目录
+   │   ├── user1           # 用户1的主目录
+   │   └── user2           # 用户2的主目录
+   ├── lib                 # 存放系统运行时需要的共享库文件
+   ├── media               # 自动挂载的可移动媒体设备的挂载点
+   ├── mnt                 # 临时挂载点，用于挂载额外的文件系统
+   ├── opt                 # 存放可选应用程序包
+   ├── proc                # 虚拟文件系统，包含系统信息
+   ├── root                # 超级用户（root）的主目录
+   ├── run                 # 存放运行时数据
+   ├── sbin                # 存放系统命令（二进制可执行文件），只能由root用户执行
+   ├── srv                 # 存放服务相关的数据
+   ├── sys                 # 虚拟文件系统，包含系统信息
+   ├── tmp                 # 存放临时文件
+   ├── usr                 # 存放用户和系统的应用程序和文件
+   │   ├── bin             # 用户和系统命令（二进制可执行文件）
+   │   ├── include         # C/C++头文件
+   │   ├── lib             # 存放用户和系统的共享库文件
+   │   ├── local           # 存放用户安装的本地软件
+   │   ├── sbin            # 用户和系统命令（二进制可执行文件），只能由root用户执行
+   │   └── share           # 存放共享数据
+   └── var                 # 存放系统和服务运行时需要的变量数据，例如日志文件和缓存
+       ├── cache           # 缓存文件
+       ├── lib             # 保存着状态信息
+       ├── log             # 存放系统日志文件
+       └── spool           # 存放应用程序的数据文件，比如邮件和打印队列
+   
+   ~~~
+   
+2. 挂载
+
+   * **文件系统**：文件系统是指用于在存储设备（如硬盘、SSD等）上组织和存储数据的结构和规则。它定义了文件和目录的布局方式，以及如何在存储设备上存储和检索数据。常见的文件系统包括Ext4、NTFS、FAT32等。
+   * **挂载点**：挂载点是文件系统在Linux系统中被安装（或挂载）到的位置。在Linux中，一切皆文件，包括硬盘、光盘、USB驱动器等存储设备也被视为文件。当你将一个存储设备连接到Linux系统时，你需要将其挂载到文件系统的某个目录下才能访问其中的数据。这个目录就是挂载点。例如，你可以将一个外部硬盘挂载到`/mnt/external_drive`目录下，这样就可以通过`/mnt/external_drive`来访问外部硬盘中的数据。
+   * **挂载过程**：挂载过程是将一个文件系统连接到文件系统目录树的过程。在Linux中，你可以使用`mount`命令来手动挂载一个文件系统，也可以通过编辑`/etc/fstab`文件实现开机自动挂载。当你挂载一个文件系统时，Linux系统会将该文件系统的根目录与挂载点建立关联，使得你可以通过挂载点来访问该文件系统中的数据。
+
+   假设你有一台运行Linux的计算机，上面有两块硬盘：一块是系统硬盘，另一块是外部硬盘。你想要将外部硬盘挂载到系统中，并在系统中访问外部硬盘中的数据。
+
+   1. **连接外部硬盘**：首先，你将外部硬盘连接到计算机上，这可以是通过USB接口连接的外部硬盘。当你插入外部硬盘时，Linux系统会检测到这个新的存储设备。
+   2. **查看存储设备**：接下来，你可以使用`lsblk`命令查看系统中的存储设备情况。这个命令会列出系统中的所有块设备（包括硬盘、分区等），以及它们之间的关系。
+   3. **选择挂载点**：在将外部硬盘挂载到系统中之前，你需要选择一个挂载点。挂载点通常是一个空目录，用于将外部硬盘的数据映射到系统中。你可以选择一个已经存在的目录，或者创建一个新的目录作为挂载点。例如，你可以在`/mnt`目录下创建一个名为`external_drive`的目录作为挂载点。
+
+   ```
+   bashCopy Codesudo mkdir /mnt/external_drive
+   ```
+
+   1. **挂载外部硬盘**：现在，你可以使用`mount`命令将外部硬盘挂载到刚刚创建的挂载点上。
+
+   ```
+   bashCopy Codesudo mount /dev/sdb1 /mnt/external_drive
+   ```
+
+   其中，`/dev/sdb1`是外部硬盘的设备文件，`/mnt/external_drive`是挂载点。
+
+   1. **访问外部硬盘数据**：一旦挂载完成，你就可以通过挂载点`/mnt/external_drive`来访问外部硬盘中的数据了。例如，你可以使用`ls`命令列出外部硬盘中的文件和目录。
+
+   ```
+   bashCopy Codels /mnt/external_drive
+   ```
+
+   通过这个例子，你可以理解挂载点的概念：挂载点是一个目录，用于将存储设备中的数据映射到Linux系统中，从而方便访问和管理这些数据。
 
 ### FHS
 
@@ -830,6 +965,16 @@ Alibaba Cloud Linux 2(原Aliyun Linux 2)是阿里云官方操作系统，为云�
 * [Linux Filesystem Hierarchy指南](https://www.pathname.com/fhs/)
 * 《鸟哥的Linux私房菜》第四版：陈嵩（鸟哥）著，详细介绍了Linux文件系统结构和基本命令等内容。
 * 《Understanding the Linux Kernel, 3rd Edition》：Daniel P. Bovet, Marco Cesati 著，这本书对Linux内核和文件系统有非常深入的讲解。
+
+### 链接文件
+
+参考：
+
+* https://mp.weixin.qq.com/s?__biz=MzIwNDQwMjIwNQ==&mid=2247483954&idx=1&sn=2fe835d6ca01817557e836bee6f157c5&chksm=96c1f940a1b6705655bc1cb58a2a0e4bdb0000f965a0b8b58a3ab5f27ebc1b6446a40d606011&scene=21#wechat_redirect
+
+1. 硬链接
+2. 软链接
+3. 链接创建（`ln`）
 
 ## 权限管理
 
@@ -923,7 +1068,7 @@ drwxr-xr-x 4 root root  4096 5月  18 23:44 project_management
 
        ![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbufEQTRibHEQJMC2IfHT3YmRAlGK1zvGzibmnP92LLEibGhcZyjBGInDANKsQeKhMxicOUrvqB0uIS9iaIw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 
-     * 参数：chmod 的参数可以分为两种，分别是权限模式和数字模式。**权限模式**使用 u、g、o 分别代表拥有者、同组用户、其他组用户，使用 + 和一代表赋予和收回权限，使用 r、w、x 代表读、写、执行权限。为了简化授权步骤，用户也可以采用**数字模式**进行授权，使用二进制的形式代表 r、w、x 三种权限，如 `101 (5) =r -x`，`111 (7) =rwx`，`100 (3) =r- -`。
+     * 参数：chmod 的参数可以分为两种，分别是权限模式和数字模式。**权限模式**使用 `u`、`g`、`o`、`a` 分别代表拥有者、同组用户、其他组用户、全部用户，使用 `+ `和`-`代表赋予和收回权限，使用 r、w、x 代表读、写、执行权限。为了简化授权步骤，用户也可以采用**数字模式**进行授权，使用二进制的形式代表 r、w、x 三种权限，如 `101 (5) =r -x`，`111 (7) =rwx`，`100 (3) =r- -`。
 
        ~~~shell
        chmod -r U+X,G+W F01
@@ -936,9 +1081,13 @@ drwxr-xr-x 4 root root  4096 5月  18 23:44 project_management
 
 ## <a id="install">软件安装</a>
 
+Linux 下软件是以包的形式存在，一个软件包其实就是软件的所有文件的压缩包，是二进制的形式，包含了安装软件的所有指令。Red Hat 家族的软件包后缀名一般为 .rpm ， Debian 家族的软件包后缀是 .deb 。
+
 在Linux系统上安装软件时，通常有以下几种方式：
 
-* 使用软件包管理器（如yum、apt、dnf）：不同的发行版可能会使用不同的软件包管理器，例如，基于Debian的发行版（如Ubuntu）通常使用apt作为软件包管理器，而基于Red Hat的发行版（如CentOS、Fedora）则使用yum或dnf。
+* 使用软件包管理器（如yum、apt、dnf）：Linux 的包都存在一个仓库，叫做软件仓库，可以理解成 Node.js 的 npm 。不同的发行版可能会使用不同的软件包管理器，例如，
+  * 基于Debian的发行版（如Ubuntu）通常使用apt作为软件包管理器
+  * 基于Red Hat的发行版（如CentOS、Fedora）则使用yum或dnf。
 * 手动编译源代码安装程序
 * 使用容器技术（如Docker）
 
@@ -1044,6 +1193,7 @@ drwxr-xr-x 4 root root  4096 5月  18 23:44 project_management
    * yum install
    * yum remove
    * yum源配置
+3. 源配置
 
 #### dnf
 
@@ -1055,6 +1205,11 @@ drwxr-xr-x 4 root root  4096 5月  18 23:44 project_management
 ### apt
 
 ### wegt
+
+参考：
+
+* http://wget.addictivecode.org/
+* https://blog.csdn.net/freeking101/article/details/53691481/
 
 ## 连接Linux
 
@@ -1105,6 +1260,44 @@ drwxr-xr-x 4 root root  4096 5月  18 23:44 project_management
 参考：https://blog.csdn.net/weixin_46005650/article/details/124054028
 
 ### Vscode连接Linux
+
+## 进程管理
+
+## 磁盘管理
+
+## 系统配置
+
+### 防火墙
+
+### service服务管理
+
+### 日志管理
+
+# 服务器
+
+## 历史演变
+
+* 1946~1954 电子管时代（ENIAC，IBM）
+* 1954~1964 晶体管时代
+* 1970~至今
+
+## 核心硬件
+
+服务器和普通的PC一样，核心硬件主要包括四大件：
+
+* CPU
+* 内存
+* 硬盘
+* 网卡
+
+因为通常服务器是集群部署的，因此除此之外还有其他的一套硬件设备来保障服务器的正常运转，通常包括：
+
+* 网络系统
+* 监控系统
+* 控温系统
+* 供电系统
+
+## 云服务器（虚拟服务器）
 
 # Shell
 
@@ -1184,8 +1377,21 @@ drwxr-xr-x 4 root root  4096 5月  18 23:44 project_management
 
    * [Linux系统命令提示符更改颜色](https://www.cnblogs.com/pyng/p/17572094.html)
 
+   ~~~shell
+[root@iZm5e8dsxce9ufaic7hi3uZ ~]# pwd  
+   ~~~
+   
+   解析：
+   
+   * root：表示用户名；
+   * iZm5e8dsxce9ufaic7hi3uZ：表示主机名；
+   * ~：表示目前所在目录为家目录，其中root用户的家目录是 /root普通用户的家目录在 /home 下；
+   * #：指示你所具有的权限（root用户为# ，普通用户为$ ）。
+   * 执行whoami命令可以查看当前用户名；
+   * 执行hostname命令可以查看当前主机名；
+   
    自定义示例：
-
+   
    ~~~shell
    # 自定义终端命令提示符格式
    # 设置颜色代码
@@ -2025,7 +2231,7 @@ Shell 支持数组 (Array)，组是若干数据的集合，其中的每一份数
 
    `curl` 命令用于在终端中进行网络请求。最简单的使用方式是通过指定 URL 来获取该地址的内容。
 
-### 学习案例
+## 学习案例
 
 * [shell脚本一天一练](https://www.bilibili.com/video/BV1ih4y1Y7nh/?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=fabefd3fabfadb9324761989b55c26ea)
 
@@ -2039,7 +2245,23 @@ Shell 支持数组 (Array)，组是若干数据的集合，其中的每一份数
 8. 批量生成文件名
 9. 批量改名
 
+# Linux内核
+
 # 资源&路线&工具
+
+## 参考资料
+
+* https://www.bilibili.com/video/BV1WY4y1H7d3?p=12&vd_source=fabefd3fabfadb9324761989b55c26ea
+* https://developer.aliyun.com/graph/linux?spm=a2c6h.21110250.J_3487140370.5.31583789uLfplz
+* https://developer.aliyun.com/learning/roadmap/linux
+* https://blog.csdn.net/bigbangbangbang1/article/details/131575669
+* https://www.runoob.com/linux/linux-yum.html
+* Linux 基础教程和文档：Linux Documentation Project ([www.tldp.org](http://www.tldp.org/)) 提供了丰富的Linux教程和文档资源。
+* Linux 命令行教程：Linux Journey ([linuxjourney.com](http://linuxjourney.com/)) 是一个交互式的命令行学习平台，提供从入门到进阶的教程。
+* Shell 脚本编程：《Shell脚本学习指南》(Bash Guide for Beginners) 是一本免费的Shell脚本编程指南，适合入门学习。
+* Linux 系统管理和性能调优：《Linux性能优化实战》(Linux Performance Optimization) 是一本介绍Linux性能调优的实战指南。
+* 容器和虚拟化：Docker官方文档 ([docs.docker.com](http://docs.docker.com/)) 提供了全面的Docker学习资源，包括入门指南、教程和最佳实践等。
+* 自动化工具：Ansible官方文档 ([docs.ansible.com](http://docs.ansible.com/)) 提供了详细的Ansible学习资源，包括教程、模块文档和示例等。
 
 ## <a id="terminal">远程连接工具</a>
 
@@ -2049,15 +2271,16 @@ Shell 支持数组 (Array)，组是若干数据的集合，其中的每一份数
 
 1. XShell
 
-2. MobaXterm
+2. **MobaXterm**
 
    官网：https://mobaxterm.mobatek.net/
 
    使用参考：
 
    * https://www.bilibili.com/video/BV1ze41157SP/?spm_id_from=333.337.search-card.all.click&vd_source=fabefd3fabfadb9324761989b55c26ea
+   * https://blog.csdn.net/qq_29407397/article/details/129039407
 
-3. FinalShell
+3. **FinalShell**
 
    使用参考：
 
@@ -2067,15 +2290,17 @@ Shell 支持数组 (Array)，组是若干数据的集合，其中的每一份数
 
 5. Putty
 
-## 宝塔面板
+## 管理工具
+
+### 宝塔面板
 
 官网：[宝塔面板 - 简单好用的Linux/Windows服务器运维管理面板 (bt.cn)](https://www.bt.cn/new/index.html)
 
-## 1Panel
+### 1Panel
 
 GitHub地址：https://link.zhihu.com/?target=https%3A//github.com/1Panel-dev/1Panel
 
-## <a id = "ohmyzsh">Oh My Zsh</a>
+### <a id = "ohmyzsh">Oh My Zsh</a>
 
 * [Oh My Zsh, 『 安装 & 配置 』](https://zhuanlan.zhihu.com/p/35283688)
 
@@ -2109,12 +2334,3 @@ GitHub地址：https://link.zhihu.com/?target=https%3A//github.com/1Panel-dev/1P
    - 掌握虚拟化技术，例如KVM，了解虚拟机的创建和管理。
 6. 自动化工具：
    - 学习常用的自动化工具，例如Ansible、Puppet或Chef，用于配置管理和部署自动化。
-
-优质学习资源推荐：
-
-- Linux 基础教程和文档：Linux Documentation Project ([www.tldp.org](http://www.tldp.org/)) 提供了丰富的Linux教程和文档资源。
-- Linux 命令行教程：Linux Journey ([linuxjourney.com](http://linuxjourney.com/)) 是一个交互式的命令行学习平台，提供从入门到进阶的教程。
-- Shell 脚本编程：《Shell脚本学习指南》(Bash Guide for Beginners) 是一本免费的Shell脚本编程指南，适合入门学习。
-- Linux 系统管理和性能调优：《Linux性能优化实战》(Linux Performance Optimization) 是一本介绍Linux性能调优的实战指南。
-- 容器和虚拟化：Docker官方文档 ([docs.docker.com](http://docs.docker.com/)) 提供了全面的Docker学习资源，包括入门指南、教程和最佳实践等。
-- 自动化工具：Ansible官方文档 ([docs.ansible.com](http://docs.ansible.com/)) 提供了详细的Ansible学习资源，包括教程、模块文档和示例等。
