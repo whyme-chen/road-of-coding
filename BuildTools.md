@@ -601,7 +601,7 @@ project
 
 参考：
 
-* [Gradle User Manual](https://docs.gradle.org/8.6/userguide/userguide.html)
+* [Gradle User Manual](https://docs.gradle.org/8.6/userguide/userguide.html)&[安装 Gradle_Gradle中文网 (github.net.cn)](https://gradle.github.net.cn/userguide/installation.html#ex-installing-manually)
 * https://www.bilibili.com/video/BV1yT41137Y7/?p=1
 * [gradle使用教程，小白一篇就够](https://blog.csdn.net/hai411741962/article/details/133068125)
 
@@ -617,6 +617,8 @@ project
    * 学习成本高、资料少、脚本灵活、版本兼容性差等。
 
 ## 安装
+
+参考：[Gradle安装与配置教程（Windows版） - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/626806226)
 
 1. 安装jdk
 2. 下载并解压gradle
