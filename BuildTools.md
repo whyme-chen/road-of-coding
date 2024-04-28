@@ -815,9 +815,15 @@ gradle [taskName...] [--option-name...]
 
 ## 任务
 
-1， 任务：表示构建执行的一些独立的工作单元，例如编译类、创建JAR、生成Javadoc或将存档发布到存储库。
+1， 任务：表示构建执行的一些独立的工作单元，例如编译类、创建JAR、生成Javadoc或将存档发布到存储库。任务间可以相互依赖。
 
 ## 插件
+
+1. 作用：应用到Gradle构建脚本中，以添加新的任务、配置或其他与构建相关的功能:
+2. 常用插件
+   * **Core plugins** - Gradle develops and maintains a set of [Core Plugins](https://docs.gradle.org/current/userguide/plugin_reference.html#plugin_reference).
+   * **Community plugins** - Gradle’s community shares plugins via the [Gradle Plugin Portal](https://plugins.gradle.org/).
+   * **Local plugins** - Gradle enables users to create custom plugins using [APIs](https://docs.gradle.org/current/javadoc/org/gradle/api/Plugin.html).
 
 ## 项目部署
 
