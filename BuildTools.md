@@ -1,11 +1,3 @@
-项目的构建经历了三个时代：
-
-* Apache Ant（2000 年左右）
-* Maven（2004年）
-* Gradle（2012 年左右），Gradle 相比于 Maven 配置更加简单、性能更高、用户体验更好（IDE 支持代码提示）。
-
-![image-20240324213933631](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202403242139828.png)
-
 构建是指将源代码转换为可执行软件的过程。构建工具的作用在于自动化和简化这一过程，使得开发人员能够更加高效地进行软件构建、测试和部署。
 
 构建工具通常会执行以下任务：
@@ -17,6 +9,14 @@
 5. **文档生成**：根据代码中的注释生成项目文档，方便团队成员理解和使用代码。
 6. **静态代码分析**：对代码进行静态分析，寻找潜在的问题和优化点。
 7. **发布部署**：将构建好的软件发布到指定的环境中，可以是测试环境、预生产环境或者生产环境。
+
+项目的构建经历了三个时代：
+
+* Apache Ant（2000 年左右）
+* Maven（2004年）
+* Gradle（2012 年左右），Gradle 相比于 Maven 配置更加简单、性能更高、用户体验更好（IDE 支持代码提示）。
+
+![image-20240324213933631](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202403242139828.png)
 
 +++
 
@@ -615,6 +615,15 @@ project
 
    * 集 Ant 脚本的灵活性+Maven 约定大于配置的项目目录优势,支持多种远程仓库和插件,侧重于大项目构建。
    * 学习成本高、资料少、脚本灵活、版本兼容性差等。
+   
+3. 基本概念
+
+   ![gradle basic 1](https://docs.gradle.org/current/userguide/img/gradle-basic-1.png)
+
+   * 项目
+   * 构建脚本（`build.gradle`）
+   * 任务：一个基本的工作单元，例如编译代码或运行测试。
+   * 插件：Gradle中的插件是一种扩展机制，允许您在构建过程中引入额外的功能或任务。它们通常用于将常见任务封装为可重用的组件，或者用于添加特定领域的功能，如Android应用程序开发或Java库构建。
 
 ## 安装
 
@@ -645,20 +654,7 @@ gradle项目可以通过多种方式创建
 * 借助Spring官网创建（https://start.spring.io/）
 * 使用命令行`gradle init`命令创建
 
-## 常用命令
-
-1. **gradle build**：执行项目的构建过程，包括编译源代码、运行单元测试、打包生成可执行文件等。
-2. **gradle clean**：清理项目构建过程中生成的临时文件和输出文件，以便重新开始新的构建。
-3. **gradle tasks**：列出项目中所有可执行的任务，包括默认任务和自定义任务，以方便查看可执行的任务列表。
-4. **gradle dependencies**：显示项目的依赖关系，包括外部库和模块之间的依赖关系。
-5. **gradle test**：运行项目中的测试用例，检查代码的正确性和稳定性。
-6. **gradle run**：运行项目的主类或指定的 Java 应用程序，用于快速启动项目并进行调试。
-7. **gradle help**：获取帮助信息，显示 Gradle 命令的用法和选项说明。
-8. **gradle wrapper**：生成 Gradle Wrapper 文件，用于在没有预先安装 Gradle 的环境中构建项目。
-9. **gradle eclipse**：生成 Eclipse 项目文件，用于导入 Gradle 项目到 Eclipse IDE 中进行开发。
-10. **gradle idea**：生成 IntelliJ IDEA 项目文件，用于导入 Gradle 项目到 IntelliJ IDEA IDE 中进行开发。
-
-## Wrapper包装器
+## Wrapper
 
 1. 作用：Gradle Wrapper 实际上就是对 Gradle的一层包装,用于解决实际开发中可能会遇到的不同的项目需要不同版本的 Gradle问题。例如：把自己的代码共享给其他人使用，可能出现如下情况:
 
@@ -667,8 +663,8 @@ gradle项目可以通过多种方式创建
 
    这时候，我们就可以考虑使用 Gradle Wrapper 了。这也是官方建议使用 Gradle Wrapper 的原因。实际上有了 GradleWrapper 之后，我们本地是可以不配置 Gradle的,下载 Gradle项目后，使用 gradle项目自带的 wrapper 操作也是可以的。
 
-2. 使用 Gradle
-   项目中的gradlew、gradlew.cmd脚本用的就是wrapper中规定的gradle版本。而我们上面提到的gradle指令用的是本地gradle，所以gradle指令和gradlew指令所使用的gradle版本有可能是不一样的gradlew，gradlew.cmd的使用方式与gradle使用方式完全一致。只不过把gradle指令换成了gradlew指令。
+2. 使用 Gradle wrapper
+   项目中的`gradlew`、`gradlew.cmd`脚本用的就是wrapper中规定的gradle版本。而我们上面提到的gradle指令用的是本地gradle，所以gradle指令和gradlew指令所使用的gradle版本有可能是不一样的，`gradlew`，`gradlew.cmd`的使用方式与gradle使用方式完全一致。只不过把gradle指令换成了gradlew指令。
 
 3. gradkew 指令参数：
 
@@ -704,6 +700,124 @@ gradle项目可以通过多种方式创建
 
    * 新建一个新项目时:使用gradle指令即可
    * 下载别人的项目或者使用操作以前自己写的不同版本的gxadle项目时:用Gradle wrapper,也即:gradlew
+
+## 常用命令
+
+命令格式：
+
+```shell
+gradle [taskName...] [--option-name...]
+```
+
+1. **gradle build**：执行项目的构建过程，包括编译源代码、运行单元测试、打包生成可执行文件等。
+2. **gradle clean**：清理项目构建过程中生成的临时文件和输出文件，以便重新开始新的构建。
+3. **gradle tasks**：列出项目中所有可执行的任务，包括默认任务和自定义任务，以方便查看可执行的任务列表。
+4. **gradle dependencies**：显示项目的依赖关系，包括外部库和模块之间的依赖关系。
+5. **gradle test**：运行项目中的测试用例，检查代码的正确性和稳定性。
+6. **gradle run**：运行项目的主类或指定的 Java 应用程序，用于快速启动项目并进行调试。
+7. **gradle help**：获取帮助信息，显示 Gradle 命令的用法和选项说明。
+8. **gradle wrapper**：生成 Gradle Wrapper 文件，用于在没有预先安装 Gradle 的环境中构建项目。
+9. **gradle eclipse**：生成 Eclipse 项目文件，用于导入 Gradle 项目到 Eclipse IDE 中进行开发。
+10. **gradle idea**：生成 IntelliJ IDEA 项目文件，用于导入 Gradle 项目到 IntelliJ IDEA IDE 中进行开发。
+
+## 脚本文件
+
+### `settings.gradle`
+
+1. 主要作用：
+
+   * 管理子项目，对于单项目构建，设置文件是可选的。对于多项目构建，设置文件是强制性的，并声明所有子项目。
+   * 管理项目的一些基本信息
+
+2. 配置内容：支持groovy和kotlin语言进行编写
+
+   ~~~groovy
+   rootProject.name = 'root-project'   
+   
+   include('sub-project-a')            
+   include('sub-project-b')
+   include('sub-project-c')
+   ~~~
+
+### `build.gradle`
+
+1. 作用：细描述了构建配置、任务和插件
+
+2. 内容：常用的包括插件的使用，依赖管理（本项目依赖的jar包，插件，库和源代码，主要分为Gradle和构建脚本依赖的库和/或插件，项目源(即源代码)所依赖的库两部分）
+
+   * **repositories（仓库）**：
+     - 作用：定义了项目所需的依赖项存储位置。
+     - 使用：您可以指定从哪些仓库下载依赖项，例如Maven中央仓库、本地文件系统或自定义的远程仓库。
+   * **dependencies（依赖项）**：
+     - 作用：定义了项目所需的外部依赖项。
+     - 使用：您可以指定项目所需的各种依赖项，包括库、框架和其他项目。
+     - 配置项：
+       - **implementation（实现）**：
+         - 作用：指定项目的主要依赖项，这些依赖项会被传递到项目的编译路径中。
+         - 使用：通常用于指定项目的核心依赖，如库、框架等。
+       - **api**：
+         - 作用：与`implementation`类似，指定项目的主要依赖项，但这些依赖项会被传递到依赖该项目的其他模块中。
+         - 使用：适用于构建库或框架时，希望将依赖项暴露给其他模块使用。
+       - **compileOnly**：
+         - 作用：指定在编译时需要依赖的项，但在运行时不需要。
+         - 使用：通常用于编译期间需要使用但不需要打包到最终产物中的依赖，例如编译时需要的API或接口。
+       - **runtimeOnly**：
+         - 作用：指定只在运行时需要的依赖项，这些依赖项不会被传递到编译路径中。
+         - 使用：适用于仅在运行时需要使用的依赖，例如运行时需要的数据库驱动。
+       - **testImplementation**：
+         - 作用：指定测试代码所需的依赖项，这些依赖项只会在测试编译和执行过程中使用。
+         - 使用：用于指定测试时需要的库或框架。
+       - **androidTestImplementation**（适用于Android项目）：
+         - 作用：指定Android项目中的UI测试所需的依赖项。
+         - 使用：用于指定在运行Android UI测试时所需的库或框架。
+   * **plugins（插件）**：
+     - 作用：定义了项目中使用的Gradle插件。
+     - 使用：您可以在这里声明您需要使用的插件，并指定其版本和其他相关配置。
+   * **sourceSets（源集）**：
+     - 作用：定义了项目源代码的布局和结构。
+     - 使用：您可以在这里指定不同的源代码集合，例如主源代码、测试代码等，并配置它们的路径和文件夹结构。
+   * **tasks（任务）**：
+     - 作用：定义了项目中可执行的任务。
+     - 使用：您可以在这里声明和配置各种任务，例如编译代码、运行测试、打包应用程序等。
+   * **buildScript（构建脚本）**：
+     - 作用：定义了项目构建过程中使用的Gradle构建脚本。
+     - 使用：您可以在这里配置构建脚本的参数和行为，例如依赖项的管理和版本控制。
+   * **publishing（发布）**：
+     - 作用：定义了项目的发布配置。
+     - 使用：您可以在这里配置项目的发布方式和目标，例如将构建产物发布到远程仓库。
+   * **buildTypes（构建类型）**（主要用于Android项目）：
+     - 作用：定义了不同构建类型的配置。
+     - 使用：您可以在这里指定不同构建类型的参数和行为，例如Debug构建和Release构建。
+
+   ~~~groovy
+   plugins {
+       // 添加插件application
+       id 'application'                
+   }
+   
+   // 定义插件application中的约定属性
+   application {
+       mainClass = 'com.example.Main'  
+   }
+   
+   dependencies {
+       // Dependency on a remote binary to compile and run the code
+       implementation(libs.googleMaterial)    
+   
+       // Dependency on a remote binary to compile and run the test code
+       testImplementation(libs.mockitoCore)   
+   }
+   ~~~
+
+### `libs.versions.toml`
+
+1. 位置：`gradle\libs.versions.toml`
+
+## 任务
+
+1， 任务：表示构建执行的一些独立的工作单元，例如编译类、创建JAR、生成Javadoc或将存档发布到存储库。
+
+## 插件
 
 ## 项目部署
 
@@ -766,7 +880,5 @@ Gradle DSL 提供了灵活、强大的方式来管理项目的构建过程，并
 * **依赖声明:声明项目中需要哪些依赖
   **
 * **自定义任务(可选):自定义一些任务**
-
-## 配置文件
 
 ## IDEA整合
