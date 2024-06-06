@@ -825,6 +825,8 @@ gradle [taskName...] [--option-name...]
    * **Community plugins** - Gradle’s community shares plugins via the [Gradle Plugin Portal](https://plugins.gradle.org/).
    * **Local plugins** - Gradle enables users to create custom plugins using [APIs](https://docs.gradle.org/current/javadoc/org/gradle/api/Plugin.html).
 
+### 自定义插件
+
 ## 项目部署
 
 ### 基本部署

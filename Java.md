@@ -69,7 +69,7 @@ java技术体系：JVM、java类库、java框架（Spring、Mybatis ...）
      * 如果有必要，在概要之后提供更详细的描述。
      * 使用 `@author` 标签指定作者的姓名。
      * 使用 `@version` 标签指定版本信息。
-  
+   
      ~~~java
      /**
       * 描述类、接口或枚举的功能。
@@ -91,7 +91,7 @@ java技术体系：JVM、java类库、java框架（Spring、Mybatis ...）
      * 对于每个参数，使用 `@param` 标签指定参数名称和描述。
      * 使用 `@return` 标签指定方法的返回值描述。
      * 使用 `@throws` 标签指定可能抛出的异常及其描述。
-  
+   
      ~~~java
      /**
       * 描述方法的功能。
@@ -109,7 +109,7 @@ java技术体系：JVM、java类库、java框架（Spring、Mybatis ...）
    * 字段和常量的注释：
      * 使用单行注释 `//` 或多行注释 `/* ... */` 格式。
      * 在注释中描述该字段或常量的作用。
-  
+   
      ~~~java
      public class MyClass {
          /**
@@ -127,7 +127,7 @@ java技术体系：JVM、java类库、java框架（Spring、Mybatis ...）
    * 引用其他类或方法：
      
   * 使用 `{@link}` 或`{@linkplain}`标签来引用其他类、方法、变量等。@link用于创建超链接并显示链接的文本，而@linkplain用于创建链接并显示自定义的文本。@link还可以与@since和@version一起使用来指定链接的版本信息。
-     
+    
      ~~~java
      /**
       * 引用其他类：{@link OtherClass}
@@ -138,7 +138,7 @@ java技术体系：JVM、java类库、java框架（Spring、Mybatis ...）
          // ...
      }
      ~~~
-   
+
 
 
 ### 关键字
@@ -674,6 +674,8 @@ Runtime描述的是运行时的状态，也就是说在整个JVM中，Runtime类
 参考文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/System.html
 
 ### Cleaner类
+
+### Arrays
 
 ### 日期与时间相关类
 
@@ -7284,8 +7286,9 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
      * 如果没有找到与该类型匹配的依赖项，则会抛出异常。
      
      
+
    ![image-20230212161016594](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121610133.png)
-   
+
    * @PropertySource：加载properties文件
      
      ![image-20230212161527968](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121615596.png)
@@ -7715,6 +7718,14 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
    > 4. 执行数据库操作
 
 3. 常用操作
+
+## Spring Event
+
+Spring Event是Spring的事件通知机制，可以将相互耦合的代码解耦，从而方便功能的修改与添加。Spring Event是监听者模式的一个具体实现。
+
+监听者模式包含了监听者Listener、事件Event、事件发布者EventPublish，过程就是EventPublish发布一个事件，被监听者捕获到，然后执行事件相应的方法。
+
+Spring Event的相关API在spring-context包中。
 
 # Spring MVC
 
@@ -9113,8 +9124,33 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
      * 导入配置类
      * 导入ImportSelector接口实现类
      * 导入ImportBeanDefinitionRegister接口的实现类
+   
+3. @ConditionalOnClass&@ConditionOnBean等条件依赖注解
+
+   用于在特定条件下加载或不加载一个Bean或一个配置类。
+
+   `@ConditionalOnClass`: 这个注解用于指定只有在**类路径下存在指定的类**时才会创建被注解的Bean或配置类。如果类路径中不存在指定的类，则不会创建。
+
+   `@ConditionalOnBean`: 这个注解用于指定只有在**Spring容器中存在指定的Bean**时才会创建被注解的Bean或配置类。如果Spring容器中不存在指定的Bean，则不会创建。
+
+   常见的条件依赖注解有：
+
+   | 注解                            | 功能说明                                             |
+   | ------------------------------- | ---------------------------------------------------- |
+   | @ConditionalOnBean              | 仅在当前上下文中存在某个bean时，才会实例化这个Bean   |
+   | @ConditionalOnClass             | 某个class位于类路径上，才会实例化这个Bean            |
+   | @ConditionalOnExpression        | 当表达式为true的时候，才会实例化这个Bean             |
+   | @ConditionalOnMissingBean       | 仅在当前上下文中不存在某个bean时，才会实例化这个Bean |
+   | @ConditionalOnMissingClass      | 某个class在类路径上不存在的时候，才会实例化这个Bean  |
+   | @ConditionalOnNotWebApplication | 不是web应用时才会实例化这个Bean                      |
+   | @AutoConfigureAfter             | 在某个bean完成自动配置后实例化这个bean               |
+   | @AutoConfigureBefore            | 在某个bean完成自动配置前实例化这个bean               |
 
 ## 应用
+
+参考：
+
+* https://gitee.com/BiMon/spring-boot-demo
 
 ### 导入导出Excel
 
@@ -9944,9 +9980,36 @@ Spring Boot 选用 SLF4J + Logback 的组合来搭建日志系统。
 
 ## 原理分析
 
-### 自动配置
+### 自定义starter
 
-#### Bean的加载方式和加载控制
+Spring Boot大大简化了项目初始搭建以及开发过程，而这些都是通过Spring Boot提供的starter来完成的。
+
+spring boot 在配置上相比spring要简单许多, 其核心在于spring-boot-starter, 在使用spring boot来搭建一个项目时, 只需要引入官方提供的starter, 就可以直接使用, 免去了各种配置。starter简单来讲就是引入了一些相关依赖和一些初始化的配置。
+
+Spring官方提供了很多starter，第三方也可以定义starter。为了加以区分，starter从名称上进行了如下规范：
+
+* Spring官方提供的starter名称为：spring-boot-starter-xxx，例如Spring官方提供的spring-boot-starter-web
+* 第三方提供的starter名称为：xxx-spring-boot-starter，例如由mybatis提供的mybatis-spring-boot-starter
+
+Spring Boot之所以能够帮我们简化项目的搭建和开发过程，主要是基于它提供的**起步依赖**和**自动配置**。
+
+#### 起步依赖
+
+将具备某种功能的坐标打包到一起，可以简化依赖导入的过程。例如，我们导入spring-boot-starter-web这个starter，则和web开发相关的jar包都一起导入到项目中了。
+
+#### 自动配置
+
+自动配置，就是无须手动配置xml，自动配置并管理bean，可以简化开发过程。
+
+Spring Boot自动配置涉及到如下几个关键步骤：
+
+* 基于Java代码的Bean配置
+* 自动配置条件依赖
+* Bean参数获取：创建配置文件并配置相关属性
+* Bean的发现：通过**@EnableAutoConfiguration，借助**@**Import**的支持，收集和注册依赖包中相关的bean定义
+* Bean的加载：通过上述自动配置注解从jar包中读取META-INF/spring.factories
+
+##### Bean的加载方式和加载控制
 
 1. bean的加载
 
@@ -9974,37 +10037,11 @@ Spring Boot 选用 SLF4J + Logback 的组合来搭建日志系统。
 
 3. bean的控制
 
-#### Bean的依赖属性配置
+##### Bean的依赖属性配置
 
-#### 自动配置原理
+##### 自动配置原理
 
-#### 变更自动配置
-
-### 自定义starter
-
-# Nginx
-
-学习参考：[黑马程序员Nginx教程](https://www.bilibili.com/video/BV1ov41187bq/?vd_source=fabefd3fabfadb9324761989b55c26ea)
-
-## 概述
-
-```
-Nginx是一款高性能的http 服务器/反向代理服务器及电子邮件( IMAP/POP3)代理服务器。由俄罗斯的程序设计师伊戈尔.西索夫(Igor Sysoev)所开发，官方测试nginx 能够支支撑5万并发链接，并且cpu、 内存等资源消耗却非常低，运行非常稳定。
-```
-
-1. 应用场景
-   * http 服务器。Nginx是一个http服务可以独立提供http 服务。可以做网页静态服
-   * 虚拟主机。可以实现在一台服务器虚拟出多个网站。例如个人网站使用的虚拟主机。
-   * 反向代理，负载均衡。当网站的访问量达到一定程度后，单台服务器不能满足用户的请求时，需要用多台服务器集群可以使用nginx 做反向代理。并且多台服务器可以平均分担负载，不会因为某台服务器负载高宕机而某台服务器闲置的情况。
-2. 下载与安装
-
-## 功能
-
-### 静态资源部署
-
-### 虚拟主机
-
-### 反向代理
+##### 变更自动配置
 
 # 日志系统
 
@@ -10281,21 +10318,146 @@ Nginx是一款高性能的http 服务器/反向代理服务器及电子邮件( I
    </dependency>
    ~~~
 
-4. 配置
+   配置相关信息，如日志类型，级别等。logback会依次读取以下名字和类型配置文件：
 
-   logback会依次读取以下类型配置文件：
+   * 类路径下logback-test.xml
+   * 类路径下logback.groovy
+   * 类路径下logback.xml 
+   * 类路径下寻找文件META-INFO/services/ch.qos.logback.classic.spi.Configurator，该文件的内容为实现了Configurator接口的实现类的全限定类名
+   * 如果以上都没有成功，logback会通过BasicConfigurator为自己进行配置（即采用默认配置），并且日志将会全部在控制台打印出来
 
-   * logback.groovy
-   * logback-test.xml
-   * logback.xml 
+4. 三类组件：
 
-   如果均不存在会采用默认配置。
+   * Logger：日志的记录器，把它关联到应用的对应的context后，主要用于存放日志对象，也可以定义日志类型、级别。各个logger 都被关联到一个 LoggerContext，LoggerContext负责制造logger，也负责以树结构排列各 logger。一个 Logger 被当作为一个实体，它们的命名是大小写敏感的，并且遵循以下规则：
 
-   logback有如下三类组件：
+     如果一个logger的名字加上一个.作为另一个logger名字的前缀，那么该logger就是另一个logger的祖先。如果一个logger与另一个logger之间没有其它的logger，则该logger就是另一个logger的父级。
 
-   * Logger:日志的记录器，把它关联到应用的对应的context上后，主要用于存放日志对象，也可以定义日志类型、级别。
-   * Appender:用于指定日志输出的目的地，目的地可以是控制台、文件、数据库等等。
-   * Layout:负责把事件转换成字符串，格式化的日志信息的输出。在logback中Layout对象被封装在encoder中。
+     > 举例：
+     > 名为cn.itcast的logger是名为cn.itcast.service的logger的父级
+     > 名为cn的logger是名为cn.itcast的logger的父级，是名为cn.itcast.service的logger的祖先
+
+     在logback中有一个root logger，它是logger层次结构的最高层，它是一个特殊的logger，因为它是每一个层次结构的一部分。
+
+   * Appender：用于指定日志输出的目的地，目的地可以是控制台、文件、数据库等等。
+
+   * Layout：负责把事件转换成字符串，格式化的日志信息的输出。在logback中Layout对象被封装在encoder中。
+
+5. 日志输出等级
+
+   logback的日志输出等级分为：TRACE, DEBUG, INFO, WARN, ERROR。
+
+   如果一个给定的logger没有指定一个日志输出等级，那么它就会继承离它最近的一个祖先的层级。
+
+   为了确保所有的logger都有一个日志输出等级，root logger会有一个默认输出等级 --- DEBUG。
+
+6. springboot集成logback
+
+   * 依赖引入
+
+   * 在Resource目录下编写logback配置文件
+
+     ```xml
+     <?xml version="1.0" encoding="UTF-8"?>
+     <included>
+         <contextName>logback</contextName>
+         <!-- 
+     		name的值是变量的名称，value的值时变量定义的值
+     		定义变量后，可以使“${}”来使用变量
+     	-->
+         <property name="log.path" value="d:\\logs" />
+     <!-- 彩色日志 -->
+     <!-- 彩色日志依赖的渲染类 -->
+     <conversionRule 
+               conversionWord="clr" 
+               converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+     <conversionRule 
+               conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
+     <conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
+     <!-- 彩色日志格式 -->
+     <property name="CONSOLE_LOG_PATTERN" value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+     
+     <!--输出到控制台-->
+     <appender name="LOG_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+         <encoder>
+             <Pattern>${CONSOLE_LOG_PATTERN}</Pattern>
+             <!-- 设置字符集 -->
+             <charset>UTF-8</charset>
+         </encoder>
+     </appender>
+     
+     <!--输出到文件-->
+     <appender name="LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+         <!-- 正在记录的日志文件的路径及文件名 -->
+         <file>${log.path}/logback.log</file>
+         <!--日志文件输出格式-->
+         <encoder>
+             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+             <charset>UTF-8</charset>
+         </encoder>
+         <!-- 日志记录器的滚动策略，按日期，按大小记录 -->
+         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+             <!-- 每天日志归档路径以及格式 -->
+             <fileNamePattern>${log.path}/info/log-info-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                 <maxFileSize>100MB</maxFileSize>
+             </timeBasedFileNamingAndTriggeringPolicy>
+             <!--日志文件保留天数-->
+             <maxHistory>15</maxHistory>
+         </rollingPolicy>
+     </appender>
+     ```
+     ~~~xml
+     <?xml version="1.0" encoding="UTF-8"?>
+     <configuration>
+         <!--引入其他配置文件-->
+         <include resource="logback-base.xml" />
+         <!--
+         <logger>用来设置某一个包或者具体的某一个类的日志打印级别、
+         以及指定<appender>。<logger>仅有一个name属性，
+         一个可选的level和一个可选的addtivity属性。
+         name:用来指定受此logger约束的某一个包或者具体的某一个类。
+         level:用来设置打印级别，大小写无关：TRACE, DEBUG, INFO, WARN, ERROR, ALL 和 OFF，
+               如果未设置此属性，那么当前logger将会继承上级的级别。
+         addtivity:是否向上级logger传递打印信息。默认是true。
+          -->
+     
+         <!--开发环境-->
+         <springProfile name="dev">
+             <logger name="cn.itcast.controller" additivity="false" level="debug">
+                 <appender-ref ref="LOG_CONSOLE"/>
+             </logger>
+         </springProfile>
+         <!--生产环境-->
+         <springProfile name="pro">
+             <logger name="cn.itcast.controller" additivity="false" level="info">
+                 <appender-ref ref="LOG_FILE"/>
+             </logger>
+         </springProfile>
+     
+         <!--
+         root节点是必选节点，用来指定最基础的日志输出级别，只有一个level属性
+         level:设置打印级别，大小写无关：TRACE, DEBUG, INFO, WARN, ERROR, ALL 和 OFF 默认是DEBUG
+         可以包含零个或多个元素，标识这个appender将会添加到这个logger。
+         -->
+         <root level="info">
+             <appender-ref ref="LOG_CONSOLE" />
+             <appender-ref ref="LOG_FILE" />
+         </root>
+     </configuration>
+     ~~~
+
+   * 编写application.yml配置文件
+
+     ~~~yml
+     server:
+       port: 9000
+     logging:
+       #在Spring Boot项目中默认加载类路径下的logback-spring.xml文件
+       config: classpath:logback-spring.xml
+     spring:
+       profiles:
+         active: dev
+     ~~~
 
 ## lombok日志简化
 
@@ -11405,6 +11567,26 @@ dozer的maven坐标：
 ## 常见网站安全问题
 
 ### 跨站脚本攻击（SXX）
+
+XSS：跨站脚本攻击(Cross Site Scripting)，为不和 CSS混淆，故将跨站脚本攻击缩写为XSS。XSS是指恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。有点类似于sql注入。
+
+XSS攻击原理：
+
+HTML是一种超文本标记语言，通过将一些字符特殊地对待来区别文本和标记，例如，小于符号（<）被看作是HTML标签的开始，<title>与</title>之间的字符是页面的标题等等。当动态页面中插入的内容含有这些特殊字符时，用户浏览器会将其误认为是插入了HTML标签，当这些HTML标签引入了一段JavaScript脚本时，这些脚本程序就将会在用户浏览器中执行。所以，当这些特殊字符不能被动态页面检查或检查出现失误时，就将会产生XSS漏洞。
+
+#### AntiSamry
+
+AntiSamy是OWASP的一个开源项目，通过对用户输入的 HTML / CSS / JavaScript 等内容进行检验和清理，确保输入符合应用规范。AntiSamy被广泛应用于Web服务对存储型和反射型XSS的防御中。
+
+AntiSamy的maven坐标：
+
+~~~xml
+<dependency>
+  <groupId>org.owasp.antisamy</groupId>
+  <artifactId>antisamy</artifactId>
+  <version>1.5.7</version>
+</dependency>
+~~~
 
 ### SQL注入攻击
 

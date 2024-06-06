@@ -177,6 +177,7 @@ JVM整体结构如下：
   * [尚硅谷JVM](https://www.bilibili.com/video/BV1PJ411n7xZ/?p=1&vd_source=fabefd3fabfadb9324761989b55c26ea)
   * [黑马程序员JVM完整教程](https://www.bilibili.com/video/BV1yE411Z7AP/?vd_source=fabefd3fabfadb9324761989b55c26ea)
   * [实战java虚拟机](https://www.bilibili.com/video/BV1r94y1b7eS/?vd_source=fabefd3fabfadb9324761989b55c26ea)
-
+* [尚硅谷JVM精讲与GC调优教程](https://www.bilibili.com/video/BV1Dz4y1A7FB/?spm_id_from=333.788.recommend_more_video.2&vd_source=fabefd3fabfadb9324761989b55c26ea)
+  
 * 文章：
   * [JVM（Java虚拟机）-史上最全、最详细JVM笔记](https://blog.csdn.net/weixin_56846554/article/details/129802936)

@@ -2,6 +2,10 @@
 
 官网：https://groovy-lang.org/
 
+参考：
+
+* https://blog.csdn.net/bobo789456123/article/details/131262716
+
 ## 简介
 
 在某种程度上，Groovy 可以被视为 Java 的一种脚本化改良版。

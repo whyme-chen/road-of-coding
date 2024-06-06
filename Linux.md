@@ -1081,24 +1081,30 @@ drwxr-xr-x 4 root root  4096 5月  18 23:44 project_management
 
 ## <a id="install">软件安装</a>
 
+参考：
+
+* https://edu.aliyun.com/course/314242/?spm=a2cwt.28120018.314242.1.5fef1ee9akHjJW
+
 Linux 下软件是以包的形式存在，一个软件包其实就是软件的所有文件的压缩包，是二进制的形式，包含了安装软件的所有指令。Red Hat 家族的软件包后缀名一般为 .rpm ， Debian 家族的软件包后缀是 .deb 。
 
-在Linux系统上安装软件时，通常有以下几种方式：
+1. 软件安装方式
 
-* 使用软件包管理器（如yum、apt、dnf）：Linux 的包都存在一个仓库，叫做软件仓库，可以理解成 Node.js 的 npm 。不同的发行版可能会使用不同的软件包管理器，例如，
-  * 基于Debian的发行版（如Ubuntu）通常使用apt作为软件包管理器
-  * 基于Red Hat的发行版（如CentOS、Fedora）则使用yum或dnf。
-* 手动编译源代码安装程序
-* 使用容器技术（如Docker）
+   在Linux系统上安装软件时，通常有以下几种方式：
 
-1. 软件包管理器
+   * 使用软件包管理器（如yum、apt、dnf）：Linux 的包都存在一个仓库，叫做软件仓库，可以理解成 Node.js 的 npm 。不同的发行版可能会使用不同的软件包管理器，例如，
+     * 基于Debian的发行版（如Ubuntu）通常使用apt作为软件包管理器
+     * 基于Red Hat的发行版（如CentOS、Fedora）则使用yum或dnf。
+   * 手动编译源代码安装程序
+   * 使用容器技术（如Docker）
+
+2. 软件包管理器
 
    * rpm
    * yum：主要用于Red Hat、CentOS 等发行版，它允许你从预配置的软件仓库中安装、更新和删除软件包。
    * apt：在Debian、Ubuntu 等基于Debian 的发行版中使用，它也从预配置的软件仓库中管理软件包。
    * dnf：是yum的下一代版本，在最新的Fedora以及Red Hat Enterprise Linux 8中出现
 
-2. 软件安装位置
+3. 软件安装位置
 
    通常来说，Linux系统中的软件安装位置遵循FHS（Filesystem Hierarchy Standard）标准。常见的安装位置包括：
 
@@ -1107,14 +1113,20 @@ Linux 下软件是以包的形式存在，一个软件包其实就是软件的�
    - `/usr/bin`：存放用户使用的标准命令。
    - `/usr/local`：存放本地安装的软件，默认安装位置为 `/usr/local/bin`、`/usr/local/sbin` 等。
 
-3. 本地软件管理
+4. 本地软件管理
 
    使用软件包管理器的查询功能可以列出已安装的软件包。
-   
+
    * 对于yum、dnf 可以使用 `yum list installed` 或 `dnf list installed`；
    * 对于apt，可以使用 `dpkg --list`。
 
-### RPM
+5. 库文件
+
+   * `ldd`命令：查看二进制所依赖的库文件
+   * `ldconfig`：加载配置文件中指定的库文件
+   * `/sbin/ldconfig -p`：显示本机已缓存的所有可用库文件名及其文件路径
+
+### rpm
 
 参考：
 
@@ -1124,13 +1136,27 @@ Linux 下软件是以包的形式存在，一个软件包其实就是软件的�
 
 1. rpm（Red Hat Package Manager）：一种常见的包管理系统，用于在基于RPM的Linux发行版中安装、升级、管理和删除软件包。
 
-   * **RPM包**是一种预编译的软件包，它包含了要在Linux系统上安装的软件及其相关文件。RPM包的文件扩展名通常为`.rpm`。RPM包由软件的开发者或发行版的维护者创建。
+   * **RPM包**是一种预编译的软件包，它包含了要在Linux系统上安装的软件及其相关文件。RPM包的文件扩展名通常为`.rpm`。
    * **RPM命令**执行安装rpm包和源码包，rpm包以`.rpm`结尾，而源码包以`.src.rpm`结尾
-   * **RPM数据库**是一个记录已安装的软件包及其信息的系统数据库。它包含了软件包的名称、版本、文件列表等信息。RPM使用数据库来追踪系统上已安装的软件包，并进行依赖性管理和软件包冲突解决。
+   * **RPM数据库**（位置：/var/lib/rpm）是一个记录已安装的软件包及其信息的系统数据库。它包含了软件包的名称、版本、文件列表等信息。RPM使用数据库来追踪系统上已安装的软件包，并进行依赖性管理和软件包冲突解决。
 
 2. 依赖性管理（RPM优点）：RPM可以管理软件包之间的依赖关系。当安装或升级软件包时，RPM会自动检查并解决依赖关系，以确保所需的库和组件也被正确安装
 
 3. RPM包
+
+   * 包文件组成
+
+     * rpm包内文件
+     * rpm包元数据，如名称，版本，依赖性，描述等
+     * 安装或卸载时运行的脚本
+
+   * 包获取：RPM包由软件的开发者或发行版的维护者创建。如下为常见获取途径：
+
+     * https://www.centos.org/download/
+     * https://mirrors.aliyun.com
+     * https://mirrors.sohu.com
+     * https://mirrors.163.com
+     * 具体项目官方站点
 
    * 命令规则：
 
@@ -1183,19 +1209,44 @@ Linux 下软件是以包的形式存在，一个软件包其实就是软件的�
 
    RPM提供了一种打包和构建软件包的机制，使开发者能够将自己的软件打包为RPM包，并与其他人共享或发布。构建RPM包需要创建一个`.spec`文件，其中包含软件包的描述和构建逻辑。
 
-### yum&dnf
+### yum
 
-#### yum
+1. yum：yum允许用户轻松地搜索、安装、更新和删除软件包。它可以自动解决依赖关系，并从配置的软件源（存储库）中下载并安装软件包。yum安装是基于cs结构。
 
-1. yum
-2. 常用指令：
-   * yum list
-   * yum install
-   * yum remove
-   * yum源配置
-3. 源配置
+2. 软件源配置：用于指定yum服务器地址，
 
-#### dnf
+   * 位置：`/etc/yum.repos.d`
+
+   * 配置文件定义
+
+     ~~~
+     # alinux3-os.repo
+     #
+     
+     [alinux3-os]
+     name=alinux3-os
+     baseurl=http://mirrors.cloud.aliyuncs.com/alinux/$releasever/os/$basearch/
+     gpgkey=http://mirrors.cloud.aliyuncs.com/alinux/$releasever/RPM-GPG-KEY-ALINUX-3
+     enabled=1
+     gpgcheck=1
+     ~~~
+
+   * 配置文件可用变量
+
+     * `$releasever`：当前OS的发行版的主版本号
+     * `$arch`：平台，i386,i486
+     * `$basearch`：基础平台，i386，x86_64
+     * `$YUM0-YUM9`：自定义变量
+
+3. 常用指令：
+
+   * `yum list`
+   * `yum install`
+   * `yum remove`
+   * `yum repolist`：列表所有yum源仓库
+   * `yum history`
+
+### dnf
 
 1. dnf：新一代的rpm软件包管理器。
    * DNF包管理器克服了YUM包管理器的一些瓶颈，提升了包括用户体验，内存占用，依赖分析，运行速度等多方面的内容。
@@ -1298,6 +1349,10 @@ Linux 下软件是以包的形式存在，一个软件包其实就是软件的�
 * 供电系统
 
 ## 云服务器（虚拟服务器）
+
+### 阿里云ECS
+
+产品文档：https://help.aliyun.com/zh/ecs/?spm=a2c4g.750001.0.0.73c12842SLB9wG
 
 # Shell
 
