@@ -69,7 +69,7 @@ java技术体系：JVM、java类库、java框架（Spring、Mybatis ...）
      * 如果有必要，在概要之后提供更详细的描述。
      * 使用 `@author` 标签指定作者的姓名。
      * 使用 `@version` 标签指定版本信息。
-    
+   
      ~~~java
      /**
       * 描述类、接口或枚举的功能。
@@ -91,7 +91,7 @@ java技术体系：JVM、java类库、java框架（Spring、Mybatis ...）
      * 对于每个参数，使用 `@param` 标签指定参数名称和描述。
      * 使用 `@return` 标签指定方法的返回值描述。
      * 使用 `@throws` 标签指定可能抛出的异常及其描述。
-    
+   
      ~~~java
      /**
       * 描述方法的功能。
@@ -109,7 +109,7 @@ java技术体系：JVM、java类库、java框架（Spring、Mybatis ...）
    * 字段和常量的注释：
      * 使用单行注释 `//` 或多行注释 `/* ... */` 格式。
      * 在注释中描述该字段或常量的作用。
-    
+   
      ~~~java
      public class MyClass {
          /**
@@ -7363,106 +7363,6 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
    >
    > * 如果希望后期去学习一些Spring生态圈中的其他框架，建议尽早使用JavaConfig这种方式。
 
-## Spring集成
-
-### Spring集成Junit
-
-1. 原始Junit测试Spring时存在的问题
-   
-   ![image-20220318100349528](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318100349528.png)
-
-2. Spring集成Junit步骤
-   
-   > 1. 导入Spring集成Junit的坐标（spring-test）
-   > 2. 使用@Runwith注解替换原来的运行期
-   > 3. 使用@ContextConfiguration指定配置文件或配置类
-   > 4. 使用@Autowired注入需要测试的对象
-   > 5. 创建测试方法测试
-   
-   ```java
-   package com.chen.test;
-   
-   import org.junit.Test;
-   import org.junit.runner.RunWith;
-   import org.springframework.beans.factory.annotation.Autowired;
-   import org.springframework.test.context.ContextConfiguration;
-   import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-   
-   import javax.sql.DataSource;
-   import java.sql.Connection;
-   import java.sql.SQLException;
-   
-   @RunWith(SpringJUnit4ClassRunner.class)
-   @ContextConfiguration("classpath:applicationContext.xml")
-   public class SpringJunitTestDemo {
-   
-       @Autowired
-       private DataSource dataSource;
-   
-       @Test
-       public void test() throws SQLException {
-           Connection connection = dataSource.getConnection();
-           System.out.println(connection);
-           connection.close();
-       }
-   }
-   ```
-
-### Spring与Web集成
-
-1. ApplicationContext的获取：被获取多次
-
-2. 将ApplicationContext存储到ServletContext域中
-   
-   ![image-20220331204221605](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220331204221605.png)
-
-3. Spring提供获取应用上下文的工具
-   
-   ![image-20220318103032314](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318103032314.png)
-
-### Spring与Mybatis的集成
-
-参考：http://www.mybatis.cn/archives/769.html
-
-1. 步骤
-   
-   > 导入相关包mybatis-spring、spring-jdbc（spring操作数据库必须要导的包）
-
-2. mybatis的单独配置类
-   
-   ```java
-   package org.config;
-   
-   import org.mybatis.spring.SqlSessionFactoryBean;
-   import org.mybatis.spring.mapper.MapperScannerConfigurer;
-   import org.springframework.context.annotation.Bean;
-   
-   import javax.sql.DataSource;
-   
-   /**
-    * @author WenJianChen
-    * @version 1.0
-    * @date 2023/2/12 19:23
-    */
-   public class MybatisConfiguration {
-   
-       @Bean
-       public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource){
-           SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-           sqlSessionFactoryBean.setTypeAliasesPackage("org.domain");
-           sqlSessionFactoryBean.setDataSource(dataSource);
-           return sqlSessionFactoryBean;
-       }
-   
-       @Bean
-       public MapperScannerConfigurer mapperScannerConfigurer(){
-           MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
-           mapperScannerConfigurer.setBasePackage("org.dao");
-           return mapperScannerConfigurer;
-       }
-   }
-   ```
-
 ## Spring Aop
 
 ### AOP简介
@@ -7473,7 +7373,7 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
 
 3. Spring理念；无侵入式
 
-4. AOP核心概念（在哪里对什么做怎样的功能增强）
+4. AOP核心概念（**在哪里对什么做怎样的功能增强**）
 
    * 连接点（JoinPoint）：程序执行过程中的任意位置，粒度为执行方法、抛出异常、设置变量等。在 Spring 中这些点指的是方法，可以看作正在访问的，或者等待访问的那些需要被增强功能的方法。**Spring 只支持方法类型的连接点。**
    * 切入点（PointCut）：匹配连接点的式子，实质就是**一个规则**，定义了我们要对哪些JoinPoint（哪个类的哪个方法）进行增强。
@@ -7653,6 +7553,8 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
 
 ![image-20230216204057235](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302162040119.png)
 
+
+
 ## Spring事务
 
 参考：https://www.bilibili.com/video/BV1WZ4y1P7Bp?p=138&spm_id_from=pageDriver&vd_source=fabefd3fabfadb9324761989b55c26ea
@@ -7662,46 +7564,46 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
 2. Spring事务的作用：在数据层或业务层保障一系列的数据库操作同成功同失败。
 
 3. 实现(编程式的注解方式)
-   
+
    > 编程式
-   > 
+   >
    > 声明式：xml配置和注解配置
-   
+
    * 在业务层添加事务管理器
-     
+
      ![image-20230217111241449](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171112335.png)
-   
+
    * 设置事务管理器
-     
+
      ![image-20230217111340020](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171113400.png)
-   
+
    * 开启注解式事务驱动
-     
+
      ![image-20230217111439817](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171114547.png)
 
 4. 编程式事务的相关对象
-   
+
    ![image-20230218113305962](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302181133052.png)
-   
+
    ![image-20230218113330404](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302181133185.png)
 
 5. spring事务角色
-   
+
    * 事务管理员：发起事务方,在Spring中通常指代业务层开启事务的方法。
    * 事务协调员：加入事务方,在Spring中通常指代数据层方法,也可以是业务层方法。
 
 6. 事务相关配置
-   
+
    ![image-20230217112303737](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171123496.png)
-   
+
    * 事务的隔离级别
-     
+
      ![image-20230218113506460](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302181135598.png)
-   
+
    * 事务的传播行为：事务协调员对事务管理员所携带事务的处理态度
-     
+
      ![image-20230217115236161](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171152993.png)
-     
+
      ![image-20230217115402849](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171154816.png)
 
 ## Spring JDBC Template
@@ -7709,13 +7611,113 @@ Token的使用可以提高系统的安全性和灵活性，同时也减少了对
 1. 简介
 
 2. 开发步骤
-   
+
    > 1. 导入spring-jdbc和spring-tx坐标
    > 2. 创建数据库表和实体
    > 3. 创建JdbcTemplate对象
    > 4. 执行数据库操作
 
 3. 常用操作
+
+## Spring集成
+
+### Spring集成Junit
+
+1. 原始Junit测试Spring时存在的问题
+
+   ![image-20220318100349528](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318100349528.png)
+
+2. Spring集成Junit步骤
+
+   > 1. 导入Spring集成Junit的坐标（spring-test）
+   > 2. 使用@Runwith注解替换原来的运行期
+   > 3. 使用@ContextConfiguration指定配置文件或配置类
+   > 4. 使用@Autowired注入需要测试的对象
+   > 5. 创建测试方法测试
+
+   ```java
+   package com.chen.test;
+   
+   import org.junit.Test;
+   import org.junit.runner.RunWith;
+   import org.springframework.beans.factory.annotation.Autowired;
+   import org.springframework.test.context.ContextConfiguration;
+   import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+   
+   import javax.sql.DataSource;
+   import java.sql.Connection;
+   import java.sql.SQLException;
+   
+   @RunWith(SpringJUnit4ClassRunner.class)
+   @ContextConfiguration("classpath:applicationContext.xml")
+   public class SpringJunitTestDemo {
+   
+       @Autowired
+       private DataSource dataSource;
+   
+       @Test
+       public void test() throws SQLException {
+           Connection connection = dataSource.getConnection();
+           System.out.println(connection);
+           connection.close();
+       }
+   }
+   ```
+
+### Spring与Web集成
+
+1. ApplicationContext的获取：被获取多次
+
+2. 将ApplicationContext存储到ServletContext域中
+
+   ![image-20220331204221605](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220331204221605.png)
+
+3. Spring提供获取应用上下文的工具
+
+   ![image-20220318103032314](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318103032314.png)
+
+### Spring与Mybatis的集成
+
+参考：http://www.mybatis.cn/archives/769.html
+
+1. 步骤
+
+   > 导入相关包mybatis-spring、spring-jdbc（spring操作数据库必须要导的包）
+
+2. mybatis的单独配置类
+
+   ```java
+   package org.config;
+   
+   import org.mybatis.spring.SqlSessionFactoryBean;
+   import org.mybatis.spring.mapper.MapperScannerConfigurer;
+   import org.springframework.context.annotation.Bean;
+   
+   import javax.sql.DataSource;
+   
+   /**
+    * @author WenJianChen
+    * @version 1.0
+    * @date 2023/2/12 19:23
+    */
+   public class MybatisConfiguration {
+   
+       @Bean
+       public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource){
+           SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+           sqlSessionFactoryBean.setTypeAliasesPackage("org.domain");
+           sqlSessionFactoryBean.setDataSource(dataSource);
+           return sqlSessionFactoryBean;
+       }
+   
+       @Bean
+       public MapperScannerConfigurer mapperScannerConfigurer(){
+           MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
+           mapperScannerConfigurer.setBasePackage("org.dao");
+           return mapperScannerConfigurer;
+       }
+   }
+   ```
 
 # Spring MVC
 
@@ -11975,5 +11977,6 @@ TestNG官方文档：https://testng.org/doc/
 
 1. [2022黑马程序员Java学习路线图 - 哔哩哔哩](https://www.bilibili.com/read/cv9965357?from=articleDetail)
 2. [Java全栈知识体系](https://pdai.tech/)
-3. https://mp.weixin.qq.com/s/aIv0sdi7Eh1JuGl1sfn3X
-4. [effective-resourses](https://github.com/wususu/effective-resourses)
+3. [慕课教程-编程入门快速学习手册 (imooc.com)](https://www.imooc.com/wiki/)
+4. https://mp.weixin.qq.com/s/aIv0sdi7Eh1JuGl1sfn3X
+5. [effective-resourses](https://github.com/wususu/effective-resourses)
