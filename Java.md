@@ -8,11 +8,34 @@ JavaSE 8：https://docs.oracle.com/javase/8/index.html
 
 JavaEE7：https://docs.oracle.com/javaee/7/index.html
 
+Jakarta（Java EE）：https://jakarta.ee/
+
 ## java技术体系
 
 java技术体系：JVM、java类库、java框架（Spring、Mybatis ...）
 
 ![image-20230903090434672](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202309030904027.png)
+
+Java SE（Java Platform, Standard Edition）和 Java EE（Java Platform, Enterprise Edition）是 Java 平台的两个不同版本，它们之间有着密切的关系，但用途和功能有所不同。
+
+JavaSE（Java Platform, Standard Edition）：**Java SE** 是 Java 平台的标准版，提供了开发和运行 Java 应用程序的基本 API 和工具。它包含了核心的 Java 类库和 Java 虚拟机（JVM），适用于桌面应用程序、控制台应用程序、嵌入式系统等。Java SE 包含的主要组件和功能：
+
+- 核心语言语法和 API：如 java.lang、java.util、[java.io](http://java.io/) 等。
+- GUI 工具包：如 Swing 和 AWT，用于开发图形用户界面应用。
+- 网络编程：如 [java.net](http://java.net/) 包。
+- 多线程和并发处理：如 java.util.concurrent 包。
+- 数据库连接：通过 JDBC（Java Database Connectivity）实现。
+
+JavaEE（Java Platform, Enterprise Edition）：Java EE（Java Platform, Enterprise Edition）
+
+**Java EE** 是 Java 平台的企业版，基于 Java SE 构建，并在其基础上增加了一系列用于开发和部署企业级应用的 API 和功能。Java EE 适用于分布式计算、大规模业务系统、Web 应用程序和服务端应用等。Java EE 包含的主要组件和功能：
+
+- Web 容器：如 Servlet 和 JSP，用于开发动态 Web 内容和 Web 服务。
+- 企业级服务：如 EJB（Enterprise JavaBeans），用于构建可扩展、事务性的分布式应用。
+- Web 服务：如 JAX-RS 和 JAX-WS，用于构建 RESTful 和 SOAP Web 服务。
+- 持久化框架：如 JPA（Java Persistence API），用于简化数据库操作。
+- 消息服务：如 JMS（Java Message Service），用于消息传递和异步通信。
+- 安全性管理：如 JAAS（Java Authentication and Authorization Service）。
 
 ## java发展史
 

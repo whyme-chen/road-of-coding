@@ -45,9 +45,7 @@ Gradle 和 Maven 都是流行的构建工具，用于构建、管理和部署Jav
 * [Maven项目构建](https://pdai.tech/md/devops/tool/tool-maven.html)
 * [Maven快速入门-慕课](http://www.imooc.com/wiki/mavenlesson/mavenintroduction.html)
 
-## 基础
-
-### 简介
+## 简介
 
 **Maven是一个用于构建和管理Java项目的强大工具**。它提供了一种标准化的项目结构、依赖管理、构建过程自动化等功能，极大地简化了Java项目的开发和维护。maven本质是一个项目管理工具，将项目开发和管理过程抽象为一个项目对象模型（POM）。
 
@@ -71,9 +69,11 @@ Gradle 和 Maven 都是流行的构建工具，用于构建、管理和部署Jav
 
 ![image-20211003195950696](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211003195950696.png)
 
-### 安装与项目创建
+## 安装与项目创建
 
-#### 安装流程
+### 安装
+
+#### 流程
 
 * 安装JDK（Maven是使用java开发的工具）
 * 下载Maven压缩包，并解压到目标目录
@@ -85,22 +85,24 @@ Gradle 和 Maven 都是流行的构建工具，用于构建、管理和部署Jav
 
 #### 安装包目录结构
 
-* bin：mvn.cmd主要用来构建项目
-* boot：Maven自身运行所需的配置文件
-* conf
-* lib：Maven自身运行所需的jar包
-* LICENSE
-* NOTICE
-* README.txt
+~~~
+│  LICENSE
+│  NOTICE
+│  README.txt
+│
+├─bin // 包含了 Maven 的可执行文件，例如mvn命令
+├─boot // 包含了 Maven 启动时所需的库文件，例如 Maven 的启动器和类加载器
+├─conf // 包含了 Maven 的配置文件，例settings.xml。
+│  │  settings.xml // 用于配置 Maven 的全局设置、代理、镜像等。
+│  │  toolchains.xml
+│  └─logging
+│          simplelogger.properties
+└─lib // 包含了 Maven 运行时所需的库文件
+~~~
+
+### 项目创建
 
 #### 项目标准目录结构
-
-* src\main\java目录：核心代码
-* src\main\resources：配置文件部分
-* src\main\webapp：页面资源（js,css,图片等资源）
-* src\test\java：测试代码部分
-* src\test\resources：测试配置文件
-* pom.xml：项目的核心配置文件
 
 ~~~
 project
@@ -108,7 +110,7 @@ project
 │   ├── main
 │   │   ├── java        # 主程序代码
 │   │   ├── resources   # 资源文件
-│   │   └── webapp      # Web 应用程序
+│   │   └── webapp      # Web 应用程序，页面资源（js,css,图片等资源）
 │   └── test
 │       ├── java        # 测试代码
 │       └── resources   # 测试资源文件
@@ -118,7 +120,7 @@ project
 
 ~~~
 
-![image-20211001224629124](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211001224629124.png)
+,![image-20211001224629124](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211001224629124.png)
 
 #### 项目创建
 
@@ -128,7 +130,7 @@ project
 
    ![image-20211004153002024](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211004153002024.png)
 
-3. idea创建
+3. idea工具创建
 
    * 不使用骨架
 
@@ -146,7 +148,7 @@ project
 
        * 添加tomcat插件
 
-### POM与坐标
+## POM与配置
 
 1. 项目对象模型（POM）：在项目中通常表现为pom.xml文件，描述了该项目的方方面面。
 
@@ -403,117 +405,6 @@ project
 
    ![image-20221120193756025](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202211201937486.png)
 
-### Maven仓库
-
-![image-20211001222603530](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211001222603530.png)
-
-* 本地仓库：默认情况下，本地仓库位于用户目录下的`.m2/repository`目录中。可以在maven安装目录中找到conf\settings.xml更改如下标签中的路径位置来修改本地仓库地址。
-
-  ~~~xml
-  <localRepository>xxxx</localRepository>
-  ~~~
-
-* 远程仓库
-
-  * 中央仓库：中央仓库是 Maven 的默认远程仓库，包含了大量常用的开源依赖。默认情况下Maven 会根据依赖的坐标信息从中央仓库下载相应的依赖。
-
-  * 镜像仓库：指与原始仓库具有相同内容的一种替代仓库。当 Maven 访问远程仓库时，它会首先检查是否配置了镜像仓库，如果有，则会直接从镜像仓库下载依赖，而不是访问原始仓库。镜像仓库的配置位于 Maven 的 `settings.xml` 文件中。国内几个常用的仓库镜像：
-
-    ~~~xml
-    <!--阿里云镜像-->
-    <mirror>
-        <id>alimaven</id>
-        <name>aliyun maven</name>
-        <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-        <mirrorOf>central</mirrorOf>
-    </mirror>
-    <!--阿里巴巴镜像-->
-    <mirror>
-        <id>ibiblio</id>
-        <mirrorOf>central</mirrorOf>
-        <name>Human Readable Name for this Mirror.</name>
-        <url>http://mirrors.ibiblio.org/pub/mirrors/maven2/</url>
-    </mirror>
-    <!--repo2镜像-->
-    <mirror>  
-        <id>repo2</id>  
-        <mirrorOf>central</mirrorOf>  
-        <name>Human Readable Name for this Mirror.</name>
-        <url>http://repo2.maven.org/maven2/</url>  
-    </mirror>
-    ~~~
-
-  * 私服：私服是一台独立的服务器，用于解决团队内部的资源共享与资源同步问题
-
-    学习参考视频：https://www.bilibili.com/video/BV1Fi4y1S7ix/?p=89&spm_id_from=pageDriver&vd_source=fabefd3fabfadb9324761989b55c26ea
-
-    Nexus：
-
-    * Sonatype公司的一款maven私服产 品
-
-    * 地址: https://help.sonatype.com/repomanager3/download
-
-    * 安装与启动
-
-      ![image-20230311161230165](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202303111612698.png)
-
-    私服仓库分类
-
-    ![image-20230311161652945](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202303111616037.png)
-
-#### 依赖搜索顺序
-
-本地仓库-》私服-》中央仓库
-
-### 生命周期与插件
-
-在Maven中，构建是通过执行一系列定义在POM文件中的生命周期和阶段来完成的。每个构建过程都有其对应的生命周期，而每个生命周期又由一系列的阶段组成。
-
-通过定义和配置POM文件中的插件，可以扩展或自定义构建过程。Maven提供了大量的插件，可以用来执行其他任务，如代码静态分析、文档生成、资源文件处理等。
-
-1. 生命周期：
-
-   Maven对项目构建的生命周期划分为以下3个阶段：
-
-   clean：清理工作
-
-   ​    ![image-20230217162630995](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171626834.png)
-
-   default：核心工作，例如：编译，测试，打包，部署等
-
-   ![image-20230217162710233](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171627097.png)
-
-   site：产生报告，发布站点等
-
-   ![image-20230217162747671](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171627448.png)
-
-2. 插件
-
-   生命周期只是一个抽象的模型，其本身并不会直接去做事情，真正帮我们完成事情的是 Maven 的插件。Maven 的插件也属于构件的一种，也是可以放到 Maven 仓库当中的。通常情况下，一个插件可以做 A、B、C 等等不止一件事情，但是我们又没有必要为每一个功能都做一个单独的插件。这种时候，我们一般会给这个插件绑定不同的目标，而这些目标则是对应其不同的功能。
-
-   当我们使用一个插件的目标的时候，我们可以执行命令：`mvn pluginName:goalName`。例如当我们执行`dependency`插件的 list 目标的时候，我们可以执行命令：`mvn dependency:list`。
-
-   ![image-20230217163459866](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171635337.png)
-
-3. 自定义插件
-
-   > 一般情况下不需要自定义插件，自定义插件可参考：[Maven编写插件](http://www.imooc.com/wiki/mavenlesson/mavenPlugin.html)
-
-### 常用命令
-
-* compile：编译
-* clean：清理
-* pakage：打包
-* test：测试
-* install：安装到本地仓库
-
-## 多模块开发与设计
-
-1. 步骤
-   * 创建Maven模块
-   * 编写模块代码
-   * 将模块安装到本地（install）或发布到私服（deploy）
-
 ### 聚合
 
 通常情况下，我们在实际开发过程中，会对项目进行模块（module）划分，来提供项目的清晰度并且能够更加方便的重用代码。但是，在这种时候，我们在构建项目的时候就需要分别构建不同的模块，Maven 的聚合特性能够将各个不同的模块聚合到一起来进行构建。
@@ -582,7 +473,197 @@ project
 
    ![image-20230311160406503](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202303111604145.png)
 
-### Maven Archetype原型
+### Maven仓库
+
+![image-20211001222603530](https://cdn.jsdelivr.net/gh/whyme-chen/Image/imgimage-20211001222603530.png)
+
+* 本地仓库：默认情况下，本地仓库位于用户目录下的`.m2/repository`目录中。可以在maven安装目录中找到conf\settings.xml更改如下标签中的路径位置来修改本地仓库地址。
+
+  ~~~xml
+  <localRepository>xxxx</localRepository>
+  ~~~
+
+* 远程仓库
+
+  * 中央仓库：中央仓库是 Maven 的默认远程仓库，包含了大量常用的开源依赖。默认情况下Maven 会根据依赖的坐标信息从中央仓库下载相应的依赖。
+
+  * 镜像仓库：指与原始仓库具有相同内容的一种替代仓库。当 Maven 访问远程仓库时，它会首先检查是否配置了镜像仓库，如果有，则会直接从镜像仓库下载依赖，而不是访问原始仓库。镜像仓库的配置位于 Maven 的 `settings.xml` 文件中。国内几个常用的仓库镜像：
+
+    ~~~xml
+    <!--阿里云镜像-->
+    <mirror>
+        <id>alimaven</id>
+        <name>aliyun maven</name>
+        <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+        <mirrorOf>central</mirrorOf>
+    </mirror>
+    <!--阿里巴巴镜像-->
+    <mirror>
+        <id>ibiblio</id>
+        <mirrorOf>central</mirrorOf>
+        <name>Human Readable Name for this Mirror.</name>
+        <url>http://mirrors.ibiblio.org/pub/mirrors/maven2/</url>
+    </mirror>
+    <!--repo2镜像-->
+    <mirror>  
+        <id>repo2</id>  
+        <mirrorOf>central</mirrorOf>  
+        <name>Human Readable Name for this Mirror.</name>
+        <url>http://repo2.maven.org/maven2/</url>  
+    </mirror>
+    ~~~
+
+  * 私服：私服是一台独立的服务器，用于解决团队内部的资源共享与资源同步问题
+
+    学习参考视频：https://www.bilibili.com/video/BV1Fi4y1S7ix/?p=89&spm_id_from=pageDriver&vd_source=fabefd3fabfadb9324761989b55c26ea
+
+    Nexus：
+
+    * Sonatype公司的一款maven私服产 品
+
+    * 地址: https://help.sonatype.com/repomanager3/download
+
+    * 安装与启动
+
+      ![image-20230311161230165](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202303111612698.png)
+
+    私服仓库分类
+
+    ![image-20230311161652945](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202303111616037.png)
+
+#### 依赖搜索顺序
+
+本地仓库-》私服-》中央仓库
+
+### 配置
+
+1. 环境变量
+   * `MAVEN_OPTS`
+   * `MAVEN_ARGS`：自maven3.9.0开始
+2. 配置文件
+   * `settings.xml`
+     * 位于`USER_HOME`/.m2，用于配置使用maven的任何配置
+3. 配置目录
+   * `.mvn`
+     * 位于项目根目录下，包含项目特定的maven运行配置。
+     * 通常可以包含：
+       * `maven.config`
+       * `jvm.config`
+       * `extensions.xml`
+     * 该目录是项目的一部分，可以加入到git等版本控制中进行管理
+
+## 生命周期与插件
+
+在Maven中，构建是通过执行一系列定义在POM文件中的生命周期和阶段来完成的。每个构建过程都有其对应的生命周期，而每个生命周期又由一系列的阶段组成。
+
+通过定义和配置POM文件中的插件，可以扩展或自定义构建过程。Maven提供了大量的插件，可以用来执行其他任务，如代码静态分析、文档生成、资源文件处理等。
+
+1. 生命周期：
+
+   Maven 定义了一套标准的构建生命周期，每个生命周期由一系列固定顺序的阶段（phase）组成。主要划分为以下3个阶段：
+
+   **clean**：清理工作
+
+   ![image-20230217162630995](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171626834.png)
+
+   **default**：核心工作，例如：编译，测试，打包，部署等
+
+   ![image-20230217162710233](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171627097.png)
+
+   **site**：产生报告，发布站点等
+
+   ![image-20230217162747671](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171627448.png)
+
+2. 插件（plugin）
+
+   **生命周期只是一个抽象的模型，其本身并不会直接去做事情，真正帮我们完成事情的是 Maven 的插件。**Maven 的插件也属于构件的一种，也是可以放到 Maven 仓库当中的。通常情况下，一个插件可以做 A、B、C 等等不止一件事情，但是我们又没有必要为每一个功能都做一个单独的插件。这种时候，我们一般会给这个插件绑定不同的目标（goal），而这些目标则是对应其不同的功能。它代表了该插件可以执行的具体任务或操作。每个目标都有一个唯一的标识符，例如 `compile`、`test`、`package` 等。
+
+   当在 Maven 中运行某个插件时，通常需要指定要执行的目标。例如，想编译项目，就会使用 Maven Compiler 插件的 `compile` 目标；想打包项目，就会使用 Maven Jar 插件的 `jar` 目标。执行命令的格式通常如下：`mvn pluginName:goalName`。例如当我们执行`dependency`插件的 list 目标的时候，我们可以执行命令：`mvn dependency:list`。
+
+   ![image-20230217163459866](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171635337.png)
+
+3. 自定义插件
+
+   > 一般情况下不需要自定义插件，自定义插件可参考：[Maven编写插件](http://www.imooc.com/wiki/mavenlesson/mavenPlugin.html)
+
+## `mvn`命令
+
+语法格式：
+
+```shell
+mvn [options] [<goal(s)>] [<phase(s)>]
+```
+
+常用命令：
+
+~~~shell
+# 使用archetype插件创建maven项目
+mvn archetype:generate
+# 格式检查
+mvn checkstyle:check
+# 清理
+mvn clean
+# 验证项目是否正确、所有必要信息是否可用
+mvn validate
+# 编译项目的源代码
+mvn compile
+# 使用适当的单元测试框架测试已编译的源代码
+mvn test
+# 运行任何检查，以验证包是否有效并符合质量标准。
+mvn verify
+# 将编译后的代码打包成可分发的格式（比如 JAR、WAR）
+mvn package
+# 将包安装到本地仓库中，以供其他项目使用
+mvn install
+# 将最终的包复制到远程仓库中，以共享给其他开发者和项目
+mvn deploy
+~~~
+
+命令具体执行流程：（`mvn complie`为例）
+
+1. **读取 POM 文件**：
+
+   - Maven 从当前目录开始，向上查找并读取 `pom.xml` 文件，这是项目的配置文件。
+   - 解析 `pom.xml` 中定义的项目信息、依赖、插件和构建配置。
+
+2. **依赖解析**：
+
+   - Maven 根据 `pom.xml` 中定义的依赖，从本地仓库或远程仓库下载所需的依赖包。
+   - 将这些依赖包添加到构建路径中，以便在接下来的编译过程中使用。
+
+3. **执行生命周期阶段**：
+
+   - 虽然运行的是 `compile` 阶段，Maven 会自动执行所有在 `compile` 阶段之前的阶段。这意味着会按顺序执行 `validate` 和 `compile` 阶段。
+
+   - 在 `compile` 阶段，实际执行编译任务的是 `maven-compiler-plugin` 插件。该插件默认使用 `javac` 编译器，并根据你的 `pom.xml` 中的配置（如 Java 版本）来调整编译参数。以下是一个典型的 Maven Compiler 插件配置示例：
+
+     ```xml
+     <!-- 在这个配置中，指定了 Java 源代码和目标字节码的版本为 1.8。 -->
+     <build>
+       <plugins>
+         <plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-compiler-plugin</artifactId>
+           <version>3.8.1</version>
+           <configuration>
+             <source>1.8</source>
+             <target>1.8</target>
+           </configuration>
+         </plugin>
+       </plugins>
+     </build>
+     ```
+
+4. **编译源代码**：
+
+   - Maven 使用 `maven-compiler-plugin` 插件的 `compile` 目标来编译 `src/main/java` 目录中的 Java 源文件。
+   - 编译后的字节码文件将被输出到 `target/classes` 目录中。
+
+## IDE集成
+
+参考：https://www.jetbrains.com/help/idea/maven.html
+
+## Maven Archetype原型
 
 参考：
 
