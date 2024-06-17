@@ -10977,7 +10977,43 @@ knife4j是为Java MVC框架集成Swagger生成Api文档的增强解决方案,前
 * [Intelij开发idea插件从开发到发布的完整详细教程附带源码demo_idea插件开发-CSDN博客](https://blog.csdn.net/hj960511/article/details/135735940)
 * [IDEA 插件开发入门 | IDEA 高效使用指南 (javaguide.cn)](https://idea.javaguide.cn/tips/plug-in-development-intro.html)
 
-# Git&GitHub
+## 工具
+
+### HTTP Client
+
+1. `.http`可执行文件
+
+   * 基本语法：
+
+   ~~~http
+   // 1. 使用三个`#`来分隔多个请求
+   // 2. GET/POST 请求地址（可拼接查询参数）
+   GET https://dev-app.axzo.cn/pudge/webApi/oauth/cms/qrcode?_t=1718417126288
+   // 3. 请求头键值对
+   accept: application/json, text/plain, */*
+   accept-language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+   origin: https://dev-cms.axzo.cn
+   ouid: 
+   outype: 
+   priority: u=1, i
+   referer: https://dev-cms.axzo.cn/
+   saastenantid: 
+   sec-ch-ua: "Microsoft Edge";v="125", "Chromium";v="125", "Not.A/Brand";v="24"
+   sec-ch-ua-mobile: ?0
+   sec-ch-ua-platform: "Windows"
+   sec-fetch-dest: empty
+   sec-fetch-mode: cors
+   sec-fetch-site: same-site
+   terminal: NT_CMS_WEB_ENT_ZB
+   user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.0.0
+   workspaceid: 
+   // 4. 请求体
+   // 5. >{% %} 响应处理,使用 >符号 打头，和 shell 很像，然后用 {% %} 括起来的脚本内容,在脚本中可以使用 javascript 原生语法，，脚本中有几个内置对象 client 表示当前客户端，response 表示响应结果
+   ~~~
+
+   
+
+# Git&Github
 
 参考链接：
 
