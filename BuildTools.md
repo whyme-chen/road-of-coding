@@ -188,6 +188,7 @@ project
      * `<resources>`: 配置项目资源文件的位置，如配置文件、静态资源等。
      * `<testResources>`: 配置测试资源文件的位置。
      * `<plugins>`: 配置插件，如编译插件、打包插件等。
+   * `reporting`：站点生成相关
 
 4. 超级POM
 
@@ -558,29 +559,33 @@ project
 
 通过定义和配置POM文件中的插件，可以扩展或自定义构建过程。Maven提供了大量的插件，可以用来执行其他任务，如代码静态分析、文档生成、资源文件处理等。
 
-1. 生命周期：
+### 生命周期：
 
-   Maven 定义了一套标准的构建生命周期，每个生命周期由一系列固定顺序的阶段（phase）组成。主要划分为以下3个阶段：
+Maven 定义了一套标准的构建生命周期，每个生命周期由一系列固定顺序的阶段（phase）组成。主要划分为以下3个阶段：
 
-   **clean**：清理工作
+**clean**：清理工作
 
-   ![image-20230217162630995](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171626834.png)
+![image-20230217162630995](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171626834.png)
 
-   **default**：核心工作，例如：编译，测试，打包，部署等
+**default**：核心工作，例如：编译，测试，打包，部署等
 
-   ![image-20230217162710233](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171627097.png)
+![image-20230217162710233](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171627097.png)
 
-   **site**：产生报告，发布站点等
+**site**：产生报告，发布站点等
 
-   ![image-20230217162747671](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171627448.png)
+![image-20230217162747671](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171627448.png)
 
-2. 插件（plugin）
+### 插件
+
+1. 插件（plugin）
 
    **生命周期只是一个抽象的模型，其本身并不会直接去做事情，真正帮我们完成事情的是 Maven 的插件。**Maven 的插件也属于构件的一种，也是可以放到 Maven 仓库当中的。通常情况下，一个插件可以做 A、B、C 等等不止一件事情，但是我们又没有必要为每一个功能都做一个单独的插件。这种时候，我们一般会给这个插件绑定不同的目标（goal），而这些目标则是对应其不同的功能。它代表了该插件可以执行的具体任务或操作。每个目标都有一个唯一的标识符，例如 `compile`、`test`、`package` 等。
 
    当在 Maven 中运行某个插件时，通常需要指定要执行的目标。例如，想编译项目，就会使用 Maven Compiler 插件的 `compile` 目标；想打包项目，就会使用 Maven Jar 插件的 `jar` 目标。执行命令的格式通常如下：`mvn pluginName:goalName`。例如当我们执行`dependency`插件的 list 目标的时候，我们可以执行命令：`mvn dependency:list`。
 
    ![image-20230217163459866](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302171635337.png)
+
+2. 插件类型
 
 3. 自定义插件
 
@@ -701,10 +706,11 @@ mvn deploy
 
    ![gradle basic 1](https://docs.gradle.org/current/userguide/img/gradle-basic-1.png)
 
-   * 项目
-   * 构建脚本（`build.gradle`）
-   * 任务：一个基本的工作单元，例如编译代码或运行测试。
-   * 插件：Gradle中的插件是一种扩展机制，允许您在构建过程中引入额外的功能或任务。它们通常用于将常见任务封装为可重用的组件，或者用于添加特定领域的功能，如Android应用程序开发或Java库构建。
+   * `project`：可以是单项目，也可以包含多个子项目
+   * `build.gradle`
+   * `dependency`
+   * `task`：一个基本的工作单元，例如编译代码或运行测试。
+   * `plugin`：Gradle中的插件是一种扩展机制，允许您在构建过程中引入额外的功能或任务。它们通常用于将常见任务封装为可重用的组件，或者用于添加特定领域的功能，如Android应用程序开发或Java库构建。
 
 ## 安装
 
@@ -730,10 +736,10 @@ Gradle,项目默认目录结构和 Maven 项目的目录结构一致,都是基�
 
 ![image-20240324215519694](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202403242155882.png)
 
-gradle项目可以通过多种方式创建
+在项目中使用gradle主要有两种方式：
 
-* 借助Spring官网创建（https://start.spring.io/）
-* 使用命令行`gradle init`命令创建
+* 集成IDE
+* 命令行，如使用`gradle init`命令创建gradle项目
 
 ## Wrapper
 
@@ -782,7 +788,7 @@ gradle项目可以通过多种方式创建
    * 新建一个新项目时:使用gradle指令即可
    * 下载别人的项目或者使用操作以前自己写的不同版本的gxadle项目时:用Gradle wrapper,也即:gradlew
 
-## 常用命令
+## 命令行
 
 命令格式：
 
@@ -805,6 +811,8 @@ gradle [taskName...] [--option-name...]
 
 ### `settings.gradle`
 
+> `settings.gradle`是每个Gradle项目的入口点
+
 1. 主要作用：
 
    * 管理子项目，对于单项目构建，设置文件是可选的。对于多项目构建，设置文件是强制性的，并声明所有子项目。
@@ -822,9 +830,9 @@ gradle [taskName...] [--option-name...]
 
 ### `build.gradle`
 
-1. 作用：细描述了构建配置、任务和插件
+1. 作用：详细描述了构建配置、任务和插件
 
-2. 内容：常用的包括插件的使用，依赖管理（本项目依赖的jar包，插件，库和源代码，主要分为Gradle和构建脚本依赖的库和/或插件，项目源(即源代码)所依赖的库两部分）
+2. 内容：常用的包括插件的使用，依赖管理（本项目依赖的jar包，插件，库和源代码，主要分为Gradle和构建脚本依赖的库或插件，项目源(即源代码)所依赖的库两部分）
 
    * **repositories（仓库）**：
      - 作用：定义了项目所需的依赖项存储位置。
@@ -832,7 +840,7 @@ gradle [taskName...] [--option-name...]
    * **dependencies（依赖项）**：
      - 作用：定义了项目所需的外部依赖项。
      - 使用：您可以指定项目所需的各种依赖项，包括库、框架和其他项目。
-     - 配置项：
+     - 配置项：Gradle中的依赖项是按配置分组的
        - **implementation（实现）**：
          - 作用：指定项目的主要依赖项，这些依赖项会被传递到项目的编译路径中。
          - 使用：通常用于指定项目的核心依赖，如库、框架等。
@@ -892,21 +900,23 @@ gradle [taskName...] [--option-name...]
 
 ### `libs.versions.toml`
 
-1. 位置：`gradle\libs.versions.toml`
+1. 位置：`gradle\libs.versions.toml`（该文件应该被加入到版本控制中）
+2. 作用：在多个子项目中共享依赖项和版本配置以及在大型项目中强制限定依赖库和插件的版本
 
-## 任务
+## 任务&插件
 
-1， 任务：表示构建执行的一些独立的工作单元，例如编译类、创建JAR、生成Javadoc或将存档发布到存储库。任务间可以相互依赖。
-
-## 插件
-
-1. 作用：应用到Gradle构建脚本中，以添加新的任务、配置或其他与构建相关的功能:
-2. 常用插件
+1. 任务：表示构建执行的一些独立的工作单元，例如编译类、创建JAR、生成Javadoc或将存档发布到存储库。任务间可以相互依赖。
+2. 插件：应用到Gradle构建脚本中，以添加新的任务、配置或其他与构建相关的功能:
+3. 插件的三种类型（分发形式）
    * **Core plugins** - Gradle develops and maintains a set of [Core Plugins](https://docs.gradle.org/current/userguide/plugin_reference.html#plugin_reference).
+     * 例如：`java`，`groovy`，`ear`
    * **Community plugins** - Gradle’s community shares plugins via the [Gradle Plugin Portal](https://plugins.gradle.org/).
+     * 例如：[Spring Boot Gradle plugin](https://plugins.gradle.org/plugin/org.springframework.boot)
    * **Local plugins** - Gradle enables users to create custom plugins using [APIs](https://docs.gradle.org/current/javadoc/org/gradle/api/Plugin.html).
 
 ### 自定义插件
+
+## 依赖管理
 
 ## 项目部署
 

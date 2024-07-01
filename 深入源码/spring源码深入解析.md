@@ -1,27 +1,45 @@
 # 前期准备
 
-> 本次源码阅读spring-framework版本为v6.1.5
-
 参考：
 
 * [Spring Framework（6.x）源码编译与源码阅读入门](https://blog.csdn.net/qq_25409421/article/details/135991212?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-2-135991212-blog-127945857.235%5Ev43%5Epc_blog_bottom_relevance_base5&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-2-135991212-blog-127945857.235%5Ev43%5Epc_blog_bottom_relevance_base5&utm_relevant_index=5)
 * [在windows10使用Gradle编译Spring源码](https://blog.csdn.net/qq_34738512/article/details/129747004)
 
-1. Spring源码获取
+1. JDK
+
+   > 需要注意JDK版本与spring框架版本的关系，比如Spring6需要JDK17
+   
+2. Git
+
+3. Gradle
+
+4. Spring源码获取&构建
 
    - github：https://github.com/spring-projects/spring-framework
    - gitee：https://gitee.com/mirrors/Spring-Framework
-2. 构建工具：**gradle**下载、安装及使用
 
-3. IDEA配置
+   获取源码到本地后，先修改仓库相关配置（例如：国内的阿里镜像仓库）和gradle warpper获取地址以加快构建速度，然后可以按照[官方文档](https://github.com/spring-projects/spring-framework/wiki/Build-from-Source)使用命令行进行构建，第一次构建成功后，后期可以利用gradle的增量构建特性，针对需要重新构建的模块进行构建。例如：
 
-   * [Code Style · spring-projects/spring-framework Wiki · GitHub](https://github.com/spring-projects/spring-framework/wiki/Code-Style)
-   * https://github.com/spring-projects/spring-framework/wiki/IntelliJ-IDEA-Editor-Settings
+   ~~~shell
+   ./gradlew -a :spring-webmvc:test
+   ~~~
+
+5. 导入IDE
+
+   按照官方文档[Code Style · spring-projects/spring-framework Wiki · GitHub](https://github.com/spring-projects/spring-framework/wiki/Code-Style)和[Import-into-idea](https://github.com/spring-projects/spring-framework/wiki/IntelliJ-IDEA-Editor-Settings)将源码项目导入到IDEA中。
 
 # 整体架构
 
-1. 整体架构
-2. 核心模块（五大类Core Container、Web、AOP、Data Access、Test）
+> 本次源码阅读spring-framework版本为v6.1.5
+>
+> 源码阅读原则：
+>
+> * 先学使用，再究原理
+> * 带着问题分析，抓住重点，逐个击破
+
+1. 设计理念
+2. 整体架构
+3. 核心模块（五大类Core Container、Web、AOP、Data Access、Test）
    * spring-core 模块：提供了 Spring 框架的核心功能，包括 IoC（控制反转）和 DI（依赖注入）功能的实现，以及对资源处理、国际化、事件传播等基本功能的支持。
    * spring-beans 模块：提供了 BeanFactory 接口的实现，负责管理应用程序中的对象（Bean），包括对象的创建、生命周期管理和依赖注入等功能。
    * spring-context 模块：构建在 spring-core 和 spring-beans 模块之上，提供了一种类似于JNDI注册器的框架式的对象访问方法，提供了更丰富的应用上下文（Application Context）功能，包括对国际化、事件传播、资源加载、应用层面的异常处理等功能的支持。ApplicationContext接口是该模块的关键。
@@ -31,7 +49,7 @@
    * spring-tx 模块：提供了对事务管理的支持，包括声明式事务、编程式事务等方式，可以与 JDBC、Hibernate 等持久化框架进行集成。
    * spring-web 模块：提供了对 Web 应用开发的支持，包括 Web 应用上下文、MVC 框架、远程调用、WebSocket 支持等功能。
    * spring-webmvc 模块：提供了 Spring MVC 框架，用于构建基于 Servlet 的 Web 应用程序，包括处理请求、渲染视图、处理表单提交等功能。
-3. 模块间依赖关系
+4. 模块间依赖关系
 
 # 容器的基本实现
 
@@ -81,12 +99,30 @@
        * @Configuration
        * @Bean
        * @ComponentScan&@ComponentScans
+       * @Import
 
 ## 核心接口和类
+
+### BeanFactory
+
+> 全类名：org.springframework.beans.factory.BeanFactory
+
+### ApplicationContext
+
+> 全类名：org.springframework.context.ApplicationContext
+
+`ApplicationContext`接口组合并扩展了`BeanFactory`的功能，主要包扩：
+
+* `EnvirmentCaple`：环境变量相关
+* ``ApplicationEventPublisher`：发送事件对象
+* `ResourcePatternResolve`：资源通配符解析相关
+* `MessageSource`：国际化相关
 
 ### DefaultListableBeanFactory
 
 > 全类名：org.springframework.beans.factory.support.DefaultListableBeanFactory
+>
+> 该类是`BeanFactory`接口的重要实现类
 
 1. 类关系
 
@@ -187,6 +223,31 @@ Spring用来检测验证模式的办法就是判断是否包含 DOCTYPE，如果
 
 #### 解析Profile
 
+## Bean的元数据
+
+> 元数据：描述数据的数据
+
+### BeanDefinition
+
+1. 作用：使用统一“描述语言”来描述一个Bean，使得容器可以根据这些描述的元数据进行Bean的创建和管理
+
+2. 类图
+
+   ![image-20240630163624687](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202406301636650.png)
+
+   > 接口用于顶层设计，是核心能力的抽象。抽象类用于核心能力的共享。
+
+   * `BeanDefinition`：
+   * `AbstractBeanDefinition`
+
+### BeanDefinitionRegistry
+
+1. 作用：定义了注册和管理Bean定义的核心接口。它定义了一系列方法，如注册Bean定义、移除Bean定义、检查Bean定义是否存在等。
+
+2. 类图
+
+   ![image-20240630173728901](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202406301737614.png)
+
 # 资料
 
 源码地址：
@@ -194,7 +255,7 @@ Spring用来检测验证模式的办法就是判断是否包含 DOCTYPE，如果
 * github：https://github.com/spring-projects/spring-framework
 * gitee：https://gitee.com/mirrors/Spring-Framework
 
-相关学习参考：
+相关参考：
 
 1. [Spring源码深度解析之通篇死磕Spring源码](https://segmentfault.com/a/1190000022372094)
 2. [Java/Spring源码深度解析.pdf](https://github.com/wususu/effective-resourses/blob/master/Java/Spring%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90.pdf)
