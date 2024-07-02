@@ -172,6 +172,31 @@
    * 通过 DocumentLoader对Resource 文件进行转换，将Resource 文件转换为 Document文件。
    * 通过实现接口 BeanDefinitionDocumentReader 的DefaultBeanDefinitionDocumentReader 类对 Document 进行解析，并使用 BeanDefinitionParserDelegate对Element 进行解析。
 
+## Bean的元数据
+
+> 元数据：描述数据的数据
+
+### BeanDefinition
+
+1. 作用：使用统一“描述语言”来描述一个Bean，使得容器可以根据这些描述的元数据进行Bean的创建和管理
+
+2. 类图
+
+   ![image-20240630163624687](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202406301636650.png)
+
+   > 接口用于顶层设计，是核心能力的抽象。抽象类用于核心能力的共享。
+
+   * `BeanDefinition`：
+   * `AbstractBeanDefinition`
+
+### BeanDefinitionRegistry
+
+1. 作用：定义了注册和管理Bean定义的核心接口。它定义了一系列方法，如注册Bean定义、移除Bean定义、检查Bean定义是否存在等。
+
+2. 类图
+
+   ![image-20240630173728901](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202406301737614.png)
+
 ## 配置文件封装
 
 Spring的配置读取是通过ClassPathResource进行封装。在Java中，将不同来源的贷源抽象成 URL，通过注册不同的handler（URLStreamHandler）来处理不同来源的资源的读取逻辑，一般handler的类型使用不同前缀(协议，Protocol)来识别，如“file:”、“http:”、“iar:”等，然而 URL 没有默认定义相对 Classpath或 ServletContext等资源的 handler，虽然可以注册自己的 URLStreamHandler 来解析特定的 URL前缀(协议),比如“classpath:”，然而这需要了解URL的实现机制，而且 URL也没有提供一些基本的方法如检查当前资源是否存在、检查当前资源是否可读等方法。因而Spring对其内部使用到的资源实现了自己的抽象结构：Resource接口来封装底层资源。
@@ -222,31 +247,6 @@ Spring用来检测验证模式的办法就是判断是否包含 DOCTYPE，如果
 ### 解析并注册BeanDefinition
 
 #### 解析Profile
-
-## Bean的元数据
-
-> 元数据：描述数据的数据
-
-### BeanDefinition
-
-1. 作用：使用统一“描述语言”来描述一个Bean，使得容器可以根据这些描述的元数据进行Bean的创建和管理
-
-2. 类图
-
-   ![image-20240630163624687](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202406301636650.png)
-
-   > 接口用于顶层设计，是核心能力的抽象。抽象类用于核心能力的共享。
-
-   * `BeanDefinition`：
-   * `AbstractBeanDefinition`
-
-### BeanDefinitionRegistry
-
-1. 作用：定义了注册和管理Bean定义的核心接口。它定义了一系列方法，如注册Bean定义、移除Bean定义、检查Bean定义是否存在等。
-
-2. 类图
-
-   ![image-20240630173728901](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202406301737614.png)
 
 # 资料
 
