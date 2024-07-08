@@ -62,7 +62,7 @@
 
 ## 设计
 
-1. 容器
+1. 容器体系
 
    ![image-20240327121447812](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202403271214881.png)
 
@@ -100,8 +100,6 @@
        * @Bean
        * @ComponentScan&@ComponentScans
        * @Import
-
-## 核心接口和类
 
 ### BeanFactory
 
@@ -147,30 +145,9 @@
    * `ConfigurableListableBeanFactory`：BeanFactory配置清单，指定忽略类型及接口等
    * `DefaultListableBeanFactory`：综合上面所有功能，主要是对Bean注册后的处理
 
-### XmlBeanDefinitionReader
+### AnnotationConfigApplicationContext
 
-> 全类名：org.springframework.beans.factory.xml.XmlBeanDefinitionReader
-
-1. 类关系
-
-   ![image-20240326162138895](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202403261621940.png)
-
-2. 资源文件、解析和注册相关类
-
-   * `ResourceLoader`：定义资源加载器，主要应用于根据给定的资源文件地址返回对应的Resource.
-   * `BeanDefinitionReader`：主要定义资源文件读取并转换为BeanDefinition 的各个功能
-   * `EnvironmentCapable`：定义获取Environment方法。
-   * `DocumentLoader`：定义从资源文件加载到转换为Document的功能。
-   * `AbstractBeanDefinitionReader`：对EnvironmentCapable、BeanDefinitionReader 类定义的功能进行实现。
-   * `BeanDefinitionDocumentReader`：定义读取Docuemnt 并注册BeanDefinition 功能
-   * `BeanDefinitionParserDelegate`：定义解析Element的各种方法。
-   * `ClassPathResource`
-
-3. xml配置文件读取流程
-
-   * 通过继承自AbstractBeanDefinitionReader 中的方法，来使用ResourLoader 将资源文件路径转换为对应的 Resource 文件。
-   * 通过 DocumentLoader对Resource 文件进行转换，将Resource 文件转换为 Document文件。
-   * 通过实现接口 BeanDefinitionDocumentReader 的DefaultBeanDefinitionDocumentReader 类对 Document 进行解析，并使用 BeanDefinitionParserDelegate对Element 进行解析。
+### ClassPathXmlApplicationContext
 
 ## Bean的元数据
 
@@ -197,19 +174,9 @@
 
    ![image-20240630173728901](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202406301737614.png)
 
-## 配置文件封装
+### 通过XML加载BeanDefinition
 
-Spring的配置读取是通过ClassPathResource进行封装。在Java中，将不同来源的贷源抽象成 URL，通过注册不同的handler（URLStreamHandler）来处理不同来源的资源的读取逻辑，一般handler的类型使用不同前缀(协议，Protocol)来识别，如“file:”、“http:”、“iar:”等，然而 URL 没有默认定义相对 Classpath或 ServletContext等资源的 handler，虽然可以注册自己的 URLStreamHandler 来解析特定的 URL前缀(协议),比如“classpath:”，然而这需要了解URL的实现机制，而且 URL也没有提供一些基本的方法如检查当前资源是否存在、检查当前资源是否可读等方法。因而Spring对其内部使用到的资源实现了自己的抽象结构：Resource接口来封装底层资源。
-
-对不同来源的资源文件都有相应的Resource实现：文件(FileSystemResource)、Classpath资源(ClassPathResource )、URL, 资源( UrlResource )、InputStream 资源( InputStreamResource )Byte数组(ByteArrayResource)等。
-
-![image-20240327092031699](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202403270920205.png)
-
-## 加载Bean
-
-当通过 Resource相关类完成了对配置文件进行封装后配置文件的读取工作就全权交给XmlBeanDefinitionReader 来处理了。
-
-### 获取XML的验证模式
+#### 获取XML的验证模式
 
 1. xml常用验证模式
 
@@ -238,15 +205,48 @@ Spring的配置读取是通过ClassPathResource进行封装。在Java中，将�
 
 Spring用来检测验证模式的办法就是判断是否包含 DOCTYPE，如果包含就是 DTD，否则就是 XSD。
 
-### 加载XML配置文件
-
 #### 获取Document
 
 1. `DocumentLoader`&`DefaultDocumentLoader`
 
-### 解析并注册BeanDefinition
+#### 解析并注册BeanDefinition
 
 #### 解析Profile
+
+#### 配置文件封装
+
+Spring的配置读取是通过ClassPathResource进行封装。在Java中，将不同来源的贷源抽象成 URL，通过注册不同的handler（URLStreamHandler）来处理不同来源的资源的读取逻辑，一般handler的类型使用不同前缀(协议，Protocol)来识别，如“file:”、“http:”、“iar:”等，然而 URL 没有默认定义相对 Classpath或 ServletContext等资源的 handler，虽然可以注册自己的 URLStreamHandler 来解析特定的 URL前缀(协议),比如“classpath:”，然而这需要了解URL的实现机制，而且 URL也没有提供一些基本的方法如检查当前资源是否存在、检查当前资源是否可读等方法。因而Spring对其内部使用到的资源实现了自己的抽象结构：Resource接口来封装底层资源。
+
+对不同来源的资源文件都有相应的Resource实现：文件(FileSystemResource)、Classpath资源(ClassPathResource )、URL, 资源( UrlResource )、InputStream 资源( InputStreamResource )Byte数组(ByteArrayResource)等。
+
+当通过 Resource相关类完成了对配置文件进行封装后配置文件的读取工作就全权交给`XmlBeanDefinitionReader`来处理了。
+
+![image-20240327092031699](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202403270920205.png)
+
+#### XmlBeanDefinitionReader
+
+> 全类名：org.springframework.beans.factory.xml.XmlBeanDefinitionReader
+
+1. 类关系
+
+   ![image-20240326162138895](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202403261621940.png)
+
+2. 资源文件、解析和注册相关类
+
+   * `ResourceLoader`：定义资源加载器，主要应用于根据给定的资源文件地址返回对应的Resource.
+   * `BeanDefinitionReader`：主要定义资源文件读取并转换为BeanDefinition 的各个功能
+   * `EnvironmentCapable`：定义获取Environment方法。
+   * `DocumentLoader`：定义从资源文件加载到转换为Document的功能。
+   * `AbstractBeanDefinitionReader`：对EnvironmentCapable、BeanDefinitionReader 类定义的功能进行实现。
+   * `BeanDefinitionDocumentReader`：定义读取Docuemnt 并注册BeanDefinition 功能
+   * `BeanDefinitionParserDelegate`：定义解析Element的各种方法。
+   * `ClassPathResource`
+
+3. xml配置文件读取流程
+
+   * 通过继承自AbstractBeanDefinitionReader 中的方法，来使用ResourLoader 将资源文件路径转换为对应的 Resource 文件。
+   * 通过 DocumentLoader对Resource 文件进行转换，将Resource 文件转换为 Document文件。
+   * 通过实现接口 BeanDefinitionDocumentReader 的DefaultBeanDefinitionDocumentReader 类对 Document 进行解析，并使用 BeanDefinitionParserDelegate对Element 进行解析。
 
 # 资料
 

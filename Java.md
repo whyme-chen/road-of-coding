@@ -7651,8 +7651,6 @@ Spring Event是Spring的事件通知机制，可以将相互耦合的代码解�
 
 监听者模式包含了监听者Listener、事件Event、事件发布者EventPublish，过程就是EventPublish发布一个事件，被监听者捕获到，然后执行事件相应的方法。
 
-Spring Event的相关API在spring-context包中。
-=======
 ## Spring集成
 
 ### Spring集成Junit
