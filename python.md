@@ -1,5 +1,7 @@
 # Python基础
 
+官网：https://www.python.org/
+
 ## Python简介
 
 1. 简介：跨平台程序设计语言、解释型语言、交互式语言、面向对象语言。吉多·范罗苏姆（Guido van Rossum）在 1989 年的圣诞节期间，为了打发时间而编写的一个编程语言。
@@ -15,7 +17,7 @@
    * 自然语言处理（NLP）：使用 NLTK、Spacy 处理文本和语音数据。
    * GUI 应用开发：使用 Tkinter、PyQt 或 Kivy 创建图形用户界面。
 
-3. Python之禅
+3. Python之禅：优秀代码编写理念和原则
 
    >进入到 Python 的命令行界面，输入 import this 便可以看到
 
@@ -102,7 +104,7 @@ Python 的数据类型：数字类型、布尔型和字符串类型。
 
    * 索引
 
-     > 在 Python 中，字符串中的字符可以通过索引来提取。索引语法是：`变量[下标]`，这里的下标是由数字表示，代表所要索引的字符在变量中的位置。当从前往后索引时，下标从 0 开始。当从后往前索引时，下标从 -1 开始。
+     在 Python 中，字符串中的字符可以通过索引来提取。索引语法是：`变量[下标]`，这里的下标是由数字表示，代表所要索引的字符在变量中的位置。当从前往后索引时，下标从 0 开始。当从后往前索引时，下标从 -1 开始。
 
    * 切片：可以通过切片来提取变量的多个字符，
 
@@ -147,51 +149,49 @@ Python 的数据类型：数字类型、布尔型和字符串类型。
 
      ![img](https://cdn.aidaxue.com/courseactive/1449/17005/17013/2032d3e6ee68e15283828b434fb68673.jpg)
 
-     > 可以使用变量.title()方法，使每个单词的首字母大写
-     >
-     > 可以使用变量.rstrip()方法，删除结尾的空白字符（但这只是暂时的，再次访问时空白字符仍然存在）
-
-   * 转义字符
-
-     > \t：制表符
-     >
-     > \n：换行符
+     * 可以使用`变量.title()`方法，使每个单词的首字母大写
+     * 可以使用`变量.rstrip()`方法，删除结尾的空白字符；使用`变量.lstrip()`删除开头的空白字符（但这只是暂时的，再次访问时空白字符仍然存在）
+     
+* 转义字符
+   
+  * `\t`：制表符
+     * `\n`：换行符
      
    * 字符串中引用变量的值
-
+   
      > 在字符串前面加小写字母 'f'，然后将需要引用的变量，用花括号包起来 {name}
 
      ~~~ python
-     name = "chen"
+  name = "chen"
      age = 20
      print(f"my name is {name},age is {age}")
      ~~~
      
    * 字符串拼接与格式化
-
+   
      * 可以使用加号字符串
 
      * 使用占位符形式
 
        ~~~python
-       print("你好呀,%s,欢迎来到%s,%3.2f" % ("陈文健", "成都", 5.6666))
+    print("你好呀,%s,欢迎来到%s,%3.2f" % ("陈文健", "成都", 5.6666))
        ~~~
-
+   
        | 格式符号 | 转化                             |
-       | -------- | -------------------------------- |
+    | -------- | -------------------------------- |
        | %s       | 将内容转化为字符串，放入占位位置 |
        | %d       | 将内容转化为整数，放入占位位置   |
        | %f       | 将内容转化为浮点型，放入占位位置 |
-
+   
      * 可以通过语法：f"内容{变量}"的格式来快速格式化
 
        ~~~python
-       name = "张三"
+    name = "张三"
        city = "成都"
        print(f"{name}来到了{city}")
        ~~~
-
-       > 注意该种方式不校验数据类型，不做进度控制，适用于都精度没有要求的时候快速使用
+   
+       > 注意该种方式不校验数据类型，不做精度控制，适用于都精度没有要求的时候快速使用
 
 4. 获得变量的数据类型
 
@@ -252,7 +252,7 @@ Python 的数据类型：数字类型、布尔型和字符串类型。
 
 1. 列表的特性
 
-   * 列表示有序的
+   * 列表是有序的
    * 同一个列表可以包含不同类型的数据
    * 列表中的元素可以重复出现
    * 可以通过索引的方式来访问列表的元素
@@ -282,9 +282,20 @@ Python 的数据类型：数字类型、布尔型和字符串类型。
        > * pop() 的返回值为删除的元素。
 
      * `count()`可以统计元素出现个数
+     
+     * `sort()`永久排序，`sorted()`临时排序
+     
+   * 遍历
+   
+     ~~~python
+     for n in list(range(1, 11)):
+         print(n)
+     ~~~
+   
+     
 
 
-   ![image-20230812231702527](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202308122317288.png)
+![image-20230812231702527](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202308122317288.png)
 
 ![img](https://cdn.aidaxue.com/courseactive/1453/17075/0/3acb62c4c07dec491d95290af09f7e7c.jpg)
 
@@ -649,11 +660,11 @@ print(name_inter)
      Python 中模块内的对象和方法也可以有自己的别名，实现语句为： `from 模块名 import *** as 别名` ，该命令为导入的对象起一个别名。这样就可以通过别名来使用对象。示例如下：
 
      ~~~python
-     import模块名
-     from模块名import 类、变量、方法等.
-     from模块名import *
-     import模块名as别名
-     from模块名import 功能名as别名
+     import 模块名
+     from 模块名 import 类、变量、方法等
+     from 模块名 import *
+     import 模块名 as 别名
+     from 模块名 import 功能名 as 别名
      ~~~
 
 3. 创建模块：
@@ -1356,15 +1367,21 @@ for link in links:
 
 ~~~
 
-## openpyxl库
+## openpyxl
+
+> 具体使用参考：[Excel](#excel)
+
+官网：https://openpyxl.readthedocs.io/en/stable/#
 
 1. 简介：一个用于操作 Excel 文件的库，可以读取、修改和创建 Excel 文件。
 
 ~~~python
 import openpyxl
 
-# 创建工作簿和工作表
+# 创建工作簿
 wb = openpyxl.Workbook()
+
+# 获取激活的工作表
 sheet = wb.active
 
 # 设置单元格的值
@@ -1379,7 +1396,35 @@ wb.save('example.xlsx')
 
 ~~~
 
-# 办公自动化
+# 自动化
+
+## 办公自动化
+
+### <a id= 'excel'>Excel</a>
+
+参考：
+
+* [openpyxl](https://openpyxl.readthedocs.io/en/stable/#)
+* [Openpyxl的基本概念、用途、安装和导入的不同方式](https://blog.csdn.net/m0_64359306/article/details/132160225)
+
+1. excel基本概念
+
+   * 工作簿：一个`.xlsx`文件就是一个工作簿
+   * 工作表
+   * 单元格
+
+2. 安装第三方库`openpyexl`
+
+   ~~~python
+   # 校验是否安装对应的第三方库，若报错说明没有安装，可使用pip install openpyxl进行安装
+   import openpyxl
+   ~~~
+
+3. 使用python操作excel
+
+## 运维自动化
+
+## 自动化测试
 
 ## Excel
 

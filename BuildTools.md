@@ -1,3 +1,5 @@
+# 基础理论
+
 构建是指将源代码转换为可执行软件的过程。构建工具的作用在于自动化和简化这一过程，使得开发人员能够更加高效地进行软件构建、测试和部署。
 
 构建工具通常会执行以下任务：
@@ -39,6 +41,10 @@ Gradle 和 Maven 都是流行的构建工具，用于构建、管理和部署Jav
 官网：https://maven.apache.org
 
 中央仓库：[Maven Repository: Search/Browse/Explore](https://mvnrepository.com/)
+
+其他仓库：
+
+* https://central.sonatype.com/
 
 参考资料：
 
@@ -732,14 +738,14 @@ mvn deploy
 
 ## 项目目录与创建
 
-Gradle,项目默认目录结构和 Maven 项目的目录结构一致,都是基于约定大于配置。完整目录结构如下：
+Gradle项目默认目录结构和 Maven 项目的目录结构一致,都是基于约定大于配置。完整目录结构如下：
 
 ![image-20240324215519694](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202403242155882.png)
 
 在项目中使用gradle主要有两种方式：
 
 * 集成IDE
-* 命令行，如使用`gradle init`命令创建gradle项目
+* 命令行，如[使用`gradle init`命令创建gradle项目](https://docs.gradle.org/current/userguide/part1_gradle_init.html#part1_gradle_init)
 
 ## Wrapper
 
@@ -917,6 +923,16 @@ gradle [taskName...] [--option-name...]
 ### 自定义插件
 
 ## 依赖管理
+
+## 增量构建&缓存
+
+1. 开启详细构建日志
+
+   ~~~
+   ./gradlew compileJava --console=verbose
+   ~~~
+
+   使用`--console=verbose`参数可以在以前执行过且未更改的任务时，在任务旁边打印 `UP-TO-DATE` 
 
 ## 项目部署
 
