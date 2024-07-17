@@ -12,6 +12,8 @@
    * web开发
    * 游戏开发
    * 人工智能与机器学习
+   * 自然语言处理（NLP）：使用 NLTK、Spacy 处理文本和语音数据。
+   * GUI 应用开发：使用 Tkinter、PyQt 或 Kivy 创建图形用户界面。
 
 3. Python之禅
 
