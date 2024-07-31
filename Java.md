@@ -6841,14 +6841,14 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
 
 # Spring
 
+官网：https://spring.io
+
 参考：
 
 * https://www.bilibili.com/video/BV1WZ4y1P7Bp?p=1
 * https://www.bilibili.com/video/BV1Fi4y1S7ix/?p=2&spm_id_from=pageDriver&vd_source=fabefd3fabfadb9324761989b55c26ea
 
-## Spring简介
-
-官网：https://spring.io
+## 简介
 
 1. spring是什么
    
@@ -6892,16 +6892,43 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
 
 ![image-20230211175056032](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302111751185.png)
 
-## Spring快速入门
+## 快速入门
 
-1. Spring程序开发步骤
-   * 导入Spring开发的基本包坐标
-   * 编写Dao接口和实现类
-   * 创建Spring核心配置文件
-   * 在Spring配置文件中配置UserDapImpl
-   * 使用Spring的容器相关API获得Bean实例
+> 想要使用spring进行开发简单来说只需要在一个普通的Maven项目中引入spring的依赖包即可使得该项目成为一个spring应用。在开发过程中就可以使用spring提供的相关api特性进行简化开发。
 
-## Spring相关API
+Spring程序开发步骤：
+* **导入Spring开发的基本包坐标**
+
+  ~~~xml
+          <dependency>
+              <groupId>org.springframework</groupId>
+              <artifactId>spring-context</artifactId>
+              <version>${spring-context.version}</version>
+          </dependency>
+  ~~~
+
+* 创建service层，dao层等业务相关接口和实现类
+
+* **配置上述相关类的元信息（BeanDefinition）**，方式如下：
+
+  * xml配置文件
+  * groovy脚本
+  * java注解配置
+
+* 使用Spring的容器相关API获得Bean实例
+
+  * `ClassPathXmlApplicationContext`
+  * `GenericApplicationContext`
+  * `AnnotationConfigApplicationContext`
+
+## IOC容器
+
+1. 相关包：
+   * `org.springframework.beans`
+   * `org.springframework.context`
+2. 相关常用重要类和接口
+   * `BeanFactory`
+   * `ApplicationContext`
 
 ### 容器
 
@@ -6922,35 +6949,27 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
 
 4. BeanFactory和FactoryBean
 
-   > **BeanFactory**定义了IOC容器的最基本形式，并提供了IOC容器应遵守的的最基本的接口，也就是Spring IOC所遵守的最底层和最基本的编程规范。在Spring代码中，BeanFactory只是个接口，并不是IOC容器的具体实现，但是Spring容器给出了很多种实现，如 DefaultListableBeanFactory、XmlBeanFactory、ApplicationContext等，都是附加了某种功能的实现。
-   >
-   > **FactoryBean** 一般情况下，Spring通过反射机制利用<bean>的class属性指定实现类实例化Bean，在某些情况下，实例化Bean过程比较复杂，如果按照传统的方式，则需要在<bean>中提供大量的配置信息。配置方式的灵活性是受限的，这时采用编码的方式可能会得到一个简单的方案。Spring为此提供了一个org.springframework.bean.factory.FactoryBean的工厂类接口，用户可以通过实现该接口定制实例化Bean的逻辑。 FactoryBean接口对于Spring框架来说占用重要的地位，Spring自身就提供了70多个FactoryBean的实现。它们隐藏了实例化一些复杂Bean的细节，给上层应用带来了便利。从Spring3.0开始，FactoryBean开始支持泛型，即接口声明改为FactoryBean<T>的形式
+   * **BeanFactory**定义了IOC容器的最基本形式，并提供了IOC容器应遵守的的最基本的接口，也就是Spring IOC所遵守的最底层和最基本的编程规范。在Spring代码中，BeanFactory只是个接口，并不是IOC容器的具体实现，但是Spring容器给出了很多种实现，如 DefaultListableBeanFactory、XmlBeanFactory、ApplicationContext等，都是附加了某种功能的实现。
+   * **FactoryBean** 一般情况下，Spring通过反射机制利用<bean>的class属性指定实现类实例化Bean，在某些情况下，实例化Bean过程比较复杂，如果按照传统的方式，则需要在<bean>中提供大量的配置信息。配置方式的灵活性是受限的，这时采用编码的方式可能会得到一个简单的方案。Spring为此提供了一个org.springframework.bean.factory.FactoryBean的工厂类接口，用户可以通过实现该接口定制实例化Bean的逻辑。 FactoryBean接口对于Spring框架来说占用重要的地位，Spring自身就提供了70多个FactoryBean的实现。它们隐藏了实例化一些复杂Bean的细节，给上层应用带来了便利。从Spring3.0开始，FactoryBean开始支持泛型，即接口声明改为FactoryBean<T>的形式
 
-## IOC容器
+### Bean及其配置
 
-1. 相关包：
-   * `org.springframework.beans`
-   * `org.springframework.context`
-2. 相关常用重要类和接口
-   * `BeanFactory`
-   * `ApplicationContext`
-
-### bean的配置
-
-1. Bean标签的基本配置
+1. Bean：在Spring中，由Spring IoC容器管理的对象被称为Bean。在容器本身中，Bean定义被表示为 `BeanDefinition` 对象
    
+2. Bean标签的基本配置
+
    用于配置对象交由Spring来创建。默认情况下它调用的是类中的无参构造函数，如果没有无参构造函数则不能创建成功。
-   
+
    基本属性：
-   
+
    * id：Bean实例在Spring容器中的唯一标识
    * class：Bean的全限定名
    * name：Bena的别名
 
-2. Bean标签的范围配置
-   
+3. Bean标签的范围配置
+
    scope：指定对象的作用范围，取值如下：
-   
+
    | 取值范围   | 说明                                                         |
    | ---------- | ------------------------------------------------------------ |
    | singleton  | 默认值，单例的                                               |
@@ -6958,9 +6977,9 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
    | request    | web项目中，spring创建一个Bean对象，将对象存入到request域中   |
    | session    | web项目中，spring创建一个Bean的对象，将对象存入到session域中 |
    | ~~global~~ | ~~web项目中，应用在protlet环境中，如果没有protlet环境，那么相当于session~~ |
-   
+
    总结：
-   
+
    * 当scope的取值为singleton时，Bean的实例化个数为1个，Bean的实例化时机为当Spring核心文件被加载时，实例化配置的Bean实例。Bean的生命周期：
      * 对象创建：当应用加载，创建容器时，对象就被创建了
      * 对象运行：只要容器在，对象就一直活着
@@ -6970,24 +6989,24 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
      * 对象运行：只要对象在使用中，就一直活着
      * 对象销毁：当对象长时间不用时，被java的立即回收机制回收
 
-3. Bean生命周期配置
-   
+4. Bean生命周期配置
+
    * 在配置文件中配置
      * init-method:指定类中的初始化方法名称
      * destroy-method：指定类中销毁方法名称
    * 在类定义时配置：实现InitalizingBean和DisposableBean两个接口
-   
+
    ![image-20230211230417682](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302112304813.png)
-   
+
    ![image-20230211230501166](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302112305816.png)
 
-4. **Bean实例化**三种方式
-   
+5. **Bean实例化**三种方式
+
    * 无参构造方法实例化
-   
+
    * 工厂静态方法实例化（factory-method属性指定类中实例化方法）
      
-     > ```
+     > ```java
      > public class UserDaoFactory {
      >     public static UserDao getUserDao(){
      >         return new UserDaoImpl();
@@ -6996,23 +7015,23 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
      > ===============================
      > <bean id="userDao2" class="factory.UserDaoFactory" factory-method="getUserDao"></bean>
      > ```
-   
+
    * 工厂实例方法实例化（factory-bean和factory-method属性指定实例化方法）
      
-     > ```
+     > ```java
      > public class UserDaoFactory {
      >     public UserDao getUserDao2(){
      >         return new UserDaoImpl();
      >     }
      > }
      > ==============================
-     > bean id="userDaoFactory" class="factory.UserDaoFactory"/>
+     > <bean id="userDaoFactory" class="factory.UserDaoFactory"/>
      > <bean id="userDao2" factory-bean="userDaoFactory" factory-method="getUserDao2"/>
      > ```
-   
+
    * 方式三的改进：
      
-     > ```
+     > ```java
      > public class UserDaoFactoryBean implements FactoryBean<UserDao> {
      >     /**
      >      * 代替原始实例工厂中的创建实例的对象
@@ -7062,6 +7081,10 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
      
      * 有参构造
    
+     * 属性注入（不推荐）
+     
+     * `@Bean`方法参数或方法调用注入
+     
    * 注入方式的选择：
      
      ![image-20230212110259762](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121103544.png)
@@ -7073,11 +7096,11 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
    </bean>
    
    <!--有参构造方式-->
-   <bean id="userService" class="service.impl.UserServiceImpl">
+<bean id="userService" class="service.impl.UserServiceImpl">
        <constructor-arg name="userDao" ref="userDao"/>
    </bean>
    ```
-
+   
 2. 依赖注入的数据类型
    
    * 普通数据类型
@@ -7130,7 +7153,7 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
    <bean id="userService" class="service.impl.UserServiceImpl" autowire="byType"/>
    ```
 
-### 配置数据源（连接池）
+### 案例：配置数据源（连接池）
 
 1. 数据源的作用：事先实例化数据源，初始化部分连接资源
    
@@ -7323,68 +7346,45 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
    </beans>
    ```
 
-### 配置知识点总结：
+### 配置知识点总结
 
-> <bean>标签：
-> 
-> * id属性：容器中Bean实例的唯一标识，不允许重复
-> * class属性：要实例化的Bean的全限定名
-> * scope属性：Bean的作用范围
-> * <property>标签：属性注入
->   * name属性：属性名称
->   * value属性：注入的普通属性名称
->   * ref属性：注入的对象引用值
->   * <list>标签
->   * \<map>标签
->   * <properties>标签
-> * <constructor-arg>标签 
-> 
-> <import>标签：导入其他的spring的分文件
+* <bean>标签：
 
-### 容器
+  * id属性：容器中Bean实例的唯一标识，不允许重复
+  * class属性：要实例化的Bean的全限定名
+  * scope属性：Bean的作用范围
+  * <property>标签：属性注入
+    * name属性：属性名称
+    * value属性：注入的普通属性名称
+    * ref属性：注入的对象引用值
+    * <list>标签
+    * \<map>标签
+    * <properties>标签
+  * <constructor-arg>标签 
 
-1. ApplicationContext继承体系
-   
-   ![image-20220120200453261](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220120200453261.png)
+* <import>标签：导入其他的spring的分文件
 
-2. ApplicationContext实现类
-   
-   * ClassPathXmlApplicationContext：从类的根路径下加载配置文件（推荐使用）
-   * FileSystemXmlApplicationContext：从磁盘路径上加载配置文件，配置文件可以在磁盘的任意位置
-   * AnnoationConfigApplicationContext：使用注解配置容器对象时使用
+## 注解开发
 
-3. getBean()方法
-   
-   * 传递id
-   * 传递class
+1. Spring是轻代码重配置的框架，配置比较繁重，影响开发效率，所以注解开发是一种趋势
 
-5. BeanFactory和FactoryBean
-   
-   * **BeanFactory**定义了IOC容器的最基本形式，并提供了IOC容器应遵守的的最基本的接口，也就是Spring IOC所遵守的最底层和最基本的编程规范。在Spring代码中，BeanFactory只是个接口，并不是IOC容器的具体实现，但是Spring容器给出了很多种实现，如 DefaultListableBeanFactory、XmlBeanFactory、ApplicationContext等，都是附加了某种功能的实现。
-   * **FactoryBean** 一般情况下，Spring通过反射机制利用<bean>的class属性指定实现类实例化Bean，在某些情况下，实例化Bean过程比较复杂，如果按照传统的方式，则需要在<bean>中提供大量的配置信息。配置方式的灵活性是受限的，这时采用编码的方式可能会得到一个简单的方案。Spring为此提供了一个org.springframework.bean.factory.FactoryBean的工厂类接口，用户可以通过实现该接口定制实例化Bean的逻辑。 FactoryBean接口对于Spring框架来说占用重要的地位，Spring自身就提供了70多个FactoryBean的实现。它们隐藏了实例化一些复杂Bean的细节，给上层应用带来了便利。从Spring3.0开始，FactoryBean开始支持泛型，即接口声明改为FactoryBean<T>的形式
-   * `BeanDefinition`
+   > 注意：使用注解时需要进行组件扫描配置（使用全注解开发时可以使用@ComponentScan注解代替该操作）
 
-## Spring注解开发
-
-> Spring是轻代码重配置的框架，配置比较繁重，影响开发效率，所以注解开发是一种趋势
->
-> 注意：使用注解时需要进行组件扫描配置（使用全注解开发时可以使用@ComponentScan注解代替该操作）
->
-> ![image-20220317225758957](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220317225758957.png)
+   ![image-20220317225758957](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220317225758957.png)
 
 2. 常用注解
-   
+
    ![image-20220317200213868](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220317200213868.png)
-   
+
    ![image-20220318093850296](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318093850296.png)
-   
+
    * @Component：定义Bean
      
      * 衍生注解
        * @Controller：用于表现层Bean定义
        * @Servcie：用于业务层Bean定义
        * @Repository：用于数据层Bean定义
-   
+
    * @Scope+@PostConstruct+@PreDestory：设置Bean的作用范围与生命周期
      
      ```java
@@ -7401,96 +7401,98 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
          }
      }
      ```
-   
+
    * @Configuration+@ComponentScan
      
      ![image-20230212152955095](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121529302.png)
-   
+
    * @Value：实现简单类型的注入
-   
+
    * @Qualifier：按照id值从容器中进行匹配，但是需要结合@Autowired使用
      
      ![image-20230212161055301](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121610894.png)
-   
+
    * @Resource： `@Resource`是Java EE提供的注解，也可以在Java SE中使用。它可以通过名称或类型进行依赖注入。
      
      * 当使用`@Resource`注解时，可以通过`name`属性指定要注入的依赖项的名称，或者通过`type`属性指定要注入的依赖项的类型。
-   * 如果指定了`name`属性，则会按照名称进行注入，如果没有找到与该名称匹配的依赖项，则会抛出异常。
-     * 如果指定了`type`属性，则会按照类型进行注入，如果找到多个与该类型匹配的依赖项，则会选择其中一个进行注入。
-     * 如果既没有指定`name`属性，也没有指定`type`属性，则会按照名称进行注入，即默认使用被注解字段或方法的名称作为依赖项的名称。
+     * 如果指定了`name`属性，则会按照名称进行注入，如果没有找到与该名称匹配的依赖项，则会抛出异常。
+       * 如果指定了`type`属性，则会按照类型进行注入，如果找到多个与该类型匹配的依赖项，则会选择其中一个进行注入。
+       * 如果既没有指定`name`属性，也没有指定`type`属性，则会按照名称进行注入，即默认使用被注解字段或方法的名称作为依赖项的名称。
      
    * @Autowired： `@Autowired`是Spring框架提供的注解，用于实现自动装配。该注解可以使用在成员变量、set方法和构造器上。
-   
-  * 当使用`@Autowired`注解时，Spring会尝试根据被注解字段或方法的类型来寻找匹配的依赖项进行注入。
-     * 如果找到多个与该类型匹配的依赖项，则会根据一定的规则（如优先级、限定符等）选择其中一个进行注入。
-     * 如果没有找到与该类型匹配的依赖项，则会抛出异常。
-     
-     
 
-   ![image-20230212161016594](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121610133.png)
+     * 当使用`@Autowired`注解时，Spring会尝试根据被注解字段或方法的类型来寻找匹配的依赖项进行注入。
+       * 如果找到多个与该类型匹配的依赖项，则会根据一定的规则（如优先级、限定符等）选择其中一个进行注入。
+       * 如果没有找到与该类型匹配的依赖项，则会抛出异常。
+
+     ![image-20230212161016594](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121610133.png)
 
    * @PropertySource：加载properties文件
-     
+
      ![image-20230212161527968](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121615596.png)
-   
+
    * @Bean：将方法返回值添加到Spring容器中
-     
+
      ![image-20230212163828252](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302121638962.png)
-   
-   * @Import
 
-   ```java
+   * `@Import`
+
+    * `@conditional`
+
+       * `Condition`接口用于实现条件控制Bean是否放入Spring容器中，`@Conditional`注解用于指定`Condition`接口的实现类，该注解是SpringBoot框架实现自动装配的核心原理。
+
+   ~~~java
    //核心配置类
-   import com.alibaba.druid.pool.DruidDataSource;
-   import org.springframework.beans.factory.annotation.Value;
-   import org.springframework.context.annotation.Bean;
-   import org.springframework.context.annotation.ComponentScan;
-   import org.springframework.context.annotation.Configuration;
-   import org.springframework.context.annotation.PropertySource;
-   
-   import javax.sql.DataSource;
-   
-   @Configuration//表明为Spring核心配置类
-   @ComponentScan("com.chen")//包扫描
-   @PropertySource("classpath:jdbc.properties")//加载jdbc配置文件
-   public class SpringConfiguration {
-   
-       @Value("${jdbc.driver}")
-       private String driverClassName;
-   
-       @Value("${jdbc.url}")
-       private String url;
-   
-       @Value("${jdbc.username}")
-       private String userName;
-   
-       @Value("${jdbc.password}")
-       private String password;
-   
-       @Bean("dataSource")//将返回值添加到Spring容器中
-       public DataSource getDataSource(){
-           DruidDataSource dataSource = new DruidDataSource();
-           dataSource.setDriverClassName(driverClassName);
-           dataSource.setUrl(url);
-           dataSource.setUsername(userName);
-           dataSource.setPassword(password);
-           return dataSource;
-       }
-   }
-   =====================================================
-       //测试
-       @Test
-       public void testDruidDataSource() throws SQLException {
-   //        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-           AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfiguration.class);
-           DataSource dataSource = (DataSource) context.getBean("dataSource");
-           Connection connection = dataSource.getConnection();
-           System.out.println(connection);
-           connection.close();
-       }
-   ```
+      import com.alibaba.druid.pool.DruidDataSource;
+      import org.springframework.beans.factory.annotation.Value;
+      import org.springframework.context.annotation.Bean;
+      import org.springframework.context.annotation.ComponentScan;
+      import org.springframework.context.annotation.Configuration;
+      import org.springframework.context.annotation.PropertySource;
+      
+      import javax.sql.DataSource;
+      
+      @Configuration//表明为Spring核心配置类
+      @ComponentScan("com.chen")//包扫描
+      @PropertySource("classpath:jdbc.properties")//加载jdbc配置文件
+      public class SpringConfiguration {
+      
+          @Value("${jdbc.driver}")
+          private String driverClassName;
+      
+          @Value("${jdbc.url}")
+          private String url;
+      
+          @Value("${jdbc.username}")
+          private String userName;
+      
+          @Value("${jdbc.password}")
+          private String password;
+      
+          @Bean("dataSource")//将返回值添加到Spring容器中
+          public DataSource getDataSource(){
+              DruidDataSource dataSource = new DruidDataSource();
+              dataSource.setDriverClassName(driverClassName);
+              dataSource.setUrl(url);
+              dataSource.setUsername(userName);
+              dataSource.setPassword(password);
+              return dataSource;
+          }
+      }
+      =====================================================
+          //测试
+          @Test
+          public void testDruidDataSource() throws SQLException {
+      //        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+              AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfiguration.class);
+              DataSource dataSource = (DataSource) context.getBean("dataSource");
+              Connection connection = dataSource.getConnection();
+              System.out.println(connection);
+              connection.close();
+          }
+   ~~~
 
-2. xml配置与注解配置的比较
+3. xml配置与注解配置的比较
 
    * 灵活度上：xml方式是具有一定局限性的，比如：在创建bean的时候，需要加入一些定制化的逻辑，当满足什么条件时在bean中加入什么样的属性，使用xml的方式就会比较麻烦，但是使用JavaConfig，即Annotation的方式更加灵活，可以很轻松地加入这些创建逻辑，而且代码更加清晰。
    * 安全性上：使用JavaConfig方式，属于类型安全的一种方式，通常在集成开发工具中，如果某一个类名写错，直接会编译提示错误，提早发现错误，而使用xml的方式，在某些编译器中是检测不出来的，类名写错之后，只有在启动或者运行的时候才会提示错误，存在一定的安全隐患。
@@ -7505,9 +7507,9 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
    >
    > * 如果希望后期去学习一些Spring生态圈中的其他框架，建议尽早使用JavaConfig这种方式。
 
-## Spring Aop
+## Aop
 
-### AOP简介
+### 简介
 
 1. AOP (Aspect Oriented Progr amming)：面向切面编程，一种编程范式。指导开发者如何组织程序结构。AOP并不是Spring框架的专属名称，它是OOP的一个延续，通过预编译的方式和运行期间动态代理实现程序功能的统一维护的一种技术。
 
@@ -7515,7 +7517,7 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
 
 3. Spring理念；无侵入式
 
-4. AOP核心概念（**在哪里对什么做怎样的功能增强**）
+4. 核心概念（**在哪里对什么做怎样的功能增强**）
 
    * 连接点（JoinPoint）：程序执行过程中的任意位置，粒度为执行方法、抛出异常、设置变量等。在 Spring 中这些点指的是方法，可以看作正在访问的，或者等待访问的那些需要被增强功能的方法。**Spring 只支持方法类型的连接点。**
    * 切入点（PointCut）：匹配连接点的式子，实质就是**一个规则**，定义了我们要对哪些JoinPoint（哪个类的哪个方法）进行增强。
@@ -7528,7 +7530,7 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
      * 异常通知：如果连接点执行因抛出异常而退出，则执行此通知
      * 环绕通知：环绕通知可以在方法调用之前和之后执行自定义行为
    * 通知类（Advice）：定义通知的类
-   * 切面（Aspect）：描述通知与切入点的对应关系。本质是一个类，只不过是个功能类，作为整合 AOP 的切入点和通知。一般来讲，需要在 Spring 的配置文件中配置，或者通过注解来配置。
+   * 切面（Aspect）：**描述通知与切入点的对应关系**。本质是一个类，只不过是个功能类，作为整合 AOP 的切入点和通知。一般来讲，需要在 Spring 的配置文件中配置，或者通过注解来配置。
    * 目标对象( Target ) ：原始功能去掉共性功能对应的类产生的对象, 这种对象是无法直接完成最终工作的。简单点来说就是AOP 对连接点方法做增强，底层是代理模式生成连接点所在类的代理对象，那么连接点所在的类，就是被代理的类称呼为 Target。
    * 代理( Proxy ) ：目标对象无法直接完成工作,需要对其进行功能回填,通过原始对象的代理对象实现。一个类被 AOP 织入增强后，产生的结果就是代理类
    * 织入（Weaving）：织入是一种动作的描述，在程序运行时将增强的功能代码也就是通知，根据通知的类型（前缀后缀等…）放到对应的位置，生成代理对象。
@@ -7540,7 +7542,7 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
 
 在开发中代理模式的表现为：我们创建带有现有对象的代理对象，以便向外界提供功能接口。代理对象可以在客户端和目标对象之间起到中介的作用。为被代理对象执行一些附带的，增加的额外功能。
 
-![image-20230901180930810](java study notes.assets/image-20230901180930810.png)
+![image-20230901180930810](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202407302247146.png)
 
 开发中，代理模式的实现有两种：
 
@@ -7573,8 +7575,8 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
 
 * **动态代理**：代理类在程序运行时创建的代理方式被称为动态代理。 也就是说，这种情况下，代理类并不是在 Java 代码中定义的，而是在运行时根据我们在 Java 代码中的 “指示” 动态生成的。
 
-  * JDK动态代理
-  * CGLIB动态代理
+  * JDK动态代理（必须接口类型）
+  * CGLIB动态代理（支持接口，类）
 
 ### 入门案例
 
@@ -7582,6 +7584,23 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
    
    ![image-20230212210719558](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302122107730.png)
 
+   > 使用注解方式需要额外引入AspectJ依赖，xml方式Spring本身支持无需额外依赖
+   
+   ~~~xml
+   <dependency>
+     <groupId>org.springframework</groupId>
+     <artifactId>spring-aspects</artifactId>
+     <version>${spring.version}</version>
+   </dependency>
+   
+   <dependency>
+     <groupId>org.springframework</groupId>
+     <artifactId>spring-aop</artifactId>
+     <version>6.1.0</version>
+     <scope>compile</scope>
+   </dependency>
+   ~~~
+   
 2. 代码实现
    
    ```java
@@ -7606,18 +7625,18 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
    }
    ```
 
-### AOP工作流程
+### 工作流程
 
-> 1. Spring容器启动
-> 2. 读取所有切面配置中的切入点
-> 3. 初始化bean ,判定bean对应的类中的方法是否匹配到任意切入点
->    * 匹配失败 ,创建对象
->    * 匹配成功 ,创建原始对象(目标对象)的代理对象
-> 4. 获取bean执行方法
->    * 获取bean ,调用方法并执行,完成操作
->    * 获取的bean是代理对象时 , 根据代理对象的运行模式运行原始方法与增强的内容,完成操作
+1. Spring容器启动
+2. 读取所有切面配置中的切入点
+3. 初始化bean ,判定bean对应的类中的方法是否匹配到任意切入点
+   * 匹配失败 ,创建对象
+   * 匹配成功 ,创建原始对象(目标对象)的代理对象
+4. 获取bean执行方法
+   * 获取bean ,调用方法并执行,完成操作
+   * 获取的bean是代理对象时 , 根据代理对象的运行模式运行原始方法与增强的内容,完成操作
 
-### AOP切入点表达式
+### 切入点表达式
 
 ![image-20230216113833124](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302161138435.png)
 
@@ -7627,7 +7646,7 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
 
 ![image-20230216122818670](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302161228497.png)
 
-### AOP的通知类型
+### 通知类型
 
 1. 类型
    
@@ -7679,7 +7698,7 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
    }
    ```
 
-### AOP通知获取数据
+### 通知获取数据
 
 1. 获取参数
    
@@ -7761,16 +7780,13 @@ Java API 的规范 `JSR303` 定义了校验的标准 `validation-api` ，其中�
 
 3. 常用操作
 
-<<<<<<< HEAD
 ## Spring Event
 
 Spring Event是Spring的事件通知机制，可以将相互耦合的代码解耦，从而方便功能的修改与添加。Spring Event是监听者模式的一个具体实现。
 
 监听者模式包含了监听者Listener、事件Event、事件发布者EventPublish，过程就是EventPublish发布一个事件，被监听者捕获到，然后执行事件相应的方法。
 
-## Spring集成
-
-### Spring集成Junit
+## Spring集成Junit
 
 1. 原始Junit测试Spring时存在的问题
 
@@ -7813,7 +7829,7 @@ Spring Event是Spring的事件通知机制，可以将相互耦合的代码解�
    }
    ```
 
-### Spring与Web集成
+## Spring与Web集成
 
 1. ApplicationContext的获取：被获取多次
 
@@ -7825,7 +7841,7 @@ Spring Event是Spring的事件通知机制，可以将相互耦合的代码解�
 
    ![image-20220318103032314](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220318103032314.png)
 
-### Spring与Mybatis的集成
+## Spring与Mybatis的集成
 
 参考：http://www.mybatis.cn/archives/769.html
 
@@ -11522,6 +11538,8 @@ AntiSamy的maven坐标：
 
 ## 浏览器安全策略
 
+参考：https://www.bilibili.com/video/BV1pT421k7yz/?spm_id_from=333.1007.top_right_bar_window_history.content.click
+
 ### 同源策略
 
 1. 作用：用于限制一个源的文档或者它加载的脚本如何能与另一个源的资源进行交互。
@@ -11567,8 +11585,6 @@ CORS 的基本思想是，服务器在响应中提供一个标头（HTTP 头）�
 * 不使用自定义请求标头：请求不能包含用户自定义的标头。
 
 * 请求中的任意 XMLHttpRequestUpload 对象均没有注册任何事件监听器；XMLHttpRequestUpload 对象可以使用 XMLHttpRequest.upload 属性访问
-
-
 
 ## 单例模式
 
