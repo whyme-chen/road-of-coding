@@ -256,5 +256,8 @@
    // 5. >{% %} 响应处理,使用 >符号 打头，和 shell 很像，然后用 {% %} 括起来的脚本内容,在脚本中可以使用 javascript 原生语法，，脚本中有几个内置对象 client 表示当前客户端，response 表示响应结果
    ~~~
 
-
 # Visual Studio Code
+
+# Pycharm
+
+# Hbuilder
