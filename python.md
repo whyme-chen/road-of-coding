@@ -9,7 +9,7 @@
 2. Python能做什么
 
    * 数据分析
-   * 自动化
+   * 自动化（测试，运维，办公）
    * 网络爬虫：通过程序去获取 Web 页面上自己想要的数据，也就是自动抓取数据
    * web开发
    * 游戏开发
@@ -153,14 +153,15 @@ Python 的数据类型：数字类型、布尔型和字符串类型。
      * 可以使用`变量.rstrip()`方法，删除结尾的空白字符；使用`变量.lstrip()`删除开头的空白字符（但这只是暂时的，再次访问时空白字符仍然存在）
      
 * 转义字符
-   
+  
   * `\t`：制表符
+     
      * `\n`：换行符
      
    * 字符串中引用变量的值
-   
-     > 在字符串前面加小写字母 'f'，然后将需要引用的变量，用花括号包起来 {name}
-
+  
+   > 在字符串前面加小写字母 'f'，然后将需要引用的变量，用花括号包起来 {name}
+  
      ~~~ python
   name = "chen"
      age = 20
@@ -168,29 +169,29 @@ Python 的数据类型：数字类型、布尔型和字符串类型。
      ~~~
      
    * 字符串拼接与格式化
-   
-     * 可以使用加号字符串
-
-     * 使用占位符形式
-
+  
+   * 可以使用加号字符串
+  
+   * 使用占位符形式
+  
        ~~~python
-    print("你好呀,%s,欢迎来到%s,%3.2f" % ("陈文健", "成都", 5.6666))
+      print("你好呀,%s,欢迎来到%s,%3.2f" % ("陈文健", "成都", 5.6666))
        ~~~
-   
+  
        | 格式符号 | 转化                             |
-    | -------- | -------------------------------- |
+      | -------- | -------------------------------- |
        | %s       | 将内容转化为字符串，放入占位位置 |
        | %d       | 将内容转化为整数，放入占位位置   |
        | %f       | 将内容转化为浮点型，放入占位位置 |
-   
-     * 可以通过语法：f"内容{变量}"的格式来快速格式化
-
+  
+   * 可以通过语法：f"内容{变量}"的格式来快速格式化
+  
        ~~~python
-    name = "张三"
+      name = "张三"
        city = "成都"
        print(f"{name}来到了{city}")
        ~~~
-   
+  
        > 注意该种方式不校验数据类型，不做精度控制，适用于都精度没有要求的时候快速使用
 
 4. 获得变量的数据类型
@@ -510,7 +511,7 @@ print(name_inter)
    
    Python中有一个特殊的字面量: None,其类型是: <class 'NoneType'>。无返回值的函数，实际上就是返回了: None这个字面量，也就是说函数都是有返回值的，只不过没有显示返回值时返回的是None。
    
-   同时python中的支持一次返回多个值，只需在接收返回值时对应使用对个变量进行接收即可。
+   同时python中的支持一次返回多个值，只需在接收返回值时对应使用多个变量进行接收即可。
    
 4. 全局变量和局部变量：作用范围在函数内部，在函数外部无法使用
    的变量就是局部变量。可以使用global关键字来将函数内定义的变量定义为全局变量
@@ -793,7 +794,7 @@ Python 中的包实现了对模块分组管理的功能。从物理上看，包�
 
 ## 读写数据
 
-### 原生读写
+### 原生读写文件
 
 1. 优点：不占内存
 
@@ -855,7 +856,7 @@ Python 中的包实现了对模块分组管理的功能。从物理上看，包�
      # 在with open语句块中对文件进行操作，可以在操作完成后自动关闭文件，避免遗忘关闭文件造成资源持续占用
      ~~~
 
-### pandas文件读写
+### pandas读写文件
 
 ### 读取mysql数据
 
@@ -937,7 +938,7 @@ print(python_data)
 
 ~~~
 
-### 序列化与发序列化
+### 序列化与反序列化
 
 通过文件操作，我们可以将字符串写入到一个本地文件。但是，如果是一个对象(例如列表、字典、元组等)，就无法直接写入到一个文件里，需要对这个对象进行序列化，然后才能写入到文件里。
 设计一套协议， 按照某种规则，把内存中的数据转换为字节序列，保存到文件，这就是序列化，反之，从文件的字节序列恢复到内存中，就是反序列化。总结一下就是**将对象转换为字节序列就是序列化，反之将字节序列转换为对象是发序列化**。
@@ -1112,13 +1113,42 @@ Python正则表达式,使用re模块,并基于re模块中三个基础方法来�
 | \N      | 反向引用前面的捕获组       | (\d{2})-\1 可匹配 "11-11"、"22-22" 等          |
 | (?:...) | 创建非捕获组               | (?:ab)+ 只匹配 "abab"、"ababab" 等，不进行捕获 |
 
+## 测试
+
+Python标准库中模块unittest提供了代码测试工具。
+
+~~~python
+# demo_test.py
+def get_full_name(first_name: str, last_name: str) -> str:
+    """
+    This function returns the full name of the person.
+    """
+    full_name = f"{first_name} {last_name}"
+    return full_name.title()
+# ==============================================
+
+from demo_test import get_full_name
+import unittest
+
+
+class NameTestCase(unittest.TestCase):
+    def test_first_last_name(self):
+        """
+        测试函数get_full_name()
+        :return:
+        """
+        full_name = get_full_name('janis', 'joplin')
+        self.assertEqual(full_name, 'Janis Joplin')
+
+~~~
+
 ## 常用IDE
 
 参考：https://mp.weixin.qq.com/s/W2y-1bT2dssbDX1TF7ObsA
 
 # 第三方库
 
-## pyecharts包
+## pyecharts
 
 Echarts是个由百度开源的数据可视化，凭借着良好的交互性,精巧的图表设计，得到了众多开发者的认可。而Python是门富有表达力的语言，很适合用于数据处理。当数据分析遇上数据可视化时pyecharts诞生了。
 
@@ -1243,7 +1273,7 @@ map.set_global_opts(
 map.render()
 ~~~
 
-## pyspark包
+## pyspark
 
 ### 简介
 
@@ -1287,7 +1317,7 @@ Spark对Python语言的支持,重点体现在由Spark官方开发的Python语言
    spark_context.stop()
    ~~~
 
-## pandas包
+## pandas
 
 ## ta-lib
 
@@ -1375,26 +1405,36 @@ for link in links:
 
 1. 简介：一个用于操作 Excel 文件的库，可以读取、修改和创建 Excel 文件。
 
-~~~python
-import openpyxl
+2. 快速使用
 
-# 创建工作簿
-wb = openpyxl.Workbook()
+   ~~~python
+   import openpyxl
+   
+   # 创建工作簿
+   wb = openpyxl.Workbook()
+   
+   # 获取激活的工作表
+   sheet = wb.active
+   
+   # 设置单元格的值
+   sheet['A1'] = '序号'
+   sheet['B1'] = 'URL地址'
+   
+   # 获取单元格的值
+   print(sheet['A1'].value)
+   
+   # 保存工作簿
+   wb.save('example.xlsx')
+   
+   ~~~
 
-# 获取激活的工作表
-sheet = wb.active
+## Pygame
 
-# 设置单元格的值
-sheet['A1'] = '序号'
-sheet['B1'] = 'URL地址'
+> 具体使用参考：[pygame](#pygame)
 
-# 获取单元格的值
-print(sheet['A1'].value)
+官网：https://www.pygame.org/news
 
-# 保存工作簿
-wb.save('example.xlsx')
-
-~~~
+1. 简介：一个开源的Python库，专门用于编写电子游戏。它基于SDL（Simple DirectMedia Layer）开发，提供了丰富的功能和工具，用于处理多媒体资源（如图像、声音）、处理输入（如键盘、鼠标）、以及在屏幕上绘制图形。
 
 # 自动化
 
@@ -1427,6 +1467,27 @@ wb.save('example.xlsx')
 ## 自动化测试
 
 ## Excel
+
+# 游戏开发
+
+## <a id= 'pygame'>`Pygame`小游戏</a>
+
+1. 使用`pip`安装`pygame`
+
+   ~~~shell
+   pip install pygame
+   ~~~
+
+2. 编制开发计划
+
+   * 明确开发目标
+   * 明确开发时间
+
+3. 分阶段开发
+
+   * 明确阶段目标
+   * 每阶段开发前对现有代码进行研究，确定是否需要重构
+   * 更新开发计划
 
 # Anaconda
 
