@@ -11348,6 +11348,11 @@ DO 现在主要有两个版本：
 
 ### Google Guava包
 
+参考：
+
+* [Guava：Java开发者的全方位工具库_guava java-CSDN博客](https://blog.csdn.net/Mrxiao_bo/article/details/134291893)
+* [Google Guava官方教程（中文版） | Google Guava 中文教程 (gitbooks.io)](https://wizardforcel.gitbooks.io/guava-tutorial/content/1.html)
+
 ### Hutool包
 
 主页：https://www.hutool.cn/
