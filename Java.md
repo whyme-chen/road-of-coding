@@ -7507,7 +7507,7 @@ Spring程序开发步骤：
    >
    > * 如果希望后期去学习一些Spring生态圈中的其他框架，建议尽早使用JavaConfig这种方式。
 
-## Aop
+## AOP
 
 ### 简介
 
@@ -7536,52 +7536,6 @@ Spring程序开发步骤：
    * 织入（Weaving）：织入是一种动作的描述，在程序运行时将增强的功能代码也就是通知，根据通知的类型（前缀后缀等…）放到对应的位置，生成代理对象。
    
    ![image-20230212205103543](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302122051537.png)
-### 代理模式
-
-代理名词解释为：以被代理人名义，在授权范围内与第三方实施行为。而在软件行业中代理模式是一种非常常用的设计模式，跟现实生活中的逻辑一致。
-
-在开发中代理模式的表现为：我们创建带有现有对象的代理对象，以便向外界提供功能接口。代理对象可以在客户端和目标对象之间起到中介的作用。为被代理对象执行一些附带的，增加的额外功能。
-
-![image-20230901180930810](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202407302247146.png)
-
-开发中，代理模式的实现有两种：
-
-* **静态代理**：若代理类在程序运行前就已经存在，那么这种代理方式被称为静态代理 ，这种情况下的代理类通常都是我们在 Java 代码中定义的， 静态代理中的代理类和委托类会实现同一接口；
-
-  ~~~java
-  /**
-   * UserService的静态代理类
-   *
-   * @author whymechen
-   * @version 1.0
-   * @date 2023/10/26 15:48
-   * @see UserService
-   */
-  @Slf4j
-  @Component
-  @RequiredArgsConstructor
-  public class UserServiceProxy implements UserService {
-  
-      private final UserService userServiceImpl;
-  
-      @Override
-      public void saveUser(User user) {
-          log.info("开始保存用户信息：" + user.getName());
-          userServiceImpl.saveUser(user);
-          log.info("结束保存用户信息：" + user.getName());
-      }
-  }
-  ~~~
-
-* **动态代理**：代理类在程序运行时创建的代理方式被称为动态代理。 也就是说，这种情况下，代理类并不是在 Java 代码中定义的，而是在运行时根据我们在 Java 代码中的 “指示” 动态生成的。目的是为了**减少代理类的数量，解决代码复用的问题**。
-
-  * JDK动态代理（只能代理接口）
-  * CGLIB动态代理（支持接口，类）
-
-#### JDK
-
-#### CGLIB
-
 ### 入门案例
 
 1. 思路分析
@@ -7719,6 +7673,131 @@ Spring程序开发步骤：
 ![image-20230216204057235](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302162040119.png)
 
 
+
+### 代理模式
+
+代理名词解释为：以被代理人名义，在授权范围内与第三方实施行为。而在软件行业中代理模式是一种非常常用的设计模式，跟现实生活中的逻辑一致。
+
+在开发中代理模式的表现为：我们创建带有现有对象的代理对象，以便向外界提供功能接口。代理对象可以在客户端和目标对象之间起到中介的作用。**为被代理对象执行一些附带的，增加的额外功能。**
+
+![image-20230901180930810](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202407302247146.png)
+
+* 客户端
+* 代理类：代理类需要拥有目标类的*能力*，该能力在代码中通过**接口**来体现。
+* 目标类
+
+开发中，代理模式的实现有两种：
+
+* **静态代理**：若代理类在程序运行前就已经存在，那么这种代理方式被称为静态代理 ，这种情况下的代理类通常都是我们在 Java 代码中定义的， 静态代理中的代理类和委托类会实现同一接口；
+
+  ~~~java
+  /**
+   * UserService的静态代理类
+   *
+   * @author whymechen
+   * @version 1.0
+   * @date 2023/10/26 15:48
+   * @see UserService
+   */
+  @Slf4j
+  @Component
+  @RequiredArgsConstructor
+  public class UserServiceProxy implements UserService {
+  
+      private final UserService userServiceImpl;
+  
+      @Override
+      public void saveUser(User user) {
+          log.info("开始保存用户信息：" + user.getName());
+          userServiceImpl.saveUser(user);
+          log.info("结束保存用户信息：" + user.getName());
+      }
+  }
+  ~~~
+
+* **动态代理**：代理类在程序运行时创建的代理方式被称为动态代理。 也就是说，这种情况下，代理类并不是在 Java 代码中定义的，而是在运行时根据我们在 Java 代码中的 “指示” 动态生成的。目的是为了**减少代理类的数量，解决代码复用的问题**。
+
+  * JDK动态代理（只能代理接口）
+  * CGLIB动态代理（支持接口，类）
+
+> 个人认为不管是那一种方式，代理类均为动态生成，则其需要的描述信息均为目标类需要代理的方法（或者说是目标类与代理类需要共有的能力）和额外操作步骤（代理类多出来的能力），只不过JDK动态代理使用接口来抽取共有能力，代理类与目标类平级，CGLIG动态代理使用继承来实现共有能力的代码级表示，代理类为目标类的子级。
+
+#### JDK
+
+> 相关包：`java.lang.reflect`
+
+1. 适用场景：只能代理接口
+
+2. 重要类和接口
+
+   * `InvocationHandler`
+   * `Proxy`
+
+3. 代码实现：
+
+   ~~~java
+   /**
+    * @author chenwenjian
+    * @version 1.0
+    * @date 2023/12/26 18:37
+    */
+   @Slf4j
+   @Service
+   public class UserServiceInvocationHandler implements InvocationHandler {
+   
+       private UserServiceImpl userServiceImpl;
+   
+       @Autowired
+       public UserServiceInvocationHandler(UserServiceImpl userServiceImpl) {
+           this.userServiceImpl = userServiceImpl;
+       }
+   
+       @Override
+       public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+           long startTime = System.currentTimeMillis();
+           log.info("开始调用=======");
+           Object result = method.invoke(userServiceImpl, args);
+           log.info("结束调用=======");
+           log.info("耗时=======" + (System.currentTimeMillis() - startTime) + "ms");
+           return result;
+       }
+   }
+   
+   public class Application {
+       public static void main(String[] args) {
+           AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringContextConfiguration.class);
+   
+           User user = User.builder()
+                            .name("whymechen")
+                            .gender("male")
+                            .age(18)
+                            .address("China")
+                            .build();
+   
+           /* JDK动态代理客户端 */
+           /*
+            * 1. 创建一个实现接口InvocationHandler的对象
+            * 2. 调用Proxy.newProxyInstance()方法创建一个代理对象
+            * 3. 调用代理对象的方法
+            */
+           UserServiceImpl userService = context.getBean(UserServiceImpl.class);
+           UserServiceInvocationHandler userServiceInvocationHandler = context.getBean(UserServiceInvocationHandler.class);
+           UserService proxyInstance = (UserService)Proxy.newProxyInstance(userService.getClass().getClassLoader(), userService.getClass().getInterfaces(), userServiceInvocationHandler);
+           proxyInstance.saveUser(user);
+       }
+   }
+   ~~~
+
+#### CGLIB
+
+1. 简介：
+   * CGLIB(Code Generation Library)是一个开源项目。
+   * 是一个强大的，高性能，高质量的Code生成类库，它可以在运行期扩展Java类与实现Java接口。
+   * 性能比JDK动态代理要好。（底层有一个小而快的字节码处理框架ASM）
+2. 适用场景：**既可以代理接口，又可以代理类，底层是通过继承的方式实现的。**所以被代理的目标类不能使用final修饰。
+3. 重要类和接口
+   * `MethodInterceptor`
+   * `Enhancer`
 
 ## Spring事务
 
