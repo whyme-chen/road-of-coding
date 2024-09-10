@@ -239,7 +239,7 @@ Java关键字是**编程语言中预定义的具有特殊含义和用途的词�
 
 ## 数据类型
 
-### 基本数据类型及其包装类
+### 基本数据类型&包装类
 
 1. `byte`
 2. `char`
@@ -10712,15 +10712,20 @@ Spring Boot自动配置涉及到如下几个关键步骤：
 
 # Api文档
 
-## Swagger
+## Swagger/OpenApi
 
-官网：https://swagger.io/
+官网：
+
+* https://swagger.io/
+* [Home 2024 - OpenAPI Initiative (openapis.org)](https://www.openapis.org/)
+* [GitHub - OpenAPITools/openapi-generator: OpenAPI Generator allows generation of API client libraries (SDK generation), server stubs, documentation and configuration automatically given an OpenAPI Spec (v2, v3)](https://github.com/OpenAPITools/openapi-generator)
 
 参考文章：
 
 * https://blog.csdn.net/YR_112233/article/details/122630446
 * https://blog.csdn.net/weixin_46645338/article/details/123895447
 * [SpringBoot集成Swagger3.0（详细）](https://www.cnblogs.com/antLaddie/p/17418078.html)
+* [OpenAPI 规范 | OpenAPI 官方文档中文版 (xiniushu.com)](https://openapi.xiniushu.com/)
 
 ### 简介
 
@@ -11793,11 +11798,24 @@ java基础（集合+泛型+注解+反射）+设计模式-->框架源码（mybati
 * https://blog.csdn.net/ma_nong33/article/details/128923602
 * https://mp.weixin.qq.com/s/HZt0eT2e1T4hwNGdZMfxow
 
+## 开源协议（License）
+参考：
 
+* [各种开源协议介绍](https://www.runoob.com/w3cnote/open-source-license.html)
 
-## 开源协议
+在开源项目中，License（许可证）是一种法律文件，它规定了软件或其他作品的使用条款与条件。这些条款通常会规定用户如何合法地使用、修改和分发软件源代码或二进制形式的副本。许可证确保了软件的开放性，并保护了贡献者的知识产权，同时也明确了使用者的权利和义务。
 
-1. [木兰开源许可证](http://license.coscl.org.cn/)
+1. [Apache License](https://www.apache.org/licenses/)
+2. [MIT License](https://opensource.org/licenses/MIT)
+3. [BSD License](https://opensource.org/licenses/BSD-3-Clause)
+4. [GNU General Public License](https://www.gnu.org/licenses/gpl-3.0.html)
+5. [GNU Lesser General Public License](https://opensource.org/licenses/lgpl-3.0.html)
+5. [Eclipse Public License](https://opensource.org/licenses/EPL-1.0)
+6. [Mozilla Public License](https://opensource.org/licenses/MPL-2.0)
+7. [The Unlicense](https://unlicense.org/)
+8. [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
+9. [Public Domain](https://www.gnu.org/licenses/license-list.html#PublicDomain)
+10. [木兰开源许可证](http://license.coscl.org.cn/)
 
 ## Api接口设计
 
@@ -12090,6 +12108,10 @@ public class ApiResult<T> {
 ## 常见性能指标
 
 1. QPS
+
+## cURL
+
+cURL全称是 Client URL，是一个利用 URL 语法在命令行或脚本中工作的工具。
 
 # 基本测试
 
