@@ -1,29 +1,51 @@
 # JVM简介
 
-Java虚拟机是一台执行Java字节码的虚拟计算机，它拥有独立的运行机制，其运行的Java字节码也未必由Java语言编译而成。
+## 简介
+
+Java是目前应用最为广泛的软件开发平台之一。随着Java以及Java社区的不断壮大，Java也早已不再是简简单单的一门计算机语言，它更是一个平台、一种文化、一个社区。
+
+Java虚拟机是一台**执行Java字节码**的虚拟计算机，它拥有独立的运行机制，其运行的Java字节码也未必由Java语言编译而成。
 
 JVM平台的各种语言可以共享Java虛拟机带来的跨平台性、优秀的垃圾回收器，以及可靠的即时编译器。
 Java技术的核心就是Java虚拟机(JVM，Java Virtual Machine)，因为所有的Java程序都运行在Java虚拟机内部。
 
-1. jvm&jre&jdk
+1. 虚拟机
+
+   * 系统虚拟机：对物理计算机进行仿真，典型代表有：Visual Box，VMWare
+   * 程序虚拟机：专门为执行单个计算机程序而设计，典型代表有：JVM
+   
+2. jvm&jre&jdk
 
    ![image-20231219204824997](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202312192048550.png)
 
-## JVM结构
+3. JVM规范
 
-JVM整体结构如下：
+   > JavaSE：https://docs.oracle.com/javase/8/docs/
 
-![image-20230903111409485](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202309031114189.png)
+4. JVM架构模型
 
-执行引擎有包含以下几部分：
+   JVM内存整体结构如下：
 
-* 解释器（Interpreter）
-* 即时编译器（JIT Compiler）
-* 垃圾回收（GC）
+   ![image-20230903111409485](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202309031114189.png)
+
+   执行引擎有包含以下几部分：
+
+   * 解释器（Interpreter）
+   * 即时编译器（JIT Compiler）
+   * 垃圾回收（GC）
+
+   Java编译器输入的指令流基本上是一种**基于栈的指令集架构**，另外一种指令集架构则是**基于寄存器的指令集架构**。由于跨平台性设计，Java的指令都是根据栈来设计的。
+
+5. JVM的生命周期
 
 ## JVM家族
 
-1. Sun Classic/Exact VM
+1. Sun Classic
+2. Exact VM
+3. **HotSpot VM**
+4. **JRockit VM**
+5. **IBM J9/Eclipse OpenJ9**
+6. **Graal VM**
 
 ![image-20231219205628857](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202312192056537.png)
 
@@ -43,6 +65,10 @@ JVM整体结构如下：
 * `Jprofile`
 
 ## JVM内存结构
+
+整体结构：
+
+![image-20230903111409485](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202309031114189.png)
 
 ### 程序计数器
 
@@ -170,14 +196,13 @@ JVM整体结构如下：
 * 文档：
   * [Oracle官方](https://docs.oracle.com/javase/specs/index.html)
 * 书籍：
-  * 《深入理解Java虚拟机》
+  * **《深入理解Java虚拟机》**
   * 《Java虚拟机规范》
-  * 《自己动手写Java虚拟机》
+  * **《自己动手写Java虚拟机》**
 * 视频：
   * [尚硅谷JVM](https://www.bilibili.com/video/BV1PJ411n7xZ/?p=1&vd_source=fabefd3fabfadb9324761989b55c26ea)
   * [黑马程序员JVM完整教程](https://www.bilibili.com/video/BV1yE411Z7AP/?vd_source=fabefd3fabfadb9324761989b55c26ea)
   * [实战java虚拟机](https://www.bilibili.com/video/BV1r94y1b7eS/?vd_source=fabefd3fabfadb9324761989b55c26ea)
-* [尚硅谷JVM精讲与GC调优教程](https://www.bilibili.com/video/BV1Dz4y1A7FB/?spm_id_from=333.788.recommend_more_video.2&vd_source=fabefd3fabfadb9324761989b55c26ea)
-  
+  * [尚硅谷JVM精讲与GC调优教程](https://www.bilibili.com/video/BV1Dz4y1A7FB/?spm_id_from=333.788.recommend_more_video.2&vd_source=fabefd3fabfadb9324761989b55c26ea)
 * 文章：
   * [JVM（Java虚拟机）-史上最全、最详细JVM笔记](https://blog.csdn.net/weixin_56846554/article/details/129802936)
