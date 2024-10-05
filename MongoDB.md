@@ -1,4 +1,7 @@
 # MongoDB
+参考：
+* [MongoDB](https://www.mongodb.com/)
+* [MongoDB 教程](https://www.runoob.com/mongodb/mongodb-tutorial.html)
 
 ## 简介
 
@@ -13,6 +16,7 @@
    * 丰富的查询支持
 3. 应用场景
    * MongoDB支持高效的查询、索引、和水平扩展，适用于需要处理大量数据和灵活结构的应用程序。
+   * 价值较低，对事务性要求不高的应用程序数据。
 4. 体系结构
 
 ## 环境部署
@@ -33,4 +37,63 @@
 
 ## 数据类型
 
-## 
+## 基本操作
+
+### 数据库操作
+1. 连接数据库
+
+   连接语法：
+    * mongobd://：协议头
+    * [username:password@]：（可选）认证信息，包括用户名和密码 
+    * host1[:port1][,...hostN[:portN]]：服务器地址和端口，可以是一个或多个 MongoDB 服务器的地址和端口。 
+    * /[defaultauthdb]：（可选）默认认证数据库。
+    * [?options]：（可选）连接选项。
+    ~~~shell
+   `mongodb://[username:password@]host1[:port1][,...hostN[:portN]]][/[database][?options]]`
+    ~~~
+
+2. 创建数据库 
+3. 删除数据库
+
+### 集合操作
+1. 创建集合 
+2. 更新集合名 
+3. 删除集合
+
+### 文档操作
+
+1. 插入文档
+2. 更新文档
+3. 删除文档
+4. 查询文档
+
+## SpringBoot集成MongoDB
+参考：
+* [SpringBoot集成MongoDB](https://blog.csdn.net/qq_46112274/article/details/117425532)
+
+SpringBoot提供了MongoTemplate和MongoRepository两种方式访问MongoDB。
+* MongoTemplate操作灵活
+* MongoRepository操作简单
+
+### 快速接入
+
+1. 创建SpringBoot项目
+2. 引入依赖
+~~~xml
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-mongodb</artifactId>
+    </dependency>
+</dependencies>
+~~~
+2. 配置数据源
+~~~yaml
+spring:
+  data:
+    mongodb:
+      # ip:port替换为对应的ip和端口
+      uri: mongodb://rwuser:PNZxfClIS#LdUibcs6*QeahjT6Qr@ip:port/dev?authSource=admin
+~~~
+3. 创建实体类
+4. 创建Repository 
