@@ -49,6 +49,12 @@ Java技术的核心就是Java虚拟机(JVM，Java Virtual Machine)，因为所�
 
 ![image-20231219205628857](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202312192056537.png)
 
+## 编译JDK
+
+参考：
+
+* https://www.cnblogs.com/jhxxb/p/12558970.html
+
 # 自动内存管理
 
 ## 分析诊断工具
@@ -66,9 +72,13 @@ Java技术的核心就是Java虚拟机(JVM，Java Virtual Machine)，因为所�
 
 ## JVM内存结构
 
-整体结构：
+整体结构（二大子系统，五大区）：
 
 ![image-20230903111409485](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202309031114189.png)
+
+![](https://pica.zhimg.com/80/v2-d3f3c6d951c82b47ec21a660ea1cc748_1440w.webp)
+
+
 
 ### 程序计数器
 
@@ -175,6 +185,8 @@ Java技术的核心就是Java虚拟机(JVM，Java Virtual Machine)，因为所�
 
 ## 类加载机制
 
+类加载子系统通过类加载器（引导类加载器、扩展类加载器、系统类加载器）负责从文件系统或网络中加载Class文件，将解析后的信息存放在称为方法区（类信息、运行时常量池信息等）的内存空间中。
+
 ### 字节码文件（.class）
 
 参考：https://pdai.tech/md/java/jvm/java-jvm-class.html
@@ -189,12 +201,22 @@ Java技术的核心就是Java虚拟机(JVM，Java Virtual Machine)，因为所�
 
 ### 加载流程
 
+主要包括三个阶段：
+
+* 加载阶段：通过类的全限定名获取定义此类的二进制字节流，将该字节流代表的静态存储结构转化为方法区的运行时数据结构，在内存中生成一个代表这个类的`java.lang.Class`对象作为方法区这个类的各种数据访问入口。
+* 链接阶段
+  * 验证：确保Class文件中的字节流包含信息符合虚拟机要求，主要包括四种验证：文件格式验证、元数据验证、字节码验证、符号引用验证
+  * 准备
+  * 解析
+* 初始化阶段
+
 ### 类加载器
 
 # 参考资料
 
 * 文档：
   * [Oracle官方](https://docs.oracle.com/javase/specs/index.html)
+  * [OpenJDK](https://openjdk.org/)
 * 书籍：
   * **《深入理解Java虚拟机》**
   * 《Java虚拟机规范》
