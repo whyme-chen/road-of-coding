@@ -1,4 +1,4 @@
-# 编程基础
+# 简介&基础语法
 
 Java：https://docs.oracle.com/en/java/index.html
 
@@ -649,6 +649,8 @@ API文档：https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/la
      * 需要继承非静态和非常量字段。
 
 ## 枚举类
+
+参考：[java枚举类详解_java内部枚举类-CSDN博客](https://blog.csdn.net/weixin_43604021/article/details/126242933)
 
 java从JDK1.5之后才提出枚举的定义。枚举的主要作用是用于定义有限个数对象的一种结构。
 

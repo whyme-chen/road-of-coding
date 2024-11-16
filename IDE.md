@@ -218,9 +218,10 @@
 参考：
 
 * [IntelliJ Platform SDK | IntelliJ Platform Plugin SDK (jetbrains.com)](https://plugins.jetbrains.com/docs/intellij/welcome.html)
-* [Intelij开发idea插件从开发到发布的完整详细教程附带源码demo_idea插件开发-CSDN博客](https://blog.csdn.net/hj960511/article/details/135735940)
 * [IDEA 插件开发入门 | IDEA 高效使用指南 (javaguide.cn)](https://idea.javaguide.cn/tips/plug-in-development-intro.html)
 * [首页 | idea插件开发文档 (ideaplugin.com)](https://www.ideaplugin.com/)
+* [intellij-platform-plugin-template](https://github.com/JetBrains/intellij-platform-plugin-template)
+* [Intelij开发idea插件从开发到发布的完整详细教程附带源码demo_idea插件开发-CSDN博客](https://blog.csdn.net/hj960511/article/details/135735940)
 
 ## 工具
 

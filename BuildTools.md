@@ -996,4 +996,6 @@ Gradle DSL 提供了灵活、强大的方式来管理项目的构建过程，并
   **
 * **自定义任务(可选):自定义一些任务**
 
-## IDEA整合
+## IDEA集成
+
+参考：[Gradle | IntelliJ IDEA Documentation (jetbrains.com)](https://www.jetbrains.com/help/idea/gradle.html)
