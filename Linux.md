@@ -1337,6 +1337,7 @@ make 是一个用于控制程序编译过程的工具，它通过读取一个名
 
 * http://wget.addictivecode.org/
 * https://blog.csdn.net/freeking101/article/details/53691481/
+* [Linux curl命令最全详解-CSDN博客](https://blog.csdn.net/angle_chen123/article/details/120675472)
 
 ## 连接Linux
 
