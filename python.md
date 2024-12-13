@@ -17,19 +17,24 @@
    * 自然语言处理（NLP）：使用 NLTK、Spacy 处理文本和语音数据。
    * GUI 应用开发：使用 Tkinter、PyQt 或 Kivy 创建图形用户界面。
 
-3. Python之禅：优秀代码编写理念和原则
+3. 环境搭建
+
+   * Python原生安装
+   * Anaconda Python发行版
+
+4. Python之禅：优秀代码编写理念和原则
 
    >进入到 Python 的命令行界面，输入 import this 便可以看到
 
-4. print()函数：在控制台中输出内容
+5. print()函数：在控制台中输出内容
 
-5. input函数：将内容输入到程序。但值得注意的是无论键盘输入什么类型的数据，获取到的数据永远都是字符串类型
+6. input函数：将内容输入到程序。但值得注意的是无论键盘输入什么类型的数据，获取到的数据永远都是字符串类型
 
-6. 转义字符
+7. 转义字符
 
    ![img](https://cdn.aidaxue.com/courseactive/1529/18113/0/40fc87bd95eb50b7b487d8909a5e1b97.jpg)
 
-7. 注释：在代码中用于解释说明代码的描述性文字，注释不会被解释器执行
+8. 注释：在代码中用于解释说明代码的描述性文字，注释不会被解释器执行
 
    * 单行注释，使用#表示
    * 多行注释：使用一对三个引号表示
@@ -1681,6 +1686,10 @@ for link in links:
 
 具体参考：[数据分析-网络爬虫](./大数据&数据分析.md)
 
+## 数据处理
+
+## 数据存储
+
 ## 数据可视化
 
 # 人工智能
@@ -1708,11 +1717,30 @@ for link in links:
 
 # 工具
 
+## VS Code
+
+1. 语法高亮
+2. 自动补全
+3. 代码执行
+4. 调试器
+5. 版本控制
+
 ## Pycharm
 
 ## Anaconda
 
-参考资料：https://zhuanlan.zhihu.com/p/32925500
+参考资料：
+
+* https://zhuanlan.zhihu.com/p/32925500
+* [最新Anaconda3的安装配置及使用教程（附图文）-CSDN博客](https://blog.csdn.net/qq_43674360/article/details/123396415)
+
+### conda&pip
+
+### 包管理
+
+### conda环境
+
+conda环境是一个被隔离的“Python世界”，有着特定版本的Python和一些列安装好的包。Anaconda Prompt每行开头的base就是当前激活的conda环境的名称。conda环境是Anaconda的专业概念，但是虚拟环境是所有Python发行版的通用概念。相比之下conda环境更加强大，不仅可以管理多个版本的软件包，还可以管理不同版本间的Python解释器。
 
 ## Jupyter
 
@@ -1731,22 +1759,23 @@ for link in links:
 
 #### 简介及安装
 
-Jupyter Notebook 是一个交互式的开发环境，可用于创建和共享代码、文档、数据可视化，并支持超过40种编程语言。总的来说，jupyter notebook是一款程序员和科学工作者的编程/文档/笔记工具。
+1. 简介
 
-#### 安装
+   Jupyter Notebook 是一个交互式的开发环境，可用于创建和共享代码、文档、数据可视化，并支持超过40种编程语言。总的来说，jupyter notebook是一款程序员和科学工作者的编程/文档/笔记工具。
 
-pip命令
+2. 安装方式
 
-acanconda安装
+   * pip命令
+   * acanconda安装
 
 #### 启动及配置
 
-### 基本概念
+#### 基本概念
 
 1. 单元格
-2. 编辑模式和命令模式
+2. 单元格模式：编辑模式和命令模式
 
-### 快捷键
+#### 快捷键
 
 命令模式下快捷键：
 
@@ -1785,7 +1814,7 @@ acanconda安装
 | Ctrl + Shift + - | 分割单元格                           |
 | Shift + M        | 合并选中的多个单元格                 |
 
-### 魔法函数
+#### 魔法函数
 
 参考资料：https://blog.csdn.net/qq_41554005/article/details/109736618
 
@@ -1793,9 +1822,17 @@ acanconda安装
 2. `%run`：直接执行脚本
 3. `%pwd`：获取当前所在位置的**绝对路径**
 
+#### 云上Jupyter Notebook
+
+1. Binder
+2. Kaggle Notebook
+3. Google Colab
+
 # 路线&资源
 
 书籍：
+
+* 《Excel+Python：飞速搞定数据分析与处理》
 
 文章：
 

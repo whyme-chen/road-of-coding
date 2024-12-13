@@ -142,3 +142,7 @@
 参考：
 
 * [万字保姆级教程！Stable Diffusion完整入门指南](https://baijiahao.baidu.com/s?id=1765945330332903494&wfr=spider&for=pc)
+
+# Midjourney
+
+# NovelAI

@@ -54,6 +54,7 @@ Java技术的核心就是Java虚拟机(JVM，Java Virtual Machine)，因为所�
 参考：
 
 * https://www.cnblogs.com/jhxxb/p/12558970.html
+* [Ubuntu 22.04.3 LTS 编译 OpenJDK 12 - Tienz1 - 博客园](https://www.cnblogs.com/tienz1/p/17923453.html)
 
 # 自动内存管理
 
