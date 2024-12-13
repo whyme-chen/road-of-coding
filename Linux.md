@@ -1135,6 +1135,7 @@ Linux 下软件是以包的形式存在，一个软件包其实就是软件的�
      * 基于Debian的发行版（如Ubuntu）通常使用apt作为软件包管理器
      * 基于Red Hat的发行版（如CentOS、Fedora）则使用yum或dnf。
    * 手动编译源代码安装程序
+   * 二进制文件安装
    * 使用容器技术（如Docker）
 
 2. 软件包管理器
@@ -1295,12 +1296,52 @@ Linux 下软件是以包的形式存在，一个软件包其实就是软件的�
 
 ### apt
 
-### wegt
+### 源码编译
+
+#### Make
+
+make 是一个用于控制程序编译过程的工具，它通过读取一个名为 Makefile 的文件来了解如何构建程序。Makefile 中定义了源文件之间的依赖关系、编译规则和命令。make 工具不仅限于 C 语言，它可以用于任何需要根据依赖关系执行一系列命令的场景，因此也适用于其他编程语言和任务自动化。
+
+1. 下载源代码：从官方网站、Git 仓库或其他来源获取软件的源代码压缩包或克隆源代码仓库。
+
+2. 解压源代码（如果需要）：如果下载的是压缩包，需要先解压它。
+
+   ~~~sh
+   tar -xvf software.tar.gz
+   cd software
+   ~~~
+
+3. 配置编译选项：运行 ./configure 脚本（如果有），用于检查系统的环境并生成 Makefile 文件。可以通过传递参数来指定安装路径、启用/禁用特性等。
+
+   ~~~shell
+    ./configure --prefix=/usr/local
+   ~~~
+
+4. 编译源代码：使用 make 命令根据 Makefile 编译源代码。这一步会根据 Makefile 中的规则编译源文件，生成可执行文件或库文件。
+
+   ~~~shell
+   make
+   ~~~
+
+5. 安装软件：使用 make install 命令将编译好的文件复制到系统目录中。通常需要管理员权限（使用 sudo）。
+
+   ~~~shell
+   sudo make install
+   ~~~
+
+6. 清理临时文件（可选）：安装完成后，可以使用 make clean 或 make distclean 清理编译过程中产生的临时文件。 
+
+   ~~~shell
+   make clean
+   ~~~
+
+### wegt&curl
 
 参考：
 
 * http://wget.addictivecode.org/
 * https://blog.csdn.net/freeking101/article/details/53691481/
+* [Linux curl命令最全详解-CSDN博客](https://blog.csdn.net/angle_chen123/article/details/120675472)
 
 ## 连接Linux
 
