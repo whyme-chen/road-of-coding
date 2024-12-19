@@ -1936,6 +1936,7 @@ public class LinkedListDemo {
 
 参考：
 
+* [Java I/O, NIO, and NIO.2](https://docs.oracle.com/javase/8/docs/technotes/guides/io/index.html)
 * https://www.bilibili.com/video/BV1gz4y1C7RK/?spm_id_from=333.788.recommend_more_video.2&vd_source=fabefd3fabfadb9324761989b55c26ea
 
 ## File类
@@ -2020,6 +2021,17 @@ public class LinkedListDemo {
        * 字节流用来处理二进制文件(图片、MP3、视频文件)，字符流用来处理文本文件(可以看做是特殊的二进制文件，使用了某种编码，人可以阅读)。
 
 ![image-20230418222346754](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304182223037.png)
+
+* FileInputStream 和 FileOutputStream：用于从文件中读取或向文件中写入字节。
+* ByteArrayInputStream 和 ByteArrayOutputStream：在内存中的字节数组上进行读写操作。
+* BufferedInputStream 和 BufferedOutputStream：提供缓冲机制以提高性能。
+* DataInputStream 和 DataOutputStream：支持读写基本数据类型（如 int, float 等）。
+* ObjectInputStream 和 ObjectOutputStream：用于对象的序列化和反序列化。
+* FileReader 和 FileWriter：用于从文件中读取或向文件中写入字符。
+* CharArrayReader 和 CharArrayWriter：在字符数组上进行读写操作。
+* BufferedReader 和 BufferedWriter：提供缓冲机制以提高性能。
+* InputStreamReader 和 OutputStreamWriter：作为桥梁，将字节流转换为字符流，反之亦然，同时负责字符编码转换。
+* PrintWriter：提供方便的方法来格式化输出，类似于 System.out.println()。
 
 ### 字节输出流（OutputStream）
 
@@ -2118,7 +2130,7 @@ public class InputStreamReaderDemo {
 }
 ```
 
-### 复制文件及其异常处理
+### 应用：文件复制
 
 1. 复制文件
    
