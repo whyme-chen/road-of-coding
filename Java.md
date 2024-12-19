@@ -11818,41 +11818,7 @@ java基础（集合+泛型+注解+反射）+设计模式-->框架源码（mybati
 * https://mp.weixin.qq.com/s/HZt0eT2e1T4hwNGdZMfxow
 
 ## 版权（CopyRight）与开源协议（License）
-参考：
-
-* [各种开源协议介绍](https://www.runoob.com/w3cnote/open-source-license.html)
-
-版权和许可协议是知识产权领域的两个重要概念。
-
-**版权**是法律赋予创作者的独占权利，保护他们的原创作品不被未经授权的复制、分发或展示。版权适用于文学作品、音乐、电影、软件、艺术作品等。具有以下特点：
-
-- 版权自动产生，无需注册。
-- 保护的作品必须是原创的，并且以某种形式固定（如书面、录音等）。
-- 版权通常持续创作者的生命加上50到70年，具体依据各国法律而定。
-
-例如：一本小说的文本、一个电影的剧本、一个软件程序的代码，都受版权保护。比如，《哈利·波特》系列小说的作者J.K.罗琳对其作品拥有版权，任何人不得在未获得授权的情况下复制或销售这些书籍。
-
-**许可协议**是一种法律合同，授权他人使用特定的版权作品或其他知识产权。许可协议可以规定使用的范围、方式、时间和费用等。具有以下特点：
-
-- 许可协议需要双方同意并签署。
-- 协议可以是独占的或非独占的，即许可方可以授予一个或多个许可。
-- 许可协议中可以详细规定如何使用作品，包括限制条件和要求。
-
-例如：假设一个软件公司开发了一款图像编辑软件并希望将其授权给其他公司使用。他们可能会与一个广告公司签订一份许可协议，允许该广告公司在其项目中使用该软件，协议中可能规定使用期限、费用及相关支持服务。
-
-**开源协议**是一种特定类型的许可协议，旨在允许用户自由使用、修改和分发软件或其他作品。在开源项目中，License（许可证）是一种法律文件，它规定了软件或其他作品的使用条款与条件。这些条款通常会规定用户如何合法地使用、修改和分发软件源代码或二进制形式的副本。许可证确保了软件的开放性，并保护了贡献者的知识产权，同时也明确了使用者的权利和义务。常见开源协议：
-
-1. [Apache License](https://www.apache.org/licenses/)
-2. [MIT License](https://opensource.org/licenses/MIT)
-3. [BSD License](https://opensource.org/licenses/BSD-3-Clause)
-4. [GNU General Public License](https://www.gnu.org/licenses/gpl-3.0.html)
-5. [GNU Lesser General Public License](https://opensource.org/licenses/lgpl-3.0.html)
-5. [Eclipse Public License](https://opensource.org/licenses/EPL-1.0)
-6. [Mozilla Public License](https://opensource.org/licenses/MPL-2.0)
-7. [The Unlicense](https://unlicense.org/)
-8. [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
-9. [Public Domain](https://www.gnu.org/licenses/license-list.html#PublicDomain)
-10. [木兰开源许可证](http://license.coscl.org.cn/)
+具体参考：[知识产权&法律法规](./知识产权&法律法规.md)
 
 ## Api接口设计
 
@@ -12151,6 +12117,8 @@ public class ApiResult<T> {
 cURL全称是 Client URL，是一个利用 URL 语法在命令行或脚本中工作的工具。
 
 # 基本测试
+
+参考：[通义灵码单元测试实践__智能编码助手_AI编程_智能编码助手通义灵码(Lingma)-阿里云帮助中心](https://help.aliyun.com/zh/lingma/use-cases/unit-test-practice-of-tongyi-lingma?scm=20140722.S_help%40%40文档%40%402849258.S_BB2%40bl%2BRQW%40ag0%2BBB1%40ag0%2Bos0.ID_2849258-RL_cont-LOC_doc~UND~ab-OR_ser-V_4-P0_0&spm=a2c4g.11186623.0.i2)
 
 ## 基本概念
 

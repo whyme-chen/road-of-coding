@@ -6,6 +6,7 @@
 
 * https://www.bilibili.com/video/BV1PW411X75p?from=search&seid=1533766256313085594&spm_id_from=333.337.0.0
 * [主页 | IDEA 高效使用指南 (javaguide.cn)](https://idea.javaguide.cn/)
+* [IntelliJ IDEA 最佳实践](https://idea.diqigan.cn/)
 
 ## 常用配置
 
