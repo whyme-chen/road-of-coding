@@ -2399,20 +2399,6 @@ Shell 支持数组 (Array)，组是若干数据的集合，其中的每一份数
 
 # 资源&路线&工具
 
-## 参考资料
-
-* https://www.bilibili.com/video/BV1WY4y1H7d3?p=12&vd_source=fabefd3fabfadb9324761989b55c26ea
-* https://developer.aliyun.com/graph/linux?spm=a2c6h.21110250.J_3487140370.5.31583789uLfplz
-* https://developer.aliyun.com/learning/roadmap/linux
-* https://blog.csdn.net/bigbangbangbang1/article/details/131575669
-* https://www.runoob.com/linux/linux-yum.html
-* Linux 基础教程和文档：Linux Documentation Project ([www.tldp.org](http://www.tldp.org/)) 提供了丰富的Linux教程和文档资源。
-* Linux 命令行教程：Linux Journey ([linuxjourney.com](http://linuxjourney.com/)) 是一个交互式的命令行学习平台，提供从入门到进阶的教程。
-* Shell 脚本编程：《Shell脚本学习指南》(Bash Guide for Beginners) 是一本免费的Shell脚本编程指南，适合入门学习。
-* Linux 系统管理和性能调优：《Linux性能优化实战》(Linux Performance Optimization) 是一本介绍Linux性能调优的实战指南。
-* 容器和虚拟化：Docker官方文档 ([docs.docker.com](http://docs.docker.com/)) 提供了全面的Docker学习资源，包括入门指南、教程和最佳实践等。
-* 自动化工具：Ansible官方文档 ([docs.ansible.com](http://docs.ansible.com/)) 提供了详细的Ansible学习资源，包括教程、模块文档和示例等。
-
 ## <a id="terminal">远程连接工具</a>
 
 参考：
@@ -2454,11 +2440,29 @@ GitHub地址：https://link.zhihu.com/?target=https%3A//github.com/1Panel-dev/1P
 
 * [Oh My Zsh, 『 安装 & 配置 』](https://zhuanlan.zhihu.com/p/35283688)
 
-## Linux资源网站
+## 学习资源
 
+### 站点
+
+* [鳥哥私房菜 - 鳥哥的首頁](https://linux.vbird.org/) & [鸟哥的Linux私房菜简体首页](http://cn.linux.vbird.org/)
 * [Linux 用户必备的 8 大网站 | Linux 中国 (qq.com)](https://mp.weixin.qq.com/s/5HyldkHH7snATWzIkpgYuQ)
 * [Arch Linux](https://archlinux.org/)
 * [DistroWatch.com: Put the fun back into computing. Use Linux, BSD.](https://distrowatch.com/)
+* https://www.bilibili.com/video/BV1WY4y1H7d3?p=12&vd_source=fabefd3fabfadb9324761989b55c26ea
+* https://developer.aliyun.com/graph/linux?spm=a2c6h.21110250.J_3487140370.5.31583789uLfplz
+* https://developer.aliyun.com/learning/roadmap/linux
+* https://blog.csdn.net/bigbangbangbang1/article/details/131575669
+* https://www.runoob.com/linux/linux-yum.html
+* Linux 基础教程和文档：Linux Documentation Project ([www.tldp.org](http://www.tldp.org/)) 提供了丰富的Linux教程和文档资源。
+* Linux 命令行教程：Linux Journey ([linuxjourney.com](http://linuxjourney.com/)) 是一个交互式的命令行学习平台，提供从入门到进阶的教程。
+* Shell 脚本编程：《Shell脚本学习指南》(Bash Guide for Beginners) 是一本免费的Shell脚本编程指南，适合入门学习。
+* Linux 系统管理和性能调优：《Linux性能优化实战》(Linux Performance Optimization) 是一本介绍Linux性能调优的实战指南。
+* 容器和虚拟化：Docker官方文档 ([docs.docker.com](http://docs.docker.com/)) 提供了全面的Docker学习资源，包括入门指南、教程和最佳实践等。
+* 自动化工具：Ansible官方文档 ([docs.ansible.com](http://docs.ansible.com/)) 提供了详细的Ansible学习资源，包括教程、模块文档和示例等。
+
+### 书籍
+
+* [《鸟哥的Linux私房菜：基础学习篇》]([鸟哥的Linux私房菜：基础学习篇 第四版 | 鸟哥的 Linux 私房菜：基础学习篇 第四版](https://wizardforcel.gitbooks.io/vbird-linux-basic-4e/content/))& [《鸟哥的Linux私房菜——服务器架设篇》]([鸟哥的Linux私房菜：服务器架设篇 第三版 | 鸟哥的Linux私房菜：服务器架设篇 第三版](https://wizardforcel.gitbooks.io/vbird-linux-server-3e/content/index.html))
 
 ## 学习路线
 
