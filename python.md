@@ -1839,3 +1839,5 @@ conda环境是一个被隔离的“Python世界”，有着特定版本的Python
 路线：
 
 * [Python 工程师进阶 技术图谱](https://developer.aliyun.com/graph/python)
+* 数据分析路线
+  * Excel：
