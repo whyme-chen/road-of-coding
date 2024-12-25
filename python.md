@@ -1833,6 +1833,7 @@ conda环境是一个被隔离的“Python世界”，有着特定版本的Python
 书籍：
 
 * 《Excel+Python：飞速搞定数据分析与处理》
+* [利用 Python 进行数据分析 · 第 2 版 · 利用 Python 进行数据分析 · 第 2 版](https://wizardforcel.gitbooks.io/pyda-2e/content/)
 
 文章：
 
