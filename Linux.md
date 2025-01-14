@@ -1057,7 +1057,7 @@ Linux一般将文件可存取访问的身份分为三种：ower、group、others
    >    - 在终端中输入以下命令来创建新用户：
    >
    >      ```
-   >      Copy Codesudo useradd -m newusername
+   >      sudo useradd -m newusername
    >      ```
    >
    >    - 这里的 `newusername` 是你希望创建的新用户的用户名。`-m` 选项会自动为新用户创建一个与用户名相同的家目录。
@@ -1067,7 +1067,7 @@ Linux一般将文件可存取访问的身份分为三种：ower、group、others
    >    - 输入以下命令来为新用户设置密码：
    >
    >      ```
-   >      Copy Codesudo passwd newusername
+   >      sudo passwd newusername
    >      ```
    >
    >    - 系统会提示你输入新用户的密码两次以完成设置。
@@ -1077,7 +1077,7 @@ Linux一般将文件可存取访问的身份分为三种：ower、group、others
    >    - 如果需要将新用户加入其他附加组，可以使用以下命令：
    >
    >      ```
-   >      Copy Codesudo usermod -aG groupname newusername
+   >      sudo usermod -aG groupname newusername
    >      ```
    >
    >    - 这里的 `groupname` 是你希望将新用户加入的附加组的名称。

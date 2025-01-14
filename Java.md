@@ -12176,8 +12176,8 @@ TestNG官方文档：https://testng.org/doc/
 
 1. [2022黑马程序员Java学习路线图 - 哔哩哔哩](https://www.bilibili.com/read/cv9965357?from=articleDetail)
 2. [Java全栈知识体系](https://pdai.tech/)
-3. [慕课教程-编程入门快速学习手册 (imooc.com)](https://www.imooc.com/wiki/)
-4. https://mp.weixin.qq.com/s/aIv0sdi7Eh1JuGl1sfn3X
+3. [JavaGuide](https://javaguide.cn/)
+4. [慕课教程-编程入门快速学习手册 (imooc.com)](https://www.imooc.com/wiki/)
 5. [effective-resourses](https://github.com/wususu/effective-resourses)
 6. [Java各类技术栈 架构图汇总](https://mp.weixin.qq.com/s?__biz=MzAwOTE3NDY5OA==&mid=2647929690&idx=1&sn=b3f8dac73ce076e990fef898de73e214&chksm=8343389fb434b189934f58353be070d5c5e76809ad279ca05b687fd62f4149ffe83622ba9468&scene=27)
 7. [Jakarta EE（JAVA EE）规范概念、规则全梳理帮你捋清 JAVA EE 技术栈](https://www.bilibili.com/video/BV1fb4y1G7Jp/?spm_id_from=333.999.0.0)
