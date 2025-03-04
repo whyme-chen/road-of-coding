@@ -1731,12 +1731,9 @@ for link in links:
 
 参考资料：
 
+* [Getting started with conda — conda 24.11.1.dev23 documentation](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html)
 * https://zhuanlan.zhihu.com/p/32925500
 * [最新Anaconda3的安装配置及使用教程（附图文）-CSDN博客](https://blog.csdn.net/qq_43674360/article/details/123396415)
-
-### conda&pip
-
-### 包管理
 
 ### conda环境
 
