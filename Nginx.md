@@ -2,7 +2,10 @@
 
 官网：[nginx](https://nginx.org/)
 
-学习参考：[黑马程序员Nginx教程](https://www.bilibili.com/video/BV1ov41187bq/?vd_source=fabefd3fabfadb9324761989b55c26ea)
+学习参考：
+
+* [黑马程序员Nginx教程](https://www.bilibili.com/video/BV1ov41187bq/?vd_source=fabefd3fabfadb9324761989b55c26ea)
+* [Nginx入门必须懂3大功能配置 - Web服务器/反向代理/负载均衡_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1TZ421b7SD/?spm_id_from=333.337.search-card.all.click&vd_source=fabefd3fabfadb9324761989b55c26ea)
 
 ## 概述
 
