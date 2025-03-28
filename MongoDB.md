@@ -66,8 +66,30 @@
 2. 更新文档
 3. 删除文档
 4. 查询文档
+5. 条件操作符
+6. 分页实现
+7. 排序
 
-## SpringBoot集成MongoDB
+### 索引
+
+1. 索引类型
+2. 创建索引
+3. 查询索引
+4. 删除索引
+
+### 聚合操作
+
+## 复制
+
+## 分片
+
+## 备份与恢复
+
+## 客户端
+
+### Java
+
+#### SpringBoot集成MongoDB
 参考：
 * [SpringBoot集成MongoDB](https://blog.csdn.net/qq_46112274/article/details/117425532)
 
@@ -75,7 +97,7 @@ SpringBoot提供了MongoTemplate和MongoRepository两种方式访问MongoDB。
 * MongoTemplate操作灵活
 * MongoRepository操作简单
 
-### 快速接入
+##### 快速接入
 
 1. 创建SpringBoot项目
 2. 引入依赖
