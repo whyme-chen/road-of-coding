@@ -11,7 +11,7 @@
    * 数据分析
    * 自动化（测试，运维，办公）
    * 网络爬虫：通过程序去获取 Web 页面上自己想要的数据，也就是自动抓取数据
-   * web开发
+   * Web开发
    * 游戏开发
    * 人工智能与机器学习
    * 自然语言处理（NLP）：使用 NLTK、Spacy 处理文本和语音数据。
@@ -1241,6 +1241,89 @@ class NameTestCase(unittest.TestCase):
 
 参考：https://mp.weixin.qq.com/s/W2y-1bT2dssbDX1TF7ObsA
 
+# 网络爬虫
+
+- **[Scrapy](https://scrapy.org/)**（Python爬虫框架）：
+  - 支持定时任务、反爬处理（User-Agent轮换、IP代理），可编写爬虫脚本抓取招聘平台数据。
+  - 示例：抓取拉勾网、BOSS直聘等平台的岗位信息（需注意平台反爬政策）。
+- **[Apache Nutch](https://nutch.apache.org/)**（分布式爬虫）：
+  - 适合大规模数据抓取，但配置复杂。
+- **[Huginn](https://github.com/huginn/huginn)**（自动化工作流工具）：
+  - 提供可视化配置，支持定时抓取网页数据并触发后续动作（如匹配后推送）。
+
+# 自动化
+
+## 办公自动化
+
+### <a id= 'excel'>Excel</a>
+
+参考：
+
+* [openpyxl](https://openpyxl.readthedocs.io/en/stable/#)
+* [Openpyxl的基本概念、用途、安装和导入的不同方式](https://blog.csdn.net/m0_64359306/article/details/132160225)
+
+1. excel基本概念
+
+   * 工作簿：一个`.xlsx`文件就是一个工作簿
+   * 工作表
+   * 单元格
+
+2. 安装第三方库`openpyexl`
+
+   ~~~python
+   # 校验是否安装对应的第三方库，若报错说明没有安装，可使用pip install openpyxl进行安装
+   import openpyxl
+   ~~~
+
+3. 使用python操作excel
+
+## 运维自动化
+
+## 自动化测试
+
+# Web开发
+
+### Django
+
+### Flask
+
+文档：https://flask.palletsprojects.com/en/stable/
+
+# 数据分析
+
+> 主要包含数据获取、处理、存储、和可视化等内容。
+>
+> 常用相关第三方库：Matplotlib、Numpy、Pandas
+
+具体参考：[数据分析](./数据分析.md)
+
+# 游戏开发
+
+## <a id= 'pygame'>`Pygame`小游戏</a>
+
+1. 使用`pip`安装`pygame`
+
+   ~~~shell
+   pip install pygame
+   ~~~
+
+2. 编制开发计划
+
+   * 明确开发目标
+   * 明确开发时间
+
+3. 分阶段开发
+
+   * 明确阶段目标
+   * 每阶段开发前对现有代码进行研究，确定是否需要重构
+   * 更新开发计划
+
+## 图形绘制
+
+# 人工智能
+
+具体参考：[AI](./AI.md)
+
 # 常用库
 
 1. 机器学习&数据分析
@@ -1254,7 +1337,7 @@ class NameTestCase(unittest.TestCase):
    * Scikit-Learn
    * TensorFlow
    * Theano
-2. web开发
+2. Web开发
    * Django
    * Flask
    * Bottle
@@ -1646,79 +1729,6 @@ for link in links:
 
 1. 简介：一个开源的Python库，专门用于编写电子游戏。它基于SDL（Simple DirectMedia Layer）开发，提供了丰富的功能和工具，用于处理多媒体资源（如图像、声音）、处理输入（如键盘、鼠标）、以及在屏幕上绘制图形。
 
-# 自动化
-
-## 办公自动化
-
-### <a id= 'excel'>Excel</a>
-
-参考：
-
-* [openpyxl](https://openpyxl.readthedocs.io/en/stable/#)
-* [Openpyxl的基本概念、用途、安装和导入的不同方式](https://blog.csdn.net/m0_64359306/article/details/132160225)
-
-1. excel基本概念
-
-   * 工作簿：一个`.xlsx`文件就是一个工作簿
-   * 工作表
-   * 单元格
-
-2. 安装第三方库`openpyexl`
-
-   ~~~python
-   # 校验是否安装对应的第三方库，若报错说明没有安装，可使用pip install openpyxl进行安装
-   import openpyxl
-   ~~~
-
-3. 使用python操作excel
-
-## 运维自动化
-
-## 自动化测试
-
-# Web开发
-
-# 数据分析
-
-> 常用相关第三方库：Matplotlib、Numpy、Pandas
-
-## 数据获取-爬虫
-
-具体参考：[数据分析-网络爬虫](./大数据&数据分析.md)
-
-## 数据处理
-
-## 数据存储
-
-## 数据可视化
-
-# 人工智能
-
-# 游戏开发
-
-## <a id= 'pygame'>`Pygame`小游戏</a>
-
-1. 使用`pip`安装`pygame`
-
-   ~~~shell
-   pip install pygame
-   ~~~
-
-2. 编制开发计划
-
-   * 明确开发目标
-   * 明确开发时间
-
-3. 分阶段开发
-
-   * 明确阶段目标
-   * 每阶段开发前对现有代码进行研究，确定是否需要重构
-   * 更新开发计划
-
-## 图形绘制
-
-
-
 # 工具
 
 ## VS Code
@@ -1840,6 +1850,12 @@ conda环境是一个被隔离的“Python世界”，有着特定版本的Python
 * [利用 Python 进行数据分析 · 第 2 版 · 利用 Python 进行数据分析 · 第 2 版](https://wizardforcel.gitbooks.io/pyda-2e/content/)
 
 文章：
+
+GitHub:
+
+- [Python 面试题精选](https://github.com/taizilongxu/interview_python)：涵盖 Python 基础、算法、设计模式等高频面试题，含详细解析。
+- [系统设计入门](https://github.com/donnemartin/system-design-primer)：英文项目，但包含中文翻译，适合中高级开发者准备系统设计面试。
+- [Python 设计模式](https://github.com/faif/python-patterns)：用 Python 实现经典设计模式，代码简洁易懂。
 
 路线：
 
