@@ -1122,6 +1122,19 @@ java中一共定义由四种访问控制权限分别为：public、default（不
 
    构造引用：如果我们在重写方法的时候，方法体中只有一行代码， 并粗这行代码是调用了某个类的构造方法，并且我们把要重写的抽象方法中的所有的参数都按照顺序传入了这个构造方法中，这个时候我们就可以引用构造器。
 
+## 语法糖
+
+1. 定义：指编程语言为了方便程序员开发程序而设计的一种**特殊语法**，这种语法对编程语言的功能并没有影响。实现相同的功能，基于语法糖写出来的代码往往更简单简洁且更易阅读。
+2. Java常见语法糖：
+   * 泛型
+   * 自动拆装箱
+   * 变长参数
+   * 枚举
+   * 内部类
+   * 增强 for 循环
+   * try-with-resources 语法
+   * lambda 表达式
+
 ## Lamba表达式
 
 参考：https://objcoding.com/2019/03/04/lambda/
@@ -2380,7 +2393,43 @@ public class PropertiesDemo {
 }
 ```
 
-## java NIO
+## 序列化与反序列化
+
+1. 定义
+2. 应用场景
+   * 网络传输
+   * 文件存储
+   * 数据库存储
+   * 内存读写
+3. 常见序列化协议
+   * Hessian
+   * Kryo
+   * Protobuf
+   * ProtoStuff
+4. SerialVersionUID
+5. `transient`关键字
+
+### Kryo
+
+项目地址：https://github.com/EsotericSoftware/kryo
+
+1. 简介
+   * Kryo 是一个高性能的序列化/反序列化工具
+   * 由于其变长存储特性并使用了字节码生成机制，拥有较高的运行速度和较小的字节码体积
+
+### Protobuf
+
+项目地址：https://github.com/protocolbuffers/protobuf
+
+文档地址：https://protobuf.dev/
+
+### ProtoStuff
+
+### Hessian
+
+## Java BIO
+
+## Java NIO
 
 1. 简介：
 
@@ -2401,6 +2450,8 @@ public class PropertiesDemo {
 4. nio包
 
    ![image-20230418223501025](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304182235383.png)
+
+## Java AIO
 
 # 多线程
 
@@ -3398,6 +3449,12 @@ public class Test04 {
    使用Annotation Processor可以帮助我们减少重复的、机械性的编码工作，提高开发效率，同时保证生成的代码的正确性和一致性。Lombok和MapStruct就是利用Annotation Processor的能力，通过注解来生成简化代码，如自动生成getter/setter方法、构造函数等。
    
    需要注意的是，Annotation Processor是在编译期间执行的，它不会改变源代码的内容，而是在编译过程中生成额外的代码文件。生成的代码文件将会被编译成字节码，并与原始代码一起打包到最终的可执行文件中。
+
+# SPI机制
+
+参考：
+
+* [Java SPI机制详解](https://javaguide.cn/java/basis/spi.html)
 
 # 网络编程
 
@@ -9174,9 +9231,45 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
 ## 注解开发
 
 1. 常用注解
-   
+
    ![image-20220420170043582](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220420170043582.png)
+
+   ~~~java
    
+   1. @Insert：实现新增功能
+   @Insert("insert into user(id,name) values(#{id},#{name})")
+   public int insert(User user);
+   
+   2. @Update注解：实现更新功能
+   @Update("update user set name= #{name},sex = #{sex},age =#{age} where id = #{id}")
+   void updateUserById(User user);
+   
+   3. @Delete注解：实现删除功能
+   @Delete("delete from  user  where id =#{id}")
+   void deleteById(Integer id);
+   
+   4. @Select注解：实现查询功能
+   @Select("Select * from user")
+   List<User> queryAllUser();
+   
+   
+   1. @Result注解。
+   2. @Results注解。
+   3. @ResultMap是结果集映射的三大注解。
+   
+   @Select({"select id, name, class_id from student"})
+   @Results(id="studentMap", value={
+       @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+       @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+       @Result(column="class_id ", property="classId", jdbcType=JdbcType.INTEGER)
+   })
+   List<Student> selectAll();
+   
+   @Select({"select id, name, class_id from student where id = #{id}"})
+   @ResultMap(value="studentMap")
+   Student selectById(integer id);
+   ~~~
+
    > 注意：使用注解时，则没有mapper映射文件,但此时应该在核心配置文件中配置加载映射关系。配置如下：
    > 
    > ```xml
@@ -9286,6 +9379,20 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
            System.out.println("数据"+page.getRecords());
        }
    ```
+
+## 其他常用操作
+
+### 逻辑删除
+
+### 自动填充
+
+### 多数据源
+
+### 乐观锁
+
+# JPA
+
+JPA是官方推出的Java持久层操作标准（现主要使用Hibernate实现），使用SpringData技术和JpaRepository接口技术，也可以达到简化数据层的目的。要在SpringBoot中使用SpringDataJPA，需要spring-boot-starter-data-jpa依赖库的支持。
 
 # Spring boot
 
@@ -12258,6 +12365,10 @@ Java图形验证码，支持gif、中文、算术等类型，可用于Java Web�
 项目地址：http://easypoi.mydoc.io/ 
 
 ## EasyExcel
+
+## SmartAdmin
+
+项目地址：https://smartadmin.vip/
 
 # 路线/资源
 
