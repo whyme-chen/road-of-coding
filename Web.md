@@ -1,15 +1,15 @@
 前端&后端相关技术栈概述：
 
-|                      | 前端                      | 后端          |
-| -------------------- | ------------------------- | ------------- |
-| 环境                 | ES6+...                   | JDK8,11,17... |
-| 依赖管理             | npm                       | Maven         |
-| 项目构建             | Vite，Webpack             | Maven         |
-| 快速开发框架         | Spirng，Springboot        | Vue3          |
-| 页面跳转（路由管理） | SpringMVC                 | Vue-Router    |
-| 数据共享             | Pinia                     | Redis         |
-| 页面布局框架         | Ant-Design-Vue，ElementUI |               |
-| 前后端交互           | ajax（axios）             | ajax（axios） |
+|                      | 前端                      | 后端               |
+| -------------------- | ------------------------- | ------------------ |
+| 环境                 | ES6+...                   | JDK8,11,17...      |
+| 依赖管理             | npm                       | Maven              |
+| 项目构建             | Vite，Webpack             | Maven              |
+| 快速开发框架         | Vue3，Angular, React      | Spirng，Springboot |
+| 页面跳转（路由管理） | Vue-Router                | SpringMVC          |
+| 数据共享             | Pinia                     | Redis              |
+| 页面布局框架         | Ant-Design-Vue，ElementUI |                    |
+| 前后端交互           | ajax（axios）,Json        | ajax（axios）,Json |
 
 # HTML
 
