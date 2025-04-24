@@ -7988,6 +7988,10 @@ Spring程序开发步骤：
    * `MethodInterceptor`
    * `Enhancer`
 
+### Filter vs Intercepter  vs AOP
+
+参考：[SpringBoot实战：深度剖析 Filter、Interceptor、AOP请求三剑客 | 高并发系统设计必修课](https://mp.weixin.qq.com/s?__biz=MzU1MjAwODAzOA==&mid=2247484339&idx=1&sn=e17c9b29fcbadf49611444030135286a&chksm=fb89e3baccfe6aac4be935acca682d7b378245b99df17231ab2c4ad9b1fbd2ec39b02acbe044&exptype=unsubscribed_card_recommend_article_u2i_mainprocess_coarse_sort_pcfeeds&ranksessionid=1745393159_1#rd)
+
 ## Spring事务
 
 参考：https://www.bilibili.com/video/BV1WZ4y1P7Bp?p=138&spm_id_from=pageDriver&vd_source=fabefd3fabfadb9324761989b55c26ea
@@ -12361,6 +12365,10 @@ public class ApiResult<T> {
 ## cURL
 
 cURL全称是 Client URL，是一个利用 URL 语法在命令行或脚本中工作的工具。
+
+## API版本控制
+
+参考：[Spring 7.0 新特性真香，API 版本控制更丝滑了！](https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=2247548937&idx=1&sn=335ba0fbd9475a9a9ddec026ef46acbf&chksm=cfdb87bbf4fa06ce6c5b5708fd03896b36ab26b1f15312776021165ce52b3e191b347c0c1014&scene=126&sessionid=1745392640#rd)
 
 # 开源项目
 
