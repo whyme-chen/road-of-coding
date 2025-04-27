@@ -2432,11 +2432,15 @@ public class PropertiesDemo {
 
 ### Hessian
 
-## Java BIO
+## IO模型
 
-## Java NIO
+UNIX 系统下， IO 模型一共有 5 种：**同步阻塞 I/O**、**同步非阻塞 I/O**、**I/O 多路复用**、**信号驱动 I/O** 和**异步 I/O**。
 
-1. 简介：
+### Java BIO
+
+### Java NIO
+
+1. 简介：Java 中的 NIO 于 Java 1.4 中引入，对应 `java.nio` 包，提供了 `Channel` , `Selector`，`Buffer` 等抽象。
 
 2. 与传统IO的区别
 
@@ -2455,8 +2459,19 @@ public class PropertiesDemo {
 4. nio包
 
    ![image-20230418223501025](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202304182235383.png)
+   
+5. 零拷贝
 
-## Java AIO
+### Java AIO
+
+AIO 也就是 NIO 2。Java 7 中引入了 NIO 的改进版 NIO 2,它是异步 IO 模型。
+
+## 设计模式应用
+
+1. 装饰器模式
+2. 适配器模式
+3. 工厂模式
+4. 观察者模式
 
 # 多线程
 
