@@ -4,68 +4,68 @@
 
 ## 目录结构
 
-### 1. 编程语言
+### 1. 编程语言与开发
 - [Java](Java.md) - Java语言核心知识
+  - [JVM](JVM.md) - Java虚拟机
+  - [Spring Framework](spring-framework.md) - Spring框架
+  - [Spring Security](Spring Security.md) - Spring安全框架
 - [Python](python.md) - Python编程语言
 - [Groovy](Groovy.md) - Groovy脚本语言
 - [Kotlin](Kotlin.md) - Kotlin语言基础
+- [并发编程](并发编程.md) - 并发编程技术
+- [数据结构与算法](数据结构与算法.md) - 数据结构与算法基础
 
-### 2. 数据库系统
-- [数据库系统](数据库系统.md) - 数据库基础理论
-- [MySQL](数据库系统.md#mysql) - MySQL数据库
-- [Redis](Redis.md) - Redis缓存数据库
-- [MongoDB](MongoDB.md) - MongoDB文档数据库
-
-### 3. 系统架构与设计
+### 2. 系统架构与设计
 - [系统架构设计](系统架构设计/系统架构设计.md) - 系统架构设计原则
 - [软考-系统架构设计师](系统架构设计/软考-系统架构设计师.md) - 系统架构师认证考试
 - [分布式&微服务技术](分布式&微服务技术.md) - 分布式系统与微服务架构
 - [设计模式](设计模式.md) - 软件设计模式
+- [软件工程](软件工程.md) - 软件工程实践
 
-### 4. 开发工具与框架
-- [IDE](IDE.md) - 集成开发环境
-- [BuildTools](BuildTools.md) - 构建工具
-- [Spring Framework](spring-framework.md) - Spring框架
-- [Spring Security](Spring Security.md) - Spring安全框架
+### 3. 数据库与存储
+- [数据库系统](数据库系统.md) - 数据库基础理论
+- [MySQL](数据库系统.md#mysql) - MySQL数据库
+- [Redis](Redis.md) - Redis缓存数据库
+- [MongoDB](MongoDB.md) - MongoDB文档数据库
+- [大数据技术](大数据技术.md) - 大数据处理
 
-### 5. 网络与安全
-- [计算机网络](计算机网络.md) - 网络基础知识
+### 4. 前端与Web开发
+- [Web](Web.md) - Web开发技术
+- [GraphQL](GraphQL.md) - GraphQL查询语言
+- [个人建站](个人建站.md) - 网站建设指南
+- [浏览器插件需求文档](浏览器插件需求文档.md) - 浏览器插件开发
+
+### 5. 运维与部署
+- [DevOps](DevOps.md) - DevOps实践
 - [Nginx](Nginx.md) - Nginx服务器
-- [信息&网络安全](信息&网络安全.md) - 网络安全知识
-
-### 6. 操作系统
 - [Linux](Linux.md) - Linux操作系统
 - [Windows](Windows.md) - Windows操作系统
 - [操作系统](操作系统.md) - 操作系统原理
 
-### 7. 前端开发
-- [Web](Web.md) - Web开发技术
-- [GraphQL](GraphQL.md) - GraphQL查询语言
-- [个人建站](个人建站.md) - 网站建设指南
-
-### 8. 开发实践
-- [并发编程](并发编程.md) - 并发编程技术
-- [JVM](JVM.md) - Java虚拟机
-- [数据结构与算法](数据结构与算法.md) - 数据结构与算法基础
+### 6. 开发工具与效率
+- [IDE](IDE.md) - 集成开发环境
+- [BuildTools](BuildTools.md) - 构建工具
+- [方法论](方法论.md) - 学习方法论
 - [软件测试及其自动化](软件测试及其自动化.md) - 软件测试方法
 
-### 9. 新兴技术
-- [AI](AI.md) - 人工智能
-- [大数据技术](大数据技术.md) - 大数据处理
+### 7. 网络与安全
+- [计算机网络](计算机网络.md) - 网络基础知识
+- [信息&网络安全](信息&网络安全.md) - 网络安全知识
 - [云计算](云计算.md) - 云计算技术
-- [DevOps](DevOps.md) - DevOps实践
 
-### 10. 职业发展
+### 8. 人工智能与数据分析
+- [AI](AI.md) - 人工智能
+- [数据分析](数据分析.md) - 数据分析技术
+
+### 9. 职业发展
 - [面试备试-开发](面试备试-开发.md) - 开发岗位面试准备
 - [面试备试-产品](面试备试-产品.md) - 产品岗位面试准备
 - [发展规划](发展规划.md) - 职业发展规划
 - [知识产权&法律法规](知识产权&法律法规.md) - 知识产权相关
 
-### 11. 其他
-- [方法论](方法论.md) - 学习方法论
-- [软件工程](软件工程.md) - 软件工程实践
-- [数据分析](数据分析.md) - 数据分析技术
+### 10. 其他工具与技能
 - [AutoCAD](AutoCAD.md) - AutoCAD设计软件
+- [嵌入式](嵌入式.md) - 嵌入式开发
 
 ## 使用说明
 1. 每个主题都有对应的Markdown文件，包含详细的学习笔记和参考资料
