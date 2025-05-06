@@ -2,6 +2,8 @@
 
 官网：https://www.python.org/
 
+文档：[3.13.3 Documentation](https://docs.python.org/3/)
+
 ## Python简介
 
 1. 简介：跨平台程序设计语言、解释型语言、交互式语言、面向对象语言。吉多·范罗苏姆（Guido van Rossum）在 1989 年的圣诞节期间，为了打发时间而编写的一个编程语言。
