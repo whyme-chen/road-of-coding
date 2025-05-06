@@ -1707,19 +1707,19 @@ public class MyException extends Exception{
 
 1. 体系结构
    
-   > Collection体系（单列集合）
-   > 
-   > ![Collection](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220109124008792.png)
-   > 
-   > Collection常用API
-   > 
-   > ![](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220110164632701.png)
-   > 
-   > Map体系（双列集合）
+   Collection体系（单列集合）
+   
+   ![Collection](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220109124008792.png)
+   
+   Collection常用API
+   
+   ![](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220110164632701.png)
+   
+   Map体系（双列集合）
 
 2. 使用场景
-   
-   > * 数据个数不确定，需要进行增删元素的场景
+
+   * 数据个数不确定，需要进行增删元素的场景
 
 3. 常见数据结构
    
@@ -1761,7 +1761,7 @@ public class MyException extends Exception{
    > ArrayList是fail-fast的典型代表，遍历的同时不能修改
    > CopyOnWriteArrayList是fail-safe的典型代表，遍历的同时可以修改，原理是读写分离
 
-## List集合
+## List
 
 元素有序、可重复、有索引
 
@@ -1773,7 +1773,7 @@ public class MyException extends Exception{
 
 2. 底层实现原理
    
-   > * 底层基于数组实现，根据索引定位元素快，但是增删元素时需要做移位操作
+   > * 底层基于Object[]数组实现，根据索引定位元素快，但是增删元素时需要做移位操作
    > 
    > * 初始化时，若调用无参构造则初始容量为0，
    > 
@@ -1796,16 +1796,15 @@ public class MyException extends Exception{
 
 1. 常用方法
 
+   ![image-20220402170854567](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220402170854567.png)
+
 2. 底层原理
-   
-   > * 底层数据结构为双链表，查询慢，但是首位操作快，故新增了许多首位操作的特有功能
-   >   
-   >   ![image-20220402170854567](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220402170854567.png)
-   > 
-   > * LinkedList可以完成栈和队列的操作
+
+   * 底层数据结构为双链表，查询慢，但是首位操作快，故新增了许多首位操作的特有功能
+   * LinkedList可以完成栈和队列的操作
 
 3. ArrayList和LinkedList的比较
-   
+
    ![image-20230218150626703](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302181506765.png)
 
 ~~~java
@@ -1850,7 +1849,7 @@ public class LinkedListDemo {
 
 ### Vector
 
-## Set集合
+## Set
 
 * 元素无序、不重复、无索引
 * Set的实现类是基于Map来实现的
@@ -1862,14 +1861,15 @@ public class LinkedListDemo {
 ### HashSet
 
 1. 特点
-   
-   * 底层数据结构是HashMap
+
    * 对集合的迭代顺序不作任何保证，也就是说不保证存储和取出的元素顺序一致
    * 没有带索弓|的方法，所以不能使用普通for循环遍历
    * 由于是Set集合，所以是不包含重复元素的集合
 
 2. 底层原理
    
+   * 底层数据结构是HashMap
+     
    * 保证元素唯一性
      
      要保证元素唯一性， 需要重写hashCode()和equals()。
@@ -1884,21 +1884,36 @@ public class LinkedListDemo {
    * 哈希表和链表实现的Set接口，具有可预测的迭代次序
    * 由链表保证元素有序,也就是说元素的存储和取出顺序是一致的
    * 由哈希表保证元素唯一，也就是说没有重复的元素
+2. 底层原理
+   * 底层通过`LinkedHashMap`实现
 
 ### TreeSet
 
-> 注意：TreeSet按照大小默认升序排序、是不重复、无索引的。
->
-> 底层是红黑树
-
 1. 特点
+
+   * TreeSet按照大小默认升序排序、是不重复、无索引的。
 
    ![image-20230218182847835](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302181828513.png)
 
-2. Comparable接口和Compartor类
+2. 底层实现
+
+   * 底层是红黑树（自平衡的二叉排序树）
+
+3. Comparable接口和Compartor类
 
    * 用TreeSet集合存储自定义对象，无参构造方法使用的是自然排序对元素进行排序的自然排序，就是让元素所属的类实现Comparable接口，重写compareTo(T o)方法重写方法时，-定要注意排序规则必须按照要求的主要条件和次要条件来写
    * 用TreeSet集合存储自定义对象，带参构造方法使用的是比较器排序对元素进行排序的比较器排序,就是让集合构造方法接收Comparator的实现类对象，重写compare(T o1,T o2)方法
+
+## Queue
+
+### PriorityQueue
+
+### DelayQueue
+
+### ArrayDeque
+
+1. 底层
+   * 可扩容动态数组
 
 ## Map
 
@@ -1936,10 +1951,6 @@ public class LinkedListDemo {
    ![image-20230219105909038](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302191059258.png)
 
 #### LinkedHashMap
-
-#### HashMap面试专题
-
-
 
 ### TreeMap
 
