@@ -7811,6 +7811,8 @@ Spring程序开发步骤：
 
 ### 切入点表达式
 
+参考：[spring切面表达式详解 - 梦醒点灯 - 博客园](https://www.cnblogs.com/leskang/p/12750766.html#2)通过类定义切点-)
+
 ![image-20230216113833124](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302161138435.png)
 
 ![image-20230216113947331](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302161139730.png)
@@ -8004,6 +8006,12 @@ Spring程序开发步骤：
    ~~~
 
 #### CGLIB
+
+Github：[GitHub - cglib/cglib: cglib - Byte Code Generation Library is high level API to generate and transform Java byte code. It is used by AOP, testing, data access frameworks to generate dynamic proxy objects and intercept field access.](https://github.com/cglib/cglib)
+
+参考：
+
+* [CGLIB详解(最详细)-CSDN博客](https://blog.csdn.net/qq_33661044/article/details/79767596)
 
 1. 简介：
    * CGLIB(Code Generation Library)是一个开源项目。

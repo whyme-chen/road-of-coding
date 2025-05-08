@@ -4,6 +4,9 @@
 
 * [Spring Framework（6.x）源码编译与源码阅读入门](https://blog.csdn.net/qq_25409421/article/details/135991212?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-2-135991212-blog-127945857.235%5Ev43%5Epc_blog_bottom_relevance_base5&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-2-135991212-blog-127945857.235%5Ev43%5Epc_blog_bottom_relevance_base5&utm_relevant_index=5)
 * [在windows10使用Gradle编译Spring源码](https://blog.csdn.net/qq_34738512/article/details/129747004)
+* [IDEA 导入 spring 源码](https://blog.csdn.net/xhmico/article/details/130612527)
+
+## 环境&工具准备
 
 1. JDK
 
@@ -13,20 +16,44 @@
 
 3. Gradle
 
-4. Spring源码获取&构建
+4. IDEA
+
+## 源码获取
+
+1. Spring源码获取&构建
 
    - github：https://github.com/spring-projects/spring-framework
    - gitee：https://gitee.com/mirrors/Spring-Framework
 
-   获取源码到本地后，先修改仓库相关配置（例如：国内的阿里镜像仓库）和gradle warpper获取地址以加快构建速度，然后可以按照[官方文档](https://github.com/spring-projects/spring-framework/wiki/Build-from-Source)使用命令行进行构建，第一次构建成功后，后期可以利用gradle的增量构建特性，针对需要重新构建的模块进行构建。例如：
 
-   ~~~shell
-   ./gradlew -a :spring-webmvc:test
-   ~~~
+## 预编译与IDE导入
 
-5. 导入IDE
+获取源码到本地后，先修改仓库相关配置（例如：国内的阿里镜像仓库）和gradle warpper获取地址以加快构建速度。
 
-   按照官方文档[Code Style · spring-projects/spring-framework Wiki · GitHub](https://github.com/spring-projects/spring-framework/wiki/Code-Style)和[Import-into-idea](https://github.com/spring-projects/spring-framework/wiki/IntelliJ-IDEA-Editor-Settings)将源码项目导入到IDEA中。
+修改仓库镜像：打开build.gradle文件，在repositories部分添加阿里云镜像： 
+
+```gradle
+maven { url 'https://maven.aliyun.com/repository/public' }  
+maven { url 'https://maven.aliyun.com/repository/spring' }  
+```
+
+配置本地Gradle路径：修改gradle-wrapper.properties中的distributionUrl为本地路径（如file:///D:/gradle-8.11.1-all.zip）避免重复下载。
+
+然后可以按照[官方文档](https://github.com/spring-projects/spring-framework/wiki/Build-from-Source)使用命令行进行构建。
+
+命令行预编译：
+
+~~~bash
+gradlew.bat :spring-oxm:compileTestJava
+~~~
+
+按照官方文档[Code Style · spring-projects/spring-framework Wiki · GitHub](https://github.com/spring-projects/spring-framework/wiki/Code-Style)和[Import-into-idea](https://github.com/spring-projects/spring-framework/wiki/IntelliJ-IDEA-Editor-Settings)将源码项目导入到IDEA中。
+
+第一次构建成功后，后期可以利用gradle的增量构建特性，针对需要重新构建的模块进行构建。例如：
+
+~~~shell
+./gradlew -a :spring-webmvc:test
+~~~
 
 # 整体架构
 
@@ -152,6 +179,10 @@
 ## Bean的元数据
 
 > 元数据：描述数据的数据
+
+bean的配置通常有两种方式，xml文件和注解。解析这两种方式的bean配置的基本思想和流程如下：
+
+![image-20231121215341506](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202311212153334.png)
 
 ### BeanDefinition
 

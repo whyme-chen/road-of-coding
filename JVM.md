@@ -187,15 +187,46 @@ Java技术的核心就是Java虚拟机(JVM，Java Virtual Machine)，因为所�
 * 实例数据
 * 对齐填充
 
+### 对象存活判断
+
+1. 引用计数算法
+2. 可达性分析算法
+
+### 引用类型
+
+1. 强引用
+2. 软引用
+3. 弱引用
+4. 虚引用
+
+## 垃圾回收算法
+
+1. 标记-清除
+2. 标记-整理
+3. 复制
+4. 分代收集
+
 ## 垃圾收集器
 
+1. Serial 收集器
+2. ParNew 收集器
+3. Parallel Scavenge 收集器
+4. Serial old 收集器
+5. Parallel old 收集器
+6. CMS 收集器
+7. G1收集器
+
 ## 内存分配策略
+
+Minor GC
+
+Full GC
 
 # 类加载机制
 
 类加载子系统通过类加载器（引导类加载器、扩展类加载器、系统类加载器）负责从文件系统或网络中加载Class文件，将解析后的信息存放在称为**方法区**（类信息、运行时常量池信息等）的内存空间中。
 
-### 字节码文件（.class）
+## 字节码文件（.class）
 
 参考：https://pdai.tech/md/java/jvm/java-jvm-class.html
 
@@ -207,15 +238,7 @@ Java技术的核心就是Java虚拟机(JVM，Java Virtual Machine)，因为所�
 
 3. 地方
 
-### 类加载器
-
-#### 引导类加载器
-
-#### 扩展类加载器
-
-#### 系统类加载器
-
-### 加载流程
+## 加载流程
 
 主要包括三个阶段：
 
@@ -225,6 +248,16 @@ Java技术的核心就是Java虚拟机(JVM，Java Virtual Machine)，因为所�
   * 准备
   * 解析
 * 初始化阶段
+
+## 类加载机制
+
+### 引导类加载器
+
+### 扩展类加载器
+
+### 系统类加载器
+
+# 调优与排错
 
 ## 分析诊断工具
 
@@ -239,7 +272,87 @@ Java技术的核心就是Java虚拟机(JVM，Java Virtual Machine)，因为所�
 * `Arthas`：它是阿里巴巴开源的一款Java诊断工具，支持实时查看Java应用程序的线程、堆栈、方法调用等信息，同时还提供了丰富的命令行工具，可以进行方法耗时统计、内存泄漏检测等操作。Arthas支持非侵入式诊断，无需修改代码或重启应用程序，方便快捷。
 * `Jprofile`
 
-# JVM参数调节
+# 编译优化
+
+## 重排序
+
+源码示例：
+
+~~~java
+    public void execute() throws Exception {
+        String param = XxlJobHelper.getJobParam();
+
+        if (method.getParameterCount() == 0) {
+            method.invoke(bean);
+        } else if (method.getParameterCount() == 1 && method.getParameterTypes()[0] == String.class) {
+            Object invoke = method.invoke(bean, param);
+            if (invoke instanceof ReturnT) {
+                ReturnT<?> returnT = (ReturnT<?>) invoke;
+                XxlJobHelper.handleResult(returnT.getCode(), returnT.getMsg());
+            }else{
+                XxlJobHelper.handleFail("Unsupported @XxlJob method signature: " + method);
+                throw new RuntimeException("Unsupported @XxlJob method signature: " + method);
+            }
+        } else {
+            XxlJobHelper.handleFail("Unsupported @XxlJob method signature: " + method);
+            throw new RuntimeException("Unsupported @XxlJob method signature: " + method);
+        }
+    }
+~~~
+
+编译后字节码示例：
+
+~~~java
+    public void execute() throws Exception {
+        String param = XxlJobHelper.getJobParam();
+        if (this.method.getParameterCount() == 0) {
+            this.method.invoke(this.bean);
+        } else {
+            if (this.method.getParameterCount() != 1 || this.method.getParameterTypes()[0] != String.class) {
+                XxlJobHelper.handleFail("Unsupported @XxlJob method signature: " + this.method);
+                throw new RuntimeException("Unsupported @XxlJob method signature: " + this.method);
+            }
+
+            Object invoke = this.method.invoke(this.bean, param);
+            if (!(invoke instanceof ReturnT)) {
+                XxlJobHelper.handleFail("Unsupported @XxlJob method signature: " + this.method);
+                throw new RuntimeException("Unsupported @XxlJob method signature: " + this.method);
+            }
+
+            ReturnT<?> returnT = (ReturnT)invoke;
+            XxlJobHelper.handleResult(returnT.getCode(), returnT.getMsg());
+        }
+
+    }
+~~~
+
+两种代码结构的主要区别：
+
+1. 源码结构：
+
+- 使用了 if-else if-else 的三层结构
+
+- 逻辑判断比较直观，按照参数数量依次判断
+
+- 代码结构更符合人类的阅读习惯
+
+1. 编译后结构：
+
+- 使用了 if-else 的两层结构
+
+- 将原来的 else if 条件转换成了 if 的否定条件
+
+- 代码结构更紧凑，减少了嵌套层级
+
+这种变化是典型的编译器优化，主要目的是：
+
+1. 减少代码分支的嵌套层级，提高代码执行效率
+
+1. 优化控制流结构，使生成的字节码更简洁
+
+1. 通过条件反转来简化逻辑判断
+
+虽然代码结构发生了变化，但功能是完全等价的。编译器在保证语义不变的情况下，对代码结构进行了优化，这是正常的编译优化行为。这种优化不会影响代码的功能，只是改变了代码的组织方式，使其更适合机器执行。
 
 # 参考资料
 
