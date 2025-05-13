@@ -1,4 +1,4 @@
-# Redis
+#  Redis
 
 学习参考：
 
@@ -28,7 +28,13 @@ redis官网：https://redis.io/
 
 * https://blog.csdn.net/hellozpc/article/details/81267030
 
-1. 简介：Redis诞生于2009年全称是Remote Dictionary Server,远程词典服务器，是一个基于内存的**键值型**NoSQL数据库。
+1. 简介：Redis诞生于2009年，全称是**Remote Dictionary Server（远程字典服务器）**，是一个完全开源的使用ANSIC语言编写遵守BSD协议的，基于内存的**键值型**NoSQL数据库。
+
+   * 支持事务、持久化、Lua脚本、发布/订阅、缓存淘汰、流技术等多种功能特性；
+   * 提供主从模式、Redis Sentinel和Redis Cluster架构方案；
+   * Redis之父——安特雷兹
+     * Github：https://github.com/antirez
+     * 个人博客：https://antirez.com/latest/0
 
 2. 特征：
 
@@ -48,13 +54,15 @@ redis官网：https://redis.io/
 
 4. 安装和配置
 
+   > 下载地址：https://redis.io/downloads/
+
    * Linux
 
    * Windows
 
    * Docker
 
-     > 参考：https://zhuanlan.zhihu.com/p/625765918
+     * 参考：https://zhuanlan.zhihu.com/p/625765918
 
 5. Reids客户端
 
