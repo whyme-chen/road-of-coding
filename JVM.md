@@ -272,7 +272,10 @@ Full GC
 * `Arthas`：它是阿里巴巴开源的一款Java诊断工具，支持实时查看Java应用程序的线程、堆栈、方法调用等信息，同时还提供了丰富的命令行工具，可以进行方法耗时统计、内存泄漏检测等操作。Arthas支持非侵入式诊断，无需修改代码或重启应用程序，方便快捷。
 * `Jprofile`
 
-# 编译优化
+# JMM模型
+
+1. 定义：JMM是一组规范，用于定义多线程环境下共享变量的访问规则（限制指令重排序、强制内存可见性），解决线程间的可见性、原子性、有序性问题，避免多线程操作引发数据不一致。
+2. 作用：通过volatile、synchronized等关键字和happens-before原则，确保多线程程序在不同硬件平台上正确执行。
 
 ## 重排序
 
@@ -370,3 +373,8 @@ Full GC
   * [尚硅谷JVM精讲与GC调优教程](https://www.bilibili.com/video/BV1Dz4y1A7FB/?spm_id_from=333.788.recommend_more_video.2&vd_source=fabefd3fabfadb9324761989b55c26ea)
 * 文章：
   * [JVM（Java虚拟机）-史上最全、最详细JVM笔记](https://blog.csdn.net/weixin_56846554/article/details/129802936)
+  * [♥JVM相关知识体系详解♥ | Java 全栈知识体系](https://pdai.tech/md/java/jvm/java-jvm-x-overview.html)
+
+> 以下图知识点逻辑汇总，来源：[♥JVM相关知识体系详解♥ | Java 全栈知识体系](https://pdai.tech/md/java/jvm/java-jvm-x-overview.html)
+
+![img](https://pdai.tech/images/jvm/java-jvm-overview.png)
