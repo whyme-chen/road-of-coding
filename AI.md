@@ -605,6 +605,7 @@ TensorFlow则在大规模部署和生产环境中更为流行，特别是当需�
 
 参考：
 
+* https://alidocs.dingtalk.com/i/nodes/NkDwLng8ZQ6mY37xSYq72wyXJKMEvZBY?utm_scene=team_space
 * https://www.bilibili.com/video/BV1uqKGeZEy1?spm_id_from=333.1245.0.0
 
 推荐三方服务平台：

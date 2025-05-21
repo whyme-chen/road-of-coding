@@ -43,6 +43,8 @@ JavaEE（Java Platform, Enterprise Edition）：**Java EE** 是 Java 平台的�
 
 ## java发展史
 
+> [JDK版本新特性](https://mp.weixin.qq.com/s/GPMHkH7eJ02yWReeQVTEtg)
+
 1. 1995年5月23日，Oak语言改名为java，并在SunWorld大会上正式发布java1.0版本。
 2. 1996年1月23日Sun Microsystems发布了JDK 1.0。
 3. 1998年，JDK 1.2版本发布。同时，Sun发布了JSP/Servlet、 EJB规范，以及将Java分成了J2EE、 J2SE和J2ME。这表明 了Java开始向 企业、桌面应用和移动设备应用3大领域挺进。
