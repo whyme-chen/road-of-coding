@@ -370,6 +370,10 @@ TensorFlow则在大规模部署和生产环境中更为流行，特别是当需�
 
 # 大模型
 
+参考：
+
+* https://www.bilibili.com/video/BV1D7o9YJEYx/?spm_id_from=333.1007.tianma.2-2-4.click&vd_source=fabefd3fabfadb9324761989b55c26ea
+
 ## 概述
 
 1. 定义
@@ -395,7 +399,8 @@ TensorFlow则在大规模部署和生产环境中更为流行，特别是当需�
      * 生成式模型（Gen AI）：可以学习数据的潜在分布，适用于生成新的数据实例，但对数据要求更高，需要更多的样本和计算量。
        * 语言类Gen AI的典型代表-大语言模型（通义千问）
        * 图像类Gen AI的典型代表-潜在扩散模型（Stable Diffusion）
-     * 对比：在二分类任务中，判别式模型性能一般不如生成式模型，但生成式模型在分类任务上具有更高的准确率。
+     
+     > 在二分类任务中，判别式模型性能一般不如生成式模型，但生成式模型在分类任务上具有更高的准确率。
    * 提问
      * 指令模型
      * 推理模型
@@ -412,6 +417,24 @@ TensorFlow则在大规模部署和生产环境中更为流行，特别是当需�
      * 阿里开源的大语言模型
      * 基于 LLaMA 结构进行中文预训练+指令微调
      * 在多个数据集上展现出接近 GPT-4 的水平
+   
+7. 学习思路
+
+   * 了解常见大模型及其各自特点
+   * 学习如何使用各类大模型应用
+   * 学习如何快速搭建开发大模型应用
+   
+8. AI外部能力接入
+
+   * 视觉派：以屏幕识别为主，模拟人类操作。典型代表有：`OmniParser`、`CogAgent`
+   * 软件派：直接从底层编写程序、调用程序、调用功能、执行操作。典型代表有：`Function calling`、`LangChain`、`AutoGpt`
+   
+9. 相关概念
+
+   * promot：提示词，可以分为系统提示词（角色、性格、背景、语气）和用户提示词
+   * agent：在模型、工具和用户之间进行协调的程序
+   * FunctionCalling
+   * MCP：
 
 ### Transformer
 
@@ -521,6 +544,8 @@ TensorFlow则在大规模部署和生产环境中更为流行，特别是当需�
 ## ChatGPT
 
 官网：https://openai.com/
+
+### 简介
 
 1. ChatGPT：OpenAI在2022年11月30日发布的一款全新聊天机器人模型。
 2. 特点
@@ -648,7 +673,9 @@ Java+SpringAI/LangChain/LangChain4J+MCP==>AI智能项目落地
 
 LibLibAI：https://www.liblib.art/
 
-## 应用搭建
+## 应用开发
+
+开源项目：[AIFlowy](https://gitee.com/aiflowy/aiflowy)
 
 AI应用搭建的核心组成部分，包括foundational model和AI tools。
 
@@ -676,19 +703,58 @@ AI应用搭建的核心组成部分，包括foundational model和AI tools。
 
 # 路线&资源
 
-书籍：
+## 书籍
 
 * 《机器学习》- 周志华
 * 《统计学方法》- 李航
 * 《深度学习》
 
-资源：
+## 资源
 
+* [AI-For-Beginners](https://github.com/microsoft/AI-For-Beginners)
+* [huggingface/transformers](https://github.com/huggingface/transformers/tree/main/examples)
+* [Stanford CS324 LLM Course](https://github.com/mlfoundations/cs324)
+* [OpenBMB/Tutorials](https://github.com/OpenBMB/Tutorials)
+* [full-stack-deep-learning/llm-bootcamp](https://github.com/full-stack-deep-learning/llm-bootcamp)
+* [deeplearning-ai LLM Courses](https://github.com/deeplearning-ai)
+* [microsoft/LLM-Practical-Guide](https://github.com/microsoft/LLM-Practical-Guide)
 * [动手学大模型应用开发](https://github.com/datawhalechina/llm-universe)
+* [AI Agents for Beginners - A Course](https://github.com/microsoft/ai-agents-for-beginners)
 * [开源大模型食用指南](https://github.com/datawhalechina/self-llm)
 * https://machinelearningmastery.com/
 
-社区：
+| 项目名称                      | 特点                           | 核心内容                            | 适用阶段   | 项目地址                                                     |
+| ----------------------------- | ------------------------------ | ----------------------------------- | ---------- | ------------------------------------------------------------ |
+| HuggingFace Transformers      | 官方多模态教程，Colab集成      | 文本分类/生成、模型微调与部署       | 入门到进阶 | [Github](https://github.com/huggingface/transformers)        |
+| Stanford CS324                | 顶尖高校课程，理论实践结合     | Transformer实现、RLHF技术、推理优化 | 系统学习   | [Github](https://github.com/mlfoundations/cs324)             |
+| OpenBMB Tutorials             | 中文大模型技术栈，国产模型实践 | MiniGPT实现、分布式训练、高效微调   | 中文开发者 | [Github](https://github.com/OpenBMB/Tutorials)               |
+| LLM Bootcamp                  | 全栈开发训练营，真实业务场景   | RAG优化、多模型路由、知识问答系统   | 工程化实践 | [Github](https://github.com/full-stack-deep-learning/llm-bootcamp) |
+| DeepLearning.AI Short Courses | 吴恩达团队短课，Jupyter实践    | Prompt工程、模型微调、系统构建      | 快速上手   | [Github](https://github.com/deeplearning-ai)                 |
+| LLM Practical Guide           | 企业级方案，Azure集成          | 架构设计模式、成本控制、安全防护    | 企业部署   | [Github](https://github.com/microsoft/LLM-Practical-Guide)   |
+| Prompt Engineering Guide      | 系统化提示手册，领域模板       | 基础技巧→高级模式→自修正策略        | 全阶段     | [Github](https://github.com/dair-ai/Prompt-Engineering-Guide) |
+| AI For Beginners              | 微软12周课程，多语言支持       | 大模型专题+伦理讨论+行业应用        | 系统入门   | [Github](https://github.com/microsoft/AI-For-Beginners)      |
+
+项目选择建议：
+
+1. **快速上手** → 从 **HuggingFace教程** 或 **DeepLearning.AI短课** 开始
+2. **系统学习** → **Stanford CS324** 或 **微软12周课程**
+3. **中文友好** → **OpenBMB教程** 或 **datawhalechina项目**
+4. **企业实践** → **LLM Bootcamp** 或 **微软实用指南**
+
+~~~mermaid
+graph TD
+    A[学习目标] --> B{方向选择}
+    B -->|理论研究| C[Stanford CS324]
+    B -->|应用开发| D[LLM Bootcamp]
+    B -->|中文场景| E[OpenBMB]
+    C --> F[精读论文+复现代码]
+    D --> G[构建RAG系统]
+    E --> H[领域模型微调]
+~~~
+
+
+
+## 社区
 
 * [Huggingface](https://huggingface.co/)：Hugging Face作为一个开源社区，为机器学习领域的专家和爱好者提供了一个共享、探索和合作的平台，推动着机器学习技术的发展和进步。在HuggingFace开源社区上我们可以找到模型各个指标的榜单排名。
   * [镜像](https://hf-mirror.com/)
@@ -696,7 +762,42 @@ AI应用搭建的核心组成部分，包括foundational model和AI tools。
 * [OpenCompass](https://opencompass.org.cn/home)：Opencompass 是一款开源、高效、全面的评测大模型体系及开放平台。提供完整开源可复现的评测框架，支持站式评测。
 * [魔搭ModelScope](https://modelscope.cn/home)
 
-路线：
+## 路线
 
 * https://developer.aliyun.com/learning/roadmap/ai
 * https://www.bilibili.com/opus/367926006888018872?from=articleDetail
+
+三大阶段：
+
+* 基础技能
+* 大模型技术
+* 工程化实践
+
+1. Python快速掌握
+   * 重点库：NumPy/Pandas（数据处理）、Requests（API调用）、FastAPI/Flask（Web服务）
+2. 机器学习基础
+   * 核心概念：监督学习/非监督学习、评估指标、特征工程
+   * 实践工具：Scikit-learn（用Python实现经典算法）
+3. 深度学习基础
+   * 核心框架：PyTorch（动态图更符合Java开发者思维）
+   * 关键实践：手写数字识别、简单文本分类
+4. Transformer架构
+   * 核心突破：Self-Attention机制、位置编码
+   * 实践建议：用PyTorch实现简化版Transformer
+5. 大模型生态&微调
+   * 商业API：OpenAI GPT系列、文心一言API调用
+   * 开源模型：LLaMA2微调、LoRA/P-Tuning高效微调、ChatGLM本地部署
+   * 工具链：LangChain（应用开发框架）
+   * 实践项目：使用Alpaca数据集微调LLaMA
+6. 模型服务化
+   * 部署方案：
+     * Triton Inference Server（高并发场景）
+     * FastAPI+Transformer（轻量级服务）
+     * 性能优化：模型量化（bitsandbytes）、注意力优化（FlashAttention）
+   * 架构设计
+     * Java工程化集成：
+       * Spring Boot对接Python服务（gRPC/HTTP）
+       * 分布式推理集群管理（结合Java微服务经验）
+     * 扩展方案：
+       * 模型版本管理（MLflow）
+       * 请求编排（Cadence/Temporal工作流引擎）

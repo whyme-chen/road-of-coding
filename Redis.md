@@ -3,6 +3,7 @@
 学习参考：
 
 * https://www.bilibili.com/video/BV1cr4y1671t/?p=1&vd_source=fabefd3fabfadb9324761989b55c26ea
+* https://www.bilibili.com/video/BV13R4y1v7sP?spm_id_from=333.788.player.switch&vd_source=fabefd3fabfadb9324761989b55c26ea&p=19
 
 ## 基础
 
@@ -20,9 +21,11 @@
 
 #### Redis
 
-redis中文网：https://www.redis.net.cn/
+Redis官网：https://redis.io/
 
-redis官网：https://redis.io/
+Redis中文网：https://www.redis.net.cn/
+
+Redis源码：https://github.com/redis/redis
 
 参考资料：
 
@@ -40,7 +43,7 @@ redis官网：https://redis.io/
 
    * 键值(key-value)型，value支持多种不同数据结构,功能丰富
    * 单线程，每个命令具备原子性
-   * 低延迟，速度快(基于内存、10多路复用、良好的编码)。
+   * 低延迟，速度快(基于内存、IO多路复用、良好的编码)。
    * 支持数据持久化。
    * 支持主从集群、分片集群。
    * 支持多语言客户端
@@ -54,19 +57,40 @@ redis官网：https://redis.io/
 
 4. 安装和配置
 
+   * 安装
+
+     * Linux
+     * Windows
+
+     * Docker
+
+       * 参考：https://zhuanlan.zhihu.com/p/625765918
+
+   * 配置
+
+     ~~~shell
+     # daemonize 改为 yes
+     # protected-mode 改为 no
+     # bind 127.0.0.1 注释掉该配置
+     # 去除requirepass配置注释并添加自己密码
+     ~~~
+
    > 下载地址：https://redis.io/downloads/
+   >
+   > 版本命名规则：
+   >
+   > * 版本号第二位数为奇数，则为非稳定版本，例如：3.1
+   > * 版本号第二位数为偶数，则为稳定版本，例如：3.2
 
-   * Linux
+5. Reids客户端&工具
 
-   * Windows
+   * redis-benchmark：性能测试工具
+   * redis-check-aof：修复有问题的AOF文件
+   * redis-check-dump：修复有问题的dump.rdb文件
+   * redis-sential：redis集群使用
+   * redis-server：redis服务器启动器
 
-   * Docker
-
-     * 参考：https://zhuanlan.zhihu.com/p/625765918
-
-5. Reids客户端
-
-   * 命令行客户端
+   * redis-cli：命令行客户端
    * 图形化客户端
      * RedisDesktopManager
      * RDM
@@ -85,13 +109,70 @@ Redis是一个key-value的数据库， key- 般是String类型，不过value的�
 
 1. 常见数据结构
 
+   * 字符串（String）
+   * 列表（List）
+   * 哈希表（Hash）
+   * 集合（Set）
+   * 有序集合（ZSet）
+   * 地理空间（GEO）
+   * 基数统计（HyperLog）
+   * 位图（bitmap）
+   * 位域（bitfiled）
+   * 流（Stream）
+   
    ![image-20230221112343749](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202312052129167.png)
 
 #### 通用命令
 
 ![image-20230221114644376](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211146926.png)
 
+~~~shell
+# 查看所有key
+keys *
+# 查看key类型
+type key
+# 删除key
+del key
+# 非阻塞删除
+unlink key
+# 查看过期时间
+ttl key
+# 设置过期时间
+expire key 秒
+# 切换使用库
+select dbindex
+# 移动数据到指定库，库范围【0-15】
+move key dbindex
+# 查看当前库key个数
+dbsize
+# 清空当前库
+flushdb
+# 清空全部库
+flushall
+~~~
+
+> 注意：
+>
+> * 命令不区分大小写，但是键区分大小写 
+
 #### String类型
+
+1. 说明
+2. 常用命令
+   * `get`
+   * `set`
+   * `mset`
+   * `mget`
+   * `getrange`
+   * `incr`
+   * `incrby`
+   * `decr`
+   * `decrby`
+   * `strlen`
+   * `apend`
+   * `setnx`
+   * `setex`
+   * `getset`
 
 ![image-20230221114914932](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211149092.png)
 
@@ -105,11 +186,26 @@ Redis是一个key-value的数据库， key- 般是String类型，不过value的�
 
 #### List类型
 
+1. 说明
+   * 底层结构是一个双端链表，容量为2^32 -1个元素（约40多亿）
+   * 常用于栈、队列、消息队列等场景
+2. 常用命令
+   * `lpush`
+   * `rpush`
+   * `lrange`
+
 ![image-20230221153504668](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211535191.png)
 
 ![image-20230221153711995](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211537923.png)
 
 #### Set类型
+
+1. 说明
+2. 常用命令
+   * `sintercard`
+3. 应用场景
+   * 可能认识的人
+   * 共同好友
 
 ![image-20230221154227216](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211542836.png)
 
@@ -117,11 +213,35 @@ Redis是一个key-value的数据库， key- 般是String类型，不过value的�
 
 #### SortedSet类型
 
+1. 说明
+2. 应用场景
+   * 排行榜
+
 ![image-20230221183350312](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211833894.png)
 
 ![image-20230221183922957](https://whymechen.oss-cn-chengdu.aliyuncs.com/image/202302211839023.png)
 
-### Redis的java客户端
+#### Geo类型
+
+#### Bitmap类型
+
+1. 说明
+   * 由0和1状态表现的二进制位的比特数组
+2. 常用命令
+
+#### Bitfield类型
+
+#### Hyperlog类型
+
+#### Stream流
+
+### 持久化
+
+### 事务
+
+### 管道
+
+### java客户端
 
 官方文档：https://www.redis.net.cn/clients/
 
@@ -359,10 +479,14 @@ UV统计（HyperLogLog的统计功能）
 
 ## 设计及优化
 
-主从模式
-哨兵模式
-集群模式
-多级缓存
+### 主从模式
+
+### 哨兵模式
+
+### 集群模式
+
+### 多级缓存
+
 Redis应用最佳实践
 
 ## 原理分析
