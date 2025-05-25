@@ -65,3 +65,7 @@
 8. 练习项目案例：
    - 完成一些实际项目案例的绘图任务，巩固所学的技能。
    - 参加AutoCAD相关的培训课程或在线教程，深化对AutoCAD的理解和应用。
+
+# 相关软件
+
+* [FreeCAD](https://github.com/FreeCAD/FreeCAD)

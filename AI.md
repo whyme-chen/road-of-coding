@@ -350,12 +350,16 @@ print("Normalized features:\n", X_normalized)
 
 ## 框架
 
-### Pytorch
+### PyTorch
+
+官网：http://pytorch.org/
 
 PyTorch由 Facebook开发，以其直观 的API和动态计算图而受到研究人员的青睐。它支持 GPU加速，适用于快速原型开发。
 PyTorch以其易用性和灵活性而著称，特别适合于研究和开发，当需要频繁更改模型时尤其有用。
 
 ### Tensorflow
+
+官网：http://tensorflow.org/
 
 TensorFlow由Google开发，以其强大的扩展性和生产环境的支持而广泛应用于工业界。TensorFlow不仅支持深度学习，还支持广泛的机器学习算法。
 TensorFlow则在大规模部署和生产环境中更为流行，特别是当需要高效的模型服务和分布式训练时。
