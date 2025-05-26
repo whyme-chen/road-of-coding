@@ -825,7 +825,7 @@ project
 
 #### 依赖搜索顺序
 
-本地仓库-》私服-》中央仓库
+参考：https://mp.weixin.qq.com/s/pFKCBmQfzRGAZD3cDxDUjQ
 
 ### 配置
 
@@ -850,7 +850,7 @@ project
 
 通过定义和配置POM文件中的插件，可以扩展或自定义构建过程。Maven提供了大量的插件，可以用来执行其他任务，如代码静态分析、文档生成、资源文件处理等。
 
-### 生命周期：
+### 生命周期
 
 Maven 定义了一套标准的构建生命周期，每个生命周期由一系列固定顺序的阶段（phase）组成。主要划分为以下3个阶段：
 
@@ -1284,3 +1284,13 @@ Gradle DSL 提供了灵活、强大的方式来管理项目的构建过程，并
 ## IDEA集成
 
 参考：[Gradle | IntelliJ IDEA Documentation (jetbrains.com)](https://www.jetbrains.com/help/idea/gradle.html)
+
+# 常用镜像源
+
+* 阿里云：https://maven.aliyun.com/mvn/guide
+* 华为云：https://mirrors.huaweicloud.com/
+* 腾讯云：https://mirrors.cloud.tencent.com/
+* 清华源：https://mirrors.tuna.tsinghua.edu.cn/
+* 中科大源：https://mirrors.ustc.edu.cn/
+* 网易源：https://mirrors.163.com/
+* 搜狐源：https://mirrors.sohu.com/
