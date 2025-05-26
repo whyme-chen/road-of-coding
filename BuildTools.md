@@ -34,7 +34,292 @@ Gradle 和 Maven 都是流行的构建工具，用于构建、管理和部署Jav
 
 总的来说，选择使用Maven还是Gradle取决于个人偏好，项目需求以及团队的技术栈和经验。两者都是优秀的构建工具，都能够满足大多数Java项目的构建需求。
 
-# Apache Ant
+# Make
+
+GUN Make官网：https://www.gnu.org/software/make/
+
+CMake官网：https://cmake.org/
+
+参考：
+
+* GNU Make Manual: https://www.gnu.org/software/make/manual/
+* CMake官方文档: https://cmake.org/documentation/
+* Makefile Tutorial: https://makefiletutorial.com/
+
+## 概述
+
+Make是一个自动化构建工具，它通过读取Makefile文件中的规则来执行编译、链接等操作。Makefile是一个文本文件，包含了一系列的规则，用来告诉Make程序如何编译和链接程序。
+
+1. 为什么需要Make
+
+   * 自动化构建：避免手动执行编译命令
+   * 只重新编译修改过的文件，节省时间
+   * 管理复杂项目的依赖关系
+   * 标准化构建流程
+
+2. 安装Make
+
+   在大多数Linux发行版中，Make已经预装。如果没有，可以通过以下命令安装：
+
+   ```bash
+   # Ubuntu/Debian
+   sudo apt-get install make
+   
+   # CentOS/RHEL
+   sudo yum install make
+   
+   # macOS
+   brew install make
+   ```
+
+3. 工具对比
+
+   | 工具   | 优点                         | 缺点                     | 适用场景                  |
+   | ------ | ---------------------------- | ------------------------ | ------------------------- |
+   | Make   | 简单直接、历史悠久、广泛支持 | 跨平台支持较弱、语法较老 | C/C++项目、Unix/Linux系统 |
+   | CMake  | 跨平台、功能强大、现代语法   | 学习曲线较陡、配置复杂   | 跨平台C/C++项目           |
+   | Ninja  | 构建速度快、配置简单         | 功能相对简单             | 大型项目、需要快速构建    |
+   | Gradle | 功能丰富、插件生态好         | 资源消耗较大             | Java/Android项目          |
+   | Maven  | 依赖管理强大、标准化         | 灵活性较差               | Java项目                  |
+
+4. 使用建议
+
+   * 项目规模较小或中等
+   * 主要在Unix/Linux环境开发
+   * 需要简单直接的构建流程
+   * 团队熟悉Make语法
+   * 项目依赖关系相对简单
+
+5. 最简单的Makefile
+
+   让我们从一个最简单的例子开始：
+
+   ```makefile
+   hello:
+       echo "Hello, World!"
+   ```
+
+   ~~~makefile
+   # 编译hello.c程序
+   hello: hello.c
+       gcc hello.c -o hello
+   
+   # 清理编译产物
+   clean:
+       rm -f hello
+   ~~~
+
+   运行方式：
+
+   ```bash
+   make hello
+   ```
+
+
+## 基础语法
+
+### 基本规则
+
+```makefile
+target: prerequisites
+    command
+```
+
+其中：
+
+- target: 目标文件
+- prerequisites: 依赖文件
+- command: 要执行的命令（必须以Tab开头）
+
+### 变量使用
+
+```makefile
+# 定义变量
+CC = gcc
+CFLAGS = -Wall
+
+# 使用变量
+hello: hello.c
+    $(CC) $(CFLAGS) -o hello hello.c
+```
+
+### 常用变量
+
+Makefile中可以使用以下内置变量：
+
+- `$@`: 目标文件名
+- `$<`: 第一个依赖文件名
+- `$^`: 所有依赖文件名
+- `$?`: 比目标新的依赖文件列表
+
+### 条件编译
+
+```makefile
+# 根据环境变量选择编译选项
+ifeq ($(DEBUG),1)
+    CFLAGS += -g -DDEBUG
+else
+    CFLAGS += -O2
+endif
+```
+
+### 自动依赖生成
+
+```makefile
+# 使用gcc的-MM选项生成依赖
+%.d: %.c
+    @set -e; rm -f $@; \
+    $(CC) -MM $(CFLAGS) $< > $@.$$$$; \
+    sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
+    rm -f $@.$$$$
+
+# 包含所有依赖文件
+-include $(SRC_FILES:.c=.d)
+```
+
+### 并行构建
+
+```makefile
+# 启用并行构建
+MAKEFLAGS += -j$(shell nproc)
+
+# 或者运行时指定
+# make -j4
+```
+
+### 使用ccache加速编译
+
+```makefile
+# 使用ccache加速编译
+CC = ccache gcc
+```
+
+## 实际示例
+
+### 简单的C项目
+
+```makefile
+# 项目配置
+CC = gcc
+CFLAGS = -Wall
+
+# 默认目标
+all: hello
+
+# 编译hello程序
+hello: hello.c
+    $(CC) $(CFLAGS) -o hello hello.c
+
+# 清理编译产物
+clean:
+    rm -f hello
+
+.PHONY: all clean
+```
+
+### 多文件C项目
+
+```makefile
+# 项目配置
+CC = gcc
+CFLAGS = -Wall -I./include
+LDFLAGS = -L./lib
+
+# 源文件和目标文件
+SRCS = $(wildcard src/*.c)
+OBJS = $(SRCS:.c=.o)
+TARGET = myapp
+
+# 默认目标
+all: $(TARGET)
+
+# 链接
+$(TARGET): $(OBJS)
+    $(CC) $(OBJS) -o $(TARGET) $(LDFLAGS)
+
+# 编译
+%.o: %.c
+    $(CC) $(CFLAGS) -c $< -o $@
+
+# 清理
+clean:
+    rm -f $(OBJS) $(TARGET)
+
+.PHONY: all clean
+```
+
+### 常见问题与解决方案
+
+缩进问题
+
+```makefile
+# 错误示例（使用空格）
+target:
+    command    # 错误：使用空格缩进
+
+# 正确示例（使用Tab）
+target:
+    command    # 正确：使用Tab缩进
+```
+
+变量展开问题
+
+```makefile
+# 错误示例
+VAR = $(shell echo "value")
+TARGET = $(VAR)    # VAR可能未定义
+
+# 正确示例
+VAR := $(shell echo "value")    # 立即展开
+TARGET := $(VAR)
+```
+
+### 基础C项目模板
+
+```makefile
+# 项目配置
+PROJECT_NAME = myproject
+VERSION = 1.0.0
+
+# 目录结构
+SRC_DIR = src
+OBJ_DIR = obj
+BIN_DIR = bin
+INC_DIR = include
+
+# 编译选项
+CC = gcc
+CFLAGS = -Wall -I$(INC_DIR)
+LDFLAGS = -L$(LIB_DIR)
+
+# 源文件
+SRCS = $(wildcard $(SRC_DIR)/*.c)
+OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+
+# 目标文件
+TARGET = $(BIN_DIR)/$(PROJECT_NAME)
+
+# 默认目标
+all: directories $(TARGET)
+
+# 创建目录
+directories:
+    @mkdir -p $(BIN_DIR) $(OBJ_DIR)
+
+# 编译
+$(TARGET): $(OBJS)
+    $(CC) $(OBJS) -o $@ $(LDFLAGS)
+
+# 对象文件
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+    $(CC) $(CFLAGS) -c $< -o $@
+
+# 清理
+clean:
+    rm -rf $(BIN_DIR) $(OBJ_DIR)
+
+.PHONY: all clean directories
+```
 
 # Maven
 

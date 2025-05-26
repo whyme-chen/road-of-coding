@@ -706,6 +706,8 @@ AI应用搭建的核心组成部分，包括foundational model和AI tools。
      * Pretrain-Finetune范式
      * RAG--检索增强生成
 
+### Streamlit
+
 # 路线&资源
 
 ## 书籍

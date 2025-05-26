@@ -2452,6 +2452,7 @@ GitHub地址：https://link.zhihu.com/?target=https%3A//github.com/1Panel-dev/1P
 
 ### 站点
 
+* [GNU](https://www.gnu.org)
 * [鳥哥私房菜 - 鳥哥的首頁](https://linux.vbird.org/) & [鸟哥的Linux私房菜简体首页](http://cn.linux.vbird.org/)
 * [Linux 用户必备的 8 大网站 | Linux 中国 (qq.com)](https://mp.weixin.qq.com/s/5HyldkHH7snATWzIkpgYuQ)
 * [Arch Linux](https://archlinux.org/)
