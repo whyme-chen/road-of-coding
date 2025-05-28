@@ -708,6 +708,58 @@ AI应用搭建的核心组成部分，包括foundational model和AI tools。
 
 ### Streamlit
 
+# Java + AI
+
+### 一、基础框架类
+
+
+
+1. Spring AI Alibaba简介：阿里云推出的Java AI开发框架，基于Spring AI构建，无缝集成通义系列大模型，提供高阶API抽象和云原生支持，适合快速构建企业级AI应用[⁠⁣ ⁠⁣](https://www.jianshu.com/p/06709e66b6cd)[2](https://www.jianshu.com/p/06709e66b6cd)[⁠⁣ ⁠⁣](https://www.cnblogs.com/alisystemsoftware/p/18506747)[13](https://www.cnblogs.com/alisystemsoftware/p/18506747) 。特点：支持模型微调、RAG（检索增强生成）、本地部署等，是Java领域对接大模型的最佳实践[⁠⁣ ⁠⁣](https://m.bilibili.com/video/BV11MdAY8EpP/)[10](https://m.bilibili.com/video/BV11MdAY8EpP/)[⁠⁣ ⁠⁣](https://www.cnblogs.com/alisystemsoftware/p/18506747)[13](https://www.cnblogs.com/alisystemsoftware/p/18506747) 。
+2. Spring AI定位：Spring生态的AI工程化框架，提供统一的API接口，简化AI功能集成（如自然语言处理、图像分析）[⁠⁣ ⁠⁣](https://javaguide.cn/open-source-project/machine-learning.html)[1](https://javaguide.cn/open-source-project/machine-learning.html)[⁠⁣ ⁠⁣](https://m.bilibili.com/video/BV11MdAY8EpP/)[10](https://m.bilibili.com/video/BV11MdAY8EpP/) 。适用场景：结合Spring Boot开发智能Web服务或自动化工具[⁠⁣ ⁠⁣](https://javaguide.cn/open-source-project/machine-learning.html)[1](https://javaguide.cn/open-source-project/machine-learning.html)[⁠⁣ ⁠⁣](https://m.bilibili.com/video/BV11MdAY8EpP/)[10](https://m.bilibili.com/video/BV11MdAY8EpP/) 。
+
+------
+
+
+
+### 二、深度学习与模型开发
+
+
+
+1. Deep Java Library (DJL)背景：由Amazon开发的高性能开源库，支持加载和训练PyTorch、TensorFlow等主流框架的模型，提供Java原生API[⁠⁣ ⁠⁣](https://developer.baidu.com/article/details/3350266)[3](https://developer.baidu.com/article/details/3350266)[⁠⁣ ⁠⁣](https://bbs.huaweicloud.com/blogs/446098)[9](https://bbs.huaweicloud.com/blogs/446098) 。应用：适合图像识别、自然语言处理任务，支持本地与云端模型部署[⁠⁣ ⁠⁣](https://bbs.huaweicloud.com/blogs/446098)[9](https://bbs.huaweicloud.com/blogs/446098)[⁠⁣ ⁠⁣](https://www.atguigu.com/news/17110)[16](https://www.atguigu.com/news/17110) 。
+2. Jlama特点：Meta开源的Java深度学习库，专为模型训练和推理设计，提供丰富的工具链，支持动态计算图[⁠⁣ ⁠⁣](https://m.blog.csdn.net/2301_78858041/article/details/146203984)[15](https://m.blog.csdn.net/2301_78858041/article/details/146203984) 。优势：适合需要高性能计算的场景（如IoT数据分析）[⁠⁣ ⁠⁣](https://m.php.cn/faq/915152.html)[7](https://m.php.cn/faq/915152.html)[⁠⁣ ⁠⁣](https://m.blog.csdn.net/2301_78858041/article/details/146203984)[15](https://m.blog.csdn.net/2301_78858041/article/details/146203984) 。
+3. Deeplearning4j (DL4J)功能：分布式深度学习框架，支持神经网络构建、GPU加速，与Hadoop/Spark生态集成，适合大数据分析场景[⁠⁣ ⁠⁣](https://baijiahao.baidu.com/s?id=1826268182279762561)[8](https://baijiahao.baidu.com/s?id=1826268182279762561)[⁠⁣ ⁠⁣](https://m.blog.csdn.net/qq_29581535/article/details/147124176)[12](https://m.blog.csdn.net/qq_29581535/article/details/147124176)[⁠⁣ ⁠⁣](https://m.php.cn/faq/830705.html)[18](https://m.php.cn/faq/830705.html) 。
+
+------
+
+
+
+### 三、机器学习与数据处理
+
+
+
+1. Weka定位：经典的开源机器学习库，提供分类、聚类、回归等算法，内置数据预处理工具，适合入门级AI开发[⁠⁣ ⁠⁣](https://m.php.cn/faq/823650.html)[4](https://m.php.cn/faq/823650.html)[⁠⁣ ⁠⁣](https://m.php.cn/faq/893311.html)[6](https://m.php.cn/faq/893311.html)[⁠⁣ ⁠⁣](https://m.php.cn/faq/830705.html)[18](https://m.php.cn/faq/830705.html) 。学习价值：结合Java实现数据挖掘全流程，如用户行为分析、推荐系统[⁠⁣ ⁠⁣](https://m.php.cn/faq/823650.html)[4](https://m.php.cn/faq/823650.html)[⁠⁣ ⁠⁣](https://m.php.cn/faq/893311.html)[6](https://m.php.cn/faq/893311.html) 。
+2. Apache Mahout适用场景：面向大规模数据集的机器学习，支持分布式计算，与Hadoop集成，适合推荐算法开发[⁠⁣ ⁠⁣](https://m.php.cn/faq/830705.html)[18](https://m.php.cn/faq/830705.html) 。
+
+------
+
+
+
+### 四、工具库与扩展
+
+
+
+1. OpenCV for Java功能：计算机视觉核心库，支持图像处理、人脸检测、视频分析等，常与DJL或TensorFlow结合实现AI视觉应用[⁠⁣ ⁠⁣](https://developer.baidu.com/article/details/3350266)[3](https://developer.baidu.com/article/details/3350266)[⁠⁣ ⁠⁣](http://www.atguigu.com/news/17092)[11](http://www.atguigu.com/news/17092) 。
+2. TensorFlow for Java特点：Google官方提供的Java接口，支持模型推理和有限训练，适合已有Python模型需迁移到Java的场景[⁠⁣ ⁠⁣](https://m.php.cn/faq/823650.html)[4](https://m.php.cn/faq/823650.html)[⁠⁣ ⁠⁣](https://m.php.cn/faq/813197.html)[17](https://m.php.cn/faq/813197.html) 。
+3. LangChain4j用途：专为Java设计的AI应用开发工具链，支持RAG、多模态提示工程（MCP），适合构建智能问答系统[⁠⁣ ⁠⁣](https://m.bilibili.com/video/BV11MdAY8EpP/)[10](https://m.bilibili.com/video/BV11MdAY8EpP/) 。
+
+## LangChain4j
+
+Github：[langchain4j/langchain4j: Java version of LangChain](https://github.com/langchain4j/langchain4j)
+
+文档：[LangChain4j | LangChain4j](https://docs.langchain4j.dev/)
+
+中文文档：[介绍 | LangChain4j 中文文档](https://docs.langchain4j.info/intro)
+
 # 路线&资源
 
 ## 书籍
