@@ -48,7 +48,10 @@
 
 ### 五笔输入法
 
-参考：https://www.wubidz.cn/jiaocheng/15.html
+参考：
+
+* https://www.wubidz.cn/jiaocheng/15.html
+* https://www.bilibili.com/video/BV1Lq4y1U7re/
 
 相关开源项目：
 
@@ -120,6 +123,8 @@
     * 三字词
     * 四字词
     * 多字词
+
+![图片](https://mmbiz.qpic.cn/sz_mmbiz_jpg/u370GgS15MxJ1syyMG0Id68p2PGnv3Af2Ay7fszbfzFVrAT2hWzqBqXhpSKKtF5G08x7jIJyQStfTxibf7Aia45A/640?wx_fmt=jpeg&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1)
 
 # 批处理脚本
 
