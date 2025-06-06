@@ -825,7 +825,15 @@ project
 
 #### 依赖搜索顺序
 
-参考：https://mp.weixin.qq.com/s/pFKCBmQfzRGAZD3cDxDUjQ
+参考：~~https://mp.weixin.qq.com/s/pFKCBmQfzRGAZD3cDxDUjQ（存在争论，内容不一定正确，但是可以了解思路）~~
+
+主要阶段：本地-》中央-》远程（私服）
+
+仓库配置来源主要包括以下三项，但是可能涉及镜像配置导致实际请求仓库不是配置仓库。
+
+* 项目pom.xml配置
+* 用户settings.xml配置
+* 全局settings.xml配置
 
 ### 配置
 

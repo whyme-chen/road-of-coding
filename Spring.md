@@ -1743,3 +1743,34 @@ SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻�
    请求路径参数
 
    ![image-20220223213435601](https://cdn.jsdelivr.net/gh/whyme-chen/Image/img/image-20220223213435601.png)
+
+# Spring WebFlux
+
+参考：
+
+* [Web on Reactive Stack :: Spring Framework](https://docs.spring.io/spring-framework/reference/web-reactive.html)
+* [响应式编程详解，带你熟悉Reactor响应式编程-CSDN博客](https://blog.csdn.net/A_art_xiang/article/details/129578800)
+* [Spring-WebFlux使用，一文带你从0开始学明白Spring-WebFlux，学明白响应式编程_spring webflux-CSDN博客](https://blog.csdn.net/A_art_xiang/article/details/129571421)
+
+## 响应式编程
+
+参考：
+
+* [reactive-streams.org](https://www.reactive-streams.org/)
+* [reactive-streams/reactive-streams-jvm: Reactive Streams Specification for the JVM](https://github.com/reactive-streams/reactive-streams-jvm)
+
+**响应式编程是一种面向数据流和变化传播的编程范式。**这意味着你可以轻松地表达静态（例如数组）或动态（例如事件发射器）的数据流，并且在这些流上执行各种操作。当流中的数据发生变化时，相应的变化会自动传播到整个系统中，这使得开发者能够以声明的方式处理异步数据流。
+
+* 数据流（Stream）：数据元素的序列，可以是有限的也可以是无限的。
+* 变化传播（Propagation of Change）：当流中的一个元素发生改变时，这种改变会自动传播给所有依赖它的对象。
+* 异步非阻塞：允许更高效地利用资源，特别是在I/O操作频繁的应用场景下。
+
+## Reactor
+
+**Reactor是基于Java的响应式编程库**，它提供了两个主要的发布者类来帮助实现响应式编程模式：`Flux`和`Mono`。
+
+- `Flux`：代表的是0到N个元素的响应式序列。它可以用来表示任何数量的项目序列，无论是有限的还是无限的。例如，从数据库查询结果集、监听网络套接字的数据等都可以用Flux来建模。Flux支持多种操作符来组合、过滤和转换数据流。
+- `Mono`：代表的是0或1个元素的响应式序列。主要用于表示可能产生单个值、没有值或者错误的结果。典型的应用场景包括返回单一对象的服务调用、文件读取等。与Flux类似，Mono也支持一系列的操作符来进行流的处理。
+
+`Flux`和`Mono`共有500多个操作，这些操作都可以大致归类为，创建操作，组合操作，转换操作，逻辑操作。
+
