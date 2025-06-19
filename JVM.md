@@ -424,6 +424,6 @@ Full GC
   * [JVM（Java虚拟机）-史上最全、最详细JVM笔记](https://blog.csdn.net/weixin_56846554/article/details/129802936)
   * [♥JVM相关知识体系详解♥ | Java 全栈知识体系](https://pdai.tech/md/java/jvm/java-jvm-x-overview.html)
 
-> 以下图知识点逻辑汇总，来源：[♥JVM相关知识体系详解♥ | Java 全栈知识体系](https://pdai.tech/md/java/jvm/java-jvm-x-overview.html)
+> 以下知识点逻辑汇总，来源：[♥JVM相关知识体系详解♥ | Java 全栈知识体系](https://pdai.tech/md/java/jvm/java-jvm-x-overview.html)
 
 ![img](https://pdai.tech/images/jvm/java-jvm-overview.png)
